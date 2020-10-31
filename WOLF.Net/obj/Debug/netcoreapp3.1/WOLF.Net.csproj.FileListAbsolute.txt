@@ -1,0 +1,15 @@
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyInfoInputs.cache
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyInfo.cs
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.exe
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.deps.json
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.runtimeconfig.json
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.runtimeconfig.dev.json
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.pdb
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.dll
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.pdb
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.genruntimeconfig.cache
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CoreCompileInputs.cache
+D:\BotDev\WOLF.Net\WOLF.Net\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\BotDev\WOLF.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CopyComplete
+D:\BotDev\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csprojAssemblyReference.cache

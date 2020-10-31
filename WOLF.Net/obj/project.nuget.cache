@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "A4xpd9c5OC3ZFfdp9d4fYmX1K+4L/Ginpw7OlStM/mqllkv5336JOXs2s0oFB8TRfKgDCVbOL3Cvs2dTcA3qrw==",
+  "success": true,
+  "projectFilePath": "D:\\BotDev\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\David Walters\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
