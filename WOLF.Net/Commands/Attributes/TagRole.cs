@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WOLF.Net.Commands.Commands;
 
 namespace WOLF.Net.Commands.Attributes
 {
     public class TagRole : BaseAttribute
     {
-        private Enums.Subscriber.Privilege[] _privileges;
+        private Enums.Subscribers.Privilege[] _privileges;
 
-        public TagRole(params Enums.Subscriber.Privilege[] privileges)
+        public TagRole(params Enums.Subscribers.Privilege[] privileges)
         {
             if (privileges.Length == 0)
                 throw new Exception("Privileges cannot be null");

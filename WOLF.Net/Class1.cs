@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Commands;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Constants;
-using WOLF.Net.Enums.Subscriber;
+using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net
 {
@@ -17,10 +17,10 @@ namespace WOLF.Net
         {
             var test = new CommandManager();
 
-            test.ProcessMessage(new Entities.Message.Message()
+            test.ProcessMessage(new Entities.Messages.Message()
             {
                 Content = "test te324st1",
-                MessageType = Enums.Message.MessageType.Group,
+                MessageType = Enums.Messages.MessageType.Group,
                 SourceSubscriberId = 29976610,
                 SourceTargetId = 5
             });
@@ -34,7 +34,7 @@ namespace WOLF.Net
         }
     }
 
-    [CommandCollection("test"), MessageType(Enums.Message.MessageType.Both)]
+    [CommandCollection("test"), MessageType(Enums.Messages.MessageType.Both)]
     public class Test: CommandContext
     {
 

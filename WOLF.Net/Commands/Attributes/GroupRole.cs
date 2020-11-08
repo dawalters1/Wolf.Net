@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WOLF.Net.Enums.Group;
+using WOLF.Net.Commands.Commands;
+using WOLF.Net.Enums.Groups;
 
 namespace WOLF.Net.Commands.Attributes
 {
     public class GroupRole : BaseAttribute
     {
-        private Enums.Group.Capability _capability;
+        private Enums.Groups.Capability _capability;
 
-        public GroupRole(Enums.Group.Capability capability)
+        public GroupRole(Enums.Groups.Capability capability)
         {
-            if (capability == Enums.Group.Capability.NotUser || capability == Enums.Group.Capability.Silenced || capability == Enums.Group.Capability.Banned)
+            if (capability == Enums.Groups.Capability.NotUser || capability == Enums.Groups.Capability.Silenced || capability == Enums.Groups.Capability.Banned)
                 throw new Exception($"Capability cannot be set to {capability.ToString().ToUpper()}");
 
             _capability = capability;
@@ -32,19 +33,19 @@ namespace WOLF.Net.Commands.Attributes
         }
 
 
-        private bool ValidateCapability(Enums.Group.Capability sourceSubscriberCapability)
+        private bool ValidateCapability(Enums.Groups.Capability sourceSubscriberCapability)
         {
             switch (_capability)
             {
-                case  Enums.Group.Capability.Owner:
-                    return sourceSubscriberCapability == Enums.Group.Capability.Owner;
-                case Enums.Group.Capability.Admin:
-                    return sourceSubscriberCapability == Enums.Group.Capability.Admin || sourceSubscriberCapability == Enums.Group.Capability.Owner;
-                case Enums.Group.Capability.Mod:
-                    return sourceSubscriberCapability == Enums.Group.Capability.Mod || sourceSubscriberCapability == Enums.Group.Capability.Admin || sourceSubscriberCapability == Enums.Group.Capability.Owner;
+                case  Enums.Groups.Capability.Owner:
+                    return sourceSubscriberCapability == Enums.Groups.Capability.Owner;
+                case Enums.Groups.Capability.Admin:
+                    return sourceSubscriberCapability == Enums.Groups.Capability.Admin || sourceSubscriberCapability == Enums.Groups.Capability.Owner;
+                case Enums.Groups.Capability.Mod:
+                    return sourceSubscriberCapability == Enums.Groups.Capability.Mod || sourceSubscriberCapability == Enums.Groups.Capability.Admin || sourceSubscriberCapability == Enums.Groups.Capability.Owner;
                 default:
                     {
-                        if (sourceSubscriberCapability == Enums.Group.Capability.NotUser || sourceSubscriberCapability == Enums.Group.Capability.Banned || sourceSubscriberCapability == Enums.Group.Capability.Silenced)
+                        if (sourceSubscriberCapability == Enums.Groups.Capability.NotUser || sourceSubscriberCapability == Enums.Groups.Capability.Banned || sourceSubscriberCapability == Enums.Groups.Capability.Silenced)
                             return false;
 
                         return true;
