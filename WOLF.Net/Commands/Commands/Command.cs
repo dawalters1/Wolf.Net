@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WOLF.Net.Commands.Commands
+{ 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited =true)]
     public class Command : Attribute
     {

@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Forms\" />
-    <Folder Include="Entities\Achievements\" />
-    <Folder Include="Entities\Charms\" />
     <Folder Include="Entities\Groups\Events\" />
     <Folder Include="Entities\Tipping\" />
     <Folder Include="Helpers\" />

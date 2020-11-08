@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "q8B7Ay2mD4tAnMXGFFrXAEAp9s4KkKKMWBFUkoHW0yKULJDGpm98eQC46ZLsSx+9Cn2nZsPPsI0PKuvf1fMihw==",
+  "dgSpecHash": "w7NYwRFaO6WqvRcHZIss+fyUzHPmKetfE2ljE641pdOZSotG6wdEwzUTqzPMnmTcWNL12fxXJXAWw7eBiOOguw==",
   "success": true,
   "projectFilePath": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\David Walters\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\David Walters\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\David Walters\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\David Walters\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\David Walters\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
