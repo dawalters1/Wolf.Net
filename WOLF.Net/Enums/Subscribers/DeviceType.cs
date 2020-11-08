@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WOLF.Net.Enums.API
+namespace WOLF.Net.Enums.Subscribers
 {
-    public enum LoginDevice
+    public enum DeviceType
     {
+        Other,
+
+        Bot = 1,
+
         iPhone = 5,
 
         iPad = 6,

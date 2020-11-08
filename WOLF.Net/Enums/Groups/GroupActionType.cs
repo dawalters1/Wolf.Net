@@ -4,20 +4,24 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Groups
 {
-    public enum Capability
+    public enum GroupActionType
     {
-        NotUser = -1,
-
         Regular = 0,
 
         Admin = 1,
 
         Mod = 2,
 
-        Banned = 4,
+        Ban = 4,
 
-        Silenced= 8,
+        Silence = 8,
 
-        Owner = 32
+        Kick = 16,
+
+        Join = 17,
+
+        Leave = 18,
+
+        Owner = 32,
     }
 }
