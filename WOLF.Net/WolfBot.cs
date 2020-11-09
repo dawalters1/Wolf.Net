@@ -11,5 +11,12 @@ namespace WOLF.Net
         public WolfClient WolfClient { get; private set; }
 
         public EventManager On { get; private set; }
+        
+        public WolfBot(){
+            //Check to see if Config/Config.xyz exists
+
+            WoflClient = new WolfClient();
+            On = new EventManager();
+        }
     }
 }
