@@ -1,7 +1,7 @@
 # WOLF.Net
 [![Nuget Status](https://img.shields.io/nuget/vpre/Wolf.Net)](https://www.nuget.org/packages/Wolf.Net/)![Nuget Downloads](https://img.shields.io/nuget/dt/WOLF.Net.svg)
 
-[![WOLF](https://i.imgur.com/3G7wMCV.png)](https://wolf.live.com/)
+[![WOLF](https://imgur.com/SwV8IYZ)](https://wolf.live/)
 
 An unofficial .NET API for [WOLF](https://wolf.live.com/) (AKA Palringo).
 
