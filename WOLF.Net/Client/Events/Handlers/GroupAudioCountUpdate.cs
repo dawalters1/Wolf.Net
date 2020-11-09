@@ -6,7 +6,7 @@ using WOLF.Net.Entities.Groups.Stages;
 
 namespace WOLF.Net.Client.Events.Handlers
 {
-    public class GroupAudioCountUpdate : Event<Entities.Groups.Stages.GroupAudioCount>
+    public class GroupAudioCountUpdate : Event<GroupAudioCount>
     {
         public override string Command => Event.GROUP_AUDIO_COUNT_UPDATE;
 

@@ -6,7 +6,7 @@ using WOLF.Net.Client.Events;
 
 namespace WOLF.Net
 {
-    public class WolfBot
+    public partial class WolfBot
     {
         public WolfClient WolfClient { get; private set; }
 
