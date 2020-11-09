@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Entities.Phrases
 {
-    public class Phase
+    public class Phrase
     {
         public string Id { get; set; }
 

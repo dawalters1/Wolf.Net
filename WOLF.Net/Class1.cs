@@ -18,13 +18,7 @@ namespace WOLF.Net
         {
             var test = new CommandManager();
 
-            test.ProcessMessage(new Entities.Messages.Message()
-            {
-                Content = "test te324st1",
-                MessageType = Enums.Messages.MessageType.Group,
-                SourceSubscriberId = 29976610,
-                SourceTargetId = 5
-            });
+            //test.ProcessMessage(); //Cannot create placeholder message for this test anymore be does work (or did)
 
             await Task.Delay(-1);
         }

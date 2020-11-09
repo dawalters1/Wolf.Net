@@ -15,10 +15,5 @@ namespace WOLF.Net.Client.Events.Handlers
         {
             throw new NotImplementedException();
         }
-
-        public override void Register()
-        {
-            Client.On<ContactUpdate>(Command, resp => HandleAsync(resp));
-        }
     }
 }

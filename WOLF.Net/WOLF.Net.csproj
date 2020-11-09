@@ -15,7 +15,6 @@
     <Folder Include="Commands\Forms\" />
     <Folder Include="Entities\Groups\Events\" />
     <Folder Include="Entities\Tipping\Leaderboards\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

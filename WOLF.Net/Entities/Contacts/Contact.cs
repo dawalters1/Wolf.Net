@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Entities.Contacts
 {
@@ -12,6 +13,12 @@ namespace WOLF.Net.Entities.Contacts
 
         [JsonProperty("additionalInfo")]
         public AdditionalInfo AdditionalInfo { get; set; }
+
+        internal void Update(Contact contact)
+        {
+            Id = contact.Id;
+            AdditionalInfo = contact.AdditionalInfo;
+        }
     }
 
     public class AdditionalInfo
@@ -26,7 +33,7 @@ namespace WOLF.Net.Entities.Contacts
         public OnlineState OnlineState { get; set; }
 
         [JsonProperty("privileges")]
-        public int Privileges { get; set; }
+        public long Privileges { get; set; }
 
     }
 }

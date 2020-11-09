@@ -72,6 +72,20 @@ namespace WOLF.Net.Entities.Groups
 
         [JsonIgnore]
         public Capability MyCapabilities { get; internal set; } = Capability.NotGroupSubscriber;
+
+        internal void Update(Group group)
+        {
+            Id = group.Id;
+            Hash = group.Hash;
+            Icon = group.Icon;
+            Name = group.Name;
+            Description = group.Description;
+            Reputation = group.Reputation;
+            Official = group.Official;
+            Peekable = group.Peekable;
+            Members = group.Members;
+            Extended = group.Extended;
+        }
     }
 
     public class Extended

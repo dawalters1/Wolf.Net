@@ -25,10 +25,13 @@ namespace WOLF.Net.Client
 
         public double ConnectionTimeout = 15000;
 
-        public WolfClient(WolfBot bot, LoginData loginData)
+        public WolfClient(WolfBot bot)
         {
             Bot = bot;
+        }
 
+        public async void CreateSocket(LoginData loginData)
+        {
             Socket = new SocketIO($"{Host}:{Port}", new SocketIOOptions()
             {
                 AllowedRetryFirstConnection = true,
@@ -54,6 +57,14 @@ namespace WOLF.Net.Client
 
             Socket.OnReconnecting += (sender, eventArgs) => Bot.On.Emit(InternalEvent.RECONNECTING);
 
+            try
+            {
+                await Socket.ConnectAsync();
+            }
+            catch(Exception d)
+            {
+            //
+            }
         }
 
         public void On<T>(string command, Action<T> action)

@@ -15,7 +15,6 @@ namespace WOLF.Net
         public WolfBot(){
             //Check to see if Config/Config.xyz exists
 
-            WoflClient = new WolfClient();
             On = new EventManager();
         }
     }

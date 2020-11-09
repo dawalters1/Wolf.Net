@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Entities.Charms;
+using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Entities.Subscribers
@@ -43,10 +44,10 @@ namespace WOLF.Net.Entities.Subscribers
         public DeviceType DeviceType { get; set; }
 
         [JsonProperty("privileges")]
-        public int Privileges
+        public long Privileges
         {
             get { return (int)PrivilegeTags; }
-            set { PrivilegeTags = (Tag)value; }
+            set { PrivilegeTags = (Privilege)value; }
         }
 
         [JsonProperty("extended")]
@@ -57,6 +58,21 @@ namespace WOLF.Net.Entities.Subscribers
 
         [JsonIgnore]
         public bool Exists { get; set; }
+
+        internal void Update(Subscriber subscriber)
+        {
+            Id = subscriber.Id;
+            Hash = subscriber.Hash;
+            Nickname = subscriber.Nickname;
+            Icon = subscriber.Icon;
+            Charms = subscriber.Charms;
+            Status = subscriber.Status;
+            OnlineState = subscriber.OnlineState;
+            DeviceType = subscriber.DeviceType;
+            Reputation = subscriber.Reputation;
+            Privileges = subscriber.Privileges;
+            Extended = subscriber.Extended;
+        }
     }
 
     public class Extended
