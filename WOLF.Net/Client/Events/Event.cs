@@ -12,7 +12,10 @@ namespace WOLF.Net.Client.Events
 
         public WolfClient Client { get; set; }
 
-        public abstract void Register();
+        public void Register()
+        {
+            Client.On<T>(Command, resp => HandleAsync(resp));
+        }
 
         public abstract void HandleAsync(T data);
     }

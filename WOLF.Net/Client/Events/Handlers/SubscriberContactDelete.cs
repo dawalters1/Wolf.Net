@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.Contacts;
 using WOLF.Net.Entities.Misc;
 
 namespace WOLF.Net.Client.Events.Handlers
 {
-    public class GroupUpdate : Event<IdHash>
+    public class SubscriberContactDelete : Event<ContactUpdate>
     {
-        public override string Command => Event.GROUP_UPDATE;
+        public override string Command => Event.SUBSCRIBER_CONTACT_DELETE;
 
-        public override void HandleAsync(IdHash data)
+        public override void HandleAsync(ContactUpdate data)
         {
             throw new NotImplementedException();
         }
+
     }
 }

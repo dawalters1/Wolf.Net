@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WOLF.Net.Entities.Groups.Stages;
 using WOLF.Net.Entities.Groups.Subscribers;
 using WOLF.Net.Entities.Misc;
 using WOLF.Net.Enums.Groups;

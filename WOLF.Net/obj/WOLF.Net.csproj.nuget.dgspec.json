@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "SocketIoClient": {
+              "target": "Package",
+              "version": "[2.0.2.9, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[4.7.0, )"

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WOLF.Net.Helpers;
+using WOLF.Net.Client;
+using WOLF.Net.Client.Events;
 
 namespace WOLF.Net
 {
     public class WolfBot
     {
-        public Subscriber Subscriber() => new Subscriber(this);
+        public WolfClient WolfClient { get; private set; }
 
-        public Group Group() => new Group(this);
-
-        public Phrase Phrase() => new Phrase(this);
+        public EventManager On { get; private set; }
     }
 }

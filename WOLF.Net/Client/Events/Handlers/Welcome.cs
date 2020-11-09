@@ -13,10 +13,5 @@ namespace WOLF.Net.Client.Events.Handlers
         {
             throw new NotImplementedException();
         }
-
-        public override void Register()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

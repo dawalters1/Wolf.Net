@@ -27,3 +27,8 @@ F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.pdb
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CopyComplete
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.genruntimeconfig.cache
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll

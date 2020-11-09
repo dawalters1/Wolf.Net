@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using WOLF.Net.Commands;
 using WOLF.Net.Commands.Attributes;
+using WOLF.Net.Commands.Commands;
 using WOLF.Net.Constants;
 using WOLF.Net.Enums.Subscribers;
 

@@ -7,12 +7,14 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SocketIoClient" Version="2.0.2.9" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Commands\Forms\" />
     <Folder Include="Entities\Groups\Events\" />
-    <Folder Include="Entities\Tipping\" />
+    <Folder Include="Entities\Tipping\Leaderboards\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 

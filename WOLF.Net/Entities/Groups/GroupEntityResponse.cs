@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WOLF.Net.Entities.Groups.Stages;
 
 namespace WOLF.Net.Entities.Groups
 {
@@ -11,7 +12,7 @@ namespace WOLF.Net.Entities.Groups
         public Group Base { get; set; }
 
         [JsonProperty("extended")]
-        public GroupExtended Extended { get; set; }
+        public Extended Extended { get; set; }
 
         [JsonProperty("audioCounts")]
         public GroupAudioCount AudioCounts { get; set; }
