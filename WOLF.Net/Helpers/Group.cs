@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,10 +59,10 @@ namespace WOLF.Net
         {
             var group = await GetGroupAsync(groupId);
 
-            if (group.Users.Count != group.Members)
+            if (group.Users.Count == group.Members)
                 return group.Users;
 
-            var result = await WolfClient.Emit<Dictionary<int, Response<GroupSubscriber>>>(Request.GROUP_MEMBER_LIST, new
+            var result = await WolfClient.Emit<List<GroupSubscriber>>(Request.GROUP_MEMBER_LIST, new
             {
                 headers = new
                 {
@@ -74,9 +75,11 @@ namespace WOLF.Net
                 }
             });
 
+            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+
             if (result.Success)
             {
-                var groupSubscribers = result.Body.Values.Select(r => r.Body).ToList();
+                var groupSubscribers = result.Body.ToList();
 
                 group.Users.RemoveAll(r => !groupSubscribers.Any(s => s.Id == r.Id));
 

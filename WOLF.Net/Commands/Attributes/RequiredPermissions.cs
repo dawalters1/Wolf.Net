@@ -37,6 +37,7 @@ namespace WOLF.Net.Commands.Attributes
                 throw new Exception($"Capability cannot be set to {capability.ToString().ToUpper()}");
 
             _capability = capability;
+            _privileges = privileges.ToList();
         }
 
 
@@ -69,13 +70,14 @@ namespace WOLF.Net.Commands.Attributes
             else if (_capability == Capability.Regular)
                 return true;
 
-            else if (_capability == Capability.Owner)
-                validateResult = command.Group != null && command.SourceSubscriberId == command.Group.Owner.Id;
+            else if (command.Group != null && command.SourceSubscriberId == command.Group.Owner.Id)
+                return true;
+
             else
             {
-                await bot.GetGroupSubscribersListAsync(command.SourceTargetId);
+                var subscribersList = await bot.GetGroupSubscribersListAsync(command.SourceTargetId);
 
-                validateResult = ValidateCapability(command.Group.Users.FirstOrDefault(r => r.Id == command.SourceSubscriberId));
+                validateResult = ValidateCapability(subscribersList.FirstOrDefault(r => r.Id == command.SourceSubscriberId));
             }
 
             if (!validateResult)
@@ -95,8 +97,10 @@ namespace WOLF.Net.Commands.Attributes
         private bool ValidateCapability(GroupSubscriber groupSubscriber)
         {
             if (groupSubscriber == null)
+            {
+                Console.WriteLine("NULL");
                 return false;
-
+            }
             switch (_capability)
             {
                 case  Enums.Groups.Capability.Owner:
