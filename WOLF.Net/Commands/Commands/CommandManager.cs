@@ -37,6 +37,9 @@ namespace WOLF.Net.Commands.Commands
                 if (commands.Any(r=>r.Type.GetCustomAttribute<AuthOnly>() != null && r.Type.GetCustomAttribute<RequiredPermissions>() != null))
                     throw new Exception("You can only have either AuthOnly or RequiredPermissions in a Command not both");
 
+                if (commands.Where(r => r.Type.GetCustomAttribute<Default>() != null).Count() > 1)
+                    throw new Exception("You can only have one default command per collection");
+
                 _commands.Add(collection, commands);              
             }
         }
@@ -113,7 +116,7 @@ namespace WOLF.Net.Commands.Commands
                 var defaultCommand = collectionToCall.Value.FirstOrDefault(r => r.Type.IsDefined(typeof(Default)));
 
                 if (defaultCommand != null)
-                    DoCommand(collectionToCall.Key.Type, defaultCommand, commandData);
+                    DoCommand(collectionToCall.Key.Type, defaultCommand, message, commandData);
 
                 return;
             }
@@ -124,15 +127,16 @@ namespace WOLF.Net.Commands.Commands
 
             commandData.Argument = commandData.Argument.Remove(0, commandToCall.Value.Trigger.Length).Trim();
 
-            DoCommand(collectionToCall.Key.Type, commandToCall, commandData);
+            DoCommand(collectionToCall.Key.Type, commandToCall, message, commandData);
         }
 
-        private void DoCommand(Type type, MethodInstance<Command> command, CommandData commandData)
+        private void DoCommand(Type type, MethodInstance<Command> command, Message message, CommandData commandData)
         {
             var i = (CommandContext)Activator.CreateInstance(type);
 
             i.Command = commandData;
             i.Bot = Bot;
+            i.Message = message;
 
             command.Type.Invoke(i, null);
         }

@@ -118,6 +118,8 @@ namespace WOLF.Net.Entities.Groups
 
             Updated();
         }
+
+        public string ToDisplayName(bool withId = true) => withId ? $"[{Name}] ({Id})" : $"[{Name}]";
     }
 
     public class Extended

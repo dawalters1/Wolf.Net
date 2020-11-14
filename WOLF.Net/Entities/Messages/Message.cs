@@ -24,7 +24,13 @@ namespace WOLF.Net.Entities.Messages
 
         public string Content { get;set; }
 
+        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId")]
+        public int UserId => SourceSubscriberId;
+
         public int SourceSubscriberId { get;set; }
+
+        [Obsolete("This property will be deprecated soon, please use SourceTargetId")]
+        public int ReturnAddress => SourceTargetId;
 
         public int SourceTargetId { get; set; }
 

@@ -85,9 +85,9 @@ namespace WOLF.Net
             });
         }
 
-        public async Task<Response<List<SubscriberCharm>>> GetActiveCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
+        public async Task<Response<List<CharmStatus>>> GetActiveCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
         {
-            return await WolfClient.Emit<List<SubscriberCharm>>(Request.CHARM_SUBSCRIBER_ACTIVE_LIST, new
+            return await WolfClient.Emit<List<CharmStatus>>(Request.CHARM_SUBSCRIBER_ACTIVE_LIST, new
             {
                 id = subscriberId,
                 offset,
@@ -95,9 +95,9 @@ namespace WOLF.Net
             });
         }
 
-        public async Task<Response<List<SubscriberCharm>>> GetExpiredCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
+        public async Task<Response<List<CharmStatus>>> GetExpiredCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
         {
-            return await WolfClient.Emit<List<SubscriberCharm>>(Request.CHARM_SUBSCRIBER_EXPIRED_LIST, new
+            return await WolfClient.Emit<List<CharmStatus>>(Request.CHARM_SUBSCRIBER_EXPIRED_LIST, new
             {
                 id = subscriberId,
                 offset,

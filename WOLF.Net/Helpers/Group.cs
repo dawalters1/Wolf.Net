@@ -75,8 +75,6 @@ namespace WOLF.Net
                 }
             });
 
-            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-
             if (result.Success)
             {
                 var groupSubscribers = result.Body.ToList();

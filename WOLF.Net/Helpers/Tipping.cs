@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Constants;
@@ -44,12 +45,12 @@ namespace WOLF.Net
             });
         }
 
-        public async Task<Response> AddTip(Message message, List<TipCharm> charmList)
+        public async Task<Response> AddTip(Message message, params TipCharm[] charms)
         {
             if (message.MessageType != MessageType.Group)
                 return new Response() { Code = 400, Headers = new Dictionary<string, string>() { { "error", "You currently cannot tip in pm" } } };
 
-            return await AddTip(message.SourceSubscriberId, message.SourceTargetId, message.Timestamp, ContextType.Message, charmList);
+            return await AddTip(message.SourceSubscriberId, message.SourceTargetId, message.Timestamp, ContextType.Message, charms.ToList());
         }
 
         public async Task<Response<TipDetail>> GetTipDetails(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0)

@@ -25,6 +25,7 @@ namespace WOLF.Net.Constants
         public const string SUBSCRIBER_BLOCK_LIST = "subscriber block list";
         public const string SUBSCRIBER_CONTACT_ADD = "subscriber contact add";
         public const string SUBSCRIBER_CONTACT_DELETE = "subscriber contact delete";
+        public const string SUBSCRIBER_SETTINGS_UPDATE = "subscriber settings update";
         public const string SUBSCRIBER_BLOCK_ADD = "subscriber block add";
         public const string SUBSCRIBER_BLOCK_DELETE = "subscriber block delete";
         public const string SUBSCRIBER_PROFILE_UPDATE = "subscriber profile update";

@@ -76,9 +76,9 @@ namespace WOLF.Net
 
         public async Task<Response> SetOnlineStateAsync(OnlineState onlineState)
         {
-            return await WolfClient.Emit(Request.MESSAGE_SETTING_UPDATE, new
+            return await WolfClient.Emit(Request.SUBSCRIBER_SETTINGS_UPDATE, new
             {
-                state = new { state = onlineState } // State inside state? wtf is this shit...
+                state = new { state = (int)onlineState } // State inside state? wtf is this shit...
             });
         }
 

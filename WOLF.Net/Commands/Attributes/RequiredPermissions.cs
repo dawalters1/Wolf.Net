@@ -64,6 +64,7 @@ namespace WOLF.Net.Commands.Attributes
             }
 
             bool validateResult = true;
+
             if (bot.IsAuthorized(command.SourceSubscriberId))
                 return true;
 

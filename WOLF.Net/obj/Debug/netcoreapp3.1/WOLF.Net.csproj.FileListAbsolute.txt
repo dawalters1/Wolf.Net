@@ -21,3 +21,4 @@ F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyI
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CoreCompileInputs.cache
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.dll
 F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.pdb
+F:\My Projects\WOLF\Wolf.Net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csprojAssemblyReference.cache

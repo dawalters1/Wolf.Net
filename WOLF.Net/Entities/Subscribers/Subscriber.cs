@@ -61,7 +61,7 @@ namespace WOLF.Net.Entities.Subscribers
         [JsonProperty("extended")]
         public Extended Extended { get; set; }
 
-    
+
         [JsonIgnore]
         public bool Exists { get; private set; } = true;
 
@@ -91,6 +91,8 @@ namespace WOLF.Net.Entities.Subscribers
 
             Updated();
         }
+
+        public string ToDisplayName(bool withId = true) => withId ? $"[{Nickname}] ({Id})" : $"[{Nickname}]";
     }
 
     public class Extended
