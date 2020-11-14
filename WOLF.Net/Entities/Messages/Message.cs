@@ -5,7 +5,7 @@ using WOLF.Net.Enums.Messages;
 
 namespace WOLF.Net.Entities.Messages
 {
-    public class Message : IMessage
+    public class Message
     {
         internal Message(WolfBot bot, BaseMessage message)
         {

@@ -19,6 +19,11 @@ namespace WOLF.Net.Entities.Groups
 
         [JsonProperty("audioConfig")]
         public GroupAudioConfiguration AudioConfiguration { get; set; }
+
+        internal Group Compile()
+        {
+            return new Group(Base, AudioConfiguration, AudioCounts, Extended);
+        }
     }
 
 }

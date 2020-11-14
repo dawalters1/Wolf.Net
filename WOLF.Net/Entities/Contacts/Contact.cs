@@ -14,6 +14,8 @@ namespace WOLF.Net.Entities.Contacts
         [JsonProperty("additionalInfo")]
         public AdditionalInfo AdditionalInfo { get; set; }
 
+        public bool IsBlocked { get; internal set; } = false;
+
         internal void Update(Contact contact)
         {
             Id = contact.Id;

@@ -12,6 +12,30 @@ namespace WOLF.Net.Entities.Groups
 {
     public class Group
     {
+        internal Group() { }
+
+        internal Group(int groupId)
+        {
+            Id = groupId;
+            Name = $"<ID{groupId}>";
+            Exists = false;
+        }
+
+        internal Group(string name)
+        {
+            Id = 0;
+            Name = name;
+            Exists = false;
+        }
+
+        internal Group(Group group, GroupAudioConfiguration groupAudioConfiguration, GroupAudioCount groupAudioCount, Extended extended)
+        {
+            Update(group);
+            AudioConfiguration = groupAudioConfiguration;
+            AudioCount = groupAudioCount;
+            Extended = extended;
+        }
+
         [JsonProperty("id")]
         public int Id { get; set; }
 

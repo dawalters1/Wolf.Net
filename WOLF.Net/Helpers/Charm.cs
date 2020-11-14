@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Charms;
+using WOLF.Net.Enums.Misc;
 
 namespace WOLF.Net
 {
@@ -26,7 +28,27 @@ namespace WOLF.Net
         {
             throw new NotImplementedException();
         }
+        public async Task<List<Charm>> GetCharmsAsync(Language language = Language.English ,bool requestNew = false)
+        {
+            if (!requestNew && Charms.Count > 0)
+                return Charms;
 
+            Charms.Clear();
+
+            var result = await WolfClient.Emit<List<Charm>>(Request.CHARM_LIST, new
+            {
+                language = (int)language
+            });
+
+            if (result.Success)
+            {
+                Charms = result.Body;
+
+                return Charms;
+            }
+
+            return new List<Charm>();
+        }
         public async Task<List<Charm>> GetCharmsAsync(params int[] ids)
         {
             throw new NotImplementedException();

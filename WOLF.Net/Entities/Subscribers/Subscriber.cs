@@ -10,6 +10,15 @@ namespace WOLF.Net.Entities.Subscribers
 {
     public class Subscriber
     {
+        internal Subscriber() { }
+
+        internal Subscriber(int subscriberId)
+        {
+            Id = subscriberId;
+            Nickname = $"<ID{subscriberId}>";
+            Exists = false;
+        }
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
@@ -57,7 +66,7 @@ namespace WOLF.Net.Entities.Subscribers
         public Privilege PrivilegeTags { get; set; }
 
         [JsonIgnore]
-        public bool Exists { get; set; }
+        public bool Exists { get; private set; } = true;
 
         internal void Update(Subscriber subscriber)
         {
@@ -72,6 +81,8 @@ namespace WOLF.Net.Entities.Subscribers
             Reputation = subscriber.Reputation;
             Privileges = subscriber.Privileges;
             Extended = subscriber.Extended;
+
+            Exists = true;
         }
     }
 
