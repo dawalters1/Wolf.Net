@@ -15,7 +15,7 @@ namespace WOLF.Net
         public List<Achievement> Achievements = new List<Achievement>();
 
 
-        public async Task<List<Achievement>> GetAchievements(Language language = Language.English, bool requestNew = false)
+        public async Task<List<Achievement>> GetAchievementsAsync(Language language = Language.English, bool requestNew = false)
         {
             if (!requestNew && Achievements.Count > 0)
                 return Achievements;
@@ -37,9 +37,9 @@ namespace WOLF.Net
             return Achievements;
         }
 
-        public async Task<Response<Achievement>> GetById(int id, bool requestNew = false)
+        public async Task<Response<Achievement>> GetAchievementByIdAsync(int id, bool requestNew = false)
         {
-            var achievements = await GetAchievements(requestNew: requestNew);
+            var achievements = await GetAchievementsAsync(requestNew: requestNew);
 
             var achievement = achievements.FirstOrDefault(r => r.Id == id);
 
@@ -49,11 +49,11 @@ namespace WOLF.Net
             return new Response<Achievement>() { Code = 404, Body = default, Headers = new Dictionary<string, string>() };
         }
 
-        public async Task<Dictionary<int, Response<Achievement>>> GetByIds(List<int> ids, bool requestNew = false)
+        public async Task<Dictionary<int, Response<Achievement>>> GetAchievementByIdsAsync(List<int> ids, bool requestNew = false)
         {
             Dictionary<int, Response<Achievement>> achievements = new Dictionary<int, Response<Achievement>> ();
 
-            var achievementsList = await GetAchievements(requestNew: requestNew);
+            var achievementsList = await GetAchievementsAsync(requestNew: requestNew);
 
             foreach (var id in ids.Distinct())
             {
@@ -67,7 +67,7 @@ namespace WOLF.Net
             return achievements;
         }
 
-        public async Task<Response<List<SubscriberAchievement>>> GetSubscriberAchievements(int subscriberId)
+        public async Task<Response<List<SubscriberAchievement>>> GetSubscriberAchievementsAsync(int subscriberId)
         {
             return await WolfClient.Emit<List<SubscriberAchievement>>(Request.ACHIVEMENT_SUBSCRIBER_LIST, new
             {

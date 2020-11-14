@@ -10,9 +10,13 @@ namespace WOLF.Net.Client.Events.Handlers
     {
         public override string Command => Event.SUBSCRIBER_BLOCK_ADD;
 
-        public override void HandleAsync(ContactUpdate data)
+        public override async void HandleAsync(ContactUpdate data)
         {
-            throw new NotImplementedException();
+            var subscriber = await Bot.GetSubscriberAsync(data.Id);
+
+            Bot.ProcessContact(new Contact(subscriber, true));
+
+            Bot.On.Emit(Command, subscriber);
         }
 
     }

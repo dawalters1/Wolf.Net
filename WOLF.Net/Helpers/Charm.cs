@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +20,24 @@ namespace WOLF.Net
      * Get Active charms
      * Set selected charms
      * Delete Charms
-     */ 
+     */
     public partial class WolfBot
     {
         public List<Charm> Charms = new List<Charm>();
 
-        public async Task<Charm> GetCharmAsync(int id)
+        public async Task<Response<Charm>> GetCharmAsync(int id, bool requestNew = false)
         {
-            throw new NotImplementedException();
+            var charms = await GetCharmsAsync(requestNew: requestNew);
+
+            var charm = charms.FirstOrDefault(r => r.Id == id);
+
+            if (charm != null)
+                return new Response<Charm>() { Code = 200, Body = charm, Headers = new Dictionary<string, string>() };
+
+            return new Response<Charm>() { Code = 404, Body = default, Headers = new Dictionary<string, string>() };
+
         }
-        public async Task<List<Charm>> GetCharmsAsync(Language language = Language.English ,bool requestNew = false)
+        public async Task<List<Charm>> GetCharmsAsync(Language language = Language.English, bool requestNew = false)
         {
             if (!requestNew && Charms.Count > 0)
                 return Charms;
@@ -49,34 +58,67 @@ namespace WOLF.Net
 
             return new List<Charm>();
         }
-        public async Task<List<Charm>> GetCharmsAsync(params int[] ids)
+
+        public async Task<Dictionary<int, Response<Charm>>> GetCharmByIdsAsync(List<int> ids, bool requestNew = false)
         {
-            throw new NotImplementedException();
+            Dictionary<int, Response<Charm>> charms = new Dictionary<int, Response<Charm>>();
+
+            var charmsList = await GetCharmsAsync(requestNew: requestNew);
+
+            foreach (var id in ids.Distinct())
+            {
+                var charm = charmsList.FirstOrDefault(r => r.Id == id);
+                if (charm != null)
+                    charms.Add(id, new Response<Charm>() { Code = 200, Body = charm, Headers = new Dictionary<string, string>() });
+                else
+                    charms.Add(id, new Response<Charm>() { Code = 404, Body = default, Headers = new Dictionary<string, string>() });
+            }
+
+            return charms;
         }
 
-        public async Task<CharmStatistics> GetCharmStatisticsAsync(int subscriberId)
+        public async Task<Response<CharmStatistics>> GetCharmStatisticsAsync(int subscriberId)
         {
-            throw new NotImplementedException();
+            return await WolfClient.Emit<CharmStatistics>(Request.CHARM_SUBSCRIBER_STATISTICS, new
+            {
+                id = subscriberId
+            });
         }
 
-        public async Task<List<CharmStatus>> GetActiveCharmsAsync(int subscriberId, int offset = 0, int limit =25)
+        public async Task<Response<List<SubscriberCharm>>> GetActiveCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
         {
-            throw new NotImplementedException();
+            return await WolfClient.Emit<List<SubscriberCharm>>(Request.CHARM_SUBSCRIBER_ACTIVE_LIST, new
+            {
+                id = subscriberId,
+                offset,
+                limit
+            });
         }
 
-        public async Task<List<CharmStatus>> GetExpiredCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
+        public async Task<Response<List<SubscriberCharm>>> GetExpiredCharmsAsync(int subscriberId, int offset = 0, int limit = 25)
         {
-            throw new NotImplementedException();
+            return await WolfClient.Emit<List<SubscriberCharm>>(Request.CHARM_SUBSCRIBER_EXPIRED_LIST, new
+            {
+                id = subscriberId,
+                offset,
+                limit
+            });
         }
 
         public async Task<Response> SetCharmsAsync(params SelectedCharm[] charms)
         {
-            throw new NotImplementedException();
+            return await WolfClient.Emit(Request.CHARM_SUBSCRIBER_SET_SELECTED, new
+            {
+                selectedList = charms
+            });
         }
 
         public async Task<Response> DeleteCharmsAsync(params int[] ids)
         {
-            throw new NotImplementedException();
+            return await WolfClient.Emit(Request.CHARM_SUBSCRIBER_DELETE, new
+            {
+                idList = ids
+            });
         }
     }
 }

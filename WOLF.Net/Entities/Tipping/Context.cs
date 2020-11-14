@@ -8,9 +8,9 @@ namespace WOLF.Net.Entities.Messages.Tipping
     public class Context
     {
         [JsonProperty("type")]
-        public string Type { get; private set; }
+        public string Type { get;set; }
 
         [JsonProperty("id")]
-        public long Id { get; private set; }
+        public long Id { get;set; }
     }
 }

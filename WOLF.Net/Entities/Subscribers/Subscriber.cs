@@ -10,6 +10,9 @@ namespace WOLF.Net.Entities.Subscribers
 {
     public class Subscriber
     {
+        [JsonIgnore]
+        public Action Updated = delegate { };
+
         internal Subscriber() { }
 
         internal Subscriber(int subscriberId)
@@ -83,6 +86,16 @@ namespace WOLF.Net.Entities.Subscribers
             Extended = subscriber.Extended;
 
             Exists = true;
+
+            Updated();
+        }
+
+        internal void Update(PresenceUpdate presenceUpdate)
+        {
+            OnlineState = presenceUpdate.OnlineState;
+            DeviceType = presenceUpdate.DeviceType;
+
+            Updated();
         }
     }
 
@@ -98,7 +111,7 @@ namespace WOLF.Net.Entities.Subscribers
         public Gender Gender { get; set; }
 
         [JsonProperty("utcOffset")]
-        public int UtcOffset { get; private set; }
+        public int UtcOffset { get;set; }
 
         [JsonProperty("urls")]
         public List<string> Urls { get; set; }

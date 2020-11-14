@@ -27,7 +27,7 @@ namespace WOLF.Net
         /// <param name="name">What you wish to name the group</param>
         /// <param name="tagLine">A short description about the group</param>
         /// <returns></returns>
-        public async Task<Response> CreateGroup(string name, string tagLine)
+        public async Task<Response> CreateGroupAsync(string name, string tagLine)
         {
             return await WolfClient.Emit(Request.GROUP_CREATE, new
             {
@@ -41,7 +41,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="groupId">The id of the group</param>
         /// <returns></returns>
-        public async Task<Response<GroupStats>> GroupStats(int groupId)
+        public async Task<Response<GroupStats>> GroupStatsAsync(int groupId)
         {
             return await WolfClient.Emit<GroupStats>(Request.GROUP_STATS, new
             {
@@ -54,11 +54,11 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="groupId">The id of the group</param>
         /// <returns></returns>
-        public async Task<List<GroupSubscriber>> GroupSubscribersList(int groupId)
+        public async Task<List<GroupSubscriber>> GroupSubscribersListAsync(int groupId)
         {
-            var group = await GetGroup(groupId);
+            var group = await GetGroupAsync(groupId);
 
-            if (group.Users.Count > 0)
+            if (group.Users.Count != group.Members)
                 return group.Users;
 
             var result = await WolfClient.Emit<Dictionary<int, Response<GroupSubscriber>>>(Request.GROUP_MEMBER_LIST, new
@@ -76,9 +76,19 @@ namespace WOLF.Net
 
             if (result.Success)
             {
-                group.Users.AddRange(result.Body.Values.Select(r => r.Body).ToList());
+                var groupSubscribers = result.Body.Values.Select(r => r.Body).ToList();
 
-                return result.Body.Values.Select(r => r.Body).ToList();
+                group.Users.RemoveAll(r => !groupSubscribers.Any(s => s.Id == r.Id));
+
+                foreach (var groupSubscriber in groupSubscribers)
+                {
+                    if (group.Users.Any(r => r.Id == groupSubscriber.Id))
+                        group.Users.FirstOrDefault(r => r.Id == groupSubscriber.Id).Update(groupSubscriber);
+                    else
+                        group.Users.Add(groupSubscriber);
+                }
+
+                return group.Users;
             }
 
             return new List<GroupSubscriber>();
@@ -91,7 +101,7 @@ namespace WOLF.Net
         /// <param name="targetSubscriberId">The id of the subscriber you wish to perform the action on</param>
         /// <param name="action">The action you want to perform on the subscriber</param>
         /// <returns></returns>
-        public async Task<Response> GroupAction(int groupId, int targetSubscriberId, GroupActionType action)
+        public async Task<Response> GroupActionAsync(int groupId, int targetSubscriberId, GroupActionType action)
         {
             return await WolfClient.Emit(Request.GROUP_MEMBER_UPDATE, new
             {
@@ -107,7 +117,7 @@ namespace WOLF.Net
         /// <param name="name">The name of the group</param>
         /// <param name="password">The password for the group (Optional)</param>
         /// <returns></returns>
-        public async Task<Response> JoinGroup(string name, string password=null)
+        public async Task<Response> JoinGroupAsync(string name, string password=null)
         {
             return await WolfClient.Emit(Request.GROUP_MEMBER_ADD, new
             {
@@ -122,7 +132,7 @@ namespace WOLF.Net
         /// <param name="groupId">The id of the group</param>
         /// <param name="password">The password for the group (Optional)</param>
         /// <returns></returns>
-        public async Task<Response> JoinGroup(int groupId, string password = null)
+        public async Task<Response> JoinGroupAsync(int groupId, string password = null)
         {
             return await WolfClient.Emit(Request.GROUP_MEMBER_ADD, new
             {
@@ -136,7 +146,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="groupId">The id of the group</param>
         /// <returns></returns>
-        public async Task<Response> LeaveGroup(int groupId)
+        public async Task<Response> LeaveGroupAsync(int groupId)
         {
             return await WolfClient.Emit(Request.GROUP_MEMBER_DELETE, new
             {
@@ -149,12 +159,12 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="name">The name of the group</param>
         /// <returns></returns>
-        public async Task<Response> LeaveGroup(string name)
+        public async Task<Response> LeaveGroupAsync(string name)
         {
             if (!Groups.Any(r => r.Name.IsEqual(name)))
                 return new Response() { Code = 404, Headers = new Dictionary<string, string>() };
 
-            return await LeaveGroup(Groups.FirstOrDefault(r => r.Name.IsEqual(name)).Id);
+            return await LeaveGroupAsync(Groups.FirstOrDefault(r => r.Name.IsEqual(name)).Id);
         }
 
         /// <summary>
@@ -163,7 +173,7 @@ namespace WOLF.Net
         /// <param name="name">The id of the group</param>
         /// <param name="requestNew">Used by the API when a group update event happens and hashes do not match</param>
         /// <returns></returns>
-        public async Task<Group> GetGroup(string name, bool requestNew = false)
+        public async Task<Group> GetGroupAsync(string name, bool requestNew = false)
         {
             if (!requestNew && Groups.Any(r => r.Name.IsEqual(name)))
             {
@@ -202,7 +212,7 @@ namespace WOLF.Net
         /// <param name="groupId">The id of the group</param>
         /// <param name="requestNew">Used by the API when a group update event happens and hashes do not match</param>
         /// <returns></returns>
-        public async Task<Group> GetGroup(int groupId, bool requestNew = false)
+        public async Task<Group> GetGroupAsync(int groupId, bool requestNew = false)
         {
             if (!requestNew && Groups.Any(r => r.Id == groupId))
             {
@@ -243,7 +253,7 @@ namespace WOLF.Net
         /// <param name="groupIds">A list of group ids</param>
         /// <param name="requestNew">Used by the API when a group update event happens and hashes do not match</param>
         /// <returns></returns>
-        public async Task<List<Group>> GetGroups(List<int> groupIds, bool requestNew = false)
+        public async Task<List<Group>> GetGroupsAsync(List<int> groupIds, bool requestNew = false)
         {
             List<Group> groups = new List<Group>();
 
@@ -293,7 +303,7 @@ namespace WOLF.Net
 
 
 
-        private void ProcessGroup(Group group)
+        internal void ProcessGroup(Group group)
         {
             if (Groups.Any(r => r.Id == group.Id))
                 Groups.FirstOrDefault(r => r.Id == group.Id).Update(group);

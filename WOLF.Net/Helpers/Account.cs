@@ -15,7 +15,7 @@ namespace WOLF.Net
     /*
      * Update Profile
      * V2 support I guess?
-     * 
+     * GetJoinedGroups
      */
     public partial class WolfBot
     {
@@ -94,7 +94,7 @@ namespace WOLF.Net
         }
 
 
-        private void ProcessContact(Contact contact)
+        internal void ProcessContact(Contact contact)
         {
             if (Contacts.Any(r => r.Id == contact.Id))
                 Contacts.FirstOrDefault(r => r.Id == contact.Id).Update(contact);

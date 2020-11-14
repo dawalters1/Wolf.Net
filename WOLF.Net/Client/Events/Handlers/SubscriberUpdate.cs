@@ -13,10 +13,16 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(IdHash data)
         {
-            var subscriber = Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id);
+            var subscriber = await Bot.GetSubscriberAsync(data.Id, data.Hash != Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id).Hash);
 
-            await Bot.GetSubscriber(data.Id, data.Hash!=subscriber.Hash);
+            foreach (var group in Bot.Groups.ToList())
+                if (group.Users.Any(r => r.Id == data.Id))
+                    group.Users.FirstOrDefault(r => r.Id == data.Id).Update(subscriber);
 
+            if (Bot.Contacts.Any(r => r.Id == data.Id))
+                Bot.Contacts.FirstOrDefault(r => r.Id == data.Id).Update(subscriber);
+
+            Bot.On.Emit(Command, subscriber);
         }
     }
 }

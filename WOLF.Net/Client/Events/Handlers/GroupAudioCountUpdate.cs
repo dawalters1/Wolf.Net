@@ -10,9 +10,16 @@ namespace WOLF.Net.Client.Events.Handlers
     {
         public override string Command => Event.GROUP_AUDIO_COUNT_UPDATE;
 
-        public override void HandleAsync(GroupAudioCount data)
+        public override async void HandleAsync(GroupAudioCount data)
         {
-            throw new NotImplementedException();
+            var group = await Bot.GetGroupAsync(data.Id);
+
+            if (group == null)
+                return;
+
+            group.AudioCount = data;
+
+            Bot.On.Emit(Command, group, data);
         }
     }
 }

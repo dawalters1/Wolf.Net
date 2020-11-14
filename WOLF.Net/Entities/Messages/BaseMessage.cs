@@ -9,7 +9,7 @@ namespace WOLF.Net.Entities.Messages
 {
     public class BaseMessage
     {
-        public BaseMessage() { }
+        internal BaseMessage() { }
 
         [JsonProperty("id")]
         public Guid Id { get; set; }
@@ -54,9 +54,9 @@ namespace WOLF.Net.Entities.Messages
             "text/palringo-private-request-response" => ContentType.PrivateRequestResponse,
             _ => ContentType.Unknown
         };
-        public Message ToNormalMessage(WolfBot bot)
+        public Message ToNormalMessage()
         {
-            return new Message(bot, this);
+            return new Message(this);
         }
     }
 }

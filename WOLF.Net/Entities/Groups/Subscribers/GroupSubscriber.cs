@@ -21,6 +21,18 @@ namespace WOLF.Net.Entities.Groups.Subscribers
 
         [JsonProperty("capabilities")]
         public Capability Capabilities { get; set; }
+
+        internal void Update(Entities.Subscribers.Subscriber subscriber)
+        {
+            Id = subscriber.Id;
+            AdditionalInfo.Update(subscriber);
+        }
+
+        internal void Update(GroupSubscriber groupSubscriber)
+        {
+            Id = groupSubscriber.Id;
+            AdditionalInfo = groupSubscriber.AdditionalInfo;
+        }
     }
 
     public class AdditionalInfo
@@ -36,5 +48,17 @@ namespace WOLF.Net.Entities.Groups.Subscribers
 
         [JsonProperty("onlineState")]
         public OnlineState OnlineState { get; set; }
+
+        internal void Update(OnlineState onlineState)
+        {
+            OnlineState = onlineState;
+        }
+        internal void Update(Entities.Subscribers.Subscriber subscriber)
+        {
+            Hash = subscriber.Hash;
+            Nickname = subscriber.Nickname;
+            Privileges = subscriber.Privileges;
+            OnlineState = subscriber.OnlineState;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="subscriberId">The id of the subscriber</param>
         /// <returns></returns>
-        public async Task<Response> AddSubscriber(int subscriberId)
+        public async Task<Response> AddSubscriberAsync(int subscriberId)
         {
             return await WolfClient.Emit(Request.SUBSCRIBER_CONTACT_ADD, new
             {
@@ -32,7 +32,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="subscriberId">The id of the subscriber</param>
         /// <returns></returns>
-        public async Task<Response> BlockSubscriber(int subscriberId)
+        public async Task<Response> BlockSubscriberAsync(int subscriberId)
         {
             return await WolfClient.Emit(Request.SUBSCRIBER_BLOCK_ADD, new
             {
@@ -46,7 +46,7 @@ namespace WOLF.Net
         /// <param name="subscriberId">The id of the subscriber</param>
         /// <param name="requestNew">Used by the API when a subscriber update event happens and hashes do not match</param>
         /// <returns></returns>
-        public async Task<Subscriber> GetSubscriber(int subscriberId, bool requestNew = false)
+        public async Task<Subscriber> GetSubscriberAsync(int subscriberId, bool requestNew = false)
         {
             if (!requestNew && Subscribers.Any(r => r.Id == subscriberId))
             {
@@ -85,7 +85,7 @@ namespace WOLF.Net
         /// <param name="subscriberIds">A list of subscriber ids</param>
         /// <param name="requestNew">Used by the API when a subscriber update event happens and hashes do not match</param>
         /// <returns></returns>
-        public async Task<List<Subscriber>> GetSubscribers(List<int> subscriberIds, bool requestNew = false)
+        public async Task<List<Subscriber>> GetSubscribersAsync(List<int> subscriberIds, bool requestNew = false)
         {
             List<Subscriber> subscribers = new List<Subscriber>();
 
@@ -136,7 +136,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="subscriberId">The id of the subscriber</param>
         /// <returns></returns>
-        public async Task<Response> RemoveSubscriber(int subscriberId)
+        public async Task<Response> RemoveSubscriberAsync(int subscriberId)
         {
             return await WolfClient.Emit(Request.SUBSCRIBER_CONTACT_DELETE, new
             {
@@ -149,7 +149,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="subscriberId">The id of the subscriber</param>
         /// <returns></returns>
-        public async Task<Response> UnblockSubscriber(int subscriberId)
+        public async Task<Response> UnblockSubscriberAsync(int subscriberId)
         {
             return await WolfClient.Emit(Request.SUBSCRIBER_BLOCK_DELETE, new
             {
@@ -158,12 +158,13 @@ namespace WOLF.Net
         }
 
 
-        private void ProcessSubscriber(Subscriber subscriber)
+        internal void ProcessSubscriber(Subscriber subscriber)
         {
             if (Subscribers.Any(r => r.Id == subscriber.Id))
                 Subscribers.FirstOrDefault(r => r.Id == subscriber.Id).Update(subscriber);
             else
                 Subscribers.Add(subscriber);
         }
+
     }
 }

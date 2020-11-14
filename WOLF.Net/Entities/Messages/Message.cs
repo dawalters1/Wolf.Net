@@ -7,9 +7,8 @@ namespace WOLF.Net.Entities.Messages
 {
     public class Message
     {
-        internal Message(WolfBot bot, BaseMessage message)
+        internal Message(BaseMessage message)
         {
-            this.Bot = bot;
             this.Id = message.Id;
             this.Content = Encoding.UTF8.GetString(message.Data);
             this.UserId = message.Originator.Id;
@@ -21,38 +20,33 @@ namespace WOLF.Net.Entities.Messages
             this.Timestamp = message.Timestamp;
         }
 
-        /// <summary>
-        /// Interal use only
-        /// </summary>
-        private WolfBot Bot { get; set; }
+        public Guid Id { get;set; }
 
-        public Guid Id { get; private set; }
+        public string Content { get;set; }
 
-        public string Content { get; private set; }
-
-        public int UserId { get; private set; }
+        public int UserId { get;set; }
 
         public int? GroupId => MessageType == MessageType.Group ? (int?)ReturnAddress : null;
 
-        public int ReturnAddress { get; private set; }
+        public int ReturnAddress { get;set; }
 
         /// <summary>
         /// Contains the timestamp and User id of the account that edited or deleted the message
         /// </summary>
-        public MessageEdit Edited { get; private set; }
+        public MessageEdit Edited { get;set; }
 
         /// <summary>
         /// Contains the IsSpam, IsDeleted, IsEdited data (Normally Null)
         /// </summary>
-        public MessageMetadata Metadata { get; private set; }
+        public MessageMetadata Metadata { get;set; }
 
-        public MessageType MessageType { get; private set; }
+        public MessageType MessageType { get;set; }
 
-        public ContentType ContentType { get; private set; }
+        public ContentType ContentType { get;set; }
 
-        public string FlightId { get; private set; }
+        public string FlightId { get;set; }
 
-        public long Timestamp { get; private set; }
+        public long Timestamp { get;set; }
 
         #region
 

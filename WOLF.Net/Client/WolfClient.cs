@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SocketIOClient;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Client
 {
@@ -47,7 +48,16 @@ namespace WOLF.Net.Client
 
             Socket.OnConnected += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNCETED);
 
-            Socket.OnDisconnected += (sender, eventArgs) => Bot.On.Emit(InternalEvent.DISCONNECTED);
+            Socket.OnDisconnected += (sender, eventArgs) =>
+            {
+                Bot.Achievements.Clear();
+                Bot.Charms.Clear();
+                Bot.Subscribers.Clear();
+                Bot.Groups.Clear();
+                Bot.CurrentSubscriber = default;
+
+                Bot.On.Emit(InternalEvent.DISCONNECTED);
+            };
 
             Socket.OnError += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNECTION_ERROR);
 
@@ -82,14 +92,19 @@ namespace WOLF.Net.Client
             {
                 await Socket.EmitAsync(
                     command,
-                    response =>
+                    resp =>
                     {
                         if (result.Task.IsCompleted)
                             return;
 
                         try
                         {
-                            result.SetResult(response.GetValue<Response<T>>());
+                            var response = resp.GetValue<Response<T>>();
+
+                            if (response.Headers != null && response.Headers.ContainsKey("subCode"))
+                                response.Headers.Add("message", command.ToErrorMessage(int.Parse("subCode"), response.Headers.ContainsKey("subMessage") ? response.Headers["subMessage"] : ""));
+
+                            result.SetResult(response);
                         }
                         catch (Exception d)
                         {
@@ -134,14 +149,19 @@ namespace WOLF.Net.Client
             {
                 await Socket.EmitAsync(
                     command,
-                    response =>
+                    resp =>
                     {
                         if (result.Task.IsCompleted)
                             return;
 
                         try
                         {
-                            result.SetResult(response.GetValue<Response>());
+                            var response = resp.GetValue<Response>();
+
+                            if (response.Headers != null && response.Headers.ContainsKey("subCode"))
+                                response.Headers.Add("message", command.ToErrorMessage(int.Parse("subCode"), response.Headers.ContainsKey("subMessage") ? response.Headers["subMessage"] : ""));
+
+                            result.SetResult(response);
                         }
                         catch (Exception d)
                         {

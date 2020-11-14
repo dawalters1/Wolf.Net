@@ -10,9 +10,16 @@ namespace WOLF.Net.Client.Events.Handlers
     {
         public override string Command => Event.GROUP_AUDIO_CONFIGURATION_UPDATE;
 
-        public override void HandleAsync(GroupAudioConfiguration data)
+        public override async void HandleAsync(GroupAudioConfiguration data)
         {
-            throw new NotImplementedException();
+            var group = await Bot.GetGroupAsync(data.Id);
+
+            if (group == null)
+                return;
+
+            group.AudioConfiguration = data;
+
+            Bot.On.Emit(Command, group, data);
         }
     }
 }

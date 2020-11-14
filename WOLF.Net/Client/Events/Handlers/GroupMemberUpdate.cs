@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.Groups.Subscribers;
@@ -10,9 +11,18 @@ namespace WOLF.Net.Client.Events.Handlers
     {
         public override string Command => Event.GROUP_MEMBER_UPDATE;
 
-        public override void HandleAsync(GroupSubscriberUpdate data)
+        public override async void HandleAsync(GroupSubscriberUpdate data)
         {
-            throw new NotImplementedException();
+            var group = await Bot.GetGroupAsync(data.GroupId);
+
+            if (group == null || !group.InGroup)
+                return;
+
+            if (group.Users.Count > 0)
+                group.Users.FirstOrDefault(r => r.Id == data.SubscriberId).Capabilities = data.Capabilities;
+
+            if (data.SubscriberId == Bot.CurrentSubscriber.Id)
+                group.MyCapabilities = data.Capabilities;
         }
     }
 }

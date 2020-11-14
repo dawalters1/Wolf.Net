@@ -8,15 +8,15 @@ namespace WOLF.Net.Entities.Messages.Tipping
     public class Tip
     {
         [JsonProperty("charmList")]
-        public List<TipCharm> CharmList { get; private set; }
+        public List<TipCharm> CharmList { get;set; }
 
         [JsonProperty("groupId")]
-        public int GroupId { get; private set; }
+        public int GroupId { get;set; }
 
         [JsonProperty("sourceSubscriberId")]
-        public int SourceSubscriberId { get; private set; }
+        public int SourceSubscriberId { get;set; }
 
         [JsonProperty("subscriberId")]
-        public int SubscriberId { get; private set; }
+        public int SubscriberId { get;set; }
     }
 }

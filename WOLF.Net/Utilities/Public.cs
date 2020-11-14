@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WOLF.Net.Utilities
@@ -104,6 +105,28 @@ namespace WOLF.Net.Utilities
                 nickname = nickname.TrimStart('[').TrimEnd(']');
 
             return Regex.Replace(nickname, @"\[.*?\]", string.Empty);
+        }
+
+        public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, double timeoutInMilliseconds = 60000)
+        {
+            if (timeoutInMilliseconds == Timeout.Infinite)
+                return await task;
+
+            else if (task == await Task.WhenAny(task, Task.Delay((int)timeoutInMilliseconds)))
+                return await task;
+            else
+                throw new TimeoutException();
+
+        }
+
+        public static async Task TimeoutAfter(this Task task, double timeoutInMilliseconds = 60000)
+        {
+            if (timeoutInMilliseconds == Timeout.Infinite)
+                await task;
+            else if (task == await Task.WhenAny(task, Task.Delay((int)timeoutInMilliseconds)))
+                await task;
+            else
+                throw new TimeoutException();
         }
     }
 }

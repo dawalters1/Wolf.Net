@@ -11,9 +11,13 @@ namespace WOLF.Net.Client.Events.Handlers
     {
         public override string Command => Event.SUBSCRIBER_CONTACT_ADD;
 
-        public override void HandleAsync(ContactUpdate data)
+        public override async void HandleAsync(ContactUpdate data)
         {
-            throw new NotImplementedException();
+            var subscriber = await Bot.GetSubscriberAsync(data.Id);
+
+            Bot.ProcessContact(new Contact(subscriber, false));
+
+            Bot.On.Emit(Command, subscriber);
         }
     }
 }

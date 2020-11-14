@@ -17,18 +17,18 @@ namespace WOLF.Net.Entities.Messages.Tipping
         }
 
         [JsonProperty("id")]
-        public int Id { get; private set; }
+        public int Id { get;set; }
 
         [JsonProperty("quantity")]
-        public int Quantitiy { get; private set; }
+        public int Quantitiy { get;set; }
 
         [JsonProperty("credits")]
-        public int Credits { get; private set; }
+        public int Credits { get;set; }
 
         [JsonProperty("magnitude")]
-        public int Magnitude { get; private set; }
+        public int Magnitude { get;set; }
 
         [JsonProperty("subscriber")]
-        public IdHash Subscriber { get; private set; }
+        public IdHash Subscriber { get;set; }
     }
 }

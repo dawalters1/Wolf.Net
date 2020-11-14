@@ -12,6 +12,9 @@ namespace WOLF.Net.Entities.Groups
 {
     public class Group
     {
+        [JsonIgnore]
+        public Action Updated = delegate { };
+
         internal Group() { }
 
         internal Group(int groupId)
@@ -109,6 +112,10 @@ namespace WOLF.Net.Entities.Groups
             Peekable = group.Peekable;
             Members = group.Members;
             Extended = group.Extended;
+
+            Exists = true;
+
+            Updated();
         }
     }
 

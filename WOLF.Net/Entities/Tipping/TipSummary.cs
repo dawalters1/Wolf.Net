@@ -11,12 +11,12 @@ namespace WOLF.Net.Entities.Messages.Tipping
         public TipSummary() { }
 
         [JsonProperty("id")]
-        public long Id { get; private set; }
+        public long Id { get;set; }
 
         [JsonProperty("charmList")]
-        public List<TipCharm> CharmList { get; private set; }
+        public List<TipCharm> CharmList { get;set; }
    
         [JsonProperty("version")]
-        public int Version { get; private set; }
+        public int Version { get;set; }
     }
 }

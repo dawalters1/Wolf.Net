@@ -7,6 +7,30 @@ namespace WOLF.Net.Utilities
 {
     internal static class Internal
     {
+        internal static string ToErrorMessage(this string eventString, int subCode, string subMessage = null)
+        {
+            return (subCode) switch
+            {
+                0 => "No such user",
+                2 => $"TOS VIOLATIONS - {subMessage}",
+                8 => "Group name already exists",
+                9 => "Group name not allowed",
+                15 => "Group name must be atleast 3 characters",
+                4 => "Higher level required",
+                100 => "Group full",
+                101 => "Maximum permitted number of groups",
+                105 => "Group doesn't exist",
+                107 => "Banned",
+                112 => "Restricted to new users",
+                115 => "Group locked",
+                116 => "Too many accounts",
+                117 => "Game join only",
+                110 => "Already in group",
+                1 => eventString.IsEqual("security login") ? "Incorrect login information" : eventString.IsEqual("group member add") ? "Incorrect Password" : "Not in group, silenced or banned",
+                _ => $"Request {eventString} failed with ({subCode})"
+            };
+        }
+
         public static IEnumerable<T> Union<T>(this IEnumerable<T> data, params T[] objs)
         {
             foreach (var item in data)
