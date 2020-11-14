@@ -37,5 +37,7 @@ namespace WOLF.Net.Constants
         public const string READY = "ready";
 
         public const string PERMISSIONS_FAILED = "permissions failed";
+
+        public const string PRIVATE_MESSAGE_ACCEPT_RESPONSE = "private message accept response";
     }
 }

@@ -54,7 +54,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="groupId">The id of the group</param>
         /// <returns></returns>
-        public async Task<List<GroupSubscriber>> GroupSubscribersListAsync(int groupId)
+        public async Task<List<GroupSubscriber>> GetGroupSubscribersListAsync(int groupId)
         {
             var group = await GetGroupAsync(groupId);
 

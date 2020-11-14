@@ -98,7 +98,7 @@ namespace WOLF.Net
 
         public async Task<Response<Message>> DeleteMessageAsync(Message message)
         {
-            return await DeleteMessageAsync(message.ReturnAddress, message.Timestamp, message.IsGroup);
+            return await DeleteMessageAsync(message.SourceTargetId, message.Timestamp, message.IsGroup);
         }
 
         public async Task<Response<Message>> RestoreMessageAsync(int targetId, long targetTimestamp, bool isGroup = true)
@@ -122,7 +122,7 @@ namespace WOLF.Net
   
         public async Task<Response<Message>> RestoreMessageAsync(Message message)
         {
-            return await RestoreMessageAsync(message.ReturnAddress, message.Timestamp, message.IsGroup);
+            return await RestoreMessageAsync(message.SourceTargetId, message.Timestamp, message.IsGroup);
         }
 
         public async Task<Message> SubscribeToNextMessageAsync(Func<Message, bool> func)
@@ -146,17 +146,17 @@ namespace WOLF.Net
 
         public async Task<Message> SubscribeToNextGroupMessageAsync(int groupId, double timeout = Timeout.Infinite)
         {
-            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Group && r.ReturnAddress == groupId).TimeoutAfter(timeout);
+            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Group && r.SourceTargetId == groupId).TimeoutAfter(timeout);
         }
 
         public async Task<Message> SubscribeToNextPrivateMessageAsync(int userId, double timeout = Timeout.Infinite)
         {
-            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Private && r.UserId == userId).TimeoutAfter(timeout);
+            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Private && r.SourceSubscriberId == userId).TimeoutAfter(timeout);
         }
 
         public async Task<Message> SubscribeToNextGroupUserMessageAsync(int userId, int groupId, double timeout = Timeout.Infinite)
         {
-            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Group && r.ReturnAddress == groupId && r.UserId == userId).TimeoutAfter(timeout);
+            return await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.Group && r.SourceTargetId == groupId && r.SourceSubscriberId == userId).TimeoutAfter(timeout);
         }
 
         public async Task<Response<LinkMetadata>> LinkMetadataAsync(Uri uri)
@@ -202,7 +202,7 @@ namespace WOLF.Net
             if (message.MessageType != MessageType.Group)
                 return new Response<List<Message>>() { Code = 400, Body = default, Headers = new Dictionary<string, string>() { { "error", "You cannot request group message history from a private message" } } };
 
-            return await GetGroupMessageHistoryAsync(message.ReturnAddress, timestamp);
+            return await GetGroupMessageHistoryAsync(message.SourceTargetId, timestamp);
         }
 
         public async Task<Response<List<Message>>> GetPrivateMessageHistoryAsync(int subscriberId, long timestamp = 0)
@@ -233,7 +233,7 @@ namespace WOLF.Net
             if (message.MessageType != MessageType.Private)
                 return new Response<List<Message>>() { Code = 400, Body = default, Headers = new Dictionary<string, string>() { { "error", "You cannot request private message history from a group message" } } };
 
-            return await GetPrivateMessageHistoryAsync(message.ReturnAddress, timestamp);
+            return await GetPrivateMessageHistoryAsync(message.SourceTargetId, timestamp);
         }
     }
 }

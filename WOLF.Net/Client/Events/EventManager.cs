@@ -12,6 +12,7 @@ using WOLF.Net.Entities.Messages;
 using WOLF.Net.Entities.Messages.Tipping;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Constants;
+using Newtonsoft.Json;
 
 namespace WOLF.Net.Client.Events
 {
@@ -125,7 +126,7 @@ namespace WOLF.Net.Client.Events
         /// <summary>
         /// The websocket has received a packet
         /// </summary>
-        public Action<object> PacketReceived = delegate { };
+        public Action<string, object> PacketReceived = delegate { };
 
         /// <summary>
         /// The websocket has sent a packet
@@ -151,7 +152,7 @@ namespace WOLF.Net.Client.Events
         /// <summary>
         /// A user tried to use a command they dont have the permissions to use
         /// </summary>
-       // public Action<FailedPermissionsReport> PermissionFailed = delegate { };
+        public Action<FailedPermission> PermissionFailed = delegate { };
 
         #endregion
 
@@ -226,15 +227,16 @@ namespace WOLF.Net.Client.Events
                 [Event.GROUP_MEMBER_UPDATE] = (a, b) => GroupMemberUpdated((Group)a, (GroupAction)b),
                 [Event.SUBSCRIBER_UPDATE] = (a, b) => UserUpdated((Subscriber)a),
                 [InternalEvent.LOG] = (a, b) => Log((string)a),
-                [InternalEvent.PACKET_RECEIVED] = (a, b) => PacketReceived(a),
+                [InternalEvent.PACKET_RECEIVED] = (a, b) => PacketReceived((string)a, b),
                 [InternalEvent.PACKET_SENT] = (a, b) => PacketSent((string)a, b),
-              //  [InternalEvent.PERMISSIONS_FAILED] = (a, b) => PermissionFailed((FailedPermissionsReport)a),
+                [InternalEvent.PERMISSIONS_FAILED] = (a, b) => PermissionFailed((FailedPermission)a),
                 [Event.PRESENCE_UPDATE] = (a, b) => PresenceUpdate((Subscriber)a, (PresenceUpdate)b),
                 [Request.SUBSCRIBER_CONTACT_ADD] = (a, b) => ContactAdded((Subscriber)a),
                 [Request.SUBSCRIBER_CONTACT_DELETE] = (a, b) => ContactRemoved((Subscriber)a),
                 [Request.SUBSCRIBER_BLOCK_ADD] = (a, b) => UserBlocked((Subscriber)a),
                 [Request.SUBSCRIBER_BLOCK_DELETE] = (a, b) => UserUnblocked((Subscriber)a),
-                [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a)
+                [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
+                [InternalEvent.PING]= (a, b) => { },
             };
         }
 
@@ -249,6 +251,8 @@ namespace WOLF.Net.Client.Events
             }
             catch (Exception d)
             {
+                Console.WriteLine($"{d.ToString()}\nArg1: {JsonConvert.SerializeObject(arg1, Formatting.Indented)}\nArg2: {JsonConvert.SerializeObject(arg2, Formatting.Indented)}");
+
                 _events[InternalEvent.LOG]($"Event \"{name}\" error ", d);
             }
         }

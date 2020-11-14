@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Misc;
 
 namespace WOLF.Net.Client.Events.Handlers
@@ -14,6 +15,10 @@ namespace WOLF.Net.Client.Events.Handlers
         public override async void HandleAsync(IdHash data)
         {
             Bot.On.Emit(Command, await Bot.GetGroupAsync(data.Id, data.Hash != Bot.Groups.FirstOrDefault(r => r.Id == data.Id).Hash));
+        }
+        public override void Register()
+        {
+            Client.On<Response<IdHash>>(Command, resp => HandleAsync(resp.Body));
         }
     }
 }

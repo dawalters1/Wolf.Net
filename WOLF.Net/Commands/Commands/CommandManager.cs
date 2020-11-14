@@ -15,16 +15,16 @@ namespace WOLF.Net.Commands.Commands
 {
     public class CommandManager
     {
-        private WolfBot Bot { get; set; } = new WolfBot();
+        private WolfBot Bot;
 
         //House the CommandCollection and its Children
         private Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> _commands = new Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>>();
 
-        public CommandManager()
+        public CommandManager(WolfBot bot)
         {
-            var collections = typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>()));
+            Bot = bot;
 
-            Console.WriteLine(collections.Count());
+            var collections = typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>()));
 
             foreach (var collection in collections)
                 _commands.Add(collection, collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList());
@@ -38,7 +38,7 @@ namespace WOLF.Net.Commands.Commands
             {
                 var trigger = collection.Key.Value.Trigger;
 
-                var phrases = Bot.Phrase().GetAllByKey(trigger);
+                var phrases = Bot.GetAllPhrasesByName(trigger);
 
                 if (phrases.Count > 0)
                 {
@@ -73,11 +73,11 @@ namespace WOLF.Net.Commands.Commands
 
                 if (data.IsTranslation)
                 {
-                    var phrase = Bot.Phrase().GetByName(trigger, data.Language);
+                    var phrase = Bot.GetPhraseByName(data.Language, trigger);
 
                     if (phrase != null)
                     {
-                        matches.Add(new MethodInstance<Command>(command.Type, command.Value.Clone(phrase.Value)));
+                        matches.Add(new MethodInstance<Command>(command.Type, command.Value.Clone(phrase)));
                         continue;
                     }
                 }
@@ -96,7 +96,7 @@ namespace WOLF.Net.Commands.Commands
 
         public async void ProcessMessage(Message message)
         {
-            var commandData = new CommandData(message.SourceSubscriberId, message.SourceTargetId, message.Content, message.MessageType == Enums.Messages.MessageType.Group);
+            var commandData = new CommandData( message.SourceTargetId, message.SourceSubscriberId, message.Content, message.MessageType == Enums.Messages.MessageType.Group);
 
             //Lets get a matching collection based on data in the message
             var collection = GetMatchingCollection(commandData);
@@ -109,9 +109,9 @@ namespace WOLF.Net.Commands.Commands
 
             commandData.Language = collection.Key.Value.Language;
 
-            commandData.Subscriber = await Bot.Subscriber().GetById(message.SourceSubscriberId);
+            commandData.Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId);
 
-            commandData.Group = commandData.IsGroup ? await Bot.Group().GetById(message.SourceTargetId):null;
+            commandData.Group = commandData.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId):null;
 
             //Check to see if all provided data passes the validation checks
             if (collection.Key.Attributes.Any(r => !r.Validate(Bot, commandData)))
@@ -150,6 +150,7 @@ namespace WOLF.Net.Commands.Commands
             var i = (CommandContext)Activator.CreateInstance(type);
 
             i.Command = commandData;
+            i.Bot = Bot;
 
             command.Type.Invoke(i, null);
         }

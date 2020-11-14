@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Contacts;
 using WOLF.Net.Entities.Misc;
 
@@ -20,6 +21,10 @@ namespace WOLF.Net.Client.Events.Handlers
                 Bot.Contacts.RemoveAll(r => r.Id == data.Id);
 
             Bot.On.Emit(Command, subscriber);
+        }
+        public override void Register()
+        {
+            Client.On<Response<ContactUpdate>>(Command, resp => HandleAsync(resp.Body));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WOLF.Net.Entities.API;
 
 namespace WOLF.Net.Client.Events
 {
@@ -12,10 +13,7 @@ namespace WOLF.Net.Client.Events
 
         public WolfClient Client { get; set; }
 
-        public void Register()
-        {
-            Client.On<T>(Command, resp => HandleAsync(resp));
-        }
+        public abstract void Register();
 
         public abstract void HandleAsync(T data);
     }

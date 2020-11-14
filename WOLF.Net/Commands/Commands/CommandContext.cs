@@ -10,6 +10,7 @@ namespace WOLF.Net.Commands.Commands
     {
 		//public WolfClient Client { get; set; }
 
+		public WolfBot Bot { get; set; }
 		public CommandData Command { get; set; }
 
 	}

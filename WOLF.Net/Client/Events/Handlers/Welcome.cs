@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(Entities.API.Welcome data)
         {
+            Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+
             if (data.LoggedInUser == null)
             {
                 var result = await Bot.InternalLoginAsync();
@@ -36,7 +39,6 @@ namespace WOLF.Net.Client.Events.Handlers
         {
             try
             {
-
                 await Bot.GetJoinedGroupsAsync(true);
 
                 Bot.CurrentSubscriber = await Bot.GetSubscriberAsync(Bot.CurrentSubscriber.Id);
@@ -53,6 +55,11 @@ namespace WOLF.Net.Client.Events.Handlers
             {
                 Bot.On.Emit(InternalEvent.INTERNAL_ERROR, d.ToString());
             }
+        }
+
+        public override void Register()
+        {
+            Client.On<Entities.API.Welcome>(Command, resp => HandleAsync(resp));
         }
     }
 }

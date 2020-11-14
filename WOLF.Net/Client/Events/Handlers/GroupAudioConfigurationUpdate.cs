@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Groups.Stages;
 
 namespace WOLF.Net.Client.Events.Handlers
@@ -20,6 +21,10 @@ namespace WOLF.Net.Client.Events.Handlers
             group.AudioConfiguration = data;
 
             Bot.On.Emit(Command, group, data);
+        }
+        public override void Register()
+        {
+            Client.On<Response<GroupAudioConfiguration>>(Command, resp => HandleAsync(resp.Body));
         }
     }
 }

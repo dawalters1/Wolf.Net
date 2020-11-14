@@ -5,7 +5,7 @@
   },
   "projects": {
     "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "1.0.0",
+      "version": "4.0.0",
       "restore": {
         "projectUniqueName": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
@@ -44,7 +44,7 @@
             },
             "SocketIoClient": {
               "target": "Package",
-              "version": "[2.0.2.9, )"
+              "version": "[2.1.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",

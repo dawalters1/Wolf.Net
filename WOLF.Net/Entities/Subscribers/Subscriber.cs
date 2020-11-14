@@ -56,18 +56,12 @@ namespace WOLF.Net.Entities.Subscribers
         public DeviceType DeviceType { get; set; }
 
         [JsonProperty("privileges")]
-        public long Privileges
-        {
-            get { return (int)PrivilegeTags; }
-            set { PrivilegeTags = (Privilege)value; }
-        }
+        public Privilege Privileges { get; set; }
 
         [JsonProperty("extended")]
         public Extended Extended { get; set; }
 
-        [JsonIgnore]
-        public Privilege PrivilegeTags { get; set; }
-
+    
         [JsonIgnore]
         public bool Exists { get; private set; } = true;
 

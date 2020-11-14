@@ -56,7 +56,7 @@ namespace WOLF.Net.Entities.Contacts
         public OnlineState OnlineState { get; set; }
 
         [JsonProperty("privileges")]
-        public long Privileges { get; set; }
+        public Privilege Privileges { get; set; }
 
         internal void Update(OnlineState onlineState)
         {

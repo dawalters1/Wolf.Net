@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Enums.API;
+using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Entities.API
 {
@@ -18,14 +19,17 @@ namespace WOLF.Net.Entities.API
 
         public LoginType LoginType { get; set; }
 
+        public OnlineState OnlineState { get; set; }
+
         public string Token { get; }
 
-        public LoginData(string email, string password, LoginDevice loginDevice, LoginType loginType)
+        public LoginData(string email, string password, LoginDevice loginDevice, LoginType loginType, OnlineState onlineState)
         {
             Email = email;
             Password = password;
             LoginDevice = loginDevice;
             LoginType = loginType;
+            OnlineState = onlineState;
             Token = GenerateToken();
         }
 

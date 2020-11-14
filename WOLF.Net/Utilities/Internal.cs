@@ -7,6 +7,8 @@ namespace WOLF.Net.Utilities
 {
     internal static class Internal
     {
+        internal static bool HasProperty(this object obj, string propertyName) =>  obj.GetType().GetProperty(propertyName) != null;
+
         internal static string ToErrorMessage(this string eventString, int subCode, string subMessage = null)
         {
             return (subCode) switch

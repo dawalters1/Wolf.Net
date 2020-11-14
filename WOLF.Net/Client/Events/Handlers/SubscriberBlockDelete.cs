@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Contacts;
 
 namespace WOLF.Net.Client.Events.Handlers
@@ -20,6 +21,9 @@ namespace WOLF.Net.Client.Events.Handlers
 
             Bot.On.Emit(Command, subscriber);
         }
-
+        public override void Register()
+        {
+            Client.On<Response<ContactUpdate>>(Command, resp => HandleAsync(resp.Body));
+        }
     }
 }

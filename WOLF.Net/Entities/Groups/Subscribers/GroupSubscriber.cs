@@ -44,7 +44,7 @@ namespace WOLF.Net.Entities.Groups.Subscribers
         public string Nickname { get; set; }
 
         [JsonProperty("privileges")]
-        public long Privileges { get; set; }
+        public Privilege Privileges { get; set; }
 
         [JsonProperty("onlineState")]
         public OnlineState OnlineState { get; set; }

@@ -32,9 +32,9 @@ namespace WOLF.Net
             return phrase.Value;
         }
 
-        public List<string> GetAllPhrasesByLanguageAndName(string language, string name) => Phrases.Where(r => r.Language.IsEqual(language) && r.Name.IsEqual(name)).Select(r => r.Value).ToList();
+        public List<Phrase> GetAllPhrasesByLanguageAndName(string language, string name) => Phrases.Where(r => r.Language.IsEqual(language) && r.Name.IsEqual(name)).ToList();
 
-        public List<string> GetAllPhrasesByName(string name) => Phrases.Where(r => r.Name.IsEqual(name)).Select(r=>r.Value).ToList();
+        public List<Phrase> GetAllPhrasesByName(string name) => Phrases.Where(r => r.Name.IsEqual(name)).ToList();
 
         public bool IsRequestedPhrase(string name, string value) => Phrases.Any(r => r.Value.IsEqual(value) && r.Name.IsEqual(name));
 

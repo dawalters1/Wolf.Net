@@ -11,8 +11,8 @@ namespace WOLF.Net.Entities.Messages
         {
             this.Id = message.Id;
             this.Content = Encoding.UTF8.GetString(message.Data);
-            this.UserId = message.Originator.Id;
-            this.ReturnAddress = message.IsGroup ? message.Recipient.Id : message.Originator.Id;
+            this.SourceSubscriberId = message.Originator.Id;
+            this.SourceTargetId = message.IsGroup ? message.Recipient.Id : message.Originator.Id;
             this.Edited = message.Edited;
             this.Metadata = message.Metadata;
             this.MessageType = message.IsGroup ? MessageType.Group : MessageType.Private;
@@ -24,11 +24,9 @@ namespace WOLF.Net.Entities.Messages
 
         public string Content { get;set; }
 
-        public int UserId { get;set; }
+        public int SourceSubscriberId { get;set; }
 
-        public int? GroupId => MessageType == MessageType.Group ? (int?)ReturnAddress : null;
-
-        public int ReturnAddress { get;set; }
+        public int SourceTargetId { get; set; }
 
         /// <summary>
         /// Contains the timestamp and User id of the account that edited or deleted the message

@@ -49,7 +49,7 @@ namespace WOLF.Net
             if (message.MessageType != MessageType.Group)
                 return new Response() { Code = 400, Headers = new Dictionary<string, string>() { { "error", "You currently cannot tip in pm" } } };
 
-            return await AddTip(message.UserId, message.ReturnAddress, message.Timestamp, ContextType.Message, charmList);
+            return await AddTip(message.SourceSubscriberId, message.SourceTargetId, message.Timestamp, ContextType.Message, charmList);
         }
 
         public async Task<Response<TipDetail>> GetTipDetails(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0)
@@ -69,7 +69,7 @@ namespace WOLF.Net
             if (message.MessageType != MessageType.Group)
                 return new Response<TipDetail>() { Code = 400, Body = default, Headers = new Dictionary<string, string>() { { "error", "You currently cannot tip in pm" } } };
 
-            return await GetTipDetails(message.ReturnAddress, message.Timestamp, ContextType.Message, limit, offset);
+            return await GetTipDetails(message.SourceTargetId, message.Timestamp, ContextType.Message, limit, offset);
         }
 
         public async Task<Response<TipSummary>> GetTipSummary(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0)
@@ -89,7 +89,7 @@ namespace WOLF.Net
             if (message.MessageType != MessageType.Group)
                 return new Response<TipSummary>() { Code = 400, Body = default, Headers = new Dictionary<string, string>() { { "error", "You currently cannot tip in pm" } } };
 
-            return await GetTipSummary(message.ReturnAddress, message.Timestamp, ContextType.Message, limit, offset);
+            return await GetTipSummary(message.SourceTargetId, message.Timestamp, ContextType.Message, limit, offset);
         }
 
         public async Task<Response<TipLeaderboardSummary>> GetGroupLeaderboardSummary(int groupId, TipPeriod tipPeriod = TipPeriod.Day, TipType tipType = TipType.Subscriber, TipDirection tipDirection = TipDirection.Sent)

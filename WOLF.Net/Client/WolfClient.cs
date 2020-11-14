@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SocketIOClient;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
@@ -14,37 +15,50 @@ namespace WOLF.Net.Client
     {
         public WolfBot Bot { get; private set; }
 
-        public SocketIO Socket { get; private set; }
+        public SocketIO Socket { get; internal set; }
 
-        public string Host { get; set; } = "";
+        public string Host { get; set; } = "https://v3-rc.palringo.com";
 
         public int Port { get; set; } = 3051;
 
+
         public bool Reconnection = true;
 
+
         public double ReconnectionDelay = 1000;
+
 
         public double ConnectionTimeout = 15000;
 
         public WolfClient(WolfBot bot)
         {
             Bot = bot;
+
+            //Continue to ignore this, because the socket I am using doesnt care to ignore nulls.
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
         }
 
-        public async void CreateSocket(LoginData loginData)
+        public async Task CreateSocket()
         {
             Socket = new SocketIO($"{Host}:{Port}", new SocketIOOptions()
             {
                 AllowedRetryFirstConnection = true,
                 ConnectionTimeout = TimeSpan.FromMilliseconds(ConnectionTimeout),
-                Reconnection = true,
-                ReconnectionDelay = 1000,
+                Reconnection = Reconnection,
+                ReconnectionDelay = (int)ReconnectionDelay,
                 Query = new Dictionary<string, string>()
                 {
-                    ["token"] = loginData.Token,
-                    ["device"] = loginData.LoginDevice.ToString().ToLower()
+                    ["token"] = Bot.LoginData.Token,
+                    ["device"] = Bot.LoginData.LoginDevice.ToString().ToLower(),
+                    ["state"] = ((int)Bot.LoginData.OnlineState).ToString()
                 }
             });
+
+            Bot.On.RegisterEvents(Bot);
 
             Socket.OnConnected += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNCETED);
 
@@ -67,14 +81,7 @@ namespace WOLF.Net.Client
 
             Socket.OnReconnecting += (sender, eventArgs) => Bot.On.Emit(InternalEvent.RECONNECTING);
 
-            try
-            {
-                await Socket.ConnectAsync();
-            }
-            catch(Exception d)
-            {
-            //
-            }
+            await Socket.ConnectAsync();
         }
 
         public void On<T>(string command, Action<T> action)
@@ -84,7 +91,10 @@ namespace WOLF.Net.Client
 
         public async Task<Response<T>> Emit<T>(string command, object data)
         {
-            Bot.On.Emit(InternalEvent.PACKET_SENT, data);
+            if (!data.HasProperty("body") && !data.HasProperty("headers"))
+                data = new { body = data };
+
+            Bot.On.Emit(InternalEvent.PACKET_SENT, command, data);
 
             var result = new TaskCompletionSource<Response<T>>();
 
@@ -141,7 +151,10 @@ namespace WOLF.Net.Client
 
         public async Task<Response> Emit(string command, object data)
         {
-            Bot.On.Emit(InternalEvent.PACKET_SENT, data);
+            if (!data.HasProperty("body") && !data.HasProperty("headers"))
+                data = new { body = data };
+
+            Bot.On.Emit(InternalEvent.PACKET_SENT, command, data);
 
             var result = new TaskCompletionSource<Response>();
 

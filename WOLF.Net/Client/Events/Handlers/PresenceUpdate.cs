@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Subscribers;
 
 namespace WOLF.Net.Client.Events.Handlers
@@ -24,6 +25,10 @@ namespace WOLF.Net.Client.Events.Handlers
                 Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id).Update(data);
 
             Bot.On.Emit(Command, await Bot.GetSubscriberAsync(data.Id), data);
+        }
+        public override void Register()
+        {
+            Client.On<Response<Entities.Subscribers.PresenceUpdate>>(Command, resp => HandleAsync(resp.Body));
         }
     }
 }

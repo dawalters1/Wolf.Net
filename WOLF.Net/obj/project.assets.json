@@ -47,11 +47,12 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.0.2.9": {
+      "SocketIOClient/2.1.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
-          "System.Collections": "4.3.0"
+          "System.Collections": "4.3.0",
+          "WebSocketSharp-netstandard": "1.0.1"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
@@ -102,6 +103,15 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {}
+        }
+      },
+      "WebSocketSharp-netstandard/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       }
     }
@@ -199,16 +209,18 @@
         "packageIcon.png"
       ]
     },
-    "SocketIOClient/2.0.2.9": {
-      "sha512": "JaKKhlMB6UfWDzwf4GGiEVpalZYioyW9KXoASQykKM3y+mkyhXWFZRSMvRq/kXcBWmllblkERnRDyxABylXWQA==",
+    "SocketIOClient/2.1.1": {
+      "sha512": "f4t8NfIMjEAVNhSva9woblJmg5+mE4q6Be0qFrtJssuZr0tcoTVwUbAUXKNhSjNEoJZuNEtD2oc2irBzgzvgDA==",
       "type": "package",
-      "path": "socketioclient/2.0.2.9",
+      "path": "socketioclient/2.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net45/SocketIOClient.dll",
+        "lib/net45/SocketIOClient.xml",
         "lib/netstandard2.0/SocketIOClient.dll",
         "lib/netstandard2.0/SocketIOClient.xml",
-        "socketioclient.2.0.2.9.nupkg.sha512",
+        "socketioclient.2.1.1.nupkg.sha512",
         "socketioclient.nuspec"
       ]
     },
@@ -410,12 +422,29 @@
         "system.runtime.4.3.0.nupkg.sha512",
         "system.runtime.nuspec"
       ]
+    },
+    "WebSocketSharp-netstandard/1.0.1": {
+      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
+      "type": "package",
+      "path": "websocketsharp-netstandard/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/websocket-sharp.dll",
+        "lib/net35/websocket-sharp.xml",
+        "lib/net45/websocket-sharp.dll",
+        "lib/net45/websocket-sharp.xml",
+        "lib/netstandard2.0/websocket-sharp.dll",
+        "lib/netstandard2.0/websocket-sharp.xml",
+        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
+        "websocketsharp-netstandard.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Newtonsoft.Json >= 12.0.3",
-      "SocketIoClient >= 2.0.2.9",
+      "SocketIoClient >= 2.1.1",
       "System.Drawing.Common >= 4.7.0"
     ]
   },
@@ -423,7 +452,7 @@
     "C:\\Users\\David Walters\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "4.0.0",
     "restore": {
       "projectUniqueName": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
       "projectName": "WOLF.Net",
@@ -462,7 +491,7 @@
           },
           "SocketIoClient": {
             "target": "Package",
-            "version": "[2.0.2.9, )"
+            "version": "[2.1.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

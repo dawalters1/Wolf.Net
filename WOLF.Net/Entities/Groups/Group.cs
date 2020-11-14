@@ -112,6 +112,7 @@ namespace WOLF.Net.Entities.Groups
             Peekable = group.Peekable;
             Members = group.Members;
             Extended = group.Extended;
+            Owner = group.Owner;
 
             Exists = true;
 

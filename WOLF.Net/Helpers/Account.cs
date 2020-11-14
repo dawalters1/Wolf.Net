@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Contacts;
+using WOLF.Net.Entities.Groups;
 using WOLF.Net.Enums.Subscribers;
 using WOLF.Net.Utilities;
 
@@ -20,6 +21,34 @@ namespace WOLF.Net
     public partial class WolfBot
     {
         public List<Contact> Contacts = new List<Contact>();
+
+        public async Task<List<Group>> GetJoinedGroupsAsync(bool requestNew = false)
+        {
+            if (Groups.Where(r => r.InGroup).Count() > 0 && !requestNew)
+                return Groups.Where(r => r.InGroup).ToList();
+
+            var joinedGroups = await WolfClient.Emit<List<SubscriberGroup>>(Request.SUBSCRIBER_GROUP_LIST, new 
+            { 
+                subscribe = true 
+            });
+
+            if (joinedGroups.Success)
+            {
+                var groups = await GetGroupsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
+
+                foreach (var group in groups)
+                {
+                    group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
+                    group.InGroup = true;
+                    if (requestNew && group.Users.Count > 0)
+                        await GetGroupSubscribersListAsync(group.Id);
+                }
+
+                return groups;
+            }
+            else
+                return new List<Group>();
+        }
 
         internal async Task<Response<CurrentSubscriber>> InternalLoginAsync()
         {
@@ -40,7 +69,7 @@ namespace WOLF.Net
             });
         }
 
-        public async Task<Response> LogoutAsync()
+        internal async Task<Response> InternalLogoutAsync()
         {
             return await WolfClient.Emit(Request.SECURITY_LOGOUT, new { });
         }
