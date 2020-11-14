@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Commands.Commands;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
+using WOLF.Net.Entities.Groups.Subscribers;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Subscribers;
 
@@ -16,7 +17,7 @@ namespace WOLF.Net.Commands.Attributes
     {
         private Enums.Groups.Capability _capability = Capability.NotGroupSubscriber;
 
-        private List<Privilege> _privileges { get; set; }
+        private List<Privilege> _privileges { get; set; } = new List<Privilege>();
 
         public RequiredPermissions(Privilege privilege)
         {
@@ -39,13 +40,11 @@ namespace WOLF.Net.Commands.Attributes
         }
 
 
-        public override bool Validate(WolfBot bot, CommandData command)
+        public override async Task<bool> Validate(WolfBot bot, CommandData command)
         {
-            var groupSubscriber = command.Group.Users.FirstOrDefault(r => r.Id == command.SourceSubscriberId);
-
             if (_privileges.Count > 0)
             {
-                bool hasPrivs = _privileges.Any(r => groupSubscriber.AdditionalInfo.Privileges.HasFlag(r));
+                bool hasPrivs = _privileges.Any(r => command.Subscriber.Privileges.HasFlag(r));
 
                 if (hasPrivs)
                     return true;
@@ -54,18 +53,36 @@ namespace WOLF.Net.Commands.Attributes
                 {
                     bot.On.Emit(InternalEvent.PERMISSIONS_FAILED, new FailedPermission()
                     {
+                        SourceTargetId = command.SourceTargetId,
+                        SourceSubscriberId = command.SourceSubscriberId,
                         Language = command.Language,
-                        Privileges = _privileges
+                        Privileges = _privileges ?? new List<Privilege>()
                     });
                     return false;
                 }
             }
 
-            var validateResult = ValidateCapability(groupSubscriber.Capabilities);
+            bool validateResult = true;
+            if (bot.IsAuthorized(command.SourceSubscriberId))
+                return true;
+
+            else if (_capability == Capability.Regular)
+                return true;
+
+            else if (_capability == Capability.Owner)
+                validateResult = command.Group != null && command.SourceSubscriberId == command.Group.Owner.Id;
+            else
+            {
+                await bot.GetGroupSubscribersListAsync(command.SourceTargetId);
+
+                validateResult = ValidateCapability(command.Group.Users.FirstOrDefault(r => r.Id == command.SourceSubscriberId));
+            }
 
             if (!validateResult)
                 bot.On.Emit(InternalEvent.PERMISSIONS_FAILED, new FailedPermission()
                 {
+                    SourceTargetId = command.SourceTargetId,
+                    SourceSubscriberId = command.SourceSubscriberId,
                     Capabilities = _capability,
                     Language = command.Language,
                     Privileges = _privileges ?? new List<Privilege>()
@@ -75,19 +92,22 @@ namespace WOLF.Net.Commands.Attributes
         }
 
 
-        private bool ValidateCapability(Enums.Groups.Capability sourceSubscriberCapability)
+        private bool ValidateCapability(GroupSubscriber groupSubscriber)
         {
+            if (groupSubscriber == null)
+                return false;
+
             switch (_capability)
             {
                 case  Enums.Groups.Capability.Owner:
-                    return sourceSubscriberCapability == Enums.Groups.Capability.Owner;
+                    return groupSubscriber.Capabilities == Enums.Groups.Capability.Owner;
                 case Enums.Groups.Capability.Admin:
-                    return sourceSubscriberCapability == Enums.Groups.Capability.Admin || sourceSubscriberCapability == Enums.Groups.Capability.Owner;
+                    return groupSubscriber.Capabilities == Enums.Groups.Capability.Admin || groupSubscriber.Capabilities == Enums.Groups.Capability.Owner;
                 case Enums.Groups.Capability.Mod:
-                    return sourceSubscriberCapability == Enums.Groups.Capability.Mod || sourceSubscriberCapability == Enums.Groups.Capability.Admin || sourceSubscriberCapability == Enums.Groups.Capability.Owner;
+                    return groupSubscriber.Capabilities == Enums.Groups.Capability.Mod || groupSubscriber.Capabilities == Enums.Groups.Capability.Admin || groupSubscriber.Capabilities == Enums.Groups.Capability.Owner;
                 default:
                     {
-                        if (sourceSubscriberCapability == Enums.Groups.Capability.NotGroupSubscriber || sourceSubscriberCapability == Enums.Groups.Capability.Banned || sourceSubscriberCapability == Enums.Groups.Capability.Silenced)
+                        if (groupSubscriber.Capabilities == Enums.Groups.Capability.NotGroupSubscriber || groupSubscriber.Capabilities == Enums.Groups.Capability.Banned || groupSubscriber.Capabilities == Enums.Groups.Capability.Silenced)
                             return false;
 
                         return true;

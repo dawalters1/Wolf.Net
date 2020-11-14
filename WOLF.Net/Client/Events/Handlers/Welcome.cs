@@ -13,8 +13,6 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(Entities.API.Welcome data)
         {
-            Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-
             if (data.LoggedInUser == null)
             {
                 var result = await Bot.InternalLoginAsync();

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Instances;
 using WOLF.Net.Entities.Messages;
@@ -27,122 +28,103 @@ namespace WOLF.Net.Commands.Commands
             var collections = typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>()));
 
             foreach (var collection in collections)
-                _commands.Add(collection, collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList());
+            {
+                if (collection.Type.GetCustomAttribute<AuthOnly>() != null && collection.Type.GetCustomAttribute<RequiredPermissions>() != null)
+                    throw new Exception("You can only have either AuthOnly or RequiredPermissions in CommandCollection not both");
+
+                var commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
+             
+                if (commands.Any(r=>r.Type.GetCustomAttribute<AuthOnly>() != null && r.Type.GetCustomAttribute<RequiredPermissions>() != null))
+                    throw new Exception("You can only have either AuthOnly or RequiredPermissions in a Command not both");
+
+                _commands.Add(collection, commands);              
+            }
         }
 
-        private KeyValuePair<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> GetMatchingCollection(CommandData commandData)
+        public async Task ProcessMessage(Message message)
         {
-            Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> matches = new Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>>();
+            var commandData = new CommandData(message.SourceTargetId, message.SourceSubscriberId, message.Content, message.MessageType == Enums.Messages.MessageType.Group);
+
+            string language = null;
+
+            Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> matching = new Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>>();
 
             foreach (var collection in _commands)
             {
-                var trigger = collection.Key.Value.Trigger;
+                var cmdData = commandData.Clone();
 
-                var phrases = Bot.GetAllPhrasesByName(trigger);
+                var collectionTrigger = collection.Key.Value.Trigger;
 
-                if (phrases.Count > 0)
+                var collectionPhrase = Bot.GetAllPhrasesByName(collectionTrigger).Where(r => Regex.IsMatch(r.Value, $@"{cmdData.Argument}", RegexOptions.IgnoreCase)).FirstOrDefault();
+
+                if (collectionPhrase != null)
                 {
-                    var phrase = phrases.FirstOrDefault(r => Regex.IsMatch(r.Value, $@"{commandData.Argument}", RegexOptions.IgnoreCase));
-
-                    if (phrase != null)
-                    {
-                        matches.Add(new TypeInstance<CommandCollection>(collection.Key.Type, collection.Key.Value.Clone(phrase.Value, phrase.Language)), collection.Value);
-                        continue;
-                    }
+                    matching.Add(new TypeInstance<CommandCollection>(collection.Key.Type, collection.Key.Value.Clone(collectionPhrase.Value, collectionPhrase.Language)), new List<MethodInstance<Command>>());
+                    language = collectionPhrase.Language;
+                    cmdData.Argument = cmdData.Argument.Remove(0, collectionPhrase.Value.Length).Trim();
                 }
-
-                if (Regex.IsMatch(commandData.Argument, $@"\A{trigger}", RegexOptions.IgnoreCase))
-                    matches.Add(collection.Key, collection.Value);
-
-            }
-
-            if (matches.Count == 0)
-                return default;
-
-            return matches.OrderByDescending(r => r.Key.Value.Trigger.Length).FirstOrDefault();
-
-        }
-
-        public MethodInstance<Command> GetMatchingCommand(List<MethodInstance<Command>> commands, CommandData data)
-        {
-            List<MethodInstance<Command>> matches = new List<MethodInstance<Command>>();
-
-            foreach (var command in commands)
-            {
-                var trigger = command.Value.Trigger;
-
-                if (data.IsTranslation)
+                else if (Regex.IsMatch(cmdData.Argument, $@"\A{collectionTrigger}", RegexOptions.IgnoreCase))
                 {
-                    var phrase = Bot.GetPhraseByName(data.Language, trigger);
-
-                    if (phrase != null)
-                    {
-                        matches.Add(new MethodInstance<Command>(command.Type, command.Value.Clone(phrase)));
-                        continue;
-                    }
+                    matching.Add(collection.Key, new List<MethodInstance<Command>>());
+                    cmdData.Argument = cmdData.Argument.Remove(0, collectionTrigger.Length).Trim();
                 }
+                else
+                    continue;
 
-                if (Regex.IsMatch(data.Argument, $@"\A{trigger}", RegexOptions.IgnoreCase))
-                    matches.Add(command);
+                foreach (var command in collection.Value.ToList())
+                {
+                    if (language != null)
+                    {
+                        var commandPhrase = Bot.GetAllPhrasesByLanguageAndName(language, command.Value.Trigger).Where(r => Regex.IsMatch(r.Value, $@"{cmdData.Argument}", RegexOptions.IgnoreCase)).FirstOrDefault();
 
+                        if (commandPhrase != null)
+                            matching[collection.Key].Add(new MethodInstance<Command>(command.Type, command.Value.Clone(commandPhrase.Value)));
+                    }
+                    else if (Regex.IsMatch(cmdData.Argument, $@"\A{command.Value.Trigger}", RegexOptions.IgnoreCase))
+                        matching[collection.Key].Add(command);
+                }
             }
 
-            if (matches.Count == 0)
-                return null;
-
-            return matches.OrderByDescending(r => r.Value.Trigger.Length).FirstOrDefault();
-
-        }
-
-        public async void ProcessMessage(Message message)
-        {
-            var commandData = new CommandData( message.SourceTargetId, message.SourceSubscriberId, message.Content, message.MessageType == Enums.Messages.MessageType.Group);
-
-            //Lets get a matching collection based on data in the message
-            var collection = GetMatchingCollection(commandData);
-
-            //No collection matched the input
-            if (collection.Key == null)
+            if (matching.Count == 0)
                 return;
 
-            //Collection trigger is valid, lets get or set the required information
+            commandData.Subscriber = await Bot.GetSubscriberAsync(commandData.SourceSubscriberId);
 
-            commandData.Language = collection.Key.Value.Language;
+            commandData.Group = commandData.IsGroup ? await Bot.GetGroupAsync(commandData.SourceTargetId) : null;
 
-            commandData.Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            var sorted = matching.OrderByDescending(r => r.Key.Value.Trigger.Length).ToList();
 
-            commandData.Group = commandData.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId):null;
+            sorted.RemoveAll(r => r.Key.Value.Trigger.Length != sorted[0].Key.Value.Trigger.Length);
 
-            //Check to see if all provided data passes the validation checks
-            if (collection.Key.Attributes.Any(r => !r.Validate(Bot, commandData)))
-                return;
+            var commandToCall = sorted.SelectMany(r => r.Value).OrderByDescending(r => r.Value.Trigger.Length).FirstOrDefault();
 
-            //Collection validation was successful, lets remove the command from the argument
-            commandData.Argument = commandData.Argument.Remove(0, collection.Key.Value.Trigger.Length).Trim();
+            var collectionToCall = sorted.Where(r => r.Value.Any(s => s.Value.Trigger == commandToCall.Value.Trigger)).FirstOrDefault();
 
-            //Lets get a matching command based on the remaining argument
-            var command = GetMatchingCommand(collection.Value, commandData);
+            foreach (var attrib in collectionToCall.Key.Attributes)
+                if (!await attrib.Validate(Bot, commandData))
+                    return;
 
-            //None Matched?
-            if (command == null)
+            commandData.Language = collectionToCall.Key.Value.Language;
+
+            commandData.Argument = commandData.Argument.Remove(0, collectionToCall.Key.Value.Trigger.Length).Trim();
+
+            if (commandToCall == null)
             {
-                var defaultCommand = collection.Value.FirstOrDefault(r => r.Type.IsDefined(typeof(Default)));
+                var defaultCommand = collectionToCall.Value.FirstOrDefault(r => r.Type.IsDefined(typeof(Default)));
 
-                if (defaultCommand!=null)
-                    DoCommand(collection.Key.Type, defaultCommand, commandData);
+                if (defaultCommand != null)
+                    DoCommand(collectionToCall.Key.Type, defaultCommand, commandData);
 
                 return;
             }
 
-            //Check to see if all the provided data passes the validation checks
-            if (command.Attributes.Any(r => !r.Validate(Bot, commandData)))
-                return;
+            foreach (var attrib in commandToCall.Attributes)
+                if (!await attrib.Validate(Bot, commandData))
+                    return;
 
-            //Collection validation was successful, lets remove the command from the argument
-            commandData.Argument = commandData.Argument.Remove(0, command.Value.Trigger.Length).Trim();
+            commandData.Argument = commandData.Argument.Remove(0, commandToCall.Value.Trigger.Length).Trim();
 
-            DoCommand(collection.Key.Type, command, commandData);
-
+            DoCommand(collectionToCall.Key.Type, commandToCall, commandData);
         }
 
         private void DoCommand(Type type, MethodInstance<Command> command, CommandData commandData)

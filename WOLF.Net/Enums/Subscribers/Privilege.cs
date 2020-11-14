@@ -29,14 +29,14 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// 
         /// </summary>
-        SELECT_CLUB_1 = 1 << 4,
+        SELECTCLUB_1 = 1 << 4,
 
         // 1 << 5 - Unimportant tag not supporting
 
         /// <summary>
         /// Users whos level rank 1 through 3, Cannot be kicked silenced or banned unless the action is done by staff
         /// </summary>
-        ELITE_CLUB_1 = 1 << 6,
+        ELITECLUB_1 = 1 << 6,
 
         // 1 << 7 - Unimportant tag not supporting
 
@@ -50,7 +50,7 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// 
         /// </summary>
-        SELECT_CLUB_2 = 1 << 10, 
+        SELECTCLUB_2 = 1 << 10, 
 
         /// <summary>
         /// User is a client tester
@@ -79,7 +79,7 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// Users whos level ransk 4 through 10
         /// </summary>
-        ELITE_CLUB_2 = 1 << 17,
+        ELITECLUB_2 = 1 << 17,
 
         /// <summary>
         /// User is a pest
@@ -94,7 +94,7 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// User has a premium account
         /// </summary>
-        PREMIUM_ACCT = 1 << 20,
+        PREMIUM_ACCOUNT = 1 << 20,
 
         /// <summary>
         /// User is a vip
@@ -104,7 +104,7 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// Users whos account rank 11 through 20
         /// </summary>
-        ELITE_CLUB_3 = 1 << 22,
+        ELITECLUB_3 = 1 << 22,
 
         // 1 << 23 - Unimportant tag not supporting
 

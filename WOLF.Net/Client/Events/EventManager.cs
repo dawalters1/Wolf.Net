@@ -251,9 +251,7 @@ namespace WOLF.Net.Client.Events
             }
             catch (Exception d)
             {
-                Console.WriteLine($"{d.ToString()}\nArg1: {JsonConvert.SerializeObject(arg1, Formatting.Indented)}\nArg2: {JsonConvert.SerializeObject(arg2, Formatting.Indented)}");
-
-                _events[InternalEvent.LOG]($"Event \"{name}\" error ", d);
+                _events[InternalEvent.INTERNAL_ERROR]($"Event \"{name}\" error ", d.ToString());
             }
         }
 

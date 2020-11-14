@@ -34,9 +34,9 @@ namespace WOLF.Net
 
             On = new EventManager();
 
-            On.MessageReceived += msg =>
+            On.MessageReceived += async msg =>
             {
-                CommandManager.ProcessMessage(msg);
+                await CommandManager.ProcessMessage(msg);
 
                 foreach (var subscription in currentMessageSubscriptions.ToList())
                 {

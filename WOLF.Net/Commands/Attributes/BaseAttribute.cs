@@ -9,6 +9,6 @@ namespace WOLF.Net.Commands.Attributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public abstract class BaseAttribute : Attribute
     {
-        public abstract bool Validate(WolfBot bot, CommandData command);
+        public abstract Task<bool> Validate(WolfBot bot, CommandData command);
     }
 }

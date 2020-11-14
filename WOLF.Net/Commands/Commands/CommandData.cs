@@ -36,5 +36,10 @@ namespace WOLF.Net.Commands.Commands
             IsGroup = isGroup;
             MessageType = isGroup ? MessageType.Group : MessageType.Private;
         }
+
+        internal CommandData Clone()
+        {
+            return new CommandData(SourceTargetId, SourceSubscriberId, Argument, IsGroup);
+        }
     }
 }

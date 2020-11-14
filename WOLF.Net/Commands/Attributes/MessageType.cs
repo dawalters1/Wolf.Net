@@ -14,7 +14,7 @@ namespace WOLF.Net.Commands.Attributes
         {
             _messageType = messageType;
         }
-        public override bool Validate(WolfBot bot, CommandData command)
+        public override async Task<bool> Validate(WolfBot bot, CommandData command)
         {
             if (_messageType == Enums.Messages.MessageType.Both)
                 return true;

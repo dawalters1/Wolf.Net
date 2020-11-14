@@ -13,7 +13,7 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override void HandleAsync(Entities.Messages.MessageUpdate data)
         {
-            throw new NotImplementedException();
+            Bot.On.Emit(Command, data);
         }
         public override void Register()
         {
