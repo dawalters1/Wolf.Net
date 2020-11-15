@@ -32,7 +32,7 @@ namespace WOLF.Net.Commands.Commands
         public Subscriber Subscriber { get; set; }
 
         public MessageType MessageType { get; set; }
-
+       
         public bool IsTranslation => Language != null;
 
         public CommandData(int sourceTargetId, int sourceSubscriberId, string content, bool isGroup)
