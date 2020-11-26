@@ -25,5 +25,7 @@ namespace WOLF.Net.Entities.API
         public List<Privilege> Privileges { get; set; } = new List<Privilege>();
 
         public string Language { get; set; }
+
+        public bool IsGroup { get; set; }
     }
 }

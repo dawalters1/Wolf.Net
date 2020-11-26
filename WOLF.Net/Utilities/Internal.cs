@@ -33,30 +33,19 @@ namespace WOLF.Net.Utilities
                 _ => $"Request {eventString} failed with ({subCode})"
             };
         }
-
-        public static IEnumerable<T> Union<T>(this IEnumerable<T> data, params T[] objs)
+        public static IEnumerable<System.Type> GetAllTypes(this System.Type type, bool nestedOnly = false)
         {
-            foreach (var item in data)
-                yield return item;
-            foreach (var item in objs)
-                yield return item;
-        }
-
-        public static IEnumerable<System.Type> GetAllTypes(this System.Type type, bool excludeAbstracts = true, bool excludeInterfaces = true)
-        {
-            var assembly = Assembly.GetEntryAssembly();
-            var assemblies = assembly.GetReferencedAssemblies();
-
-            foreach (var asm in assemblies.Union(assembly.GetName()))
+            foreach (var assemblies in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var asml = Assembly.Load(asm);
-                foreach (var ty in asml.DefinedTypes)
+                foreach (var typeInfo in assemblies.DefinedTypes)
                 {
-                    if ((excludeAbstracts && ty.IsAbstract) ||
-                        (excludeInterfaces && ty.IsInterface) ||
-                        !type.IsAssignableFrom(ty))
+                    if (nestedOnly && typeInfo.IsNested)
+                        yield return typeInfo;
+
+                    if (typeInfo.IsAbstract || typeInfo.IsInterface || typeInfo.IsNested || !type.IsAssignableFrom(typeInfo))
                         continue;
-                    yield return ty;
+
+                    yield return typeInfo;
                 }
             }
         }

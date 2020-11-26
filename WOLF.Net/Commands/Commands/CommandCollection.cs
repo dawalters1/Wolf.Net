@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
+using WOLF.Net.Commands.Instances;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Commands.Commands
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class CommandCollection:Attribute
+    public class CommandCollection : Attribute
     {
-        internal string Language { get; set; } = null;
+        internal string Language { get; set; } = "en";
 
-        public string Trigger { get; set; }     
-        
+        public string Trigger { get; set; }
+
+        internal List<MethodInstance<Command>> Commands { get; set; } = new List<MethodInstance<Command>>();
+
+        internal List<TypeInstance<CommandCollection>> SubCollections { get; set; } = new List<TypeInstance<CommandCollection>>();
+
         public CommandCollection(string trigger)
         {
             Trigger = trigger;
-        }
-
-        internal CommandCollection Clone(string trigger, string language = null)
-        {
-            return new CommandCollection(trigger)
-            {
-                Language = language
-            };
         }
     }
 }

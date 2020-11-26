@@ -20,7 +20,7 @@ namespace WOLF.Net.Client.Events
     {
         #region ConnectionEvents
 
-        // public Action Connecting = delegate { };
+        public Action Connecting = delegate { };
         /// <summary>
         /// The websocket has connected to the server
         /// </summary>
@@ -94,17 +94,17 @@ namespace WOLF.Net.Client.Events
         public Action<Group> GroupUpdated = delegate { };
 
         /// <summary>
-        /// A user has joined a group
+        /// A subscriber has joined a group
         /// </summary>
-        public Action<Group, Subscriber> UserJoined = delegate { };
+        public Action<Group, Subscriber> SubscriberJoined = delegate { };
 
         /// <summary>
-        /// A user has left a group
+        /// A subscriber has left a group
         /// </summary>
-        public Action<Group, Subscriber> UserLeft = delegate { };
+        public Action<Group, Subscriber> SubscriberLeft = delegate { };
 
         /// <summary>
-        /// A users capability has been updated
+        /// A subscribers capability has been updated
         /// </summary>
         public Action<Group, GroupAction> GroupMemberUpdated = delegate { };
 
@@ -134,15 +134,15 @@ namespace WOLF.Net.Client.Events
         public Action<string, object> PacketSent = delegate { };
         #endregion
 
-        #region User
+        #region Subscriber
 
         /// <summary>
-        /// A users profile has been updated
+        /// A subscribers profile has been updated
         /// </summary>
-        public Action<Subscriber> UserUpdated = delegate { };
+        public Action<Subscriber> SubscriberUpdated = delegate { };
 
         /// <summary>
-        /// A users online state or device has changed
+        /// A subscribers online state or device has changed
         /// </summary>
         public Action<Subscriber, PresenceUpdate> PresenceUpdate = delegate { };
         #endregion
@@ -150,7 +150,7 @@ namespace WOLF.Net.Client.Events
         #region Commands
 
         /// <summary>
-        /// A user tried to use a command they dont have the permissions to use
+        /// A subscriber tried to use a command they dont have the permissions to use
         /// </summary>
         public Action<FailedPermission> PermissionFailed = delegate { };
 
@@ -185,14 +185,14 @@ namespace WOLF.Net.Client.Events
         public Action<Subscriber> ContactRemoved = delegate { };
 
         /// <summary>
-        /// A user has been added to your blocked list
+        /// A subscriber has been added to your blocked list
         /// </summary>
-        public Action<Subscriber> UserBlocked = delegate { };
+        public Action<Subscriber> SubscriberBlocked = delegate { };
 
         /// <summary>
-        /// a user has been removed from your blocked list
+        /// a subscriber has been removed from your blocked list
         /// </summary>
-        public Action<Subscriber> UserUnblocked = delegate { };
+        public Action<Subscriber> SubscriberUnblocked = delegate { };
 
         #endregion
         private readonly Dictionary<string, Action<object, object>> _events;
@@ -204,13 +204,13 @@ namespace WOLF.Net.Client.Events
         {
             _events = new Dictionary<string, Action<object, object>>
             {
-                // [InternalEvent.connecting] = (a,b)=>Connecting(),
+                [InternalEvent.CONNECTING] = (a,b)=> Connecting(),
                 [InternalEvent.CONNCETED] = (a, b) => Connected(),
                 [InternalEvent.CONNECTION_ERROR] = (a, b) => ConnectionError((string)a),
                 [InternalEvent.DISCONNECTED] = (a, b) => Disconnected((string)a),
                 [InternalEvent.INTERNAL_ERROR] = (a, b) => InternalError((string)a),
                 [InternalEvent.RECONNECTING] = (a, b) => Reconnecting(),
-              //  [InternalEvent.reconnected] = (a, b) => Reconnected(),
+                [InternalEvent.RECONNECTED] = (a, b) => Reconnected(),
                 [Event.WELCOME] = (a, b) => Welcomed((Welcome)a),
                 [InternalEvent.LOGIN] = (a, b) => LoginSuccess((Subscriber)a),
                 [InternalEvent.LOGIN_FAILED] = (a, b) => LoginFailed((Response)a),
@@ -222,10 +222,10 @@ namespace WOLF.Net.Client.Events
                 [InternalEvent.READY] = (a, b) => Ready(),
                 [InternalEvent.JOINED_GROUP] = (a, b) => JoinedGroup((Group)a),
                 [InternalEvent.LEFT_GROUP] = (a, b) => LeftGroup((Group)a),
-                [Event.GROUP_MEMBER_ADD] = (a, b) => UserJoined((Group)a, (Subscriber)b),
-                [Event.GROUP_MEMBER_DELETE] = (a, b) => UserLeft((Group)a, (Subscriber)b),
+                [Event.GROUP_MEMBER_ADD] = (a, b) => SubscriberJoined((Group)a, (Subscriber)b),
+                [Event.GROUP_MEMBER_DELETE] = (a, b) => SubscriberLeft((Group)a, (Subscriber)b),
                 [Event.GROUP_MEMBER_UPDATE] = (a, b) => GroupMemberUpdated((Group)a, (GroupAction)b),
-                [Event.SUBSCRIBER_UPDATE] = (a, b) => UserUpdated((Subscriber)a),
+                [Event.SUBSCRIBER_UPDATE] = (a, b) => SubscriberUpdated((Subscriber)a),
                 [InternalEvent.LOG] = (a, b) => Log((string)a),
                 [InternalEvent.PACKET_RECEIVED] = (a, b) => PacketReceived((string)a, b),
                 [InternalEvent.PACKET_SENT] = (a, b) => PacketSent((string)a, b),
@@ -233,8 +233,8 @@ namespace WOLF.Net.Client.Events
                 [Event.PRESENCE_UPDATE] = (a, b) => PresenceUpdate((Subscriber)a, (PresenceUpdate)b),
                 [Request.SUBSCRIBER_CONTACT_ADD] = (a, b) => ContactAdded((Subscriber)a),
                 [Request.SUBSCRIBER_CONTACT_DELETE] = (a, b) => ContactRemoved((Subscriber)a),
-                [Request.SUBSCRIBER_BLOCK_ADD] = (a, b) => UserBlocked((Subscriber)a),
-                [Request.SUBSCRIBER_BLOCK_DELETE] = (a, b) => UserUnblocked((Subscriber)a),
+                [Request.SUBSCRIBER_BLOCK_ADD] = (a, b) => SubscriberBlocked((Subscriber)a),
+                [Request.SUBSCRIBER_BLOCK_DELETE] = (a, b) => SubscriberUnblocked((Subscriber)a),
                 [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
                 [InternalEvent.PING]= (a, b) => { },
             };

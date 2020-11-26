@@ -10,128 +10,67 @@ using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Instances;
 using WOLF.Net.Entities.Messages;
+using WOLF.Net.Enums.Messages;
 using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Commands.Commands
 {
     public class CommandManager
     {
-        private WolfBot Bot;
+        private readonly WolfBot Bot;
 
         //House the CommandCollection and its Children
-        private Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> _commands = new Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>>();
+        private List<TypeInstance<CommandCollection>> collections = new List<TypeInstance<CommandCollection>>();
 
         public CommandManager(WolfBot bot)
         {
             Bot = bot;
+        }
 
-            var collections = typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>()));
+        internal void Load()
+        {
+            if (collections.Count > 0)
+                return;
+
+            collections = typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>())).ToList();
 
             foreach (var collection in collections)
+                CheckCollection(collection);
+        }
+
+        private void CheckCollection(TypeInstance<CommandCollection> collection)
+        {
+            if (collections.Where(r => r.Value.Trigger.IsEqual(collection.Value.Trigger)).Count() > 1)
+                throw new Exception($"You can only have 1 collction at a time using trigger {collection.Value.Trigger}");
+
+            if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
+                throw new Exception($"Missing translation key {collection.Value.Trigger}"); 
+
+            collection.Value.Commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
+
+            collection.Value.SubCollections = collection.Type.GetNestedTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>())).ToList();
+
+            if (collection.Value.Commands.Where(r=>!string.IsNullOrWhiteSpace(r.Value.Trigger)).Any(command => collection.Value.SubCollections.Any(s=>s.Value.Trigger.IsEqual(command.Value.Trigger))))
+                throw new Exception($"You have commands sharing the same trigger as subcollections in class {collection.Type.Name}");
+
+            foreach (var subCollection in collection.Value.SubCollections)
             {
-                if (collection.Type.GetCustomAttribute<AuthOnly>() != null && collection.Type.GetCustomAttribute<RequiredPermissions>() != null)
-                    throw new Exception("You can only have either AuthOnly or RequiredPermissions in CommandCollection not both");
+                if (subCollection.Value.Commands.Any(command => subCollection.Value.Trigger.IsEqual(command.Value.Trigger)))
+                    throw new Exception($"Commands cannot have the same trigger as collection {collection.Value.Trigger}");
 
-                var commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
-             
-                if (commands.Any(r=>r.Type.GetCustomAttribute<AuthOnly>() != null && r.Type.GetCustomAttribute<RequiredPermissions>() != null))
-                    throw new Exception("You can only have either AuthOnly or RequiredPermissions in a Command not both");
-
-                if (commands.Where(r => r.Type.GetCustomAttribute<Default>() != null).Count() > 1)
-                    throw new Exception("You can only have one default command per collection");
-
-                _commands.Add(collection, commands);              
+                CheckCollection(subCollection);
             }
         }
 
-        public async Task ProcessMessage(Message message)
+        internal bool IsCommand(Message message) => collections.Any(r => Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s=>s.Value.IsEqual(message.Content.Split(' ')[0])));
+
+        private async void ExecuteCommand(Type type, MethodInstance<Command> command, Message message, CommandData commandData)
         {
-            var commandData = new CommandData(message.SourceTargetId, message.SourceSubscriberId, message.Content, message.MessageType == Enums.Messages.MessageType.Group);
 
-            string language = null;
-
-            Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>> matching = new Dictionary<TypeInstance<CommandCollection>, List<MethodInstance<Command>>>();
-
-            foreach (var collection in _commands)
-            {
-                var cmdData = commandData.Clone();
-
-                var collectionTrigger = collection.Key.Value.Trigger;
-
-                var collectionPhrase = Bot.GetAllPhrasesByName(collectionTrigger).Where(r => Regex.IsMatch(r.Value, $@"{cmdData.Argument}", RegexOptions.IgnoreCase)).FirstOrDefault();
-
-                if (collectionPhrase != null)
-                {
-                    matching.Add(new TypeInstance<CommandCollection>(collection.Key.Type, collection.Key.Value.Clone(collectionPhrase.Value, collectionPhrase.Language)), new List<MethodInstance<Command>>());
-                    language = collectionPhrase.Language;
-                    cmdData.Argument = cmdData.Argument.Remove(0, collectionPhrase.Value.Length).Trim();
-                }
-                else if (Regex.IsMatch(cmdData.Argument, $@"\A{collectionTrigger}", RegexOptions.IgnoreCase))
-                {
-                    matching.Add(collection.Key, new List<MethodInstance<Command>>());
-                    cmdData.Argument = cmdData.Argument.Remove(0, collectionTrigger.Length).Trim();
-                }
-                else
-                    continue;
-
-                foreach (var command in collection.Value.ToList())
-                {
-                    if (language != null)
-                    {
-                        var commandPhrase = Bot.GetAllPhrasesByLanguageAndName(language, command.Value.Trigger).Where(r => Regex.IsMatch(r.Value, $@"{cmdData.Argument}", RegexOptions.IgnoreCase)).FirstOrDefault();
-
-                        if (commandPhrase != null)
-                            matching[collection.Key].Add(new MethodInstance<Command>(command.Type, command.Value.Clone(commandPhrase.Value)));
-                    }
-                    else if (Regex.IsMatch(cmdData.Argument, $@"\A{command.Value.Trigger}", RegexOptions.IgnoreCase))
-                        matching[collection.Key].Add(command);
-                }
-            }
-
-            if (matching.Count == 0)
-                return;
-
-            commandData.Subscriber = await Bot.GetSubscriberAsync(commandData.SourceSubscriberId);
-
-            commandData.Group = commandData.IsGroup ? await Bot.GetGroupAsync(commandData.SourceTargetId) : null;
-
-            var sorted = matching.OrderByDescending(r => r.Key.Value.Trigger.Length).ToList();
-
-            sorted.RemoveAll(r => r.Key.Value.Trigger.Length != sorted[0].Key.Value.Trigger.Length);
-
-            var commandToCall = sorted.SelectMany(r => r.Value).OrderByDescending(r => r.Value.Trigger.Length).FirstOrDefault();
-
-            var collectionToCall = sorted.Where(r => r.Value.Any(s => s.Value.Trigger == commandToCall.Value.Trigger)).FirstOrDefault();
-
-            foreach (var attrib in collectionToCall.Key.Attributes)
+            foreach (var attrib in command.Attributes)
                 if (!await attrib.Validate(Bot, commandData))
                     return;
 
-            commandData.Language = collectionToCall.Key.Value.Language;
-
-            commandData.Argument = commandData.Argument.Remove(0, collectionToCall.Key.Value.Trigger.Length).Trim();
-
-            if (commandToCall == null)
-            {
-                var defaultCommand = collectionToCall.Value.FirstOrDefault(r => r.Type.IsDefined(typeof(Default)));
-
-                if (defaultCommand != null)
-                    DoCommand(collectionToCall.Key.Type, defaultCommand, message, commandData);
-
-                return;
-            }
-
-            foreach (var attrib in commandToCall.Attributes)
-                if (!await attrib.Validate(Bot, commandData))
-                    return;
-
-            commandData.Argument = commandData.Argument.Remove(0, commandToCall.Value.Trigger.Length).Trim();
-
-            DoCommand(collectionToCall.Key.Type, commandToCall, message, commandData);
-        }
-
-        private void DoCommand(Type type, MethodInstance<Command> command, Message message, CommandData commandData)
-        {
             var i = (CommandContext)Activator.CreateInstance(type);
 
             i.Command = commandData;
@@ -139,6 +78,82 @@ namespace WOLF.Net.Commands.Commands
             i.Message = message;
 
             command.Type.Invoke(i, null);
+        }
+
+        private void CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData)
+        {
+            var cmdArg = commandData.Argument.Split(' ')[0];
+
+            foreach (var subCollection in collection.Value.SubCollections)
+            {
+                var phrase = Bot.GetPhraseByName(commandData.Language, subCollection.Value.Trigger);
+
+                if (phrase == null||!phrase.IsEqual(cmdArg))
+                    continue;
+
+                commandData.Argument = string.Join(' ', commandData.Argument.Split(' ').Skip(1));
+
+                CheckCollection(subCollection, message, commandData);
+
+                return;
+            }
+
+            foreach (var command in collection.Value.Commands.Where(r=>!string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
+            {
+                var phrase = Bot.GetPhraseByName(commandData.Language, command.Value.Trigger);
+
+                if (phrase == null || !phrase.IsEqual(cmdArg))
+                    continue;
+
+                commandData.Argument = string.Join(' ', commandData.Argument.Split(' ').Skip(1));
+
+                ExecuteCommand(collection.Type, command, message, commandData);
+
+                return;
+            }
+
+            var def = collection.Value.Commands.FirstOrDefault(r => r.Value.Trigger == null);
+
+            if (def == null)
+                return;
+
+            ExecuteCommand(collection.Type, def, message, commandData);
+        }
+
+        internal async Task ProcessMessage(Message message)
+        {
+            if (message.ContentType != ContentType.Text)
+                return;
+
+            var fixedArgs = string.Join(' ', message.Content.Split(new char[] { ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries));
+
+            var cmdArg = fixedArgs.Split(' ')[0];
+
+            foreach (var collection in collections)
+            {
+                var phrase = Bot.GetAllPhrasesByName(collection.Value.Trigger).FirstOrDefault(r => r.Value.IsEqual(cmdArg));
+
+                if (phrase!=null)
+                {
+                    var commandData = new CommandData()
+                    {
+                        Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId),
+                        Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null,
+                        IsGroup = message.IsGroup,
+                        Argument = string.Join(' ',fixedArgs.Split(' ').Skip(1)),
+                        Language = phrase.Language,
+                        MessageType = message.MessageType
+                    };
+
+                    foreach (var attrib in collection.Attributes)
+                        if (!await attrib.Validate(Bot, commandData))
+                            return;
+
+                    CheckCollection(collection, message, commandData);
+                }
+                else
+                    continue;
+            }
         }
     }
 }

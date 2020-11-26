@@ -114,8 +114,10 @@ namespace WOLF.Net.Client.Events.Handlers
                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                     return;
 
-                if (data.Content.IsEqual(">wdn whos a bot"))
+                if (data.Content.IsEqual(">wdn whos a bot")&& (await Bot.GetSubscriberAsync(data.SourceSubscriberId)).Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER))
                    await Bot.SendMessageAsync(data.SourceTargetId, $"I am a bot using Wolf.Net V{Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
+
+                data.IsCommand = Bot.CommandManager.IsCommand(data);
 
                 Bot.On.Emit(Command, data);
             }

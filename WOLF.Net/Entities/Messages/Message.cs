@@ -52,6 +52,7 @@ namespace WOLF.Net.Entities.Messages
 
         public long Timestamp { get;set; }
 
+        public bool IsCommand { get; set; }
         #region
 
         /// <summary>

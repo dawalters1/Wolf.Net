@@ -449,19 +449,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\David Walters\\.nuget\\packages\\": {}
+    "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "4.0.0",
     "restore": {
-      "projectUniqueName": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
+      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
       "projectName": "WOLF.Net",
-      "projectPath": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
-      "packagesPath": "C:\\Users\\David Walters\\.nuget\\packages\\",
-      "outputPath": "F:\\My Projects\\WOLF\\Wolf.Net\\WOLF.Net\\obj\\",
+      "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+      "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
+      "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\David Walters\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -473,6 +473,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -484,6 +485,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -513,7 +515,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

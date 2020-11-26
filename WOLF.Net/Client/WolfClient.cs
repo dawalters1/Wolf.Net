@@ -44,6 +44,7 @@ namespace WOLF.Net.Client
 
         public async Task CreateSocket()
         {
+            bool isReconnecting = false;
             Socket = new SocketIO($"{Host}:{Port}", new SocketIOOptions()
             {
                 AllowedRetryFirstConnection = true,
@@ -60,7 +61,16 @@ namespace WOLF.Net.Client
 
             Bot.On.RegisterEvents(Bot);
 
-            Socket.OnConnected += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNCETED);
+            Socket.OnConnected += (sender, eventArgs) =>
+            {
+                if (!isReconnecting)
+                    Bot.On.Emit(InternalEvent.CONNCETED);
+                else
+                {
+                    isReconnecting = false;
+                    Bot.On.Emit(InternalEvent.RECONNECTED);
+                }
+            };
 
             Socket.OnDisconnected += (sender, eventArgs) =>
             {
@@ -79,7 +89,13 @@ namespace WOLF.Net.Client
 
             Socket.OnReceivedEvent += (sender, eventArgs) => Bot.On.Emit(InternalEvent.PACKET_RECEIVED, eventArgs.Event, eventArgs.Response.GetValue<Response<object>>());
 
-            Socket.OnReconnecting += (sender, eventArgs) => Bot.On.Emit(InternalEvent.RECONNECTING);
+            Socket.OnReconnecting += (sender, eventArgs) =>
+            {
+                isReconnecting = true;
+                Bot.On.Emit(InternalEvent.RECONNECTING);
+            };
+
+            Bot.On.Emit(InternalEvent.CONNECTING);
 
             await Socket.ConnectAsync();
         }

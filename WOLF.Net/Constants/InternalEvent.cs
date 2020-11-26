@@ -6,11 +6,15 @@ namespace WOLF.Net.Constants
 {
     internal class InternalEvent
     {
+        public const string CONNECTING = "connecting";
+
         public const string CONNCETED = "connected";
 
         public const string DISCONNECTED = "disconnected";
 
         public const string RECONNECTING = "reconnecting";
+
+        public const string RECONNECTED = "reconnected";
 
         public const string CONNECTION_ERROR = "connection error";
 

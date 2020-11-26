@@ -57,7 +57,8 @@ namespace WOLF.Net.Commands.Attributes
                         SourceTargetId = command.SourceTargetId,
                         SourceSubscriberId = command.SourceSubscriberId,
                         Language = command.Language,
-                        Privileges = _privileges ?? new List<Privilege>()
+                        Privileges = _privileges ?? new List<Privilege>(),
+                        IsGroup = command.IsGroup
                     });
                     return false;
                 }
@@ -88,7 +89,8 @@ namespace WOLF.Net.Commands.Attributes
                     SourceSubscriberId = command.SourceSubscriberId,
                     Capabilities = _capability,
                     Language = command.Language,
-                    Privileges = _privileges ?? new List<Privilege>()
+                    Privileges = _privileges ?? new List<Privilege>(),
+                    IsGroup = command.IsGroup
                 });
 
             return validateResult;

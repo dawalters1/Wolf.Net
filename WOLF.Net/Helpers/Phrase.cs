@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,8 +33,16 @@ namespace WOLF.Net
             return phrase.Value;
         }
 
-        public List<Phrase> GetAllPhrasesByLanguageAndName(string language, string name) => Phrases.Where(r => r.Language.IsEqual(language) && r.Name.IsEqual(name)).ToList();
+        public List<Phrase> GetAllPhrasesByLanguageAndName(string language, string name)
+        {
+            Console.WriteLine($"{language} - {name}");
 
+            var result = Phrases.Where(r => r.Language.IsEqual(language) && r.Name.IsEqual(name)).ToList();
+
+            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+
+            return result;
+        }
         public List<Phrase> GetAllPhrasesByName(string name) => Phrases.Where(r => r.Name.IsEqual(name)).ToList();
 
         public bool IsRequestedPhrase(string name, string value) => Phrases.Any(r => r.Value.IsEqual(value) && r.Name.IsEqual(name));

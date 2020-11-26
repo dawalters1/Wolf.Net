@@ -16,7 +16,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        private CommandManager CommandManager { get; set; }
+        internal CommandManager CommandManager { get; set; }
 
         public Subscriber CurrentSubscriber { get; internal set; }
 
@@ -52,6 +52,8 @@ namespace WOLF.Net
 
         public async Task LoginAsync(string email, string password, LoginDevice loginDevice = LoginDevice.Android, OnlineState onlineState = OnlineState.Online)
         {
+            CommandManager.Load();
+
             LoginData = new LoginData(email, password, loginDevice, LoginType.Email, onlineState);
 
             await WolfClient.CreateSocket();

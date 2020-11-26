@@ -16,12 +16,12 @@ namespace WOLF.Net.Commands.Commands
         [Obsolete("This property will be deprecated soon, please use SourceTargetId")]
         public int ReturnAddres => SourceTargetId;
 
-        public int SourceTargetId { get; set; }
+        public int SourceTargetId => IsGroup ? Group.Id : SourceSubscriberId;
 
         [Obsolete("This property will be deprecated soon, please use SourceSubscriberId")]
         public int UserId => SourceSubscriberId;
 
-        public int SourceSubscriberId { get; set; }
+        public int SourceSubscriberId => Subscriber != null ? Subscriber.Id : 0;
 
         public bool IsGroup { get; set; }
 
@@ -34,19 +34,5 @@ namespace WOLF.Net.Commands.Commands
         public MessageType MessageType { get; set; }
        
         public bool IsTranslation => Language != null;
-
-        public CommandData(int sourceTargetId, int sourceSubscriberId, string content, bool isGroup)
-        {
-            SourceSubscriberId = sourceSubscriberId;
-            SourceTargetId = sourceTargetId;
-            Argument = content;
-            IsGroup = isGroup;
-            MessageType = isGroup ? MessageType.Group : MessageType.Private;
-        }
-
-        internal CommandData Clone()
-        {
-            return new CommandData(SourceTargetId, SourceSubscriberId, Argument, IsGroup);
-        }
     }
 }

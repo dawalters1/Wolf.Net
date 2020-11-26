@@ -10,6 +10,12 @@ namespace WOLF.Net.Commands.Commands
     public class Command : Attribute
     {
         public string Trigger { get; set; }
+
+        public Command()
+        {
+
+        }
+
         public Command(string trigger)
         {
             Trigger = trigger;
