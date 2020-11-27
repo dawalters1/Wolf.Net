@@ -14,9 +14,14 @@ You can install the WOLF.Net package directly from [Nuget](https://www.nuget.org
 - [Net Core 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0) or above
 - [Visual Studio 2019](https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2019) OR [VS Code] (TODO: Add link to download)
 
+# Optional but useful if doing multiple input commands or game bots
+
+- [Redis](https://redis.io/download)
+  - Redis isnt supported on windows anymore, I recommend using this [Port](https://github.com/tporadowski/redis/releases/download/v5.0.10/Redis-x64-5.0.10.msi)
+
 # Getting Started
 
--- TODO: Check out the [example project](https://github.com/dewwalters/Wolf.Net/tree/3.0.0/Wolf.Net.Example) to get started
+Check out the [example project](https://github.com/dawalters1/Wolf.Net/tree/dev/WOLF.Net.Example) to get started
 
 # Approval
 
