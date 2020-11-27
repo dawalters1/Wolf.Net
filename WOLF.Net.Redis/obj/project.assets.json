@@ -882,7 +882,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "3.0.0",
     "restore": {
       "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
       "projectName": "WOLF.Net.Redis",
