@@ -1,5 +1,8 @@
 # WOLF.Net
-[![Nuget Status](https://img.shields.io/nuget/vpre/Wolf.Net)](https://www.nuget.org/packages/Wolf.Net/)![Nuget Downloads](https://img.shields.io/nuget/dt/WOLF.Net.svg)
+
+**Current Release:** [![Nuget Status](https://img.shields.io/nuget/v/wolf.net?style=flat-square)](https://www.nuget.org/packages/Wolf.Net/)![Nuget Downloads](https://img.shields.io/nuget/dt/wolf.net?style=flat-square)
+
+**Prerelease:** [![Nuget Status](https://img.shields.io/nuget/vpre/wolf.net?style=flat-square)](https://www.nuget.org/packages/Wolf.Net/)
 
 [![WOLF](https://i.imgur.com/SwV8IYZ.png)](https://wolf.live/)
 
