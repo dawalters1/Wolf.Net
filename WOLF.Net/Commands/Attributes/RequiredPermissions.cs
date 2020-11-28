@@ -100,10 +100,8 @@ namespace WOLF.Net.Commands.Attributes
         private bool ValidateCapability(GroupSubscriber groupSubscriber)
         {
             if (groupSubscriber == null)
-            {
-                Console.WriteLine("NULL");
                 return false;
-            }
+
             switch (_capability)
             {
                 case  Enums.Groups.Capability.Owner:

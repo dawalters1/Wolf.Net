@@ -36,13 +36,24 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var collection in collections)
                 CheckCollection(collection);
+
+            var duplicateCollections = collections.GroupBy(r => r.Value.Trigger.ToLower(), r => r.Value, (trigger, content) => new { trigger, commands = content.SelectMany(r => r.Commands).ToList(), subCollections = content.SelectMany(r=>r.SubCollections).ToList() }).ToList();
+
+            foreach (var duplicate in duplicateCollections)
+            {
+                if (duplicate.commands.Count(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) > 1)
+                    throw new Exception($"You can only have 1 default command in collection {duplicate.trigger}");
+
+                if(duplicate.commands.GroupBy(r=>r.Value.Trigger).Any(r=>r.Count()>1))
+                    throw new Exception($"You can not have 2 of the same commands triggers in collection {duplicate.trigger}");
+
+                if (duplicate.subCollections.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
+                    throw new Exception($"You can not have 2 of the same SubCommandCollections triggers in collection {duplicate.trigger}");
+            }
         }
 
         private void CheckCollection(TypeInstance<CommandCollection> collection)
         {
-            if (collections.Where(r => r.Value.Trigger.IsEqual(collection.Value.Trigger)).Count() > 1)
-                throw new Exception($"You can only have 1 collction at a time using trigger {collection.Value.Trigger}");
-
             if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
                 throw new Exception($"Missing translation key {collection.Value.Trigger}"); 
 
@@ -80,7 +91,7 @@ namespace WOLF.Net.Commands.Commands
             command.Type.Invoke(i, null);
         }
 
-        private void CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData)
+        private bool CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData)
         {
             var cmdArg = commandData.Argument.Split(' ')[0];
 
@@ -95,7 +106,7 @@ namespace WOLF.Net.Commands.Commands
 
                 CheckCollection(subCollection, message, commandData);
 
-                return;
+                return true;
             }
 
             foreach (var command in collection.Value.Commands.Where(r=>!string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
@@ -109,15 +120,10 @@ namespace WOLF.Net.Commands.Commands
 
                 ExecuteCommand(collection.Type, command, message, commandData);
 
-                return;
+                return true;
             }
 
-            var def = collection.Value.Commands.FirstOrDefault(r => r.Value.Trigger == null);
-
-            if (def == null)
-                return;
-
-            ExecuteCommand(collection.Type, def, message, commandData);
+            return false;
         }
 
         internal async Task ProcessMessage(Message message)
@@ -149,7 +155,8 @@ namespace WOLF.Net.Commands.Commands
                         if (!await attrib.Validate(Bot, commandData))
                             return;
 
-                    CheckCollection(collection, message, commandData);
+                    if (CheckCollection(collection, message, commandData))
+                        break;
                 }
                 else
                     continue;

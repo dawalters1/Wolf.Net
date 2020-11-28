@@ -16,7 +16,7 @@ namespace WOLF.Net.ExampleBot.Commands
     class Example : CommandContext
     {
         [Command]
-        public async Task Default() => await Help();
+        public async Task Default1() => await Help();
 
         [Command("help")]
         public async Task Help() => await ReplyAsync(Bot.GetPhraseByName(Command.Language, "help_message"));
@@ -40,7 +40,7 @@ namespace WOLF.Net.ExampleBot.Commands
             if (!await Program.Cache.ExistsAsync(Command.SourceTargetId))
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
 
-            if(await Program.Cache.DeleteAsync(Command.SourceTargetId))
+            if (await Program.Cache.DeleteAsync(Command.SourceTargetId))
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
         }
 

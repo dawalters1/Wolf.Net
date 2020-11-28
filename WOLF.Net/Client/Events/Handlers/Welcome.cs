@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Constants;
+using WOLF.Net.Entities.API;
 
 namespace WOLF.Net.Client.Events.Handlers
 {
@@ -19,7 +20,11 @@ namespace WOLF.Net.Client.Events.Handlers
 
                 if (!result.Success)
                 {
-                    Bot.On.Emit(InternalEvent.LOGIN_FAILED, result);
+                    Bot.On.Emit(InternalEvent.LOGIN_FAILED, new Response()
+                    {
+                        Code = result.Code,
+                        Headers = result.Headers
+                    });
                     return;
                 }
 
