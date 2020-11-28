@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +11,7 @@ using WOLF.Net.Commands.Instances;
 using WOLF.Net.Entities.Phrases;
 using WOLF.Net.Example.Entities;
 using WOLF.Net.ExampleBot.Flows;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot
 {
@@ -231,7 +233,16 @@ namespace WOLF.Net.ExampleBot
             #region API Events
 
             bot.On.Log += log => Console.WriteLine($"[LOG]: {log}");
-            bot.On.InternalError += error => Console.WriteLine($"[INTERNAL ERROR]: {error}");
+            bot.On.InternalError+=error=>Console.WriteLine($"[INTERNAL ERROR]: {error}");
+
+            bot.On.Ready += async () =>
+            {
+                Console.WriteLine("[Ready]: Bot is ready for use");
+
+                //Updating subscriber profiles
+                await bot.CurrentSubscriber.UpdateProfile(bot).SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
+            };
+
             #endregion
 
             await bot.LoginAsync("example@email.xyz", "examplePassword");

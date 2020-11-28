@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
-    <Version>4.0.0-alpha2</Version>
+    <Version>4.0.0-alpha3</Version>
     <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
     <PackageTags>WOLF, Palringo, Pal, Wolfringo</PackageTags>
     <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>
@@ -12,8 +12,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon>icon_vgE_icon.ico</ApplicationIcon>
-    <PackageReleaseNotes>- Removed Console.WriteLine
-- Fixed issue with subCode parsing</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added subscriber profile udpates</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
