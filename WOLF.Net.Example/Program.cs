@@ -148,6 +148,7 @@ namespace WOLF.Net.ExampleBot
                 }
             });
 
+            File.WriteAllText($"{AppDomain.CurrentDomain.BaseDirectory}/Phrases.json", JsonConvert.SerializeObject(bot.Phrases, Formatting.Indented));
             #region WS events
 
             bot.On.Connecting += () => Console.WriteLine($"[Connecting]: Connecting to V3 servers");
@@ -225,6 +226,12 @@ namespace WOLF.Net.ExampleBot
                     await bot.SendPrivateMessageAsync(permFailure.SourceTargetId, bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
             };
 
+            #endregion
+
+            #region API Events
+
+            bot.On.Log += log => Console.WriteLine($"[LOG]: {log}");
+            bot.On.InternalError += error => Console.WriteLine($"[INTERNAL ERROR]: {error}");
             #endregion
 
             await bot.LoginAsync("example@email.xyz", "examplePassword");

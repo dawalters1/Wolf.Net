@@ -35,12 +35,7 @@ namespace WOLF.Net
 
         public List<Phrase> GetAllPhrasesByLanguageAndName(string language, string name)
         {
-            Console.WriteLine($"{language} - {name}");
-
             var result = Phrases.Where(r => r.Language.IsEqual(language) && r.Name.IsEqual(name)).ToList();
-
-            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-
             return result;
         }
         public List<Phrase> GetAllPhrasesByName(string name) => Phrases.Where(r => r.Name.IsEqual(name)).ToList();
