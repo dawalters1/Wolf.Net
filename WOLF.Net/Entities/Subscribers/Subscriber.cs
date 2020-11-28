@@ -93,6 +93,14 @@ namespace WOLF.Net.Entities.Subscribers
         }
 
         public string ToDisplayName(bool withId = true) => withId ? $"[{Nickname}] ({Id})" : $"[{Nickname}]";
+
+        public Helpers.ProfileBuilders.Subscriber UpdateProfile(WolfBot bot)
+        {
+            if (bot.CurrentSubscriber.Id != Id)
+                throw new Exception("You can only update the current logged in users profile!");
+
+            return new Helpers.ProfileBuilders.Subscriber(bot, this);
+        }
     }
 
     public class Extended
