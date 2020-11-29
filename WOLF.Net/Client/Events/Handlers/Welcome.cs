@@ -52,7 +52,7 @@ namespace WOLF.Net.Client.Events.Handlers
             {
                 await Bot.GetJoinedGroupsAsync(true);
 
-                Bot.CurrentSubscriber = await Bot.GetSubscriberAsync(Bot.CurrentSubscriber.Id);
+                Bot.CurrentSubscriber = await Bot.GetSubscriberAsync(Bot.CurrentSubscriber.Id, true);
 
                 await Bot.GroupMessageSubscribeAsync();
 

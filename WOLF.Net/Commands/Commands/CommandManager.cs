@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Instances;
+using WOLF.Net.Constants;
 using WOLF.Net.Entities.Messages;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Utilities;
@@ -59,6 +60,9 @@ namespace WOLF.Net.Commands.Commands
 
             var commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
 
+            if (commands.Any(r => r.Type.GetParameters().Length>0))
+                throw new Exception($"Commands cannot contain generic parameters");
+
             collection.Value.Commands = commands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList();
 
             collection.Value.Default = commands.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
@@ -81,7 +85,6 @@ namespace WOLF.Net.Commands.Commands
 
         private async void ExecuteCommand(Type type, MethodInstance<Command> command, Message message, CommandData commandData)
         {
-
             foreach (var attrib in command.Attributes)
                 if (!await attrib.Validate(Bot, commandData))
                     return;
@@ -91,8 +94,14 @@ namespace WOLF.Net.Commands.Commands
             i.Command = commandData;
             i.Bot = Bot;
             i.Message = message;
-
-            command.Type.Invoke(i, null);
+            try
+            {
+                command.Type.Invoke(i, null);
+            }
+            catch (Exception d)
+            {
+                Bot.On.Emit(InternalEvent.INTERNAL_ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
+            }
         }
 
         private bool CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData, bool isSubCollection = false)
