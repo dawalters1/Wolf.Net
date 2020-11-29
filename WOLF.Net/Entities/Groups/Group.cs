@@ -120,7 +120,13 @@ namespace WOLF.Net.Entities.Groups
         }
 
         public string ToDisplayName(bool withId = true) => withId ? $"[{Name}] ({Id})" : $"[{Name}]";
+
+        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile(WolfBot bot) => new Helpers.ProfileBuilders.GroupUpdateBuilder(bot, this);
+
+        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage(WolfBot bot) =>
+            new Helpers.ProfileBuilders.StageUpdateBuilder(bot, this.AudioConfiguration);
     }
+    
 
     public class Extended
     {

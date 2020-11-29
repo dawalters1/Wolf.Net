@@ -17,7 +17,7 @@ namespace WOLF.Net.ExampleBot
 {
     class Program
     {
-        public static Cache Cache = new Cache(); 
+        public static Cache Cache = new Cache();
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
 
@@ -233,7 +233,7 @@ namespace WOLF.Net.ExampleBot
             #region API Events
 
             bot.On.Log += log => Console.WriteLine($"[LOG]: {log}");
-            bot.On.InternalError+=error=>Console.WriteLine($"[INTERNAL ERROR]: {error}");
+            bot.On.InternalError += error => Console.WriteLine($"[INTERNAL ERROR]: {error}");
 
             bot.On.Ready += async () =>
             {
@@ -244,7 +244,6 @@ namespace WOLF.Net.ExampleBot
             };
 
             #endregion
-
             await bot.LoginAsync("example@email.xyz", "examplePassword");
 
             await Task.Delay(-1);

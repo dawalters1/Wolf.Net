@@ -17,7 +17,7 @@ namespace WOLF.Net
     {
         internal Dictionary<Func<Message, bool>, TaskCompletionSource<Message>> currentMessageSubscriptions
            = new Dictionary<Func<Message, bool>, TaskCompletionSource<Message>>();
-    
+
         internal async Task<Response<MessageResponse>> SendMessageAsync(int recipient, object content, MessageType messageType)
         {
             return await WolfClient.Emit<MessageResponse>(Request.MESSAGE_SEND, new
@@ -79,14 +79,14 @@ namespace WOLF.Net
 
         public async Task<Response<Message>> DeleteMessageAsync(int targetId, long targetTimestamp, bool isGroup = true)
         {
-            var result = await WolfClient.Emit<BaseMessage>(Request.MESSAGE_UPDATE, new 
-            { 
+            var result = await WolfClient.Emit<BaseMessage>(Request.MESSAGE_UPDATE, new
+            {
                 isGroup,
                 metadata = new
                 {
                     isDeleted = true
-                }, 
-                recipientId = targetId, 
+                },
+                recipientId = targetId,
                 timestamp = targetTimestamp
             });
 
@@ -119,7 +119,7 @@ namespace WOLF.Net
 
             return new Response<Message>() { Code = result.Code, Body = default, Headers = result.Headers };
         }
-  
+
         public async Task<Response<Message>> RestoreMessageAsync(Message message)
         {
             return await RestoreMessageAsync(message.SourceTargetId, message.Timestamp, message.IsGroup);
@@ -166,9 +166,9 @@ namespace WOLF.Net
 
         public async Task<Response<LinkMetadata>> LinkMetadataAsync(string url)
         {
-            return await WolfClient.Emit<LinkMetadata>(Request.METADATA_URL, new 
-            { 
-                url 
+            return await WolfClient.Emit<LinkMetadata>(Request.METADATA_URL, new
+            {
+                url
             });
         }
 

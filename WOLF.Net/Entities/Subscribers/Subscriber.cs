@@ -92,14 +92,14 @@ namespace WOLF.Net.Entities.Subscribers
             Updated();
         }
 
-        public string ToDisplayName(bool withId = true) => withId ? $"[{Nickname}] ({Id})" : $"[{Nickname}]";
+        public string ToDisplayName(bool withId = true) => withId ? $"{Nickname} ({Id})" : $"{Nickname}";
 
-        public Helpers.ProfileBuilders.Subscriber UpdateProfile(WolfBot bot)
+        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile(WolfBot bot)
         {
             if (bot.CurrentSubscriber.Id != Id)
                 throw new Exception("You can only update the current logged in users profile!");
 
-            return new Helpers.ProfileBuilders.Subscriber(bot, this);
+            return new Helpers.ProfileBuilders.SubscriberUpdateBuilder(bot, this);
         }
     }
 

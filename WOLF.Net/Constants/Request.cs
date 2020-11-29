@@ -17,6 +17,7 @@ namespace WOLF.Net.Constants
         public const string GROUP_MEMBER_ADD = "group member add";
         public const string GROUP_MEMBER_UPDATE = "group member update";
         public const string GROUP_MEMBER_DELETE = "group member delete";
+        public const string GROUP_AUDIO_UPDATE = "group audio update";
         public const string GROUP_STATS = "group stats";
         public const string GROUP_MEMBER_LIST = "group member list";
         public const string SUBSCRIBER_PROFILE = "subscriber profile";
@@ -58,5 +59,6 @@ namespace WOLF.Net.Constants
         public const string MESSAGE_SETTING_UPDATE = "message setting update";
         public const string MESSAGE_SETTING = "message setting";
         public const string TOPIC_FILE = "topic file";
+        public const string STAGE_LIST = "stage list";
     }
 }

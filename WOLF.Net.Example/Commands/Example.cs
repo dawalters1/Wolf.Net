@@ -12,6 +12,7 @@ using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Commands
 {
+
     [CommandCollection("example")]
     class Example : CommandContext
     {
