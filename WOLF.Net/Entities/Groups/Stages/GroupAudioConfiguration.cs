@@ -19,5 +19,10 @@ namespace WOLF.Net.Entities.Groups.Stages
         [JsonProperty("stageId")]
         public int StageId { get; set; }
 
+        /// <summary>
+        /// The user who updated the stage
+        /// </summary>
+        [JsonProperty("sourceSubscriberId")]
+        public int SourceSubscriberId { get; set; }
     }
 }

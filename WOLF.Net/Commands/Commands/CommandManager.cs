@@ -57,7 +57,11 @@ namespace WOLF.Net.Commands.Commands
             if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
                 throw new Exception($"Missing translation key {collection.Value.Trigger}"); 
 
-            collection.Value.Commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
+            var commands = collection.Type.GetMethods().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new MethodInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList();
+
+            collection.Value.Commands = commands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList();
+
+            collection.Value.Default = commands.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
 
             collection.Value.SubCollections = collection.Type.GetNestedTypes().Where(t => Attribute.IsDefined(t, typeof(CommandCollection))).Select(t => new TypeInstance<CommandCollection>(t, t.GetCustomAttribute<CommandCollection>())).ToList();
 
@@ -91,7 +95,7 @@ namespace WOLF.Net.Commands.Commands
             command.Type.Invoke(i, null);
         }
 
-        private bool CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData)
+        private bool CheckCollection(TypeInstance<CommandCollection> collection, Message message, CommandData commandData, bool isSubCollection = false)
         {
             var cmdArg = commandData.Argument.Split(' ')[0];
 
@@ -99,17 +103,17 @@ namespace WOLF.Net.Commands.Commands
             {
                 var phrase = Bot.GetPhraseByName(commandData.Language, subCollection.Value.Trigger);
 
-                if (phrase == null||!phrase.IsEqual(cmdArg))
+                if (phrase == null || !phrase.IsEqual(cmdArg))
                     continue;
 
                 commandData.Argument = string.Join(' ', commandData.Argument.Split(' ').Skip(1));
 
-                CheckCollection(subCollection, message, commandData);
+                CheckCollection(subCollection, message, commandData, true);
 
                 return true;
             }
 
-            foreach (var command in collection.Value.Commands.Where(r=>!string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
+            foreach (var command in collection.Value.Commands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
             {
                 var phrase = Bot.GetPhraseByName(commandData.Language, command.Value.Trigger);
 
@@ -123,11 +127,20 @@ namespace WOLF.Net.Commands.Commands
                 return true;
             }
 
+            if (isSubCollection && collection.Value.Default != null)
+            {
+                ExecuteCommand(collection.Type, collection.Value.Default, message, commandData);
+                return true;
+            }
+
             return false;
         }
 
         internal async Task ProcessMessage(Message message)
         {
+            Type type = null;
+            MethodInstance<Command> defaultCommand = null;
+
             if (message.ContentType != ContentType.Text)
                 return;
 
@@ -135,32 +148,42 @@ namespace WOLF.Net.Commands.Commands
 
             var cmdArg = fixedArgs.Split(' ')[0];
 
+            var commandData = new CommandData()
+            {
+                IsGroup = message.IsGroup,
+                Argument = string.Join(' ', fixedArgs.Split(' ').Skip(1)),
+                MessageType = message.MessageType
+            };
+
             foreach (var collection in collections)
             {
                 var phrase = Bot.GetAllPhrasesByName(collection.Value.Trigger).FirstOrDefault(r => r.Value.IsEqual(cmdArg));
 
                 if (phrase!=null)
                 {
-                    var commandData = new CommandData()
+                    if (collection.Value.Default != null)
                     {
-                        Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId),
-                        Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null,
-                        IsGroup = message.IsGroup,
-                        Argument = string.Join(' ',fixedArgs.Split(' ').Skip(1)),
-                        Language = phrase.Language,
-                        MessageType = message.MessageType
-                    };
+                        defaultCommand = collection.Value.Default;
+                        type = collection.Type;
+                    }
+
+                    commandData.Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+                    commandData.Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null;
+                    commandData.Language = phrase.Language;
 
                     foreach (var attrib in collection.Attributes)
                         if (!await attrib.Validate(Bot, commandData))
                             return;
 
                     if (CheckCollection(collection, message, commandData))
-                        break;
+                        return;
                 }
                 else
                     continue;
             }
+
+            if (defaultCommand != null)
+                ExecuteCommand(type, defaultCommand, message, commandData);
         }
     }
 }

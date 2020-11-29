@@ -33,8 +33,16 @@ namespace WOLF.Net.Client.Events.Handlers
                 Bot.On.Emit(InternalEvent.LOGIN, Bot.CurrentSubscriber);
             }
             else
-                Bot.CurrentSubscriber = data.LoggedInUser;
+            {
+                Bot.Groups.Clear();
+                Bot.Subscribers.Clear();
+                Bot.Stages.Clear();
+                Bot.Achievements.Clear();
+                Bot.Charms.Clear();
+                Bot.Contacts.Clear();
 
+                Bot.CurrentSubscriber = data.LoggedInUser;
+            }
             await OnLoginSuccess();
         }
 

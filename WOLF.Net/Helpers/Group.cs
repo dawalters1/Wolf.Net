@@ -14,10 +14,6 @@ using WOLF.Net.Utilities;
 
 namespace WOLF.Net
 {
-    //TO-DO:
-    /*
-     * Update profile
-     */
     public partial class WolfBot
     {
         public List<Group> Groups = new List<Group>();

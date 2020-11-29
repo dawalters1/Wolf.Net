@@ -12,7 +12,7 @@ using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Helpers.ProfileBuilders
 {
-    public class Subscriber
+    public class SubscriberUpdateBuilder
     {
         private WolfBot Bot { get; set; }       
         private int Id { get; set; }
@@ -35,7 +35,7 @@ namespace WOLF.Net.Helpers.ProfileBuilders
 
         private string Name { get; set; }
 
-        public Subscriber(WolfBot bot, Entities.Subscribers.Subscriber subscriber)
+        public SubscriberUpdateBuilder(WolfBot bot, Entities.Subscribers.Subscriber subscriber)
         {
             Bot = bot;
             Id = subscriber.Id;
@@ -50,84 +50,84 @@ namespace WOLF.Net.Helpers.ProfileBuilders
             Name = subscriber.Extended.Name;
         }
 
-        public Subscriber SetNickname(string nickname)
+        public SubscriberUpdateBuilder SetNickname(string nickname)
         {
             Nickname = nickname;
 
             return this;
         }
 
-        public Subscriber SetStatus(string status)
+        public SubscriberUpdateBuilder SetStatus(string status)
         {
             Status = status;
 
             return this;
         }
 
-        public Subscriber SetLanguage(Language language)
+        public SubscriberUpdateBuilder SetLanguage(Language language)
         {
             Language = language;
 
             return this;
         }
 
-        public Subscriber SetRelationship(Relationship relationship)
+        public SubscriberUpdateBuilder SetRelationship(Relationship relationship)
         {
             Relationship = relationship;
 
             return this;
         }
 
-        public Subscriber SetUrls(params string[] urls)
+        public SubscriberUpdateBuilder SetUrls(params string[] urls)
         {
             Urls = urls.ToList();
 
             return this;
         }
 
-        public Subscriber ClearUrls()
+        public SubscriberUpdateBuilder ClearUrls()
         {
             Urls = new List<string>();
 
             return this;
         }
 
-        public Subscriber AddUrl(string url)
+        public SubscriberUpdateBuilder AddUrl(string url)
         {
             Urls.Add(url);
 
             return this;
         }
 
-        public Subscriber RemoveUrl(string url)
+        public SubscriberUpdateBuilder RemoveUrl(string url)
         {
             Urls.Remove(url);
 
             return this;
         }
 
-        public Subscriber SetGender(Gender gender)
+        public SubscriberUpdateBuilder SetGender(Gender gender)
         {
             Gender = gender;
 
             return this;
         }
 
-        public Subscriber SetLookingFor(params LookingFor[] lookingFor)
+        public SubscriberUpdateBuilder SetLookingFor(params LookingFor[] lookingFor)
         {
             LookingFor = (LookingFor)lookingFor.Sum(r => (int)r);
 
             return this;
         }
 
-        public Subscriber SetAbout(string about)
+        public SubscriberUpdateBuilder SetAbout(string about)
         {
             About = about;
 
             return this;
         }
 
-        public Subscriber SetName(string name)
+        public SubscriberUpdateBuilder SetName(string name)
         {
             Name = name;
 
