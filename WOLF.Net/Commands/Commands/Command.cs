@@ -3,13 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WOLF.Net.Enums.Groups;
+using WOLF.Net.Enums.Messages;
+using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Commands.Commands
 { 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited =true)]
     public class Command : Attribute
     {
-        public string Trigger { get; set; }
+        internal bool AuthOnly { get; set; }
+
+        internal string Trigger { get; set; }
+
+        internal MessageType MessageType { get; set; }
+
+        internal Capability Capability { get; set; }
+
+        internal List<Privilege> Privileges { get; set; }
 
         public Command()
         {
@@ -21,9 +32,12 @@ namespace WOLF.Net.Commands.Commands
             Trigger = trigger;
         }
 
-        internal Command Clone(string trigger)
+        internal Command(string trigger, MessageType messageType = MessageType.Both, Capability capability = Capability.None, List<Privilege> privileges = null, bool authOnly = false)
         {
-            return new Command(trigger);
+            Trigger = trigger;
+            MessageType = messageType;
+                Capability = capability;
+            Privileges = privileges;
         }
     }
 }

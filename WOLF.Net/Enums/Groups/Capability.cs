@@ -6,7 +6,7 @@ namespace WOLF.Net.Enums.Groups
 {
     public enum Capability
     {
-        NotGroupSubscriber = -1,
+        None = -1,
 
         Regular = 0,
 

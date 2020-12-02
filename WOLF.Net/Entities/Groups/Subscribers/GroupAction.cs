@@ -30,13 +30,13 @@ namespace WOLF.Net.Entities.Groups.Subscribers
                  Capability.Mod,
             "reset" => Capability.Regular,
             "kick" =>
-                 Capability.NotGroupSubscriber,
+                 Capability.None,
             "silence" =>
                  Capability.Silenced,
             "ban" =>
                  Capability.Banned,
             _ =>
-                 Capability.NotGroupSubscriber
+                 Capability.None
         };
     }
 }

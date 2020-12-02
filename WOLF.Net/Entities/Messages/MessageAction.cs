@@ -29,12 +29,12 @@ namespace WOLF.Net.Entities.Messages
         public Capability Role => Type.ToLower() switch
         {
             "ban" => Capability.Banned,
-            "kick" => Capability.NotGroupSubscriber,
+            "kick" => Capability.None,
             "mod" => Capability.Mod,
             "reset" => Capability.Regular,
             "admin" => Capability.Admin,
             "join" => Capability.Regular,
-            "leave" => Capability.NotGroupSubscriber,
+            "leave" => Capability.None,
             _ => Capability.Silenced,
         };
     }

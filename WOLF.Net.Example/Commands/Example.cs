@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Commands;
 using WOLF.Net.Enums.Groups;
+using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Subscribers;
 using WOLF.Net.Example.Entities;
 using WOLF.Net.Utilities;
@@ -13,7 +14,7 @@ using WOLF.Net.Utilities;
 namespace WOLF.Net.ExampleBot.Commands
 {
 
-    [CommandCollection("example")]
+    [CommandCollection("example"), RequiredMessageType(MessageType.Group)]
     class Example : CommandContext
     {
         [Command]

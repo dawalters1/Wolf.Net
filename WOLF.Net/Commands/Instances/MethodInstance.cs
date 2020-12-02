@@ -13,16 +13,16 @@ namespace WOLF.Net.Commands.Instances
 
         public T Value { get; set; }
 
-        public List<BaseAttribute> Attributes { get; set; }
+        public List<CustomAttribute> CustomAttributes { get; set; }
 
         public MethodInstance(MethodInfo type, T value)
         {
             Type = type;
             Value = value;
 
-            Attributes = type.GetCustomAttributes()
-                        .Where(t => t is BaseAttribute)
-                        .Cast<BaseAttribute>()
+            CustomAttributes = type.GetCustomAttributes()
+                        .Where(t => t is CustomAttribute)
+                        .Cast<CustomAttribute>()
                         .ToList();
         }
     }

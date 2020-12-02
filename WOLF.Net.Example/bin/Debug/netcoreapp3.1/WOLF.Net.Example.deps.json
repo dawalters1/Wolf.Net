@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "WOLF.Net.Example/1.0.0": {
         "dependencies": {
-          "WOLF.Net": "4.0.0-alpha7",
+          "WOLF.Net": "4.0.0-alpha9",
           "WOLF.Net.Redis": "3.0.0"
         },
         "runtime": {
@@ -180,6 +180,25 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
+      "System.Runtime.Caching/4.7.0": {
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Runtime.Caching.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
       "System.Runtime.CompilerServices.Unsafe/4.7.1": {
         "runtime": {
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
@@ -258,11 +277,12 @@
           }
         }
       },
-      "WOLF.Net/4.0.0-alpha7": {
+      "WOLF.Net/4.0.0-alpha9": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "SocketIOClient": "2.1.1",
-          "System.Drawing.Common": "4.7.0"
+          "System.Drawing.Common": "4.7.0",
+          "System.Runtime.Caching": "4.7.0"
         },
         "runtime": {
           "WOLF.Net.dll": {}
@@ -397,6 +417,13 @@
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
     },
+    "System.Runtime.Caching/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NdvNRjTPxYvIEhXQszT9L9vJhdQoX6AQ0AlhjTU+5NqFQVuacJTfhPVAvtGWNA2OJCqRiR/okBcZgMwI6MqcZg==",
+      "path": "system.runtime.caching/4.7.0",
+      "hashPath": "system.runtime.caching.4.7.0.nupkg.sha512"
+    },
     "System.Runtime.CompilerServices.Unsafe/4.7.1": {
       "type": "package",
       "serviceable": true,
@@ -453,7 +480,7 @@
       "path": "websocketsharp-netstandard/1.0.1",
       "hashPath": "websocketsharp-netstandard.1.0.1.nupkg.sha512"
     },
-    "WOLF.Net/4.0.0-alpha7": {
+    "WOLF.Net/4.0.0-alpha9": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

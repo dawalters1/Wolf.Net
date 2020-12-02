@@ -29,4 +29,3 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyInfo.c
 D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.pdb
-D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csprojAssemblyReference.cache
