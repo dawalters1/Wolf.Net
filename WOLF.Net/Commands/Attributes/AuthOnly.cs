@@ -8,22 +8,8 @@ using WOLF.Net.Entities.API;
 
 namespace WOLF.Net.Commands.Attributes
 {
-    public class AuthOnly : BaseAttribute
+    [AttributeUsage(AttributeTargets.All)]
+    public class AuthOnly : Attribute
     {
-        public override async Task<bool> Validate(WolfBot bot, CommandData command)
-        {
-            var result = bot.IsAuthorized(command.SourceSubscriberId);
-
-            if (!result)
-                bot.On.Emit(InternalEvent.PERMISSIONS_FAILED, new FailedPermission()
-                {
-                    SourceTargetId = command.SourceTargetId,
-                    SourceSubscriberId = command.SourceSubscriberId,
-                    Language = command.Language,
-                    AuthOnly = true
-                });
-
-            return result;
-        }
     }
 }

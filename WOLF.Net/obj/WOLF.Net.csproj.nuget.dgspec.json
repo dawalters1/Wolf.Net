@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "4.0.0-alpha6",
+      "version": "4.0.0-alpha9",
       "restore": {
         "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
@@ -49,6 +49,10 @@
               "version": "[2.1.1, )"
             },
             "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Runtime.Caching": {
               "target": "Package",
               "version": "[4.7.0, )"
             }

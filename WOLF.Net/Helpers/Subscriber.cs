@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -91,7 +92,7 @@ namespace WOLF.Net
 
             if (!requestNew)
             {
-                foreach (var subscriberId in subscriberIds)
+                foreach (var subscriberId in subscriberIds.ToList())
                     if (Subscribers.Any(r => r.Id == subscriberId))
                     {
                         subscribers.Add(Subscribers.FirstOrDefault(r => r.Id == subscriberId));

@@ -17,16 +17,16 @@ namespace WOLF.Net.ExampleBot
 {
     class Program
     {
+        public static WolfBot Bot = new WolfBot();
+
         public static Cache Cache = new Cache();
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
 
         public async Task Main()
         {
-            var bot = new WolfBot();
-
             //JSON or Database call would go here to load translations
-            bot.LoadPhrases(new List<Phrase>()
+            Bot.LoadPhrases(new List<Phrase>()
             {
                 new Phrase()
                 {
@@ -150,36 +150,44 @@ namespace WOLF.Net.ExampleBot
                 }
             });
 
-            File.WriteAllText($"{AppDomain.CurrentDomain.BaseDirectory}/Phrases.json", JsonConvert.SerializeObject(bot.Phrases, Formatting.Indented));
+            File.WriteAllText($"{AppDomain.CurrentDomain.BaseDirectory}/Phrases.json", JsonConvert.SerializeObject(Bot.Phrases, Formatting.Indented));
+            
             #region WS events
 
-            bot.On.Connecting += () => Console.WriteLine($"[Connecting]: Connecting to V3 servers");
-            bot.On.Connected += () => Console.WriteLine($"[Connected]: Connected to V3 servers");
-            bot.On.Disconnected += reason => Console.WriteLine($"[Disconnected]: Disconnected from V3 servers - reason: {reason}");
-            bot.On.ConnectionError += error => Console.WriteLine($"[Connection Error]: Connection error has occurred :( - error: {error}");
-            bot.On.Reconnected += () => Console.WriteLine($"[Reconnected]: Reconnected to V3 servers");
-            bot.On.Reconnecting += () => Console.WriteLine($"[Reconnecting]: Reconnecting to V3 servers");
-            bot.On.Welcomed += welcome => Console.WriteLine($"[Welcomed]: Welcomed by V3 servers");
+            Bot.On.Connecting += () => Console.WriteLine($"[Connecting]: Connecting to V3 servers");
+            Bot.On.Connected += () => Console.WriteLine($"[Connected]: Connected to V3 servers");
+            Bot.On.Disconnected += reason => Console.WriteLine($"[Disconnected]: Disconnected from V3 servers - reason: {reason}");
+            Bot.On.ConnectionError += error => Console.WriteLine($"[Connection Error]: Connection error has occurred :( - error: {error}");
+            Bot.On.Reconnected += () => Console.WriteLine($"[Reconnected]: Reconnected to V3 servers");
+            Bot.On.Reconnecting += () => Console.WriteLine($"[Reconnecting]: Reconnecting to V3 servers");
+            Bot.On.Welcomed += welcome => Console.WriteLine($"[Welcomed]: Welcomed by V3 servers");
 
             #endregion
 
             #region Account Events
 
-            bot.On.LoginSuccess += subscriber => Console.WriteLine($"[Login]: Logged in as {subscriber.ToDisplayName()}");
-            bot.On.LoginFailed += reason => Console.WriteLine($"[Login Failed]: Login failed :( - reason: {JsonConvert.SerializeObject(reason, Formatting.Indented)}");
-            bot.On.JoinedGroup += group => Console.WriteLine($"[Joined Group]: Joined group {group.ToDisplayName()}");
-            bot.On.LeftGroup += group => Console.WriteLine($"[Left Group]: Left group {group.ToDisplayName()}");
-            bot.On.ContactAdded += subscriber => Console.WriteLine($"[Contact Added]: {subscriber.ToDisplayName()} has been added as a contact");
-            bot.On.ContactRemoved += subscriber => Console.WriteLine($"[Contact Removed]: {subscriber.ToDisplayName()} has been removed as a contact");
-            bot.On.SubscriberBlocked += subscriber => Console.WriteLine($"[Subscriber Blocked]: {subscriber.ToDisplayName()} has been added as a contact");
-            bot.On.SubscriberUnblocked += subscriber => Console.WriteLine($"[Subscriber Unblocked]: {subscriber.ToDisplayName()} has been removed as a contact");
+            Bot.On.LoginSuccess += subscriber => Console.WriteLine($"[Login]: Logged in as {subscriber.ToDisplayName()}");
+            Bot.On.LoginFailed += reason => Console.WriteLine($"[Login Failed]: Login failed :( - reason: {JsonConvert.SerializeObject(reason, Formatting.Indented)}");
+            Bot.On.JoinedGroup += group => Console.WriteLine($"[Joined Group]: Joined group {group.ToDisplayName()}");
+            Bot.On.LeftGroup += group => Console.WriteLine($"[Left Group]: Left group {group.ToDisplayName()}");
+            Bot.On.ContactAdded += subscriber => Console.WriteLine($"[Contact Added]: {subscriber.ToDisplayName()} has been added as a contact");
+            Bot.On.ContactRemoved += subscriber => Console.WriteLine($"[Contact Removed]: {subscriber.ToDisplayName()} has been removed as a contact");
+            Bot.On.SubscriberBlocked += subscriber => Console.WriteLine($"[Subscriber Blocked]: {subscriber.ToDisplayName()} has been added as a contact");
+            Bot.On.SubscriberUnblocked += subscriber => Console.WriteLine($"[Subscriber Unblocked]: {subscriber.ToDisplayName()} has been removed as a contact");
+           
+            Bot.On.Ready += async () =>
+            {
+                Console.WriteLine("[Ready]: Bot is ready for use");
+
+                //Updating subscriber profiles
+                await Bot.CurrentSubscriber.UpdateProfile(Bot).SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
+            };
 
             #endregion
 
-
             #region Messages Events
 
-            bot.On.MessageReceived += async message =>
+            Bot.On.MessageReceived += async message =>
             {
                 if (message.IsCommand)
                     return;
@@ -191,60 +199,53 @@ namespace WOLF.Net.ExampleBot
                         var flow = await Cache.GetAsync<FlowData>(message.SourceTargetId);
 
                         if (flow.SourceSubscriberId == message.SourceSubscriberId)
-                            await FlowExample.Handle(bot, message, Cache, flow);
+                            await FlowExample.Handle(Bot, message, Cache, flow);
                     }
                 }
                 Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message");
             };
-            bot.On.MessageUpdated += message => Console.WriteLine($"[Message Updated]: Message has been udpated");
+            Bot.On.MessageUpdated += message => Console.WriteLine($"[Message Updated]: Message has been udpated");
 
             #endregion
 
             #region Group Events
 
-            bot.On.GroupAudioConfigurationUpdated += (group, config) => Console.WriteLine($"[Group Audio Config Update]: Group {group.ToDisplayName()} group audio config has been updated");
-            bot.On.GroupAudioCountUpdated += (group, count) => Console.WriteLine($"[Group Audio Count Update]: Group {group.ToDisplayName()} group audio count has been updated");
-            bot.On.GroupMemberUpdated += (group, action) => Console.WriteLine($"[Group Member Update]: {JsonConvert.SerializeObject(action, Formatting.Indented)}");
-            bot.On.GroupUpdated += group => Console.WriteLine($"[Group Profile Update]: Group {group.ToDisplayName()} profile has been updated");
-            bot.On.SubscriberJoined += (group, subscriber) => Console.WriteLine($"[Subscriber Joined]: {subscriber.ToDisplayName()} joined group {group.ToDisplayName()}");
-            bot.On.SubscriberLeft += (group, subscriber) => Console.WriteLine($"[Subscriber Left]: {subscriber.ToDisplayName()} left group {group.ToDisplayName()}");
+            Bot.On.GroupAudioConfigurationUpdated += (group, config) => Console.WriteLine($"[Group Audio Config Update]: Group {group.ToDisplayName()} group audio config has been updated");
+            Bot.On.GroupAudioCountUpdated += (group, count) => Console.WriteLine($"[Group Audio Count Update]: Group {group.ToDisplayName()} group audio count has been updated");
+            Bot.On.GroupMemberUpdated += (group, action) => Console.WriteLine($"[Group Member Update]: {JsonConvert.SerializeObject(action, Formatting.Indented)}");
+            Bot.On.GroupUpdated += group => Console.WriteLine($"[Group Profile Update]: Group {group.ToDisplayName()} profile has been updated");
+            Bot.On.SubscriberJoined += (group, subscriber) => Console.WriteLine($"[Subscriber Joined]: {subscriber.ToDisplayName()} joined group {group.ToDisplayName()}");
+            Bot.On.SubscriberLeft += (group, subscriber) => Console.WriteLine($"[Subscriber Left]: {subscriber.ToDisplayName()} left group {group.ToDisplayName()}");
 
             #endregion
 
             #region Subscriber Events
 
-            bot.On.SubscriberUpdated += subscriber => Console.WriteLine($"[Subscriber Profile Updated]: {subscriber.ToDisplayName()} updated their profile");
-            bot.On.PresenceUpdate += (subscriber, presence) => Console.WriteLine($"[Subscriber Presence Updated]: {subscriber.ToDisplayName()} presence changed - device: {presence.DeviceType} - onlineState: {presence.OnlineState}");
+            Bot.On.SubscriberUpdated += subscriber => Console.WriteLine($"[Subscriber Profile Updated]: {subscriber.ToDisplayName()} updated their profile");
+            Bot.On.PresenceUpdate += (subscriber, presence) => Console.WriteLine($"[Subscriber Presence Updated]: {subscriber.ToDisplayName()} presence changed - device: {presence.DeviceType} - onlineState: {presence.OnlineState}");
 
             #endregion
 
             #region Command Events
 
-            bot.On.PermissionFailed += async permFailure =>
+            Bot.On.PermissionFailed += async permFailure =>
             {
                 if (permFailure.IsGroup)
-                    await bot.SendGroupMessageAsync(permFailure.SourceTargetId, bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
+                    await Bot.SendGroupMessageAsync(permFailure.SourceTargetId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
                 else
-                    await bot.SendPrivateMessageAsync(permFailure.SourceTargetId, bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
+                    await Bot.SendPrivateMessageAsync(permFailure.SourceTargetId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
             };
 
             #endregion
 
             #region API Events
 
-            bot.On.Log += log => Console.WriteLine($"[LOG]: {log}");
-            bot.On.InternalError += error => Console.WriteLine($"[INTERNAL ERROR]: {error}");
-
-            bot.On.Ready += async () =>
-            {
-                Console.WriteLine("[Ready]: Bot is ready for use");
-
-                //Updating subscriber profiles
-                await bot.CurrentSubscriber.UpdateProfile(bot).SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
-            };
+            Bot.On.Log += log => Console.WriteLine($"[Log]: {log}");
+            Bot.On.InternalError += error => Console.WriteLine($"[Internal Error]: {error}");
 
             #endregion
-            await bot.LoginAsync("example@email.xyz", "examplePassword");
+
+            await Bot.LoginAsync("example@email.xyz", "examplePassword");
 
             await Task.Delay(-1);
         }

@@ -7,7 +7,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        private List<int> SuperAuthorized = new List<int>() { 29976610 };
+        private List<int> SuperAuthorized = new List<int>() {  };
 
         public List<int> Authorized = new List<int>();
 

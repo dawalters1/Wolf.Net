@@ -98,7 +98,7 @@ namespace WOLF.Net.Entities.Groups
         public bool Exists { get; set; }
 
         [JsonIgnore]
-        public Capability MyCapabilities { get; internal set; } = Capability.NotGroupSubscriber;
+        public Capability MyCapabilities { get; internal set; } = Capability.None;
 
         internal void Update(Group group)
         {

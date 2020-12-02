@@ -11,11 +11,14 @@ using WOLF.Net.Entities.Messages;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Utilities;
+using System.Runtime.Caching;
 
 namespace WOLF.Net.Client.Events.Handlers
 {
     public class MessageSend : Event<Message>
     {
+        private MemoryCache memoryCache = new MemoryCache("cooldown");
+
         public override string Command => Event.MESSAGE_SEND;
 
         public override async void HandleAsync(Message data)
@@ -66,9 +69,9 @@ namespace WOLF.Net.Client.Events.Handlers
                                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                                 {
                                     group.MyCapabilities = action.Role;
-                                    if (action.Role == Capability.NotGroupSubscriber)
+                                    if (action.Role == Capability.None)
                                     {
-                                        group.MyCapabilities = Enums.Groups.Capability.NotGroupSubscriber;
+                                        group.MyCapabilities = Enums.Groups.Capability.None;
                                         group.InGroup = false;
                                         group.Users.Clear();
 
@@ -114,8 +117,18 @@ namespace WOLF.Net.Client.Events.Handlers
                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                     return;
 
-                if (data.Content.IsEqual(">wdn whos a bot")&& (await Bot.GetSubscriberAsync(data.SourceSubscriberId)).Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER))
-                   await Bot.SendMessageAsync(data.SourceTargetId, $"I am a bot using Wolf.Net V{Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
+                if (data.Content.IsEqual(">wdn whos a bot"))
+                {
+                    var subscriber = await Bot.GetSubscriberAsync(data.SourceSubscriberId);
+                    if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
+                    {
+                        if (!memoryCache.Contains(subscriber.Id.ToString()))
+                        {
+                            memoryCache.Add(subscriber.Id.ToString(), "", DateTime.UtcNow.AddSeconds(4));
+                            await Bot.SendMessageAsync(data.SourceTargetId, $"I am a bot using Wolf.Net V{Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
+                        }
+                    }
+                }
 
                 data.IsCommand = Bot.CommandManager.IsCommand(data);
 

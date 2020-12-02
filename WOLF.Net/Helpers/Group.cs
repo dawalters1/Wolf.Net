@@ -256,7 +256,7 @@ namespace WOLF.Net
 
             if (!requestNew)
             {
-                foreach (var groupId in groupIds)
+                foreach (var groupId in groupIds.ToList())
                     if (Groups.Any(r => r.Id == groupId))
                     {
                         groups.Add(Groups.FirstOrDefault(r => r.Id == groupId));
