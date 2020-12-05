@@ -28,7 +28,7 @@ namespace WOLF.Net.ExampleBot.Commands
         [Command("start")]
         public async Task Start()
         {
-            if (await Program.Cache.ExistsAsync(Command.SourceTargetId))
+            if (await Cache.ExistsAsync(Command.SourceTargetId))
             {
                 var form = await Cache.GetAsync<FormData>(Command.SourceTargetId);
 
@@ -45,10 +45,10 @@ namespace WOLF.Net.ExampleBot.Commands
         [Command("cancel"), RequiredPermissions(Capability.Admin, Privilege.STAFF)]
         public async Task Cancel()
         {
-            if (!await Program.Cache.ExistsAsync(Command.SourceTargetId))
+            if (!await Cache.ExistsAsync(Command.SourceTargetId))
                 await ReplyAsync("(N) Theres nothing to cancel");
 
-            if (await Program.Cache.DeleteAsync(Command.SourceTargetId))
+            if (await Cache.DeleteAsync(Command.SourceTargetId))
                 await ReplyAsync("(Y) Form Cancelled");
         }
 
