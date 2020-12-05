@@ -77,10 +77,10 @@ namespace WOLF.Net.Commands.Commands
                     throw new Exception("Triggers can only be 1 word long and contain no spaces, newlines or tabs");
             }
             else if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
-                throw new Exception($"Missing translation key {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                throw new Exception($"Missing translation key {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             if (collection.Value.ChildrenCommands.Any(r => r.Type.GetParameters().Length > 0))
-                throw new Exception($"Commands cannot contain generic parameters\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                throw new Exception($"Commands cannot contain generic parameters\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             if (collectionMessageTypeAttrib != null && collectionMessageTypeAttrib._messageType != MessageType.Both)
             {
@@ -102,12 +102,12 @@ namespace WOLF.Net.Commands.Commands
             }
 
             if (collection.Value.ChildrenCommands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).Any(command => collection.Value.ChildrenCollections.Any(s => s.Value.Trigger.IsEqual(command.Value.Trigger))))
-                throw new Exception($"You have commands sharing the same trigger as subcollections in class {collection.Type.Name}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                throw new Exception($"You have commands sharing the same trigger as subcollections in class {collection.Type.Name}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             foreach (var subCollection in collection.Value.ChildrenCollections)
             {
                 if (subCollection.Value.ChildrenCommands.Any(command => subCollection.Value.Trigger.IsEqual(command.Value.Trigger)))
-                    throw new Exception($"Commands cannot have the same trigger as collection {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"Commands cannot have the same trigger as collection {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (collectionMessageTypeAttrib != null && collectionMessageTypeAttrib._messageType != MessageType.Both)
                 {
@@ -290,13 +290,13 @@ namespace WOLF.Net.Commands.Commands
             foreach (var duplicate in duplicateCollections)
             {
                 if (duplicate.commands.Count(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) > 1)
-                    throw new Exception($"You can only have 1 default command in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can only have 1 default command in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (duplicate.commands.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You can not have 2 of the same commands triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can not have 2 of the same commands triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (duplicate.subCollections.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You can not have 2 of the same SubCommandCollections triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can not have 2 of the same SubCommandCollections triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
             }
         }
 

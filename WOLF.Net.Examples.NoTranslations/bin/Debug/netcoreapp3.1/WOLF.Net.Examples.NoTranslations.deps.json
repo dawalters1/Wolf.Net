@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "WOLF.Net.Examples.NoTranslations/1.0.0": {
         "dependencies": {
-          "WOLF.Net": "4.0.0-beta1",
+          "WOLF.Net": "4.0.0-beta2",
           "WOLF.Net.Redis": "3.0.0"
         },
         "runtime": {
@@ -277,7 +277,7 @@
           }
         }
       },
-      "WOLF.Net/4.0.0-beta1": {
+      "WOLF.Net/4.0.0-beta2": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "SocketIOClient": "2.1.1",
@@ -480,7 +480,7 @@
       "path": "websocketsharp-netstandard/1.0.1",
       "hashPath": "websocketsharp-netstandard.1.0.1.nupkg.sha512"
     },
-    "WOLF.Net/4.0.0-beta1": {
+    "WOLF.Net/4.0.0-beta2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
