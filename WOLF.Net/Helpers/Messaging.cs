@@ -91,7 +91,7 @@ namespace WOLF.Net
             });
 
             if (result.Success)
-                return new Response<Message>() { Code = 200, Body = result.Body.ToNormalMessage() };
+                return new Response<Message>() { Code = 200, Body = result.Body.ToNormalMessage(this) };
 
             return new Response<Message>() { Code = result.Code, Body = default, Headers = result.Headers };
         }
@@ -115,7 +115,7 @@ namespace WOLF.Net
             });
 
             if (result.Success)
-                return new Response<Message>() { Code = 200, Body = result.Body.ToNormalMessage() };
+                return new Response<Message>() { Code = 200, Body = result.Body.ToNormalMessage(this) };
 
             return new Response<Message>() { Code = result.Code, Body = default, Headers = result.Headers };
         }
@@ -192,7 +192,7 @@ namespace WOLF.Net
             return new Response<List<Message>>()
             {
                 Code = result.Code,
-                Body = result.Body.Select(r => r.ToNormalMessage()).ToList(),
+                Body = result.Body.Select(r => r.ToNormalMessage(this)).ToList(),
                 Headers = result.Headers
             };
         }
@@ -223,7 +223,7 @@ namespace WOLF.Net
             return new Response<List<Message>>()
             {
                 Code = result.Code,
-                Body = result.Body.Select(r => r.ToNormalMessage()).ToList(),
+                Body = result.Body.Select(r => r.ToNormalMessage(this)).ToList(),
                 Headers = result.Headers
             };
         }

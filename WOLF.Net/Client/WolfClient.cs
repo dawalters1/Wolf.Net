@@ -127,8 +127,7 @@ namespace WOLF.Net.Client
                         {
                             var response = resp.GetValue<Response<T>>();
 
-                            if (response.Headers != null && response.Headers.ContainsKey("subCode"))
-                                
+                            if (response.Headers != null && response.Headers.ContainsKey("subCode")&&!response.Headers.ContainsKey("message"))                      
                                 response.Headers.Add("message", command.ToErrorMessage(int.Parse(response.Headers["subCode"]), response.Headers.ContainsKey("subMessage") ? response.Headers["subMessage"] : ""));
 
                             result.SetResult(response);
@@ -188,7 +187,7 @@ namespace WOLF.Net.Client
                         {
                             var response = resp.GetValue<Response>();
 
-                            if (response.Headers != null && response.Headers.ContainsKey("subCode"))
+                            if (response.Headers != null && response.Headers.ContainsKey("subCode") && !response.Headers.ContainsKey("message"))
                                 response.Headers.Add("message", command.ToErrorMessage(int.Parse(response.Headers["subCode"]), response.Headers.ContainsKey("subMessage") ? response.Headers["subMessage"] : ""));
 
                             result.SetResult(response);

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net", "WOLF.Net\WOLF.N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Redis", "WOLF.Net.Redis\WOLF.Net.Redis.csproj", "{0E34D4D8-DAF3-49B8-A0E7-0C3E091F1B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF.Net.Example", "WOLF.Net.Example\WOLF.Net.Example.csproj", "{F57337AD-7B0F-4A22-B6EE-D587608518D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Example.Translations", "WOLF.Net.Example.Translations\WOLF.Net.Example.Translations.csproj", "{F57337AD-7B0F-4A22-B6EE-D587608518D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF.Net.Examples.NoTranslations", "WOLF.Net.Examples.NoTranslations\WOLF.Net.Examples.NoTranslations.csproj", "{D125D566-642F-4449-B815-9889E9FEE32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F57337AD-7B0F-4A22-B6EE-D587608518D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57337AD-7B0F-4A22-B6EE-D587608518D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57337AD-7B0F-4A22-B6EE-D587608518D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D125D566-642F-4449-B815-9889E9FEE32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D125D566-642F-4449-B815-9889E9FEE32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D125D566-642F-4449-B815-9889E9FEE32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D125D566-642F-4449-B815-9889E9FEE32D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
