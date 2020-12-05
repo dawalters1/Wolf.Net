@@ -141,7 +141,7 @@ namespace WOLF.Net.Client.Events.Handlers
         }
         public override void Register()
         {
-            Client.On<Response<BaseMessage>>(Command, resp => HandleAsync(resp.Body.ToNormalMessage()));
+            Client.On<Response<BaseMessage>>(Command, resp => HandleAsync(resp.Body.ToNormalMessage(Bot)));
         }
     }
 }

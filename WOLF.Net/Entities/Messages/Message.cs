@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Enums.Messages;
 
 namespace WOLF.Net.Entities.Messages
 {
     public class Message
     {
-        internal Message(BaseMessage message)
+        private WolfBot Bot;
+        internal Message(WolfBot bot, BaseMessage message)
         {
+            this.Bot = bot;
             this.Id = message.Id;
             this.Content = Encoding.UTF8.GetString(message.Data);
             this.SourceSubscriberId = message.Originator.Id;
@@ -53,6 +57,7 @@ namespace WOLF.Net.Entities.Messages
         public long Timestamp { get;set; }
 
         public bool IsCommand { get; set; }
+
         #region
 
         /// <summary>
@@ -61,5 +66,13 @@ namespace WOLF.Net.Entities.Messages
         public bool IsGroup => MessageType != MessageType.Private;
 
         #endregion
+
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content)
+        {
+
+            if (IsGroup)
+                return await Bot.SendGroupMessageAsync(SourceTargetId, content);
+            return await Bot.SendPrivateMessageAsync(SourceSubscriberId, content);
+        }
     }
 }

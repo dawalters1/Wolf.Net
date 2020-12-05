@@ -16,6 +16,8 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
+        internal bool UsingTranslations { get; set; }
+
         internal CommandManager CommandManager { get; set; }
 
         public Subscriber CurrentSubscriber { get; internal set; }
@@ -26,8 +28,14 @@ namespace WOLF.Net
 
         public LoginData LoginData { get; private set; }
 
-        public WolfBot()
+        /// <summary>
+        /// Create an instance of a bot
+        /// </summary>
+        /// <param name="usingTranslations">Set to true if you plan on using <see cref="LoadPhrases(List{Entities.Phrases.Phrase})"/></param>
+        public WolfBot(bool usingTranslations = false)
         {
+            UsingTranslations = usingTranslations;
+
             WolfClient = new WolfClient(this);
 
             CommandManager = new CommandManager(this);

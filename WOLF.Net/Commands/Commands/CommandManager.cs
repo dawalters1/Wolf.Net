@@ -34,6 +34,7 @@ namespace WOLF.Net.Commands.Commands
         private TypeInstance<CommandCollection> CreateCollection(TypeInstance<CommandCollection> col)
         {
             var trigger = col.Value.Trigger;
+
             var messageType = col.Type.GetMessageTypeOrDefault();
             var requiredPermissions = col.Type.GetRequiredCapabilityOrDefault();
             var requiredPrivileges = col.Type.GetRequiredPrivilegesOrDefault();
@@ -70,16 +71,26 @@ namespace WOLF.Net.Commands.Commands
         {
             var collectionMessageTypeAttrib = collection.Type.GetCustomAttribute<RequiredMessageType>();
 
-            if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
-                throw new Exception($"Missing translation key {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+            if (!Bot.UsingTranslations)
+            {
+                if (collection.Value.Trigger.Split(new char[] { '\n', '\t', ' ' }, StringSplitOptions.RemoveEmptyEntries).Count() > 1)
+                    throw new Exception("Triggers can only be 1 word long and contain no spaces, newlines or tabs");
+            }
+            else if (Bot.GetAllPhrasesByName(collection.Value.Trigger).Count == 0)
+                throw new Exception($"Missing translation key {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             if (collection.Value.ChildrenCommands.Any(r => r.Type.GetParameters().Length > 0))
-                throw new Exception($"Commands cannot contain generic parameters\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                throw new Exception($"Commands cannot contain generic parameters\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             if (collectionMessageTypeAttrib != null && collectionMessageTypeAttrib._messageType != MessageType.Both)
             {
                 foreach (var command in collection.Value.ChildrenCommands)
                 {
+                    if (!Bot.UsingTranslations)
+                    {
+                        if (command.Value.Trigger.Split(new char[] { '\n', '\t', ' ' }, StringSplitOptions.RemoveEmptyEntries).Count() > 1)
+                            throw new Exception("Triggers can only be 1 word long and contain no spaces, newlines or tabs");
+                    }
                     var commandMessageTypeAttrib = command.Type.GetCustomAttribute<RequiredMessageType>();
 
                     if (commandMessageTypeAttrib == null || commandMessageTypeAttrib._messageType == MessageType.Both)
@@ -91,12 +102,12 @@ namespace WOLF.Net.Commands.Commands
             }
 
             if (collection.Value.ChildrenCommands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).Any(command => collection.Value.ChildrenCollections.Any(s => s.Value.Trigger.IsEqual(command.Value.Trigger))))
-                throw new Exception($"You have commands sharing the same trigger as subcollections in class {collection.Type.Name}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                throw new Exception($"You have commands sharing the same trigger as subcollections in class {collection.Type.Name}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
             foreach (var subCollection in collection.Value.ChildrenCollections)
             {
                 if (subCollection.Value.ChildrenCommands.Any(command => subCollection.Value.Trigger.IsEqual(command.Value.Trigger)))
-                    throw new Exception($"Commands cannot have the same trigger as collection {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"Commands cannot have the same trigger as collection {collection.Value.Trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (collectionMessageTypeAttrib != null && collectionMessageTypeAttrib._messageType != MessageType.Both)
                 {
@@ -113,8 +124,15 @@ namespace WOLF.Net.Commands.Commands
             }
         }
 
-        internal bool IsCommand(Message message) => collections.Any(r => Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => s.Value.IsEqual(message.Content.Split(' ')[0])) && (r.Value.MessageType == MessageType.Both ? true : r.Value.MessageType == message.MessageType));
+        internal bool IsCommand(Message message)
+        {
+            var cmdArg = message.Content.Split(' ')[0];
 
+            if (!Bot.UsingTranslations)
+                return collections.Any(r => r.Value.Trigger.IsEqual(cmdArg)&& r.Value.MessageType == MessageType.Both ? true : r.Value.MessageType == message.MessageType);
+           
+            return collections.Any(r => Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => s.Value.IsEqual(message.Content.Split(' ')[0])) && (r.Value.MessageType == MessageType.Both ? true : r.Value.MessageType == message.MessageType));
+        }
         private async Task<bool> ExecuteCommand(TypeInstance<CommandCollection> collection, MethodInstance<Command> command, Message message, CommandData commandData)
         {
             var colData = collection.Value;
@@ -176,7 +194,7 @@ namespace WOLF.Net.Commands.Commands
             {
                 var phrase = Bot.GetPhraseByName(commandData.Language, subCollection.Value.Trigger);
 
-                if (phrase == null || !phrase.IsEqual(cmdArg) || !await ValidateAttributes(subCollection.CustomAttributes, commandData))
+                if ((!Bot.UsingTranslations && !subCollection.Value.Trigger.IsEqual(cmdArg) || phrase == null || !phrase.IsEqual(cmdArg)) || !await ValidateAttributes(subCollection.CustomAttributes, commandData))
                     continue;
 
                 commandData.Argument = string.Join(' ', commandData.Argument.Split(' ').Skip(1));
@@ -189,7 +207,7 @@ namespace WOLF.Net.Commands.Commands
             {
                 var phrase = Bot.GetPhraseByName(commandData.Language, command.Value.Trigger);
 
-                if (phrase == null || !phrase.IsEqual(cmdArg) || !await ValidateAttributes(command.CustomAttributes, commandData))
+                if ((!Bot.UsingTranslations && !command.Value.Trigger.IsEqual(cmdArg) || phrase == null || !phrase.IsEqual(cmdArg)) || !await ValidateAttributes(command.CustomAttributes, commandData))
                     continue;
 
 
@@ -228,7 +246,7 @@ namespace WOLF.Net.Commands.Commands
             {
                 var phrase = Bot.GetAllPhrasesByName(collection.Value.Trigger).FirstOrDefault(r => r.Value.IsEqual(cmdArg));
 
-                if (phrase != null)
+                if (phrase != null || !Bot.UsingTranslations && collection.Value.Trigger.IsEqual(cmdArg))
                 {
                     if (collection.Value.Default != null)
                     {
@@ -238,7 +256,7 @@ namespace WOLF.Net.Commands.Commands
 
                     commandData.Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId);
                     commandData.Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-                    commandData.Language = phrase.Language;
+                    commandData.Language = phrase == null ? "en" : phrase.Language;
 
                     if (await CheckCollection(collection, message, commandData))
                         return;
@@ -272,13 +290,13 @@ namespace WOLF.Net.Commands.Commands
             foreach (var duplicate in duplicateCollections)
             {
                 if (duplicate.commands.Count(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) > 1)
-                    throw new Exception($"You can only have 1 default command in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can only have 1 default command in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (duplicate.commands.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You can not have 2 of the same commands triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can not have 2 of the same commands triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
                 if (duplicate.subCollections.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You can not have 2 of the same SubCommandCollections triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net/tree/main/WOLF.Net.Example");
+                    throw new Exception($"You can not have 2 of the same SubCommandCollections triggers in collection {duplicate.trigger}\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
             }
         }
 

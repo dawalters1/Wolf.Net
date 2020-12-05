@@ -54,9 +54,9 @@ namespace WOLF.Net.Entities.Messages
             "text/palringo-private-request-response" => ContentType.PrivateRequestResponse,
             _ => ContentType.Unknown
         };
-        public Message ToNormalMessage()
+        public Message ToNormalMessage(WolfBot bot)
         {
-            return new Message(this);
+            return new Message(bot, this);
         }
     }
 }

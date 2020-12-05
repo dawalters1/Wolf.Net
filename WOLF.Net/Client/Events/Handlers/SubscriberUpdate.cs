@@ -14,7 +14,8 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(IdHash data)
         {
-            var subscriber = await Bot.GetSubscriberAsync(data.Id, data.Hash != Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id).Hash);
+            var subscriber = await Bot.GetSubscriberAsync(data.Id, 
+                data.Hash != Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id).Hash);
 
             foreach (var group in Bot.Groups.ToList())
                 if (group.Users.Any(r => r.Id == data.Id))
