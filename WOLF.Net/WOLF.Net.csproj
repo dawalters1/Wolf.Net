@@ -13,6 +13,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon>icon_vgE_icon.ico</ApplicationIcon>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <Authors>David Walters</Authors>
   </PropertyGroup>
 
   <ItemGroup>

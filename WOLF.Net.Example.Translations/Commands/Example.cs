@@ -17,6 +17,8 @@ namespace WOLF.Net.ExampleBot.Commands
     [CommandCollection("example"), RequiredMessageType(MessageType.Group)]
     class Example : CommandContext
     {
+        private Cache Cache => Program.Cache;
+
         [Command]
         public async Task Default1() => await Help();
 
@@ -26,11 +28,11 @@ namespace WOLF.Net.ExampleBot.Commands
         [Command("start")]
         public async Task Start()
         {
-            if (await Program.Cache.ExistsAsync(Command.SourceTargetId))
+            if (await Cache.ExistsAsync(Command.SourceTargetId))
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_exists_message"));
             else
             {
-                await Program.Cache.SetAsync(Message.SourceTargetId, new FormData(Command.SourceTargetId, Command.SourceSubscriberId, Command.Language));
+                await Cache.SetAsync(Message.SourceTargetId, new FormData(Command.SourceTargetId, Command.SourceSubscriberId, Command.Language));
 
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "send_age_message"));
             }
@@ -39,10 +41,10 @@ namespace WOLF.Net.ExampleBot.Commands
         [Command("cancel"), RequiredPermissions(Capability.Admin, Privilege.STAFF)]
         public async Task Cancel()
         {
-            if (!await Program.Cache.ExistsAsync(Command.SourceTargetId))
+            if (!await Cache.ExistsAsync(Command.SourceTargetId))
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
 
-            if (await Program.Cache.DeleteAsync(Command.SourceTargetId))
+            if (await Cache.DeleteAsync(Command.SourceTargetId))
                 await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
         }
 

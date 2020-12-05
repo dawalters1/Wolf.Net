@@ -11,7 +11,7 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("WOLF.Net")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("David Walters")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Unofficial C# library for connecting to WOLF (AKA Palringo)")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("4.0.0.0")]
