@@ -192,9 +192,9 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var subCollection in collection.Value.ChildrenCollections)
             {
-                var phrase = Bot.GetPhraseByName(commandData.Language, subCollection.Value.Trigger);
+                var phrase = Bot.UsingTranslations ? Bot.GetPhraseByName(commandData.Language, subCollection.Value.Trigger) : subCollection.Value.Trigger;
 
-                if ((!Bot.UsingTranslations && !subCollection.Value.Trigger.IsEqual(cmdArg) || phrase == null || !phrase.IsEqual(cmdArg)) || !await ValidateAttributes(subCollection.CustomAttributes, commandData))
+                if (phrase == null || !phrase.IsEqual(cmdArg) || !await ValidateAttributes(subCollection.CustomAttributes, commandData))
                     continue;
 
                 commandData.Argument = string.Join(' ', commandData.Argument.Split(' ').Skip(1));
@@ -205,9 +205,9 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var command in collection.Value.ChildrenCommands.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
             {
-                var phrase = Bot.GetPhraseByName(commandData.Language, command.Value.Trigger);
+                var phrase = Bot.UsingTranslations ? Bot.GetPhraseByName(commandData.Language, command.Value.Trigger):command.Value.Trigger;
 
-                if ((!Bot.UsingTranslations && !command.Value.Trigger.IsEqual(cmdArg) || phrase == null || !phrase.IsEqual(cmdArg)) || !await ValidateAttributes(command.CustomAttributes, commandData))
+                if (phrase == null || !phrase.IsEqual(cmdArg) || !await ValidateAttributes(command.CustomAttributes, commandData))
                     continue;
 
 
