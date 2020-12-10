@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "i4Jv0+K/oJOuI9JMXcE7jd4paiPqUCC/k1H4EBWAudu9viC4wFhKylaAj2BgAQCaAhcvrV/SNNeP4rdL+MXoBA==",
+  "dgSpecHash": "7dfZgXiuMsOiOghULpwfPlKbJ3vtW9iojlvAIrmbT0Tu2oGdD4DxNR6DXY4x2nh7/H6j+5ej3YJ+Q9/ju9Pwdw==",
   "success": true,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
   "expectedPackageFiles": [
@@ -28,7 +28,8 @@
     "C:\\Users\\Dave\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512"
+    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\wolf.net\\4.0.0-beta3\\wolf.net.4.0.0-beta3.nupkg.sha512"
   ],
   "logs": []
 }
