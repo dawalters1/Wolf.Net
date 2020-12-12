@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Entities.Groups;
+using WOLF.Net.Entities.Messages;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Messages;
@@ -34,5 +35,14 @@ namespace WOLF.Net.Commands.Commands
         public MessageType MessageType { get; set; }
        
         public bool IsTranslation => Language != null;
+
+        public CommandData() { }
+
+        public CommandData(Message message)
+        {
+            MessageType = message.MessageType;
+            Argument = message.Content;
+            IsGroup = message.IsGroup;
+        }
     }
 }

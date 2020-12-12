@@ -7,13 +7,21 @@ using WOLF.Net.Commands.Commands;
 namespace WOLF.Net.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.All)]
-    public class RequiredMessageType : Attribute
+    public class RequiredMessageType : CustomAttribute
     {
-        internal Enums.Messages.MessageType _messageType;
+        internal Enums.Messages.MessageType MessageType;
 
         public RequiredMessageType(Enums.Messages.MessageType messageType)
         {
-            _messageType = messageType;
+            MessageType = messageType;
+        }
+
+        public override Task<bool> Validate(WolfBot bot, CommandData commandData)
+        {
+            if (MessageType == Enums.Messages.MessageType.Both)
+                return Task.FromResult(true);
+
+            return Task.FromResult(commandData.MessageType == MessageType);
         }
     }
 }

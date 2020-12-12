@@ -198,7 +198,7 @@ namespace WOLF.Net.ExampleBot
 
             Bot.On.MessageReceived += async message =>
             {
-                Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message");
+                Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message [isCommand: {(message.IsCommand ? "Yes" : "No")}]");
 
                 if (message.IsCommand)
                     return;

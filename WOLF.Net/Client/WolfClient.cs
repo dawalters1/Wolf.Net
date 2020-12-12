@@ -80,7 +80,7 @@ namespace WOLF.Net.Client
                 Bot.Groups.Clear();
                 Bot.CurrentSubscriber = default;
 
-                Bot.On.Emit(InternalEvent.DISCONNECTED);
+                Bot.On.Emit(InternalEvent.DISCONNECTED, eventArgs);
             };
 
             Socket.OnError += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNECTION_ERROR);

@@ -19,6 +19,6 @@
   </metadata>
   <files>
     <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\netcoreapp3.1\WOLF.Net.Redis.dll" target="lib\netcoreapp3.1\WOLF.Net.Redis.dll" />
-    <file src="C:\Users\Dave\Downloads\icon.png" target="icon.png" />
+    <file src="D:\BotDev\Wolf\Wolf.net\icon.png" target="icon.png" />
   </files>
 </package>

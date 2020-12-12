@@ -17,6 +17,9 @@ namespace WOLF.Net.Utilities
     {
         public static bool IsEqual(this string key, string value)
         {
+            if (key == null || value == null)
+                return false;
+
             return key.Trim().ToLower() == value.Trim().ToLower();
         }
 

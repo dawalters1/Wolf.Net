@@ -42,16 +42,28 @@ namespace WOLF.Net.Redis
         {
             return await database.SetAddAsync(key, JsonConvert.SerializeObject(value));
         }
+
         public async Task<bool> SAddAsync<T>(string key, List<T> values)
         {
             return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray())>0;
+        }
+
+        public async Task<bool> SAddAsync<T>(string key, IEnumerable<T> values)
+        {
+            return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
         }
 
         public async Task<bool> SDeleteAsync<T>(string key, T value)
         {
             return await database.SetRemoveAsync(key, JsonConvert.SerializeObject(value));
         }
+
         public async Task<bool> SDeleteAsync<T>(string key, List<T> values)
+        {
+            return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+        }
+
+        public async Task<bool> SDeleteAsync<T>(string key, IEnumerable<T> values)
         {
             return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
         }
