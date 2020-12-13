@@ -346,7 +346,7 @@
           "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       },
-      "WOLF.Net/4.0.0-beta4": {
+      "WOLF.Net/4.0.0-beta5": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -1228,7 +1228,7 @@
         "websocketsharp-netstandard.nuspec"
       ]
     },
-    "WOLF.Net/4.0.0-beta4": {
+    "WOLF.Net/4.0.0-beta5": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -1241,7 +1241,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "WOLF.Net >= 4.0.0-beta4",
+      "WOLF.Net >= 4.0.0-beta5",
       "WOLF.Net.Redis >= 3.1.0"
     ]
   },

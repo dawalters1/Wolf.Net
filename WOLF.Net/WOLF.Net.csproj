@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
-    <Version>4.0.0-beta4</Version>
+    <Version>4.0.0-beta6</Version>
     <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
     <PackageTags>WOLF, Palringo, Pal, Wolfringo</PackageTags>
     <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>

@@ -33,7 +33,7 @@ namespace WOLF.Net.Commands.Commands
 
                 if (Bot.UsingTranslations)
                 {
-                    var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r=>r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
+                    var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
 
                     if (phrase != null)
                         return trigger;
@@ -62,9 +62,12 @@ namespace WOLF.Net.Commands.Commands
             if (foundCollection == null)
                 return;
 
+            if (!await ValidatePermissions(foundCollection, message, commandData) || !await ValidateAttributes(foundCollection, message, commandData))
+                return;
+
             var command = foundCollection.Value.MethodInstances.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
 
-            if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
+            if (!await ValidatePermissions(command, message, commandData)||!await ValidateAttributes(command, message, commandData))
                 return;
 
             var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
@@ -73,7 +76,7 @@ namespace WOLF.Net.Commands.Commands
 
             ExecuteCommand(foundCollection, command, message, commandData);
         }
-    
+
         private bool ExecuteCommand(TypeInstance<Command> collection, MethodInstance<Command> command, Message message, CommandData commandData)
         {
             var i = (CommandContext)Activator.CreateInstance(collection.Type);
@@ -95,19 +98,49 @@ namespace WOLF.Net.Commands.Commands
             }
         }
 
-        private async Task<bool> ValidateAttributes(List<CustomAttribute> attributes, Message message, CommandData commandData)
+        private async Task<bool> ValidateAttribute(RequiredPermissions requiredPermissions, Message message, CommandData commandData)
         {
             commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
             commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
 
-            foreach (var attrib in attributes)
+            if (requiredPermissions == null)
+                return true;
+
+            return await requiredPermissions.Validate(Bot, commandData);
+        }
+
+        private async Task<bool> ValidatePermissions(MethodInstance<Command> methodInstance, Message message, CommandData commandData) => await ValidateAttribute(methodInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
+
+        private async Task<bool> ValidatePermissions(TypeInstance<Command> typeInstance, Message message, CommandData commandData) => await ValidateAttribute(typeInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
+
+        private async Task<bool> ValidateAttributes(List<CustomAttribute> customAttributes, Message message, CommandData commandData)
+        {
+            foreach (var attrib in customAttributes)
                 if (!await attrib.Validate(Bot, commandData))
                     return false;
 
             return true;
         }
+        private async Task<bool> ValidateAttributes(TypeInstance<Command> typeInstance, Message message, CommandData commandData)
+        {
+            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
+            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
 
-        private MethodInstance<Command> ProcessCommands(List<MethodInstance<Command>> methodInstances, CommandData commandData)
+            if (await ValidatePermissions(typeInstance, message, commandData))
+                return await ValidateAttributes(typeInstance.CustomAttributes, message, commandData);
+
+            return false;
+        }
+
+        private async Task<bool> ValidateAttributes(MethodInstance<Command> methodInstance, Message message, CommandData commandData)
+        {
+            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
+            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+
+            return await ValidateAttributes(methodInstance.CustomAttributes, message, commandData);
+        }
+
+        private MethodInstance<Command> ProcessCommands(List<MethodInstance<Command>> methodInstances, CommandData commandData, bool isSubCollection = false)
         {
             var content = commandData.Argument.ToLower().Trim();
 
@@ -119,7 +152,7 @@ namespace WOLF.Net.Commands.Commands
                 var trigger = command.Value.Trigger;
 
                 if (Bot.UsingTranslations)
-                { 
+                {
                     var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
 
                     if (phrase != null)
@@ -127,28 +160,29 @@ namespace WOLF.Net.Commands.Commands
                         if (!content.StartsWithCommand(phrase.Value))
                             continue;
 
-                        commandData.Argument = content.Substring(phrase.Value.Length).Trim();
+                        commandData.Argument = content[phrase.Value.Length..].Trim();
 
                         commandData.Language ??= phrase.Language;
-
-                        return command;
                     }
+                    else
+                        continue;
                 }
                 else
                 {
                     if (!content.StartsWithCommand(trigger))
                         continue;
 
-                    commandData.Argument = content.Substring(trigger.Length).Trim();
-
-                    return command;
+                    commandData.Argument = content[trigger.Length..].Trim();
                 }
+
+
+                return command;
             }
 
-            return null;
+            return isSubCollection ? methodInstances.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) : null;
         }
 
-        private async Task<bool> ProcessCollectionAsync(TypeInstance<Command> typeInstance, Message message, CommandData commandData)
+        private async Task<bool> ProcessCollectionAsync(TypeInstance<Command> typeInstance, Message message, CommandData commandData, bool isSubCollection = false)
         {
             var content = commandData.Argument.ToLower().Trim();
 
@@ -165,59 +199,44 @@ namespace WOLF.Net.Commands.Commands
 
                     commandData.Argument = content[phrase.Value.Length..].Trim();
                     commandData.Language ??= phrase.Language;
-
-                    if (!await ValidateAttributes(typeInstance.CustomAttributes, message, commandData))
-                        return false;
-
-
-                    var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
-
-                    if (command != null)
-                    {
-                        if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
-                            return false;
-
-                        return ExecuteCommand(typeInstance, command, message, commandData);
-                    }
-
-                    foreach (var subCollection in typeInstance.Value.TypeInstances)
-                    {
-                        var result = ProcessCollectionAsync(subCollection, message, commandData);
-                        if (await result)
-                            return true;
-                    }
-
-                    return false;
                 }
+                else
+                    return false;
             }
-
             else
             {
                 if (!content.StartsWithCommand(trigger))
                     return false;
 
                 commandData.Argument = content[trigger.Length..].Trim();
+            }
 
-                if (!await ValidateAttributes(typeInstance.CustomAttributes, message, commandData))
+            if (!await ValidatePermissions(typeInstance, message, commandData))
+                return true;
+
+            if (!await ValidateAttributes(typeInstance, message, commandData))
+                return false;
+
+            foreach (var subCollection in typeInstance.Value.TypeInstances)
+            {
+                var result = await ProcessCollectionAsync(subCollection, message, commandData, true);
+                if (result)
+                    return true;
+            }
+
+            var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData, isSubCollection);
+
+            if (command != null)
+            {
+                if (!await ValidatePermissions(typeInstance, message, commandData))
+                    return true;
+
+                if (!await ValidateAttributes(command, message, commandData))
                     return false;
 
-                var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
-
-                if (command != null)
-                {
-                    if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
-                        return false;
-
-                    return ExecuteCommand(typeInstance, command, message, commandData);
-                }
-
-                foreach (var subCollection in typeInstance.Value.TypeInstances)
-                {
-                    var result = ProcessCollectionAsync(subCollection, message, commandData);
-                    if (await result)
-                        return true;
-                }
+                return ExecuteCommand(typeInstance, command, message, commandData);
             }
+
 
             return false;
         }
@@ -298,10 +317,13 @@ namespace WOLF.Net.Commands.Commands
             foreach (var collection in commandCollections)
                 Commands.Add(LoadCommandCollection(collection));
 
-            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLower(), r => r.Value, (trigger, content) => new { trigger, methodInstances = content.SelectMany(r => r.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.TypeInstances).ToList() }).ToList();
+            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLower(), r => r, (trigger, content) => new { trigger, containsRequiredPermissions = content.Select(r=> { return r.Type.GetCustomAttribute<RequiredPermissions>() != null; }).ToList(),  methodInstances = content.SelectMany(r => r.Value.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.Value.TypeInstances).ToList() }).ToList();
 
             foreach (var duplicate in duplicateCollections)
             {
+                 if (duplicate.containsRequiredPermissions.Any(r=>r))
+                     throw new Exception("You cannot have RequiredPermissions attribute in the main collection when several collections use the same trigger");
+     
                 if (duplicate.methodInstances.Count(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) > 1)
                     throw new Exception($"You can only have 1 default command per collection key\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
 
