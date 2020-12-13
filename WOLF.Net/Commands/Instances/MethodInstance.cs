@@ -22,8 +22,8 @@ namespace WOLF.Net.Commands.Instances
 
             CustomAttributes = type.GetCustomAttributes()
                         .Where(t => t is CustomAttribute)
-                        .Cast<CustomAttribute>()
+                        .Cast<CustomAttribute>().Where(r=>r.GetType() != typeof(RequiredPermissions))
                         .ToList();
-        }
+         }
     }
 }

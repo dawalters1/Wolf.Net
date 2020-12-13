@@ -62,7 +62,16 @@ namespace WOLF.Net.Commands.Commands
             if (foundCollection == null)
                 return;
 
+            if (!await ValidatePermissions(foundCollection, message, commandData))
+                return;
+
+            if (!await ValidateAttributes(foundCollection.CustomAttributes, message, commandData))
+                return;
+
             var command = foundCollection.Value.MethodInstances.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
+
+            if (!await ValidatePermissions(command, message, commandData))
+                return;
 
             if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
                 return;
@@ -70,6 +79,8 @@ namespace WOLF.Net.Commands.Commands
             var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
             commandData.Argument = commandData.Argument[(phrase != null ? phrase.Value.Length : trigger.Length)..];
             commandData.Language = phrase != null ? phrase.Language : "en";
+
+            Console.WriteLine("DEFAULT");
 
             ExecuteCommand(foundCollection, command, message, commandData);
         }
@@ -94,6 +105,21 @@ namespace WOLF.Net.Commands.Commands
                 return true;
             }
         }
+
+        private async Task<bool> ValidateAttribute(RequiredPermissions requiredPermissions, Message message, CommandData commandData)
+        {
+            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
+            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+
+            if (requiredPermissions == null)
+                return true;
+
+            return await requiredPermissions.Validate(Bot, commandData);
+        }
+
+        private async Task<bool> ValidatePermissions(MethodInstance<Command> methodInstance, Message message, CommandData commandData) => await ValidateAttribute(methodInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
+
+        private async Task<bool> ValidatePermissions(TypeInstance<Command> typeInstance, Message message, CommandData commandData) => await ValidateAttribute(typeInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
 
         private async Task<bool> ValidateAttributes(List<CustomAttribute> attributes, Message message, CommandData commandData)
         {
@@ -145,7 +171,7 @@ namespace WOLF.Net.Commands.Commands
                 }
             }
 
-            return null;
+            return methodInstances.FirstOrDefault(r=>string.IsNullOrWhiteSpace(r.Value.Trigger));
         }
 
         private async Task<bool> ProcessCollectionAsync(TypeInstance<Command> typeInstance, Message message, CommandData commandData)
@@ -166,19 +192,11 @@ namespace WOLF.Net.Commands.Commands
                     commandData.Argument = content[phrase.Value.Length..].Trim();
                     commandData.Language ??= phrase.Language;
 
+                    if (!await ValidatePermissions(typeInstance, message, commandData))
+                        return true;
+
                     if (!await ValidateAttributes(typeInstance.CustomAttributes, message, commandData))
                         return false;
-
-
-                    var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
-
-                    if (command != null)
-                    {
-                        if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
-                            return false;
-
-                        return ExecuteCommand(typeInstance, command, message, commandData);
-                    }
 
                     foreach (var subCollection in typeInstance.Value.TypeInstances)
                     {
@@ -187,7 +205,18 @@ namespace WOLF.Net.Commands.Commands
                             return true;
                     }
 
-                    return false;
+                    var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
+
+                    if (command != null)
+                    {
+                        if (!await ValidatePermissions(command, message, commandData))
+                            return true;
+
+                        if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
+                            return false;
+
+                        return ExecuteCommand(typeInstance, command, message, commandData);
+                    }
                 }
             }
 
@@ -197,25 +226,30 @@ namespace WOLF.Net.Commands.Commands
                     return false;
 
                 commandData.Argument = content[trigger.Length..].Trim();
+                if (!await ValidatePermissions(typeInstance, message, commandData))
+                    return true;
 
                 if (!await ValidateAttributes(typeInstance.CustomAttributes, message, commandData))
                     return false;
-
-                var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
-
-                if (command != null)
-                {
-                    if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
-                        return false;
-
-                    return ExecuteCommand(typeInstance, command, message, commandData);
-                }
 
                 foreach (var subCollection in typeInstance.Value.TypeInstances)
                 {
                     var result = ProcessCollectionAsync(subCollection, message, commandData);
                     if (await result)
                         return true;
+                }
+
+                var command = ProcessCommands(typeInstance.Value.MethodInstances, commandData);
+
+                if (command != null)
+                {
+                    if (!await ValidatePermissions(command, message, commandData))
+                        return true;
+
+                    if (!await ValidateAttributes(command.CustomAttributes, message, commandData))
+                        return false;
+
+                    return ExecuteCommand(typeInstance, command, message, commandData);
                 }
             }
 
