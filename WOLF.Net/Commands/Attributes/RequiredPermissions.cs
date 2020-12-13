@@ -57,8 +57,6 @@ namespace WOLF.Net.Commands.Attributes
 
         public override async Task<bool> Validate(WolfBot bot, CommandData commandData)
         {
-            Console.WriteLine("CALLED");
-
             if (Privileges.Count > 0)
             {
                 bool hasPrivs = Privileges.Any(r => commandData.Subscriber.Privileges.HasFlag(r));
