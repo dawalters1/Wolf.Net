@@ -23,7 +23,7 @@ namespace WOLF.Net.Commands.Commands
             if (messageType == null)
                 return MessageType.Both;
 
-            return messageType._messageType;
+            return messageType.MessageType;
         }
 
         internal static Capability GetRequiredCapabilityOrDefault(this Type type)
@@ -33,7 +33,7 @@ namespace WOLF.Net.Commands.Commands
             if (capability == null)
                 return Capability.None;
 
-            return capability._capability;
+            return capability.Capability;
         }
 
         internal static List<Privilege> GetRequiredPrivilegesOrDefault(this Type type)
@@ -43,7 +43,7 @@ namespace WOLF.Net.Commands.Commands
             if (capability == null)
                 return new List<Privilege>();
 
-            return capability._privileges;
+            return capability.Privileges;
         }
         internal static bool GetIsAuthOnly(this Type type) => type.GetCustomAttribute<AuthOnly>() != null;
 
@@ -57,7 +57,7 @@ namespace WOLF.Net.Commands.Commands
             if (messageType == null)
                 return MessageType.Both;
 
-            return messageType._messageType;
+            return messageType.MessageType;
         }
 
         internal static Capability GetRequiredCapabilityOrDefault(this MethodInfo type)
@@ -67,7 +67,7 @@ namespace WOLF.Net.Commands.Commands
             if (capability == null)
                 return Capability.None;
 
-            return capability._capability;
+            return capability.Capability;
         }
 
         internal static List<Privilege> GetRequiredPrivilegesOrDefault(this MethodInfo type)
@@ -77,7 +77,7 @@ namespace WOLF.Net.Commands.Commands
             if (capability == null)
                 return new List<Privilege>();
 
-            return capability._privileges;
+            return capability.Privileges;
         }
         internal static bool GetIsAuthOnly(this MethodInfo type) => type.GetCustomAttribute<AuthOnly>() != null;
 

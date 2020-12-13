@@ -9,7 +9,11 @@ using WOLF.Net.Entities.API;
 namespace WOLF.Net.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.All)]
-    public class AuthOnly : Attribute
+    public class AuthOnly : CustomAttribute
     {
+        public override Task<bool> Validate(WolfBot bot, CommandData commandData)
+        {
+            return Task.FromResult(bot.IsAuthorized(commandData.SourceSubscriberId));
+        }
     }
 }

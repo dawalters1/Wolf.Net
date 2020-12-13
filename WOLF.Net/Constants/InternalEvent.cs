@@ -43,5 +43,8 @@ namespace WOLF.Net.Constants
         public const string PERMISSIONS_FAILED = "permissions failed";
 
         public const string PRIVATE_MESSAGE_ACCEPT_RESPONSE = "private message accept response";
+
+        public const string COMMAND_MANAGER = "command manager";
+
     }
 }

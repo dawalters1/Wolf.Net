@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using WOLF.Net.Enums.Groups;
@@ -8,7 +9,7 @@ namespace WOLF.Net.Utilities
 {
     internal static class Internal
     {
-        internal static bool HasProperty(this object obj, string propertyName) =>  obj.GetType().GetProperty(propertyName) != null;
+        internal static bool HasProperty(this object obj, string propertyName) => obj.GetType().GetProperty(propertyName) != null;
 
         internal static string ToErrorMessage(this string eventString, int subCode, string subMessage = null)
         {
@@ -48,6 +49,24 @@ namespace WOLF.Net.Utilities
                     yield return typeInfo;
                 }
             }
+        }
+
+        internal static bool StartsWithCommand(this string content, string startsWith)
+        {
+            content = content.ToLower();
+            startsWith = startsWith.ToLower();
+
+            if (startsWith.Length > content.Length)
+                return false;
+
+            if (content.StartsWith(startsWith))
+            {
+                var nextChar = content.ElementAtOrDefault(startsWith.Length);
+
+                return nextChar == default || string.IsNullOrWhiteSpace(nextChar.ToString());
+            }
+
+            return false;
         }
     }
 }

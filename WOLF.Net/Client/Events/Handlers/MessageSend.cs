@@ -130,8 +130,6 @@ namespace WOLF.Net.Client.Events.Handlers
                     }
                 }
 
-                data.IsCommand = Bot.CommandManager.IsCommand(data);
-
                 Bot.On.Emit(Command, data);
             }
             catch (Exception d)

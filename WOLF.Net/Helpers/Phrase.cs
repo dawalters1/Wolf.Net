@@ -28,7 +28,7 @@ namespace WOLF.Net
                 if (language != "en")
                     return GetPhraseByName("en", name);
                 else
-                    throw new Exception($"Missing translation {name}");
+                    return $"missing-{language}-translation: {name}";
 
             return phrase.Value;
         }

@@ -43,14 +43,34 @@ namespace WOLF.Net.Redis
             return await database.SetAddAsync(key, JsonConvert.SerializeObject(value));
         }
 
+        public async Task<bool> SAddAsync<T>(string key, List<T> values)
+        {
+            return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray())>0;
+        }
+
+        public async Task<bool> SAddAsync<T>(string key, IEnumerable<T> values)
+        {
+            return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+        }
+
         public async Task<bool> SDeleteAsync<T>(string key, T value)
         {
             return await database.SetRemoveAsync(key, JsonConvert.SerializeObject(value));
         }
 
-        public async Task<List<string>> SMembersAsync(string key)
+        public async Task<bool> SDeleteAsync<T>(string key, List<T> values)
         {
-            return (await database.SetMembersAsync(key)).Select(r => r.ToString()).ToList();
+            return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+        }
+
+        public async Task<bool> SDeleteAsync<T>(string key, IEnumerable<T> values)
+        {
+            return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+        }
+
+        public async Task<List<T>> SMembersAsync<T>(string key)
+        {
+            return (await database.SetMembersAsync(key)).Select(r => JsonConvert.DeserializeObject<T>(r.ToString())).ToList();
         }
 
         public async Task<bool> ExpireAsync(string key, TimeSpan expire)

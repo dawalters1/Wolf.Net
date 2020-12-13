@@ -14,7 +14,7 @@ using WOLF.Net.Utilities;
 namespace WOLF.Net.ExampleBot.Commands
 {
 
-    [CommandCollection("!example"), RequiredMessageType(MessageType.Group)]
+    [Command("!example"), RequiredMessageType(MessageType.Group)]
     class Example : CommandContext
     {
         private Cache Cache => Program.Cache;
@@ -52,7 +52,7 @@ namespace WOLF.Net.ExampleBot.Commands
                 await ReplyAsync("(Y) Form Cancelled");
         }
 
-        [CommandCollection("get")]
+        [Command("get")]
         public class Get : CommandContext
         {
             [Command]

@@ -882,7 +882,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "3.0.0",
+    "version": "3.1.0",
     "restore": {
       "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
       "projectName": "WOLF.Net.Redis",
@@ -941,7 +941,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

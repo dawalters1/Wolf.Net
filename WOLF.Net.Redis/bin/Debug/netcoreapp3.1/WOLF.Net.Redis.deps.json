@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "WOLF.Net.Redis/3.0.0": {
+      "WOLF.Net.Redis/3.1.0": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "StackExchange.Redis": "2.1.58"
@@ -226,7 +226,7 @@
     }
   },
   "libraries": {
-    "WOLF.Net.Redis/3.0.0": {
+    "WOLF.Net.Redis/3.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

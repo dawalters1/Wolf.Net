@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +15,26 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(IdHash data)
         {
-            var subscriber = await Bot.GetSubscriberAsync(data.Id, 
-                data.Hash != Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id).Hash);
+            try{
+                var subscriber = Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id);
+
+                if (subscriber == null)
+                    return;
+
+                var updatedSubscriber = await Bot.GetSubscriberAsync(data.Id);
 
             foreach (var group in Bot.Groups.ToList())
                 if (group.Users.Any(r => r.Id == data.Id))
-                    group.Users.FirstOrDefault(r => r.Id == data.Id).Update(subscriber);
+                    group.Users.FirstOrDefault(r => r.Id == data.Id).Update(updatedSubscriber);
 
             if (Bot.Contacts.Any(r => r.Id == data.Id))
-                Bot.Contacts.FirstOrDefault(r => r.Id == data.Id).Update(subscriber);
+                Bot.Contacts.FirstOrDefault(r => r.Id == data.Id).Update(updatedSubscriber);
 
-            Bot.On.Emit(Command, subscriber);
+            Bot.On.Emit(Command, updatedSubscriber);
+            }
+            catch(Exception d){
+                Console.WriteLine(d+"-----"+ JsonConvert.SerializeObject(data, Formatting.Indented)); 
+            }
         }
 
         public override void Register()
