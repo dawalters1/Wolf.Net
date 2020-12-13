@@ -81,3 +81,8 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\netcoreapp3.1\WO
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\netcoreapp3.1\WOLF.Net.Example.Translations.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\netcoreapp3.1\WOLF.Net.Example.Translations.csproj.CopyComplete
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\netcoreapp3.1\WOLF.Net.Example.Translations.genruntimeconfig.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Security.AccessControl.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll

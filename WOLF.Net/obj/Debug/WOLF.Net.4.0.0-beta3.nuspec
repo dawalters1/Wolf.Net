@@ -15,8 +15,8 @@
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
         <dependency id="SocketIoClient" version="2.1.1" exclude="Build,Analyzers" />
-        <dependency id="System.Drawing.Common" version="4.7.0" exclude="Build,Analyzers" />
-        <dependency id="System.Runtime.Caching" version="4.7.0" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="System.Runtime.Caching" version="5.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
