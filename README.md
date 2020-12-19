@@ -26,7 +26,11 @@ You can install the WOLF.Net package directly from [Nuget](https://www.nuget.org
 
 # Getting Started
 
-Check out the [example project](https://github.com/dawalters1/Wolf.Net/tree/dev/WOLF.Net.Example) to get started
+ **Planning on supporting multiple languages?**
+   - Check out the translation [example project](https://github.com/dawalters1/Wolf.Net/tree/dev/WOLF.Net.Example.Translations) to get started 
+
+ **Plan on hardcoding a single language?**
+   - Check out the [example project](https://github.com/dawalters1/Wolf.Net/tree/dev/WOLF.Net.Example.NoTranslations) to get started
 
 # Approval
 
