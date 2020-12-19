@@ -41,4 +41,4 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
 
 # Contact 
 
-If you have any questions or issues you can PM me [here](http://wolf.live/u/80280172)
+If you have any questions or issues you can PM me [here](http://wolf.live/u/80280172) or JOIN [[wolf.net](http://wolf.live/wolf.net)]
