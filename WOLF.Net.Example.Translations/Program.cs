@@ -18,7 +18,7 @@ namespace WOLF.Net.ExampleBot
     class Program
     {
         /// <summary>
-        /// Create a new bot instance, with bool true
+        /// Create a new bot instance, with bool true (REQUIRED FOR TRANSLATIONS TO WORK)
         /// </summary>
         public static WolfBot Bot = new WolfBot(true);
 
