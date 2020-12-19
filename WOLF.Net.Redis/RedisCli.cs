@@ -50,7 +50,7 @@ namespace WOLF.Net.Redis
 
         public async Task<bool> SAddAsync<T>(string key, IEnumerable<T> values)
         {
-            return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+            return await SAddAsync(key, values.ToList());
         }
 
         public async Task<bool> SDeleteAsync<T>(string key, T value)
@@ -65,7 +65,7 @@ namespace WOLF.Net.Redis
 
         public async Task<bool> SDeleteAsync<T>(string key, IEnumerable<T> values)
         {
-            return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+            return await SDeleteAsync(key, values.ToList());
         }
 
         public async Task<List<T>> SMembersAsync<T>(string key)

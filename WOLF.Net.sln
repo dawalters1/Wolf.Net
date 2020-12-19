@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Redis", "WOLF.Net.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Example.Translations", "WOLF.Net.Example.Translations\WOLF.Net.Example.Translations.csproj", "{F57337AD-7B0F-4A22-B6EE-D587608518D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF.Net.Examples.NoTranslations", "WOLF.Net.Examples.NoTranslations\WOLF.Net.Examples.NoTranslations.csproj", "{D125D566-642F-4449-B815-9889E9FEE32D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Examples.NoTranslations", "WOLF.Net.Examples.NoTranslations\WOLF.Net.Examples.NoTranslations.csproj", "{D125D566-642F-4449-B815-9889E9FEE32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

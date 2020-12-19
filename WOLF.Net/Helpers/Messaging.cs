@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,12 +22,14 @@ namespace WOLF.Net
 
         internal async Task<Response<MessageResponse>> SendMessageAsync(int recipient, object content, MessageType messageType)
         {
+            var mimeTypeAndData = content.GetMimeTypeAndData();
+
             return await WolfClient.Emit<MessageResponse>(Request.MESSAGE_SEND, new
             {
                 recipient,
                 isGroup = messageType == MessageType.Group,
-                mimeType = content.GetType() == typeof(Bitmap) || content.GetType() == typeof(Image) ? "image/jpeg" : "text/plain",
-                data = content.GetType() == typeof(Bitmap) || content.GetType() == typeof(Image) ? ((Bitmap)content).ToBytes() : Encoding.UTF8.GetBytes(content.ToString()),
+                mimeType = mimeTypeAndData.Key,
+                data = mimeTypeAndData.Value,
                 flightId = Guid.NewGuid()
             });
         }

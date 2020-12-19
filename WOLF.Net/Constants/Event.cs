@@ -14,7 +14,7 @@ namespace WOLF.Net.Constants
         public const string GROUP_UPDATE = "group update";
         public const string MESSAGE_SEND = "message send";
         public const string MESSAGE_UPDATE = "message update";
-        public const string PRESENCE_UPDATE = "presense update";
+        public const string PRESENCE_UPDATE = "presence update";
         public const string SUBSCRIBER_BLOCK_ADD = "subscriber block add";
         public const string SUBSCRIBER_BLOCK_DELETE = "subscriber block delete";
         public const string SUBSCRIBER_CONTACT_ADD = "subscriber contact add";
