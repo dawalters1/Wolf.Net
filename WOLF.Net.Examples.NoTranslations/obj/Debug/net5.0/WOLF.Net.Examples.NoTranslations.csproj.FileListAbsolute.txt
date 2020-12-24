@@ -1,8 +1,3 @@
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.csprojAssemblyReference.cache
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.GeneratedMSBuildEditorConfig.editorconfig
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.AssemblyInfoInputs.cache
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.AssemblyInfo.cs
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.Examples.NoTranslations.exe
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.Examples.NoTranslations.deps.json
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.Examples.NoTranslations.runtimeconfig.json
@@ -35,6 +30,11 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.N
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.Redis.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.Redis.pdb
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\bin\Debug\net5.0\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.csprojAssemblyReference.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.GeneratedMSBuildEditorConfig.editorconfig
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.AssemblyInfoInputs.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.AssemblyInfo.cs
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.csproj.CopyComplete
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\WOLF.Net.Examples.NoTranslations.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Examples.NoTranslations\obj\Debug\net5.0\ref\WOLF.Net.Examples.NoTranslations.dll

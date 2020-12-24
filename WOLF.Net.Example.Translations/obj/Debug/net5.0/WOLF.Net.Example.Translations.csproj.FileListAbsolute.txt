@@ -1,8 +1,3 @@
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.csprojAssemblyReference.cache
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.GeneratedMSBuildEditorConfig.editorconfig
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.AssemblyInfoInputs.cache
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.AssemblyInfo.cs
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.Example.Translations.exe
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.Example.Translations.deps.json
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.Example.Translations.runtimeconfig.json
@@ -35,6 +30,11 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.Redis.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.Redis.pdb
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\bin\Debug\net5.0\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.csprojAssemblyReference.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.GeneratedMSBuildEditorConfig.editorconfig
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.AssemblyInfoInputs.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.AssemblyInfo.cs
+D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.csproj.CopyComplete
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\WOLF.Net.Example.Translations.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Example.Translations\obj\Debug\net5.0\ref\WOLF.Net.Example.Translations.dll

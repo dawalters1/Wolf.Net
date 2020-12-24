@@ -13,7 +13,6 @@
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
         "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example.Translations\\obj\\",
         "projectStyle": "PackageReference",
-        "crossTargeting": true,
         "configFilePaths": [
           "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -67,7 +66,7 @@
       }
     },
     "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
-      "version": "3.1.0",
+      "version": "3.2.0",
       "restore": {
         "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
         "projectName": "WOLF.Net.Redis",
