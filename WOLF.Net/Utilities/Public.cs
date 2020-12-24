@@ -30,12 +30,7 @@ namespace WOLF.Net.Utilities
 
                 using var bitmap = ((Bitmap)content);
 
-                //if (bitmap.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Gif))
-                //{
-                //    bitmap.Save(m, ImageFormat.Gif);
-
-                //    return new KeyValuePair<string, byte[]>("image/gif", m.ToArray());
-                //}
+                bitmap.Save(m, ImageFormat.Jpeg);
 
                 return new KeyValuePair<string, byte[]>("image/jpeg", m.ToArray());
             }
