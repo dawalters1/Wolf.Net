@@ -218,7 +218,7 @@ namespace WOLF.Net.Commands.Commands
                 return false;
 
             if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && Bot.IgnoreBots)
-                return false;
+                return true;
 
             foreach (var subCollection in typeInstance.Value.TypeInstances)
             {
