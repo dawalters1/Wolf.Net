@@ -14,6 +14,7 @@ You can install the WOLF.Net package directly from [Nuget](https://www.nuget.org
  
 # Required
 
+- [Net 5](https://dotnet.microsoft.com/download/dotnet/5.0) or above
 - [Net Core 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0) or above
 - [Visual Studio 2019](https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2019) OR [VS Code](https://code.visualstudio.com/download)
 
