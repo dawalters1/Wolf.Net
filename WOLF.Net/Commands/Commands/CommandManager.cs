@@ -90,7 +90,7 @@ namespace WOLF.Net.Commands.Commands
 
                 return true;
             }
-            catch (Exception d)
+            catch
             {
                 Bot.On.Emit(InternalEvent.INTERNAL_ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
 
@@ -215,6 +215,9 @@ namespace WOLF.Net.Commands.Commands
                 return true;
 
             if (!await ValidateAttributes(typeInstance, message, commandData))
+                return false;
+
+            if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && Bot.IgnoreBots)
                 return false;
 
             foreach (var subCollection in typeInstance.Value.TypeInstances)

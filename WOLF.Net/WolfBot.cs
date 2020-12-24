@@ -17,6 +17,8 @@ namespace WOLF.Net
     public partial class WolfBot
     {
         internal bool UsingTranslations { get; set; }
+        
+        internal bool IgnoreBots { get; set; }
 
         internal CommandManager CommandManager { get; set; }
 
@@ -32,9 +34,10 @@ namespace WOLF.Net
         /// Create an instance of a bot
         /// </summary>
         /// <param name="usingTranslations">Set to true if you plan on using <see cref="LoadPhrases(List{Entities.Phrases.Phrase})"/></param>
-        public WolfBot(bool usingTranslations = false)
+        public WolfBot(bool usingTranslations = false, bool ignoreBots = false)
         {
             UsingTranslations = usingTranslations;
+            IgnoreBots = ignoreBots;
 
             WolfClient = new WolfClient(this);
 
