@@ -13,11 +13,16 @@
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
-        <dependency id="StackExchange.Redis" version="2.1.58" exclude="Build,Analyzers" />
+        <dependency id="StackExchange.Redis" version="2.2.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net5.0">
+        <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
+        <dependency id="StackExchange.Redis" version="2.2.4" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
+    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\net5.0\WOLF.Net.Redis.dll" target="lib\net5.0\WOLF.Net.Redis.dll" />
     <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\netcoreapp3.1\WOLF.Net.Redis.dll" target="lib\netcoreapp3.1\WOLF.Net.Redis.dll" />
     <file src="D:\BotDev\Wolf\Wolf.net\icon.png" target="icon.png" />
   </files>
