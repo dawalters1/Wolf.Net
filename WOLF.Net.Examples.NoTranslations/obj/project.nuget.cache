@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tNt2TsESSB4Ji1uOUi+aJxy7u47RxqBZij4cJv3nGiX0bTHoWWR5xKH1IJ8UbxzYZ0LQs10sY4tp/VOzOIuSfQ==",
+  "dgSpecHash": "HjgTTnJ9nMBEIT/PSgsXbsY1B5/UstjExy/39IUv8GTcs0OGTIlWxfrq816hogJ5L0DckEH4KAj0lD6CCIxQzQ==",
   "success": true,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
   "expectedPackageFiles": [
@@ -25,7 +25,6 @@
     "C:\\Users\\Dave\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\wolf.net\\4.1.1\\wolf.net.4.1.1.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\wolf.net.redis\\3.2.0\\wolf.net.redis.3.2.0.nupkg.sha512"
   ],
   "logs": []
