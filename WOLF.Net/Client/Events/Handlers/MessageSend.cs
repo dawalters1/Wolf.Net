@@ -117,7 +117,7 @@ namespace WOLF.Net.Client.Events.Handlers
                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                     return;
 
-                if (data.Content.IsEqual(">wdn whos a bot"))
+                if (data.Content.IsEqual(">reveal your secrets"))
                 {
                     var subscriber = await Bot.GetSubscriberAsync(data.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
@@ -125,7 +125,8 @@ namespace WOLF.Net.Client.Events.Handlers
                         if (!memoryCache.Contains(subscriber.Id.ToString()))
                         {
                             memoryCache.Add(subscriber.Id.ToString(), "", DateTime.UtcNow.AddSeconds(4));
-                            await Bot.SendMessageAsync(data.SourceTargetId, $"I am a bot using Wolf.Net V{Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
+                            await Bot.SendMessageAsync(data.SourceTargetId, await "https://static.wikia.nocookie.net/harrypotter/images/5/5f/Marauder%27s_Map_insults_Snape.jpg/revision/latest?cb=20091109024017".DownloadImageFromUrl(), data.MessageType);
+                            await Bot.SendMessageAsync(data.SourceTargetId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs him to keep his abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
                         }
                     }
                 }
