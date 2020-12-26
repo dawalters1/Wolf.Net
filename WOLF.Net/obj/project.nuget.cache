@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FcSbwuJsEk+f8eDNRekmBF3+7x44fiK/WVk+L1ogizRSOvmqwn8faH1IAL72mdjJcIP24+AL9cd7FXSdIHGPjQ==",
+  "dgSpecHash": "vhIxSWgnBOO6MtzG3X2aixmdsLYdxpYzToCmKRYiruFZjVlGImWoUQrnj2+6Sm0S/IIkAC1ieQ2lTnipj3uZog==",
   "success": true,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.1\\socketioclient.2.1.1.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.2\\socketioclient.2.1.2.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",

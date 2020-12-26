@@ -86,6 +86,7 @@ namespace WOLF.Net.Client
             Socket.OnError += (sender, eventArgs) => Bot.On.Emit(InternalEvent.CONNECTION_ERROR);
 
             Socket.OnPing += (sender, eventArgs) => Bot.On.Emit(InternalEvent.PING);
+            Socket.OnPong += (sender, EventArgs) => Bot.On.Emit(InternalEvent.PONG, EventArgs);
 
             Socket.OnReceivedEvent += (sender, eventArgs) => Bot.On.Emit(InternalEvent.PACKET_RECEIVED, eventArgs.Event, eventArgs.Response.GetValue<Response<object>>());
 

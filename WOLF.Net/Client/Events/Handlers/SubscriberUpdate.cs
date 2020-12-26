@@ -15,13 +15,12 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(IdHash data)
         {
-            try{
-                var subscriber = Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id);
+            var subscriber = Bot.Subscribers.FirstOrDefault(r => r.Id == data.Id);
 
-                if (subscriber == null)
-                    return;
+            if (subscriber == null)
+                return;
 
-                var updatedSubscriber = await Bot.GetSubscriberAsync(data.Id);
+            var updatedSubscriber = await Bot.GetSubscriberAsync(data.Id, true);
 
             foreach (var group in Bot.Groups.ToList())
                 if (group.Users.Any(r => r.Id == data.Id))
@@ -31,10 +30,6 @@ namespace WOLF.Net.Client.Events.Handlers
                 Bot.Contacts.FirstOrDefault(r => r.Id == data.Id).Update(updatedSubscriber);
 
             Bot.On.Emit(Command, updatedSubscriber);
-            }
-            catch(Exception d){
-                Console.WriteLine(d+"-----"+ JsonConvert.SerializeObject(data, Formatting.Indented)); 
-            }
         }
 
         public override void Register()

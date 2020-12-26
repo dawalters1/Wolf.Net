@@ -20,4 +20,3 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\netcoreapp3.1\WOLF.Net.Redis.As
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\netcoreapp3.1\WOLF.Net.Redis.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\netcoreapp3.1\WOLF.Net.Redis.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\netcoreapp3.1\WOLF.Net.Redis.pdb
-D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\netcoreapp3.1\WOLF.Net.Redis.csprojAssemblyReference.cache

@@ -37,6 +37,16 @@ namespace WOLF.Net.Entities.Groups.Subscribers
 
     public class AdditionalInfo
     {
+        public AdditionalInfo() { }
+
+        public AdditionalInfo(Entities.Subscribers.Subscriber subscriber)
+        {
+            Hash = subscriber.Hash;
+            Nickname = subscriber.Nickname;
+            Privileges = subscriber.Privileges;
+            OnlineState = subscriber.OnlineState;
+        }
+
         [JsonProperty("hash")]
         public string Hash { get; set; }
 

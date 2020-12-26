@@ -7,23 +7,23 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        private List<int> SuperAuthorized = new List<int>() {  };
+        private readonly List<int> SuperAuthorized = new List<int>() {  };
 
         public List<int> Authorized = new List<int>();
 
-        private List<int> combined => SuperAuthorized.Concat(Authorized).ToList();
+        private List<int> Combined => SuperAuthorized.Concat(Authorized).ToList();
 
-        public bool IsAuthorized(int id) => combined.Concat(Authorized).Any(r => r == id);
+        public bool IsAuthorized(int id) => Combined.Concat(Authorized).Any(r => r == id);
 
         public void Authorize(int id)
         {
-            if (combined.Any(r => r == id))
+            if (Combined.Any(r => r == id))
                 return;
 
             Authorized.Add(id);
         }
 
-        public void Authorize(params int[] ids) => Authorized.AddRange(ids.Where(r => !combined.Any(s => s == r)).ToList());
+        public void Authorize(params int[] ids) => Authorized.AddRange(ids.Where(r => !Combined.Any(s => s == r)).ToList());
 
 
         public void Deauthorize(int id) => Authorized.Remove(id);

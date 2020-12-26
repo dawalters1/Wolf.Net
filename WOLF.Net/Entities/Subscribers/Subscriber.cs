@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WOLF.Net.Entities.Charms;
 using WOLF.Net.Enums.Misc;
@@ -77,7 +78,11 @@ namespace WOLF.Net.Entities.Subscribers
             DeviceType = subscriber.DeviceType;
             Reputation = subscriber.Reputation;
             Privileges = subscriber.Privileges;
-            Extended = subscriber.Extended;
+
+            if (Extended != null)
+                Extended.Update(subscriber.Extended);
+            else
+                Extended = subscriber.Extended;
 
             Exists = true;
 
@@ -105,6 +110,8 @@ namespace WOLF.Net.Entities.Subscribers
 
     public class Extended
     {
+        public Extended() { }
+
         [JsonProperty("language")]
         public Language Language { get; set; }
 
@@ -115,7 +122,7 @@ namespace WOLF.Net.Entities.Subscribers
         public Gender Gender { get; set; }
 
         [JsonProperty("utcOffset")]
-        public int UtcOffset { get;set; }
+        public int UtcOffset { get; set; }
 
         [JsonProperty("urls")]
         public List<string> Urls { get; set; }
@@ -123,13 +130,25 @@ namespace WOLF.Net.Entities.Subscribers
         [JsonProperty("lookingFor")]
         public LookingFor LookingFor { get; set; }
 
-        // [JsonIgnore]
-        //  public List<LookingFor> LookingFors => LookingFor.Dating.AllFlags().Where(t => LookingFor.HasFlag(t)).ToList();
+        [JsonIgnore]
+        public List<LookingFor> LookingFors => ((LookingFor[])Enum.GetValues(typeof(LookingFor))).ToList().Where(t => LookingFor.HasFlag(t)).ToList();
 
         [JsonProperty("about")]
         public string About { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        internal void Update(Extended extended)
+        {
+            Language = extended.Language;
+            Gender = extended.Gender;
+            Urls = extended.Urls;
+            About = extended.About;
+            Name = extended.Name;
+            LookingFor = extended.LookingFor;
+            Relationship = extended.Relationship;
+            UtcOffset = extended.UtcOffset;
+        }
     }
 }

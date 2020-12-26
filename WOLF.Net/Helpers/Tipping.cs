@@ -13,10 +13,6 @@ using WOLF.Net.Enums.Tipping;
 
 namespace WOLF.Net
 {
-    //TO-DO:
-    /*
-     * Tip Subscription
-     */
     public partial class WolfBot
     {
         internal async Task<Response> GroupTipSubscribeAsync()
