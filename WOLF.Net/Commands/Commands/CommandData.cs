@@ -14,12 +14,12 @@ namespace WOLF.Net.Commands.Commands
         public string Language { get; set; }
 
 
-        [Obsolete("This property will be deprecated soon, please use SourceTargetId")]
+        [Obsolete("This property will be deprecated soon, please use SourceTargetId", true)]
         public int ReturnAddres => SourceTargetId;
 
         public int SourceTargetId => IsGroup ? Group.Id : SourceSubscriberId;
 
-        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId")]
+        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId", true)]
         public int UserId => SourceSubscriberId;
 
         public int SourceSubscriberId => Subscriber != null ? Subscriber.Id : 0;

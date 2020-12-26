@@ -11,16 +11,7 @@ using WOLF.Net.Enums.Misc;
 
 namespace WOLF.Net
 {
-    //TO-DO:
-    /*
-     * Get By ID
-     * Get All
-     * Get charm statistics
-     * Get Expired charms
-     * Get Active charms
-     * Set selected charms
-     * Delete Charms
-     */
+
     public partial class WolfBot
     {
         public List<Charm> Charms = new List<Charm>();

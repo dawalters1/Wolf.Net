@@ -8,6 +8,16 @@ namespace WOLF.Net.Entities.Groups.Subscribers
 {
     public class GroupAction
     {
+        public GroupAction() { }
+
+        public GroupAction(int groupId, int sourceId, int targetId, string type)
+        {
+            GroupId = groupId;
+            SourceId = sourceId;
+            TargetId = targetId;
+            Type = type;
+        }
+
         [JsonProperty("groupId")]
         public int GroupId { get; set; }
 

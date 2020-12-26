@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WOLF.Net.Entities.Achievements
+namespace WOLF.Net.Entities.Achievements.Subscriber
 {
     public class SubscriberAchievement
     {

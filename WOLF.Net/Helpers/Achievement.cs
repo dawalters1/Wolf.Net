@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Constants;
-using WOLF.Net.Entities.Achievements;
+using WOLF.Net.Entities.Achievements.Subscriber;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Enums.Misc;
 
@@ -13,7 +13,6 @@ namespace WOLF.Net
     public partial class WolfBot
     {
         public List<Achievement> Achievements = new List<Achievement>();
-
 
         public async Task<List<Achievement>> GetAchievementsAsync(Language language = Language.English, bool requestNew = false)
         {

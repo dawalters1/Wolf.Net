@@ -16,78 +16,60 @@ namespace WOLF.Net.Commands.Attributes
     [AttributeUsage(AttributeTargets.All)]
     public class RequiredPermissions : CustomAttribute
     {
-        internal Enums.Groups.Capability Capability = Capability.None;
+        internal bool AuthOnly = false;
 
-        internal List<Privilege> Privileges { get; set; } = new List<Privilege>();
+        internal Capability Capability = Capability.None;
 
-        public RequiredPermissions(Privilege privilege)
+        internal Privilege[] Privileges = { };
+
+        public RequiredPermissions(bool authOnly)
         {
-            Privileges = new List<Privilege>() { privilege };
+            AuthOnly = authOnly;
         }
 
         public RequiredPermissions(params Privilege[] privileges)
         {
-            if (privileges.Length == 0)
-                throw new Exception("Privileges length must be larger than 0");
-
-            this.Privileges = privileges.ToList();
+            Privileges = privileges;
         }
 
-        public RequiredPermissions(Enums.Groups.Capability capability, [Optional] params Privilege[] privileges)
+        public RequiredPermissions(Capability capability, [Optional] params Privilege[] privileges)
         {
-            if (capability == Enums.Groups.Capability.None || capability == Enums.Groups.Capability.Silenced || capability == Enums.Groups.Capability.Banned)
-                throw new Exception($"Capability cannot be set to {capability.ToString().ToUpper()}");
+            if (capability == Capability.None || capability == Capability.Banned || capability == Capability.Silenced)
+                throw new Exception($"Command capability cannot be {capability}");
 
-            this.Capability = capability;
-            this.Privileges = privileges.ToList();
-        }
-
-        private void EmitFail(WolfBot bot, CommandData commandData)
-        {
-            bot.On.Emit(InternalEvent.PERMISSIONS_FAILED, new FailedPermission()
-            {
-                SourceTargetId = commandData.SourceTargetId,
-                SourceSubscriberId = commandData.SourceSubscriberId,
-                Capabilities = Capability,
-                Language = commandData.Language,
-                Privileges = Privileges,
-                IsGroup = commandData.IsGroup
-            });
+            Capability = capability;
+            Privileges = privileges ?? (new Privilege[] { });
         }
 
         public override async Task<bool> Validate(WolfBot bot, CommandData commandData)
         {
-            if (Privileges.Count > 0)
-            {
-                bool hasPrivs = Privileges.Any(r => commandData.Subscriber.Privileges.HasFlag(r));
+            if (bot.IsAuthorized(commandData.SourceSubscriberId))
+                return true;
 
-                if (hasPrivs)
+            if (AuthOnly)
+            {
+                EmitFail(bot, commandData);
+                return false;
+            }
+            if (Privileges.Length > 0)
+            {
+                if (Privileges.Any(r => commandData.Subscriber.Privileges.HasFlag(r)))
                     return true;
 
-                if (!hasPrivs && Capability == Capability.None)
+                if (Capability == Capability.None)
                 {
                     EmitFail(bot, commandData);
                     return false;
                 }
             }
 
-            bool validateResult = true;
-
-            if (bot.IsAuthorized(commandData.SourceSubscriberId))
+            if (Capability == Capability.Regular || Capability == Capability.None || (Capability == Capability.Owner && commandData.Group != null && commandData.SourceSubscriberId == commandData.Group.Owner.Id))
                 return true;
-
-            else if (Capability == Capability.Regular || Capability == Capability.None)
-                return true;
-
-            else if (Capability == Capability.Owner&& commandData.Group != null && commandData.SourceSubscriberId == commandData.Group.Owner.Id)
-                return true;
-
             else
             {
-                var subscribersList = await bot.GetGroupSubscribersListAsync(commandData.SourceTargetId);
-                var groupSubscriber = subscribersList.FirstOrDefault(r => r.Id == commandData.SourceSubscriberId);
+                var groupSubscriber = (await bot.GetGroupSubscribersListAsync(commandData.SourceTargetId)).FirstOrDefault(r => r.Id == commandData.SourceSubscriberId);
 
-                validateResult = groupSubscriber == null ? false : (Capability) switch
+                if (groupSubscriber != null && ((Capability) switch
                 {
                     Capability.Owner => groupSubscriber.Capabilities == Capability.Owner,
                     Capability.Admin => groupSubscriber.Capabilities == Capability.Admin || groupSubscriber.Capabilities == Capability.Owner,
@@ -97,13 +79,28 @@ namespace WOLF.Net.Commands.Attributes
                     Capability.Banned => false,
                     Capability.Silenced => false,
                     _ => false,
-                };
-            }
+                }))
+                    return true;
 
-            if (!validateResult)
                 EmitFail(bot, commandData);
 
-            return validateResult;
+                return false;
+            }
         }
+
+        private void EmitFail(WolfBot bot, CommandData commandData)
+        {
+            bot.On.Emit(InternalEvent.PERMISSIONS_FAILED, new FailedPermission()
+            {
+                AuthOnly = AuthOnly,
+                SourceTargetId = commandData.SourceTargetId,
+                SourceSubscriberId = commandData.SourceSubscriberId,
+                Capabilities = Capability,
+                Language = commandData.Language,
+                Privileges = Privileges,
+                IsGroup = commandData.IsGroup
+            });
+        }
+
     }
 }

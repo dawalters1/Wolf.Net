@@ -35,25 +35,19 @@ namespace WOLF.Net.Client.Events.Handlers
 
                             var action = JsonConvert.DeserializeObject<MessageAction>(data.Content);
 
-                            if (action.Action == Enums.Groups.GroupActionType.Join)
+                            if (action.Action == GroupActionType.Join)
                             {
                                 group.Users.Add(new GroupSubscriber()
                                 {
                                     Id = data.SourceSubscriberId,
                                     GroupId = data.SourceTargetId,
-                                    Capabilities = group.Owner.Id == subscriber.Id ? Enums.Groups.Capability.Owner : Enums.Groups.Capability.Regular,
-                                    AdditionalInfo = new AdditionalInfo()
-                                    {
-                                        Hash = subscriber.Hash,
-                                        Nickname = subscriber.Nickname,
-                                        OnlineState = subscriber.OnlineState,
-                                        Privileges = subscriber.Privileges
-                                    }
+                                    Capabilities = group.Owner.Id == subscriber.Id ? Capability.Owner : Capability.Regular,
+                                    AdditionalInfo = new AdditionalInfo(subscriber)
                                 });
 
                                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                                 {
-                                    group.MyCapabilities = group.Owner.Id == subscriber.Id ? Enums.Groups.Capability.Owner : Enums.Groups.Capability.Regular;
+                                    group.MyCapabilities = group.Owner.Id == subscriber.Id ? Capability.Owner : Capability.Regular;
                                     group.InGroup = true;
 
                                     Bot.On.Emit(InternalEvent.JOINED_GROUP, group);
@@ -63,7 +57,7 @@ namespace WOLF.Net.Client.Events.Handlers
                             }
                             else
                             {
-                                if (action.Action == Enums.Groups.GroupActionType.Leave && action.InstigatorId != 0)
+                                if (action.Action == GroupActionType.Leave && action.InstigatorId != 0)
                                     action.Type = "kick"; // fix for events
 
                                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
@@ -71,12 +65,11 @@ namespace WOLF.Net.Client.Events.Handlers
                                     group.MyCapabilities = action.Role;
                                     if (action.Role == Capability.None)
                                     {
-                                        group.MyCapabilities = Enums.Groups.Capability.None;
+                                        group.MyCapabilities = Capability.None;
                                         group.InGroup = false;
                                         group.Users.Clear();
 
                                         await Bot.GroupMessageUnsubscribeAsync(group.Id);
-
                                     }
                                 }
                                 else
@@ -87,23 +80,13 @@ namespace WOLF.Net.Client.Events.Handlers
                                         group.Users.FirstOrDefault(r => r.Id == data.SourceSubscriberId).Capabilities = action.Role;
 
                                     if (action.Action == GroupActionType.Owner)
-                                        group.Owner = new Entities.Misc.IdHash()
-                                        {
-                                            Hash = subscriber.Hash,
-                                            Id = subscriber.Id
-                                        };
+                                        group.Owner = new Entities.Misc.IdHash(subscriber.Id, subscriber.Hash);
                                 }
 
                                 if (action.Action == GroupActionType.Leave)
                                     Bot.On.Emit(data.SourceSubscriberId == Bot.CurrentSubscriber.Id ? InternalEvent.LEFT_GROUP : Event.GROUP_MEMBER_DELETE, group, subscriber);
                                 else
-                                    Bot.On.Emit(Event.GROUP_MEMBER_UPDATE, group, new GroupAction()
-                                    {
-                                        Type = action.Type,
-                                        GroupId = group.Id,
-                                        SourceId = action.InstigatorId,
-                                        TargetId = subscriber.Id
-                                    });
+                                    Bot.On.Emit(Event.GROUP_MEMBER_UPDATE, group, new GroupAction(group.Id, action.InstigatorId, subscriber.Id, action.Type));
                             }
                         }
                         break;
@@ -122,11 +105,13 @@ namespace WOLF.Net.Client.Events.Handlers
                     var subscriber = await Bot.GetSubscriberAsync(data.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
                     {
-                        if (!memoryCache.Contains(subscriber.Id.ToString()))
+                        if (!memoryCache.Contains(subscriber.Id.ToString()) && memoryCache.Add(subscriber.Id.ToString(), "", DateTime.UtcNow.AddSeconds(4)))
                         {
-                            memoryCache.Add(subscriber.Id.ToString(), "", DateTime.UtcNow.AddSeconds(4));
+                            var a = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "him" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "them";
+                            var b = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "his" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "their";
+
                             await Bot.SendMessageAsync(data.SourceTargetId, await "https://static.wikia.nocookie.net/harrypotter/images/5/5f/Marauder%27s_Map_insults_Snape.jpg/revision/latest?cb=20091109024017".DownloadImageFromUrl(), data.MessageType);
-                            await Bot.SendMessageAsync(data.SourceTargetId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs him to keep his abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
+                            await Bot.SendMessageAsync(data.SourceTargetId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs {a} to keep {b} abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
                         }
                     }
                 }

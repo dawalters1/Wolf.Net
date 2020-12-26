@@ -18,9 +18,17 @@ namespace WOLF.Net.Client.Events
 {
     public class EventManager
     {
+        private readonly Dictionary<string, Action<object, object>> _events = new Dictionary<string, Action<object, object>>();
+
+        private Dictionary<string, IEvent> events = new Dictionary<string, IEvent>();
+
         #region ConnectionEvents
 
+        /// <summary>
+        /// The websocket is connecting to the server
+        /// </summary>
         public Action Connecting = delegate { };
+
         /// <summary>
         /// The websocket has connected to the server
         /// </summary>
@@ -65,6 +73,10 @@ namespace WOLF.Net.Client.Events
         /// The bot is ready to use
         /// </summary>
         public Action Ready = delegate { };
+
+        public Action Ping = delegate { };
+
+        public Action<TimeSpan> Pong = delegate { };
         #endregion
 
         #region Group Events
@@ -157,6 +169,7 @@ namespace WOLF.Net.Client.Events
         #endregion
 
         #region Messages
+
         /// <summary>
         /// A group or private message has been processed
         /// </summary>
@@ -171,6 +184,7 @@ namespace WOLF.Net.Client.Events
         /// A tip has been added to a message
         /// </summary>
         public Action<Tip> TipAdded = delegate { };
+
         #endregion
 
         #region Contacts
@@ -195,11 +209,7 @@ namespace WOLF.Net.Client.Events
         public Action<Subscriber> SubscriberUnblocked = delegate { };
 
         #endregion
-        private readonly Dictionary<string, Action<object, object>> _events;
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
         public EventManager()
         {
             _events = new Dictionary<string, Action<object, object>>
@@ -236,7 +246,8 @@ namespace WOLF.Net.Client.Events
                 [Request.SUBSCRIBER_BLOCK_ADD] = (a, b) => SubscriberBlocked((Subscriber)a),
                 [Request.SUBSCRIBER_BLOCK_DELETE] = (a, b) => SubscriberUnblocked((Subscriber)a),
                 [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
-                [InternalEvent.PING]= (a, b) => { },
+                [InternalEvent.PING]= (a, b) => Ping(),
+                [InternalEvent.PONG]= (a, b)=> Pong((TimeSpan)a)
             };
         }
 
@@ -255,40 +266,20 @@ namespace WOLF.Net.Client.Events
             }
         }
 
-        /// <summary>
-        /// Trigger an On event by name with two arguements
-        /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <typeparam name="T2"></typeparam>
-        /// <param name="eventString"></param>
-        /// <param name="arg1"></param>
-        /// <param name="arg2"></param>
         public void Emit<T1, T2>(string eventString, T1 arg1, T2 arg2)
         {
             EmitEvent(eventString, arg1, arg2);
         }
 
-        /// <summary>
-        /// Trigger an On event by name with a single argument
-        /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <param name="eventString"></param>
-        /// <param name="arg1"></param>
         public void Emit<T1>(string eventString, T1 arg1)
         {
             EmitEvent(eventString, arg1);
         }
 
-        /// <summary>
-        /// Trigger an On event by string name only
-        /// </summary>
-        /// <param name="eventString"></param>
         public void Emit(string eventString)
         {
             EmitEvent(eventString);
         }
-
-        private Dictionary<string, IEvent> events = new Dictionary<string, IEvent>();
 
         internal void RegisterEvents(WolfBot bot)
         {

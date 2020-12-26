@@ -14,7 +14,12 @@ namespace WOLF.Net.Client.Events.Handlers
 
         public override async void HandleAsync(IdHash data)
         {
-            Bot.On.Emit(Command, await Bot.GetGroupAsync(data.Id, data.Hash != Bot.Groups.FirstOrDefault(r => r.Id == data.Id).Hash));
+            var group = await Bot.GetGroupAsync(data.Id);
+
+            if (group == null)
+                return;
+
+            Bot.On.Emit(Command, await Bot.GetGroupAsync(data.Id, true));
         }
         public override void Register()
         {

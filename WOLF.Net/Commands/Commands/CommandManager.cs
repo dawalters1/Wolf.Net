@@ -29,7 +29,7 @@ namespace WOLF.Net.Commands.Commands
         {
             foreach (var command in Commands)
             {
-                var trigger = command.Value.Trigger;
+                var trigger = command.Value.Trigger.CleanString();
 
                 if (Bot.UsingTranslations)
                 {
@@ -47,7 +47,7 @@ namespace WOLF.Net.Commands.Commands
 
         private async Task FindAndExecuteDefaultCommand(Message message, CommandData commandData)
         {
-            var trigger = GetCommandTriggerFromContent(message.Content);
+            var trigger = GetCommandTriggerFromContent(message.Content.CleanString());
 
             if (string.IsNullOrWhiteSpace(trigger))
                 return;
@@ -149,32 +149,16 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var command in methodInstances.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
             {
-                var trigger = command.Value.Trigger;
+                var trigger = Bot.GetTriggerAndLanguage(command.Value.Trigger.CleanString(), content.CleanString());
 
-                if (Bot.UsingTranslations)
-                {
-                    var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
+                if (trigger.Key == null)
+                    continue;
 
-                    if (phrase != null)
-                    {
-                        if (!content.StartsWithCommand(phrase.Value))
-                            continue;
+                if (!content.CleanString().StartsWithCommand(trigger.Value))
+                    continue;
 
-                        commandData.Argument = content[phrase.Value.Length..].Trim();
-
-                        commandData.Language ??= phrase.Language;
-                    }
-                    else
-                        continue;
-                }
-                else
-                {
-                    if (!content.StartsWithCommand(trigger))
-                        continue;
-
-                    commandData.Argument = content[trigger.Length..].Trim();
-                }
-
+                commandData.Argument = content[trigger.Value.Length..].Trim();
+                commandData.Language ??= trigger.Key;
 
                 return command;
             }
@@ -186,30 +170,16 @@ namespace WOLF.Net.Commands.Commands
         {
             var content = commandData.Argument.ToLower().Trim();
 
-            var trigger = typeInstance.Value.Trigger;
+            var trigger = Bot.GetTriggerAndLanguage(typeInstance.Value.Trigger.CleanString(), content.CleanString());
 
-            if (Bot.UsingTranslations)
-            {
-                var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
+            if (trigger.Key == null)
+                return false;
 
-                if (phrase != null)
-                {
-                    if (!content.StartsWithCommand(phrase.Value))
-                        return false;
+            if (!content.CleanString().StartsWithCommand(trigger.Value))
+                return false;
 
-                    commandData.Argument = content[phrase.Value.Length..].Trim();
-                    commandData.Language ??= phrase.Language;
-                }
-                else
-                    return false;
-            }
-            else
-            {
-                if (!content.StartsWithCommand(trigger))
-                    return false;
-
-                commandData.Argument = content[trigger.Length..].Trim();
-            }
+            commandData.Argument = content[trigger.Value.Length..].Trim();
+            commandData.Language ??= trigger.Key;
 
             if (!await ValidatePermissions(typeInstance, message, commandData))
                 return true;
@@ -231,7 +201,7 @@ namespace WOLF.Net.Commands.Commands
 
             if (command != null)
             {
-                if (!await ValidatePermissions(typeInstance, message, commandData))
+                if (!await ValidatePermissions(command, message, commandData))
                     return true;
 
                 if (!await ValidateAttributes(command, message, commandData))

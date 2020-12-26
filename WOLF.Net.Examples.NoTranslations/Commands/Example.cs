@@ -43,7 +43,7 @@ namespace WOLF.Net.ExampleBot.Commands
             }
         }
 
-        [Command("cancel"), RequiredPermissions(Capability.Admin, Privilege.STAFF)]
+        [Command("cancel"), RequiredPermissions(true)]
         public async Task Cancel()
         {
             if (!await Cache.ExistsAsync(Command.SourceTargetId))

@@ -8,12 +8,12 @@ namespace WOLF.Net.Entities.API
 {
     public class FailedPermission
     {
-        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId")]
+        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId", true)]
         public int UserId => SourceSubscriberId;
 
         public int SourceSubscriberId { get; set; }
 
-        [Obsolete("This property will be deprecated soon, please use SourceTargetId")]
+        [Obsolete("This property will be deprecated soon, please use SourceTargetId", true)]
         public int ReturnAddress => SourceTargetId;
 
         public int SourceTargetId { get; set; }
@@ -22,7 +22,7 @@ namespace WOLF.Net.Entities.API
 
         public Capability Capabilities { get; set; }
 
-        public List<Privilege> Privileges { get; set; } = new List<Privilege>();
+        public Privilege[] Privileges = { };
 
         public string Language { get; set; }
 

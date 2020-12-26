@@ -28,6 +28,8 @@ namespace WOLF.Net.Client.Events.Handlers
                     return;
                 }
 
+                Bot.LoginData.Cognito = result.Body.Cognito;
+
                 Bot.CurrentSubscriber = result.Body.Subscriber;
 
                 Bot.On.Emit(InternalEvent.LOGIN, Bot.CurrentSubscriber);

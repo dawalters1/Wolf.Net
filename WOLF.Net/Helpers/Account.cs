@@ -50,9 +50,9 @@ namespace WOLF.Net
                 return new List<Group>();
         }
 
-        internal async Task<Response<CurrentSubscriber>> InternalLoginAsync()
+        internal async Task<Response<LoginResponse>> InternalLoginAsync()
         {
-            return await WolfClient.Emit<CurrentSubscriber>(Request.SECURITY_LOGIN, new
+            return await WolfClient.Emit<LoginResponse>(Request.SECURITY_LOGIN, new
             {
                 headers = new
                 {

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/P6u5XmTF/VKjdhGpMJ8GjEEhBtRvifUA4TZFpnPPptTcdqsXsFoI7S2hRTjE0RCKEW2v6PHK5iWBN26K91Bpw==",
+  "dgSpecHash": "xBs2IMZ18tca6Z7bT64vfhFo9LILV6HI7MNdvy3UlmGiRHJLw0uBJ9dM3TaI1e9wOC+kImXUdTArjPq7u1K/Fg==",
   "success": true,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
   "expectedPackageFiles": [
@@ -10,7 +10,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.0\\pipelines.sockets.unofficial.2.2.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.1\\socketioclient.2.1.1.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.2\\socketioclient.2.1.2.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\stackexchange.redis\\2.2.4\\stackexchange.redis.2.2.4.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",

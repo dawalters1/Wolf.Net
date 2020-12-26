@@ -9,6 +9,19 @@ namespace WOLF.Net.Utilities
 {
     internal static class Internal
     {
+        internal static KeyValuePair<string, string> GetTriggerAndLanguage(this WolfBot bot, string trigger, string content)
+        {
+            if (!bot.UsingTranslations)
+                return new KeyValuePair<string, string>("en", trigger);
+
+            var phrase = bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
+
+            if (phrase != null)
+                return new KeyValuePair<string, string>(phrase.Language, phrase.Value);
+
+            return new KeyValuePair<string, string>(null, null);
+        }
+
         internal static bool HasProperty(this object obj, string propertyName) => obj.GetType().GetProperty(propertyName) != null;
 
         internal static string ToErrorMessage(this string eventString, int subCode, string subMessage = null)

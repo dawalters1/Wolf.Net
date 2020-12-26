@@ -23,6 +23,8 @@ namespace WOLF.Net.Entities.API
 
         public string Token { get; }
 
+        public Cognito Cognito { get; set; }
+
         public LoginData(string email, string password, LoginDevice loginDevice, LoginType loginType, OnlineState onlineState)
         {
             Email = email;

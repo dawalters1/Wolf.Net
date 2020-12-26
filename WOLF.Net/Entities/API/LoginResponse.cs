@@ -6,10 +6,11 @@ using WOLF.Net.Entities.Subscribers;
 
 namespace WOLF.Net.Entities.API
 {
-    public class CurrentSubscriber
+    public class LoginResponse
+
     {
         [JsonProperty("cognito")]
-        public Dictionary<string, string> Cognito { get; set; }
+        public Cognito Cognito { get; set; }
 
         [JsonProperty("isNew")]
         public bool IsNew { get; set; }
