@@ -139,7 +139,10 @@ namespace WOLF.Net.Utilities
 
         public static IDictionary<string, string> CleanStringMap = new Dictionary<string, string>()
         {
-            {"[أَإأ]","ا"},
+            {"إ","ا"},
+            {"أ","ا"},
+            {"أَ","ا"},
+            {"اَ","ا"},
             {"ه","ة"},
         };
 
