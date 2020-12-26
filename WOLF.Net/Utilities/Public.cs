@@ -137,15 +137,5 @@ namespace WOLF.Net.Utilities
                 throw new TimeoutException();
         }
 
-        public static IDictionary<string, string> CleanStringMap = new Dictionary<string, string>()
-        {
-            {"إ","ا"},
-            {"أ","ا"},
-            {"أَ","ا"},
-            {"اَ","ا"},
-            {"ه","ة"},
-        };
-
-        public static string CleanString(this string input) => new Regex(string.Join("|", CleanStringMap.Keys)).Replace(input, m => CleanStringMap[m.Value]);
     }
 }

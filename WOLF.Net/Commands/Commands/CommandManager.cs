@@ -29,7 +29,7 @@ namespace WOLF.Net.Commands.Commands
         {
             foreach (var command in Commands)
             {
-                var trigger = command.Value.Trigger.CleanString();
+                var trigger = command.Value.Trigger;
 
                 if (Bot.UsingTranslations)
                 {
@@ -47,7 +47,7 @@ namespace WOLF.Net.Commands.Commands
 
         private async Task FindAndExecuteDefaultCommand(Message message, CommandData commandData)
         {
-            var trigger = GetCommandTriggerFromContent(message.Content.CleanString());
+            var trigger = GetCommandTriggerFromContent(message.Content);
 
             if (string.IsNullOrWhiteSpace(trigger))
                 return;
@@ -149,12 +149,12 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var command in methodInstances.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
             {
-                var trigger = Bot.GetTriggerAndLanguage(command.Value.Trigger.CleanString(), content.CleanString());
+                var trigger = Bot.GetTriggerAndLanguage(command.Value.Trigger, content);
 
                 if (trigger.Key == null)
                     continue;
 
-                if (!content.CleanString().StartsWithCommand(trigger.Value))
+                if (!content.StartsWithCommand(trigger.Value))
                     continue;
 
                 commandData.Argument = content[trigger.Value.Length..].Trim();
@@ -170,12 +170,12 @@ namespace WOLF.Net.Commands.Commands
         {
             var content = commandData.Argument.ToLower().Trim();
 
-            var trigger = Bot.GetTriggerAndLanguage(typeInstance.Value.Trigger.CleanString(), content.CleanString());
+            var trigger = Bot.GetTriggerAndLanguage(typeInstance.Value.Trigger, content);
 
             if (trigger.Key == null)
                 return false;
 
-            if (!content.CleanString().StartsWithCommand(trigger.Value))
+            if (!content.StartsWithCommand(trigger.Value))
                 return false;
 
             commandData.Argument = content[trigger.Value.Length..].Trim();
