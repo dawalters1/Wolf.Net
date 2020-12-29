@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net5.0;</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <Version>4.1.5</Version>
+    <Version>4.1.6</Version>
     <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
     <PackageTags>WOLF, Palringo, Pal, Wolfringo</PackageTags>
     <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>
@@ -12,18 +12,13 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon></ApplicationIcon>
-    <PackageReleaseNotes>- Fixed Subscriber profiles not updating
-- Fixed Command permissions
-- Removed AuthOnly, use RequiredPermissions(true)
-- Added Ping/Pong events
-- Added 'LookingFors' in Subscriber extended profile
-- UserId/GroupId/ReturnAddress will now error, please use SourceSubscriberId/SourceTargetId</PackageReleaseNotes>
+    <PackageReleaseNotes>SocketIOClient downgrade to 2.1.1 due to connection issues</PackageReleaseNotes>
     <Authors>David Walters</Authors>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SocketIoClient" Version="2.1.2" />
+    <PackageReference Include="SocketIoClient" Version="2.1.1" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
   </ItemGroup>
