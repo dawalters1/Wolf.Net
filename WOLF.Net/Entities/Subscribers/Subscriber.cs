@@ -6,6 +6,7 @@ using System.Text;
 using WOLF.Net.Entities.Charms;
 using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Entities.Subscribers
 {
@@ -97,7 +98,7 @@ namespace WOLF.Net.Entities.Subscribers
             Updated();
         }
 
-        public string ToDisplayName(bool withId = true) => withId ? $"{Nickname} ({Id})" : $"{Nickname}";
+        public string ToDisplayName(bool withId = true, bool trimAds = false) => withId ? $"{(trimAds ? Nickname.TrimAds() : Nickname)} ({Id})" : $"{(trimAds ? Nickname.TrimAds() : Nickname)}";
 
         public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile(WolfBot bot)
         {

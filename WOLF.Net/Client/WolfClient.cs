@@ -56,10 +56,10 @@ namespace WOLF.Net.Client
                     ["token"] = Bot.LoginData.Token,
                     ["device"] = Bot.LoginData.LoginDevice.ToString().ToLower(),
                     ["state"] = ((int)Bot.LoginData.OnlineState).ToString()
-                }
+                },
             });
 
-            Bot.On.RegisterEvents(Bot);
+            Bot.On.SubscribeToEvents(Bot);
 
             Socket.OnConnected += (sender, eventArgs) =>
             {
@@ -95,6 +95,8 @@ namespace WOLF.Net.Client
                 isReconnecting = true;
                 Bot.On.Emit(InternalEvent.RECONNECTING);
             };
+
+            Socket.OnReconnectFailed += (sender, eventArgs) => Bot.On.Emit(InternalEvent.RECONNECT_FAILED, eventArgs);
 
             Bot.On.Emit(InternalEvent.CONNECTING);
 

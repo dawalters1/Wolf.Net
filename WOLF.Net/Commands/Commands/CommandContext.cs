@@ -26,5 +26,5 @@ namespace WOLF.Net.Commands.Commands
 		public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content) => await Bot.SendPrivateMessageAsync(subscriberId, content);
 
 		public async Task<Response<MessageResponse>> SendGroupMessageAsync(int targetGroupId, object content) => await Bot.SendGroupMessageAsync(targetGroupId, content);
-	}
+    }
 }

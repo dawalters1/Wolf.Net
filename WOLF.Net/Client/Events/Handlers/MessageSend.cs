@@ -110,7 +110,6 @@ namespace WOLF.Net.Client.Events.Handlers
                             var a = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "him" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "them";
                             var b = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "his" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "their";
 
-                            await Bot.SendMessageAsync(data.SourceTargetId, await "https://static.wikia.nocookie.net/harrypotter/images/5/5f/Marauder%27s_Map_insults_Snape.jpg/revision/latest?cb=20091109024017".DownloadImageFromUrl(), data.MessageType);
                             await Bot.SendMessageAsync(data.SourceTargetId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs {a} to keep {b} abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
                         }
                     }

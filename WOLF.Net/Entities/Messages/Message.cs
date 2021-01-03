@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Enums.Messages;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Entities.Messages
 {
@@ -56,7 +58,7 @@ namespace WOLF.Net.Entities.Messages
 
         public long Timestamp { get;set; }
 
-        public bool IsCommand => Bot.CommandManager.GetCommandTriggerFromContent(Content)!=null;
+        public bool IsCommand => Bot.CommandManager.Commands.Any(r => Bot.UsingTranslations ? Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(r.Value.Trigger)) || Bot.FormManager.Forms.Any(r => Bot.UsingTranslations ? Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(r.Value.Trigger));
 
         #region
 

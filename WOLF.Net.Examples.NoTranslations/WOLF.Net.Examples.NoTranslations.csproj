@@ -10,4 +10,8 @@
     <ProjectReference Include="..\WOLF.Net\WOLF.Net.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Groups
 {
+    [Flags]
     public enum GroupActionType
     {
         Regular = 0,

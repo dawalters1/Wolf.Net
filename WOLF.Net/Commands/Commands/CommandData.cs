@@ -34,8 +34,6 @@ namespace WOLF.Net.Commands.Commands
 
         public MessageType MessageType { get; set; }
        
-        public bool IsTranslation => Language != null;
-
         public CommandData() { }
 
         public CommandData(Message message)

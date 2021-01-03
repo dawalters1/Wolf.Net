@@ -17,35 +17,29 @@ namespace WOLF.Net.ExampleBot.Commands
     [Command("example"), RequiredMessageType(MessageType.Group)]
     class Example : CommandContext
     {
-        private Cache Cache => Program.Cache;
-
         [Command]
         public async Task Default1() => await Help();
 
         [Command("help")]
         public async Task Help() => await ReplyAsync(Bot.GetPhraseByName(Command.Language, "help_message"));
 
-        [Command("start")]
-        public async Task Start()
-        {
-            if (await Cache.ExistsAsync(Command.SourceTargetId))
-                await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_exists_message"));
-            else
-            {
-                await Cache.SetAsync(Message.SourceTargetId, new FormData(Command.SourceTargetId, Command.SourceSubscriberId, Command.Language));
-
-                await ReplyAsync(Bot.GetPhraseByName(Command.Language, "send_age_message"));
-            }
-        }
-
         [Command("cancel"), RequiredPermissions(Capability.Admin, Privilege.STAFF)]
         public async Task Cancel()
         {
-            if (!await Cache.ExistsAsync(Command.SourceTargetId))
-                await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
-
-            if (await Cache.DeleteAsync(Command.SourceTargetId))
-                await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
+            if (Command.IsGroup)
+            {
+                if (Bot.FormManager.HasGroupForm(Command.SourceTargetId, Command.SourceSubscriberId)? Bot.FormManager.CancelGroupForm(Command.SourceTargetId, Command.SourceSubscriberId):Bot.FormManager.CancelGroupForms(Command.SourceTargetId))
+                    await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
+                else
+                    await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
+            }
+            else
+            {
+                if (Bot.FormManager.CancelPrivateForm(Command.SourceSubscriberId))
+                    await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
+                else
+                    await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
+            }
         }
 
         [Command("get")]

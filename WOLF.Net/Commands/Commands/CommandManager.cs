@@ -23,7 +23,7 @@ namespace WOLF.Net.Commands.Commands
     {
         private readonly WolfBot Bot;
 
-        private List<TypeInstance<Command>> Commands = new List<TypeInstance<Command>>();
+        internal List<TypeInstance<Command>> Commands = new List<TypeInstance<Command>>();
 
         internal string GetCommandTriggerFromContent(string content)
         {
@@ -285,6 +285,9 @@ namespace WOLF.Net.Commands.Commands
 
         internal void Load(List<TypeInstance<Command>> typeInstances = null)
         {
+            if (Commands.Count > 0)
+                return;
+
             var commandCollections = typeInstances == null || typeInstances.Count == 0 ? typeof(CommandContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(Command))).Select(t => new TypeInstance<Command>(t, t.GetCustomAttribute<Command>())).ToList() : typeInstances;
 
             foreach (var collection in commandCollections)

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Tipping
 {
+    [Flags]
     public enum TipDirection
     {
         Sent,

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Messages
 {
+    [Flags]
     public enum MessageType
     {
         Group = 1,

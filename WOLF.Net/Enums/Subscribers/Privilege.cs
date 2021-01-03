@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
+    [Flags]
     public enum Privilege
     {
         /// <summary>

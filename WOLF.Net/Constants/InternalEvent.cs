@@ -46,5 +46,8 @@ namespace WOLF.Net.Constants
 
         public const string COMMAND_MANAGER = "command manager";
 
+        public const string RECONNECT_FAILED = "reconnect failed";
+
+        public const string FORM_EXISTS = "form exists";
     }
 }
