@@ -9,48 +9,37 @@ using WOLF.Net.Commands.Commands;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Example.Entities;
 using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Commands
 {
 
-    [Command("!example"), RequiredMessageType(MessageType.Group)]
+    [Command("!example")]
     class Example : CommandContext
     {
-        private Cache Cache => Program.Cache;
-
         [Command]
         public async Task Default1() => await Help();
 
         [Command("help")]
         public async Task Help() => await ReplyAsync("Welcome to the example bot\n\n!example help - Will display this message\n!example get subscriber <subscriberId> - get a subscriber profile\n!example get group <groupId> - get a group profile");
 
-        [Command("start")]
-        public async Task Start()
+        [Command("cancel")]
+        public async Task Cancel()
         {
-            if (await Cache.ExistsAsync(Command.SourceTargetId))
+            if (Command.IsGroup)
             {
-                var form = await Cache.GetAsync<FormData>(Command.SourceTargetId);
-
-                await ReplyAsync(form.SourceSubscriberId==Command.SourceSubscriberId? "(N) You've already started a form!": $"(N) {(await Bot.GetSubscriberAsync(form.SourceSubscriberId)).ToDisplayName()} has already started a form!");
+                if (Bot.FormManager.HasGroupForm(Command.SourceTargetId, Command.SourceSubscriberId) ? Bot.FormManager.CancelGroupForm(Command.SourceTargetId, Command.SourceSubscriberId) : Bot.FormManager.CancelGroupForms(Command.SourceTargetId))
+                    await ReplyAsync("(Y) Form Cancelled");
+                else
+                    await ReplyAsync("(N) Theres nothing to cancel");
             }
             else
             {
-               await Cache.SetAsync(Message.SourceTargetId, new FormData(Command.SourceTargetId, Command.SourceSubscriberId, Command.Language));
-
-                await ReplyAsync("How old are you?");
+                if (Bot.FormManager.CancelPrivateForm(Command.SourceSubscriberId))
+                    await ReplyAsync("(Y) Form Cancelled");
+                else
+                    await ReplyAsync("(N) Theres nothing to cancel");
             }
-        }
-
-        [Command("cancel"), RequiredPermissions(true)]
-        public async Task Cancel()
-        {
-            if (!await Cache.ExistsAsync(Command.SourceTargetId))
-                await ReplyAsync("(N) Theres nothing to cancel");
-
-            if (await Cache.DeleteAsync(Command.SourceTargetId))
-                await ReplyAsync("(Y) Form Cancelled");
         }
 
         [Command("get")]

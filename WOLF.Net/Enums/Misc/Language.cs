@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.Misc
 {
+    [Flags]
     public enum Language
     {
         NotSpecified = 0,

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Client;
 using WOLF.Net.Client.Events;
 using WOLF.Net.Commands.Commands;
+using WOLF.Net.Commands.Form;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Subscribers;
@@ -21,6 +22,8 @@ namespace WOLF.Net
         internal bool IgnoreBots { get; set; }
 
         internal CommandManager CommandManager { get; set; }
+
+        public FormManager FormManager { get; set; }
 
         public Subscriber CurrentSubscriber { get; internal set; }
 
@@ -42,12 +45,14 @@ namespace WOLF.Net
             WolfClient = new WolfClient(this);
 
             CommandManager = new CommandManager(this);
+            FormManager = new FormManager(this);
 
             On = new EventManager();
 
             On.MessageReceived += async msg =>
             {
-                await CommandManager.ProcessMessage(msg);
+                if (!await FormManager.ProcessMessage(msg))
+                    await CommandManager.ProcessMessage(msg);
 
                 foreach (var subscription in currentMessageSubscriptions.ToList())
                 {
@@ -64,6 +69,7 @@ namespace WOLF.Net
         public async Task LoginAsync(string email, string password, LoginDevice loginDevice = LoginDevice.Android, OnlineState onlineState = OnlineState.Online)
         {
             CommandManager.Load();
+            FormManager.Load();
 
             LoginData = new LoginData(email, password, loginDevice, LoginType.Email, onlineState);
 

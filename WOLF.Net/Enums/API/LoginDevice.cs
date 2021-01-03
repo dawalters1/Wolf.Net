@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WOLF.Net.Enums.API
 {
+    [Flags]
     public enum LoginDevice
     {
         iPhone = 5,

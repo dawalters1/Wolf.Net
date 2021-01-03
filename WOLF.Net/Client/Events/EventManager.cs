@@ -13,6 +13,7 @@ using WOLF.Net.Entities.Messages.Tipping;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Constants;
 using Newtonsoft.Json;
+using WOLF.Net.Commands.Form;
 
 namespace WOLF.Net.Client.Events
 {
@@ -68,6 +69,8 @@ namespace WOLF.Net.Client.Events
         /// The websocket has connected successfully and the account has successfully logged in
         /// </summary>
         public Action Reconnected = delegate { };
+
+        public Action<Exception> ReconnectFailed = delegate { };
 
         /// <summary>
         /// The bot is ready to use
@@ -214,12 +217,13 @@ namespace WOLF.Net.Client.Events
         {
             _events = new Dictionary<string, Action<object, object>>
             {
-                [InternalEvent.CONNECTING] = (a,b)=> Connecting(),
+                [InternalEvent.CONNECTING] = (a, b) => Connecting(),
                 [InternalEvent.CONNCETED] = (a, b) => Connected(),
                 [InternalEvent.CONNECTION_ERROR] = (a, b) => ConnectionError((string)a),
                 [InternalEvent.DISCONNECTED] = (a, b) => Disconnected((string)a),
                 [InternalEvent.INTERNAL_ERROR] = (a, b) => InternalError((string)a),
                 [InternalEvent.RECONNECTING] = (a, b) => Reconnecting(),
+                [InternalEvent.RECONNECT_FAILED] = (a, b) => ReconnectFailed((Exception)a),
                 [InternalEvent.RECONNECTED] = (a, b) => Reconnected(),
                 [Event.WELCOME] = (a, b) => Welcomed((Welcome)a),
                 [InternalEvent.LOGIN] = (a, b) => LoginSuccess((Subscriber)a),
@@ -246,8 +250,8 @@ namespace WOLF.Net.Client.Events
                 [Request.SUBSCRIBER_BLOCK_ADD] = (a, b) => SubscriberBlocked((Subscriber)a),
                 [Request.SUBSCRIBER_BLOCK_DELETE] = (a, b) => SubscriberUnblocked((Subscriber)a),
                 [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
-                [InternalEvent.PING]= (a, b) => Ping(),
-                [InternalEvent.PONG]= (a, b)=> Pong((TimeSpan)a)
+                [InternalEvent.PING] = (a, b) => Ping(),
+                [InternalEvent.PONG] = (a, b) => Pong((TimeSpan)a),
             };
         }
 
@@ -258,7 +262,7 @@ namespace WOLF.Net.Client.Events
                 if (_events.ContainsKey(name))
                     _events[name](arg1, arg2);
                 else
-                    _events[InternalEvent.LOG]($"Invalid event {name}", null);
+                    _events[InternalEvent.LOG]($"[INVALID EVENT]: {name}", null);
             }
             catch (Exception d)
             {
@@ -281,7 +285,7 @@ namespace WOLF.Net.Client.Events
             EmitEvent(eventString);
         }
 
-        internal void RegisterEvents(WolfBot bot)
+        internal void SubscribeToEvents(WolfBot bot)
         {
             var types = (from x in Assembly.GetExecutingAssembly().GetTypes() from z in x.GetInterfaces() let y = x.BaseType where (y != null && y.IsGenericType && typeof(IEvent).IsAssignableFrom(y.GetGenericTypeDefinition())) || (z.IsGenericType && typeof(IEvent).IsAssignableFrom(z.GetGenericTypeDefinition())) select x).Where(r => !r.IsAbstract).ToList();
 
@@ -296,7 +300,7 @@ namespace WOLF.Net.Client.Events
 
                 events.Add(@event.Command, @event);
 
-                bot.On.Emit(InternalEvent.LOG, $"Registered server event {@event.Command}");
+                bot.On.Emit(InternalEvent.LOG, $"[SERVER EVENT SUBSCRIPTION]: {@event.Command}");
             }
         }
 
@@ -310,7 +314,7 @@ namespace WOLF.Net.Client.Events
                 bot.WolfClient.Socket.Off(@event.Key);
                 events.Remove(@event.Key);
 
-                bot.On.Emit(InternalEvent.LOG, $"Unregistered server event {@event.Key}");
+                bot.On.Emit(InternalEvent.LOG, $"[SERVER EVENT UNSUBSCRIPTION]: {@event.Key}");
             }
         }
     }

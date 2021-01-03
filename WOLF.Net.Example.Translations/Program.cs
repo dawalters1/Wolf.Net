@@ -21,8 +21,6 @@ namespace WOLF.Net.ExampleBot
         /// Create a new bot instance, with bool true (REQUIRED FOR TRANSLATIONS TO WORK)
         /// </summary>
         public static WolfBot Bot = new WolfBot(true);
-
-        public static Cache Cache = new Cache();
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
 
@@ -156,6 +154,12 @@ namespace WOLF.Net.ExampleBot
                     Name = "details_message",
                     Value = "You are {0} years old and your name is {1}",
                     Language = "en"
+                },
+                new Phrase()
+                {
+                    Name = "form_timeout_message",
+                    Value = "(N) {0} you failed to complete the form in time\nSend !example form to try again",
+                    Language = "en"
                 }
             });
 
@@ -196,24 +200,8 @@ namespace WOLF.Net.ExampleBot
 
             #region Messages Events
 
-            Bot.On.MessageReceived += async message =>
-            {
-                Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message [isCommand: {(message.IsCommand ? "Yes" : "No")}]");
+            Bot.On.MessageReceived += message => Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message [isCommand: {(message.IsCommand ? "Yes" : "No")}]");
 
-                if (message.IsCommand)
-                    return;
-
-                if (message.IsGroup)
-                {
-                    if (await Cache.ExistsAsync(message.SourceTargetId))
-                    {
-                        var flow = await Cache.GetAsync<FormData>(message.SourceTargetId);
-
-                        if (flow.SourceSubscriberId == message.SourceSubscriberId)
-                            await FormExample.Handle(Bot, message, Cache, flow);
-                    }
-                }
-            };
             Bot.On.MessageUpdated += message => Console.WriteLine($"[Message Updated]: Message has been udpated");
 
             #endregion

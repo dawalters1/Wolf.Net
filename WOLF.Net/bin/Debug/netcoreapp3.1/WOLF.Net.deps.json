@@ -6,10 +6,10 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "WOLF.Net/4.1.4": {
+      "WOLF.Net/4.2.0": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
-          "SocketIOClient": "2.1.2",
+          "SocketIOClient": "2.1.1",
           "System.Drawing.Common": "5.0.0",
           "System.Runtime.Caching": "5.0.0"
         },
@@ -46,7 +46,7 @@
           }
         }
       },
-      "SocketIOClient/2.1.2": {
+      "SocketIOClient/2.1.1": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
@@ -54,8 +54,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {
-            "assemblyVersion": "2.1.2.0",
-            "fileVersion": "2.1.2.0"
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.0"
           }
         }
       },
@@ -228,7 +228,7 @@
     }
   },
   "libraries": {
-    "WOLF.Net/4.1.4": {
+    "WOLF.Net/4.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -261,12 +261,12 @@
       "path": "newtonsoft.json/12.0.3",
       "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
-    "SocketIOClient/2.1.2": {
+    "SocketIOClient/2.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/bzdWoP2m0n1GLcLetklAUMqJzuR8vuU4fxeb3S+a/kFLlomCbGvlHa3yxnPYG3xzdyIZjcO4rJw6AxVSzSGOw==",
-      "path": "socketioclient/2.1.2",
-      "hashPath": "socketioclient.2.1.2.nupkg.sha512"
+      "sha512": "sha512-f4t8NfIMjEAVNhSva9woblJmg5+mE4q6Be0qFrtJssuZr0tcoTVwUbAUXKNhSjNEoJZuNEtD2oc2irBzgzvgDA==",
+      "path": "socketioclient/2.1.1",
+      "hashPath": "socketioclient.2.1.1.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
