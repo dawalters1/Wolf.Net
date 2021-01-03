@@ -21,7 +21,7 @@ You can install the WOLF.Net package directly from [Nuget](https://www.nuget.org
 # Optional
 
 - [Redis](https://redis.io/download)
-  - I recommend using this if you plan on doing multiple input commands (formally known as Forms) or game bots
+  - I recommend using this if you plan on making a game bot
   - Redis isnt supported on windows anymore, I recommend using this [Port](https://github.com/tporadowski/redis/releases/download/v5.0.10/Redis-x64-5.0.10.msi)
   - A generic Redis client wrapper package is available for bots Install-Package WOLF.Net.Redis
 
@@ -40,9 +40,9 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
 # Known Issues/Lacking features
 
 - Cannot join Stages
-- Cannot update avatars - WIP (4.2.0 Maybe?) 
+- Cannot update avatars - WIP (4.3.0 Maybe?) 
 - Cannot receive new notifications
-- Cannot send Voice Messages - WIP (4.2.0 Maybe?) 
+- Cannot send Voice Messages - WIP (4.3.0 Maybe?) 
 
 # Contact 
 
