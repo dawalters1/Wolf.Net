@@ -346,7 +346,10 @@ namespace WOLF.Net.Commands.Form
                 {
                     var phrase = Bot.Phrases.Where(r => forms.Any(s => s.Value.Trigger.IsEqual(r.Name)) && message.Content.StartsWithCommand(r.Value)).OrderByDescending(r => r.Value.Length).FirstOrDefault();
 
-                    var form = Forms.FirstOrDefault();
+                    if (phrase == null)
+                        return false;
+
+                    var form = Forms.FirstOrDefault(r=>r.Value.Trigger==phrase.Name);
 
                     if (form == null)
                         return false;
