@@ -302,7 +302,7 @@
           "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       },
-      "WOLF.Net/4.2.0.1": {
+      "WOLF.Net/4.2.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -318,7 +318,7 @@
           "bin/placeholder/WOLF.Net.dll": {}
         }
       },
-      "WOLF.Net.Redis/3.2.0": {
+      "WOLF.Net.Redis/3.2.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -1076,12 +1076,12 @@
         "websocketsharp-netstandard.nuspec"
       ]
     },
-    "WOLF.Net/4.2.0.1": {
+    "WOLF.Net/4.2.1": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
     },
-    "WOLF.Net.Redis/3.2.0": {
+    "WOLF.Net.Redis/3.2.1": {
       "type": "project",
       "path": "../WOLF.Net.Redis/WOLF.Net.Redis.csproj",
       "msbuildProject": "../WOLF.Net.Redis/WOLF.Net.Redis.csproj"
@@ -1089,8 +1089,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 4.2.0.1",
-      "WOLF.Net.Redis >= 3.2.0"
+      "WOLF.Net >= 4.2.1",
+      "WOLF.Net.Redis >= 3.2.1"
     ]
   },
   "packageFolders": {
