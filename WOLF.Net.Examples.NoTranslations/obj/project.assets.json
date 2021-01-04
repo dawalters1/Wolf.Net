@@ -318,7 +318,7 @@
           "bin/placeholder/WOLF.Net.dll": {}
         }
       },
-      "WOLF.Net.Redis/3.2.0": {
+      "WOLF.Net.Redis/3.2.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -1081,7 +1081,7 @@
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
     },
-    "WOLF.Net.Redis/3.2.0": {
+    "WOLF.Net.Redis/3.2.1": {
       "type": "project",
       "path": "../WOLF.Net.Redis/WOLF.Net.Redis.csproj",
       "msbuildProject": "../WOLF.Net.Redis/WOLF.Net.Redis.csproj"
@@ -1090,7 +1090,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "WOLF.Net >= 4.2.1",
-      "WOLF.Net.Redis >= 3.2.0"
+      "WOLF.Net.Redis >= 3.2.1"
     ]
   },
   "packageFolders": {

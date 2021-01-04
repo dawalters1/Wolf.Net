@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WOLF.Net.Redis")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.2.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.2.1")]
 [assembly: System.Reflection.AssemblyProductAttribute("WOLF.Net.Redis")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WOLF.Net.Redis")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.0.0.0")]
