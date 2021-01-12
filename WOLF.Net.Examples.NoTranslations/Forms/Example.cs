@@ -8,7 +8,7 @@ using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Flows
 {
-    [Form("!example form"), RequiredMessageType(Enums.Messages.MessageType.Group)]
+    [Form("!example form", 5000), RequiredMessageType(Enums.Messages.MessageType.Group)]
     public class ExampleForm : FormContext
     {
         public int Age { get; set; }

@@ -200,11 +200,19 @@ namespace WOLF.Net.Commands.Form
             return await FindForm(message);
         }
 
-        private void AddForm(IFormContext form, Action<string> method, int groupId, int userId)
+        private void AddForm(IFormContext form, Action<string> method, int groupId, int userId, double duration)
         {
             if (!GroupInstances.ContainsKey(groupId))
                 GroupInstances.Add(groupId, new Dictionary<int, KeyValuePair<IFormContext, Action<string>>>());
+         
             GroupInstances[groupId].Add(userId, new KeyValuePair<IFormContext, Action<string>>(form, method));
+          
+            form.TimeoutTimer = new System.Timers.Timer()
+            {
+                AutoReset = false,
+                Enabled = true,
+                Interval = duration
+            };
 
             form.NextStage = (a) => GroupInstances[groupId][userId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
          
@@ -227,9 +235,7 @@ namespace WOLF.Net.Commands.Form
                 if (i <= 0)
                     return false;
 
-                form.TimeoutTimer.Stop();
                 form.TimeoutTimer.Interval = i;
-                form.TimeoutTimer.Start();
                 return true;
             };
 
@@ -247,17 +253,24 @@ namespace WOLF.Net.Commands.Form
                     return false;
 
                 form.TimeoutTimer.Stop();
-                AddForm(form, GroupInstances[groupId][userId].Value, userId);
+                AddForm(form, GroupInstances[groupId][userId].Value, userId,duration);
                 GroupInstances[groupId].Remove(userId);
                 return true;
             };
+
             ((FormContext)form)._doStartUp(Bot);
         }
 
-        private void AddForm(IFormContext form, Action<string> method, int userId)
+        private void AddForm(IFormContext form, Action<string> method, int userId, double duration)
         {
             PrivateInstances.Add(userId, new KeyValuePair<IFormContext, Action<string>>(form, method));
 
+            form.TimeoutTimer = new System.Timers.Timer()
+            {
+                AutoReset = false,
+                Enabled = true,
+                Interval = duration
+            };
             form.NextStage = (a) => PrivateInstances[userId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
             form.Finish = () =>
             {
@@ -276,9 +289,7 @@ namespace WOLF.Net.Commands.Form
                 if (i <= 0)
                     return false;
 
-                form.TimeoutTimer.Stop();
                 form.TimeoutTimer.Interval = i;
-                form.TimeoutTimer.Start();
                 return true;
             };
 
@@ -301,6 +312,7 @@ namespace WOLF.Net.Commands.Form
                 PrivateInstances.Remove(userId);
                 return true;
             };
+
             ((FormContext)form)._doStartUp(Bot);
         }
 
@@ -308,17 +320,10 @@ namespace WOLF.Net.Commands.Form
         {
             var i = (IFormContext)Activator.CreateInstance(form.Type);
 
-            i.TimeoutTimer = new System.Timers.Timer()
-            {
-                AutoReset = false,
-                Enabled = true,
-                Interval = form.Value.Duration
-            };
-
             if (message.IsGroup)
-                AddForm(i, i.Start, message.SourceTargetId, message.SourceSubscriberId);
+                AddForm(i, i.Start, message.SourceTargetId, message.SourceSubscriberId, form.Value.Duration);
             else
-                AddForm(i, i.Start, message.SourceSubscriberId);
+                AddForm(i, i.Start, message.SourceSubscriberId,  form.Value.Duration);
             try
             {
                 i.Bot = Bot;
@@ -326,8 +331,6 @@ namespace WOLF.Net.Commands.Form
                 i.Command = commandData;
 
                 i.Start(args);
-
-                i.TimeoutTimer.Start();
             }
             catch (Exception ex)
             {

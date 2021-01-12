@@ -267,34 +267,38 @@ namespace WOLF.Net
             if (groupIds.Count == 0)
                 return groups;
 
-            var results = await WolfClient.Emit<Dictionary<int, Response<GroupEntityResponse>>>(Request.GROUP_PROFILE, new
+            var chunks = groupIds.ChunkBy(50).ToList();
+
+            foreach (var chunk in chunks)
             {
-                headers = new
+                var results = await WolfClient.Emit<Dictionary<int, Response<GroupEntityResponse>>>(Request.GROUP_PROFILE, new
                 {
-                    version = 4
-                },
-                body = new
+                    headers = new
+                    {
+                        version = 4
+                    },
+                    body = new
+                    {
+                        idList = chunk,
+                        subscribe = true,
+                        entities = new List<string>() { "base", "extended", "audioCounts", "audioConfig" },
+                    }
+                });
+
+                foreach (var group in results.Body)
                 {
-                    idList = groupIds,
-                    subscribe = true,
-                    entities = new List<string>() { "base", "extended", "audioCounts", "audioConfig" },
+                    if (group.Value.Success)
+                    {
+                        var compiledGroup = group.Value.Body.Compile();
+
+                        ProcessGroup(compiledGroup);
+
+                        groups.Add(compiledGroup);
+                    }
+                    else
+                        groups.Add(new Group(group.Key));
                 }
-            });
-
-            foreach (var group in results.Body)
-            {
-                if (group.Value.Success)
-                {
-                    var compiledGroup = group.Value.Body.Compile();
-
-                    ProcessGroup(compiledGroup);
-
-                    groups.Add(compiledGroup);
-                }
-                else
-                    groups.Add(new Group(group.Key));
             }
-
             return groups;
         }
 

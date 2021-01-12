@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Subscribers;
+using WOLF.Net.Utilities;
 
 namespace WOLF.Net
 {
@@ -103,30 +104,37 @@ namespace WOLF.Net
             if (subscriberIds.Count == 0)
                 return subscribers;
 
-            var results = await WolfClient.Emit<Dictionary<int, Response<Subscriber>>>(Request.SUBSCRIBER_PROFILE, new
-            {
-                headers = new
-                {
-                    version = 4
-                },
-                body = new
-                {
-                    idList = subscriberIds,
-                    subscribe = true,
-                    extended = true
-                }
-            });
+            var chunks = subscriberIds.ChunkBy(50).ToList();
 
-            foreach (var subscriber in results.Body)
+            foreach (var chunk in chunks)
             {
-                if (subscriber.Value.Success)
+                var results = await WolfClient.Emit<Dictionary<int, Response<Subscriber>>>(Request.SUBSCRIBER_PROFILE, new
                 {
-                    ProcessSubscriber(subscriber.Value.Body);
+                    headers = new
+                    {
+                        version = 4
+                    },
+                    body = new
+                    {
+                        idList = chunk,
+                        subscribe = true,
+                        extended = true
+                    }
+                });
 
-                    subscribers.Add(subscriber.Value.Body);
+
+                foreach (var subscriber in results.Body)
+                {
+                    if (subscriber.Value.Success)
+                    {
+                        ProcessSubscriber(subscriber.Value.Body);
+
+                        subscribers.Add(subscriber.Value.Body);
+                    }
+                    else
+                        subscribers.Add(new Subscriber(subscriber.Key));
                 }
-                else
-                    subscribers.Add(new Subscriber(subscriber.Key));
+
             }
 
             return subscribers;
