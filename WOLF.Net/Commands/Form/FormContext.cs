@@ -55,7 +55,7 @@ namespace WOLF.Net.Commands.Form
         /// Does the strart up handling for Questionnaires for the QuestionnaireCanceled and QuestionniareFinished delegates
         /// </summary>
         /// <param name="bot"></param>
-        public void _doStartUp(WolfBot bot)
+        internal void _doStartUp(WolfBot bot)
         {
             if (!DoneStartUp)
             {

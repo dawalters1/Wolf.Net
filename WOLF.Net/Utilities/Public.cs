@@ -15,6 +15,15 @@ namespace WOLF.Net.Utilities
 {
     public static class Public
     {
+        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize = 8)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+
         public static bool IsEqual(this string key, string value)
         {
             if (key == null || value == null)

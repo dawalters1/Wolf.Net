@@ -54,7 +54,7 @@ namespace WOLF.Net.ExampleBot
                 Console.WriteLine("[Ready]: Bot is ready for use");
 
                 //Updating subscriber profiles
-                await Bot.CurrentSubscriber.UpdateProfile(Bot).SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
+                await Bot.CurrentSubscriber.UpdateProfile(Bot).SetNickname(Bot.CurrentSubscriber.Nickname).SetStatus(Bot.CurrentSubscriber.Status).Save();
             };
 
             #endregion
