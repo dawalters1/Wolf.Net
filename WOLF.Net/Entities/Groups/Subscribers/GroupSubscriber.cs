@@ -9,7 +9,7 @@ namespace WOLF.Net.Entities.Groups.Subscribers
 {
     public class GroupSubscriber
     {
-
+  
         [JsonProperty("id")]
         public int Id { get; set; }
 

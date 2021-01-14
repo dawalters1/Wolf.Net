@@ -13,7 +13,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        public List<Subscriber> Subscribers = new List<Subscriber>();
+        public List<Subscriber> Subscribers { get; internal set; } = new List<Subscriber>();
 
         /// <summary>
         /// Add a subscriber as a contact
@@ -169,6 +169,8 @@ namespace WOLF.Net
 
         internal void ProcessSubscriber(Subscriber subscriber)
         {
+            subscriber.Bot = this;
+
             if (Subscribers.Any(r => r.Id == subscriber.Id))
                 Subscribers.FirstOrDefault(r => r.Id == subscriber.Id).Update(subscriber);
             else

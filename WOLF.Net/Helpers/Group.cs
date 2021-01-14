@@ -16,7 +16,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        public List<Group> Groups = new List<Group>();
+        public List<Group> Groups { get; internal set; } = new List<Group>();
 
         /// <summary>
         /// Create a group with name and tagline
@@ -72,23 +72,9 @@ namespace WOLF.Net
             });
 
             if (result.Success)
-            {
-                var groupSubscribers = result.Body.ToList();
+                group.Users = result.Body.ToList();
 
-                group.Users.RemoveAll(r => !groupSubscribers.Any(s => s.Id == r.Id));
-
-                foreach (var groupSubscriber in groupSubscribers)
-                {
-                    if (group.Users.Any(r => r.Id == groupSubscriber.Id))
-                        group.Users.FirstOrDefault(r => r.Id == groupSubscriber.Id).Update(groupSubscriber);
-                    else
-                        group.Users.Add(groupSubscriber);
-                }
-
-                return group.Users;
-            }
-
-            return new List<GroupSubscriber>();
+            return group.Users;
         }
 
         /// <summary>
@@ -306,6 +292,8 @@ namespace WOLF.Net
 
         internal void ProcessGroup(Group group)
         {
+            group.Bot = this;
+
             if (Groups.Any(r => r.Id == group.Id))
                 Groups.FirstOrDefault(r => r.Id == group.Id).Update(group);
             else

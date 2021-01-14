@@ -12,61 +12,70 @@ using WOLF.Net.Utilities;
 
 namespace WOLF.Net
 {
-    //TO-DO: 
-    /*
-     * Update Profile
-     * V2 support I guess?
-     * GetJoinedGroups
-     */
+
     public partial class WolfBot
     {
-        public List<Contact> Contacts = new List<Contact>();
+        public List<Contact> Contacts { get; internal set; } = new List<Contact>();
 
         public async Task<List<Group>> GetJoinedGroupsAsync(bool requestNew = false)
         {
-            if (Groups.Where(r => r.InGroup).Count() > 0 && !requestNew)
-                return Groups.Where(r => r.InGroup).ToList();
-
-            var joinedGroups = await WolfClient.Emit<List<SubscriberGroup>>(Request.SUBSCRIBER_GROUP_LIST, new 
-            { 
-                subscribe = true 
-            });
-
-            if (joinedGroups.Success)
+            try
             {
-                var groups = await GetGroupsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
+                if (Groups.Where(r => r.InGroup).Count() > 0 && !requestNew)
+                    return Groups.Where(r => r.InGroup).ToList();
 
-                foreach (var group in groups)
+                var joinedGroups = await WolfClient.Emit<List<SubscriberGroup>>(Request.SUBSCRIBER_GROUP_LIST, new
                 {
-                    group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
-                    group.InGroup = true;
-                    if (requestNew && group.Users.Count > 0)
-                        await GetGroupSubscribersListAsync(group.Id);
-                }
+                    subscribe = true
+                });
 
-                return groups;
+                if (joinedGroups.Success)
+                {
+                    var groups = await GetGroupsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
+
+                    foreach (var group in groups)
+                    {
+                        group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
+                        group.InGroup = true;
+                        if (requestNew && group.Users.Count > 0)
+                            await GetGroupSubscribersListAsync(group.Id);
+                    }
+
+                    return groups;
+                }
+                else
+                    return new List<Group>();
             }
-            else
-                return new List<Group>();
+            catch (Exception d)
+            {
+                throw d;
+            }
         }
 
         internal async Task<Response<LoginResponse>> InternalLoginAsync()
         {
-            return await WolfClient.Emit<LoginResponse>(Request.SECURITY_LOGIN, new
+            try
             {
-                headers = new
+                return await WolfClient.Emit<LoginResponse>(Request.SECURITY_LOGIN, new
                 {
-                    version = 2
-                },
-                body = new
-                {
-                    type = "email",
-                    deviceTypeId = (int)LoginData.LoginDevice,
-                    username = LoginData.Email,
-                    password = LoginData.Password.ToMD5(),
-                    md5Password = true
-                }
-            });
+                    headers = new
+                    {
+                        version = 2
+                    },
+                    body = new
+                    {
+                        type = "email",
+                        deviceTypeId = (int)LoginData.LoginDevice,
+                        username = LoginData.Email,
+                        password = LoginData.Password.ToMD5(),
+                        md5Password = true
+                    }
+                });
+            }
+            catch (Exception d)
+            {
+                throw d;
+            }
         }
 
         internal async Task<Response> InternalLogoutAsync()
@@ -76,50 +85,71 @@ namespace WOLF.Net
 
         public async Task<Response> SetOnlineStateAsync(OnlineState onlineState)
         {
-            return await WolfClient.Emit(Request.SUBSCRIBER_SETTINGS_UPDATE, new
+            try
             {
-                state = new { state = (int)onlineState } // State inside state? wtf is this shit...
-            });
+                return await WolfClient.Emit(Request.SUBSCRIBER_SETTINGS_UPDATE, new
+                {
+                    state = new { state = (int)onlineState } // State inside state? wtf is this shit...
+                });
+            }
+            catch (Exception d)
+            {
+                throw d;
+            }
         }
 
         public async Task<List<Contact>> GetContactsAsync()
         {
-            if (Contacts.Count > 0&&!Contacts.All(r=>r.IsBlocked))
-                return Contacts.Where(r=>!r.IsBlocked).ToList();
-
-            var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_CONTACT_LIST, new 
-            { 
-                subscribe = true
-            });
-
-            if(result.Success)
+            try
             {
-                Contacts.AddRange(result.Body.Select(r=> { r.IsBlocked = false; return r; }).ToList());
+                if (Contacts.Count > 0 && !Contacts.All(r => r.IsBlocked))
+                    return Contacts.Where(r => !r.IsBlocked).ToList();
 
-                return Contacts.Where(r => !r.IsBlocked).ToList();
+                var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_CONTACT_LIST, new
+                {
+                    subscribe = true
+                });
+
+                if (result.Success)
+                {
+                    Contacts.AddRange(result.Body.Select(r => { r.IsBlocked = false; return r; }).ToList());
+
+                    return Contacts.Where(r => !r.IsBlocked).ToList();
+                }
+
+                return new List<Contact>();
             }
-
-            return new List<Contact>();
+            catch (Exception d)
+            {
+                throw d;
+            }
         }
 
         public async Task<List<Contact>> GetBlockedListAsync()
         {
-            if (Contacts.Count > 0 && Contacts.Any(r => r.IsBlocked))
-                return Contacts.Where(r => r.IsBlocked).ToList();
-
-            var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_BLOCK_LIST, new
+            try
             {
-                subscribe = true
-            });
+                if (Contacts.Count > 0 && Contacts.Any(r => r.IsBlocked))
+                    return Contacts.Where(r => r.IsBlocked).ToList();
 
-            if (result.Success)
-            {
-                Contacts.AddRange(result.Body.Select(r => { r.IsBlocked = true; return r; }).ToList());
+                var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_BLOCK_LIST, new
+                {
+                    subscribe = true
+                });
 
-                return Contacts.Where(r=>r.IsBlocked).ToList();
+                if (result.Success)
+                {
+                    Contacts.AddRange(result.Body.Select(r => { r.IsBlocked = true; return r; }).ToList());
+
+                    return Contacts.Where(r => r.IsBlocked).ToList();
+                }
+
+                return new List<Contact>();
             }
-
-            return new List<Contact>();
+            catch (Exception d)
+            {
+                throw d;
+            }
         }
 
 

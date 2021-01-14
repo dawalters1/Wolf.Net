@@ -1,0 +1,4 @@
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netstandard2.0\WOLF.Net.csprojAssemblyReference.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netstandard2.0\WOLF.Net.AssemblyInfoInputs.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netstandard2.0\WOLF.Net.AssemblyInfo.cs
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netstandard2.0\WOLF.Net.csproj.CoreCompileInputs.cache

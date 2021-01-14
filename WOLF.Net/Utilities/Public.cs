@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WOLF.Net.Entities.Subscribers;
+using WOLF.Net.Enums.Subscribers;
 
 namespace WOLF.Net.Utilities
 {
@@ -146,5 +148,19 @@ namespace WOLF.Net.Utilities
                 throw new TimeoutException();
         }
 
+        public static bool HasPrivilege(this Subscriber subscriber, Privilege privilege)
+        {
+            return subscriber.Privileges.HasFlag(privilege);
+        }
+
+        private static Privilege[] privileges = { Privilege.BOT, Privilege.STAFF, Privilege.ELITECLUB_1, Privilege.ELITECLUB_2, Privilege.ELITECLUB_3, Privilege.SELECTCLUB_1, Privilege.SELECTCLUB_2, Privilege.ENTERTAINER, Privilege.VOLUNTEER };
+
+        public static Privilege GetTag(this Subscriber subscriber)
+        {
+            if (privileges.Any(r => subscriber.Privileges.HasFlag(r)))
+                return privileges.FirstOrDefault(r => subscriber.Privileges.HasFlag(r));
+
+            return Privilege.SUBSCRIBER;
+        }
     }
 }

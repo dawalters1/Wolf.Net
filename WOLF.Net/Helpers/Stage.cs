@@ -10,7 +10,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        public List<GroupStage> Stages = new List<GroupStage>();
+        public List<GroupStage> Stages { get; internal set; } = new List<GroupStage>();
 
         public async Task<List<GroupStage>> GetStagesAsync(bool requestNew = false)
         {

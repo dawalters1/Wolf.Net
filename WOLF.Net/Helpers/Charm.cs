@@ -13,7 +13,7 @@ namespace WOLF.Net
 
     public partial class WolfBot
     {
-        public List<Charm> Charms = new List<Charm>();
+        public List<Charm> Charms { get; internal set; } = new List<Charm>();
 
         public async Task<Response<Charm>> GetCharmAsync(int id, bool requestNew = false)
         {

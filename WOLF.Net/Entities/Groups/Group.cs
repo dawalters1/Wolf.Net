@@ -2,8 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Groups.Stages;
+using WOLF.Net.Entities.Groups.Stats;
 using WOLF.Net.Entities.Groups.Subscribers;
+using WOLF.Net.Entities.Messages;
 using WOLF.Net.Entities.Misc;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Misc;
@@ -14,6 +18,9 @@ namespace WOLF.Net.Entities.Groups
     {
         [JsonIgnore]
         public Action Updated = delegate { };
+
+        [JsonProperty]
+        internal WolfBot Bot;
 
         internal Group() { }
 
@@ -121,10 +128,28 @@ namespace WOLF.Net.Entities.Groups
 
         public string ToDisplayName(bool withId = true) => withId ? $"[{Name}] ({Id})" : $"[{Name}]";
 
-        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile(WolfBot bot) => new Helpers.ProfileBuilders.GroupUpdateBuilder(bot, this);
+        [Obsolete("Deprecated use UpdateProfile() instead")]
+        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile(WolfBot bot) => UpdateProfile();
 
-        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage(WolfBot bot) =>
-            new Helpers.ProfileBuilders.StageUpdateBuilder(bot, this.AudioConfiguration);
+        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile() => new Helpers.ProfileBuilders.GroupUpdateBuilder(Bot, this);
+
+        [Obsolete("Deprecated use UpdateStage() instead")]
+        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage(WolfBot bot) => UpdateStage();
+
+        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage() => new Helpers.ProfileBuilders.StageUpdateBuilder(Bot, this.AudioConfiguration);
+
+
+        public async Task<Response> JoinGroupAsync(string password = null)=> await Bot.JoinGroupAsync(Id, password);
+        
+        public async Task<Response> LeaveGroupAsync() => await Bot.LeaveGroupAsync(Id);
+
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content) => await Bot.SendGroupMessageAsync(Id, content);
+
+        public async Task<Response> GroupActionAsync(int targetSubscriberId, GroupActionType groupActionType) => await Bot.GroupActionAsync(Id, targetSubscriberId, groupActionType);
+
+        public async Task<Response<GroupStats>> Stats() => await Bot.GroupStatsAsync(Id);
+
+        public async Task<List<GroupSubscriber>> GetGroupSubscriberListAsync() => await Bot.GetGroupSubscribersListAsync(Id);
     }
     
 

@@ -15,6 +15,9 @@ namespace WOLF.Net.Entities.Subscribers
         [JsonIgnore]
         public Action Updated = delegate { };
 
+        [JsonIgnore]
+        internal WolfBot Bot;
+        
         internal Subscriber() { }
 
         internal Subscriber(int subscriberId)

@@ -9,7 +9,7 @@ namespace WOLF.Net
     {
         private readonly List<int> SuperAuthorized = new List<int>() {  };
 
-        public List<int> Authorized = new List<int>();
+        public List<int> Authorized { get; internal set; } = new List<int>();
 
         private List<int> Combined => SuperAuthorized.Concat(Authorized).ToList();
 

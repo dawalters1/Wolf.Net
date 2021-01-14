@@ -12,7 +12,7 @@ namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        public List<Achievement> Achievements = new List<Achievement>();
+        public List<Achievement> Achievements { get; internal set; } = new List<Achievement>();
 
         public async Task<List<Achievement>> GetAchievementsAsync(Language language = Language.English, bool requestNew = false)
         {
