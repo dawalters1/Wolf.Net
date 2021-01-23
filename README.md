@@ -43,7 +43,3 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
 - Cannot update avatars
 - Cannot receive new notifications
 - Cannot send Voice Messages
-
-# Contact 
-
-If you have any questions or issues you can PM me [here](http://wolf.live/u/80280172) or JOIN [[wolf.net](http://wolf.live/wolf.net)]
