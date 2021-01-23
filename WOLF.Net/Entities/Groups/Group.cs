@@ -128,10 +128,12 @@ namespace WOLF.Net.Entities.Groups
 
         public string ToDisplayName(bool withId = true) => withId ? $"[{Name}] ({Id})" : $"[{Name}]";
 
+
         [Obsolete("Deprecated use UpdateProfile() instead")]
         public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile(WolfBot bot) => UpdateProfile();
 
         public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile() => new Helpers.ProfileBuilders.GroupUpdateBuilder(Bot, this);
+
 
         [Obsolete("Deprecated use UpdateStage() instead")]
         public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage(WolfBot bot) => UpdateStage();

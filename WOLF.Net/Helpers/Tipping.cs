@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Messages;
-using WOLF.Net.Entities.Messages.Tipping;
+using WOLF.Net.Entities.Tipping;
 using WOLF.Net.Entities.Tipping.Leaderboards;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Tipping;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Entities.Misc;
 
-namespace WOLF.Net.Entities.Messages.Tipping
+namespace WOLF.Net.Entities.Tipping
 {
     public class TipCharm
     {

@@ -3,7 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Charms;
+using WOLF.Net.Entities.Messages;
 using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
 using WOLF.Net.Utilities;
@@ -102,14 +105,31 @@ namespace WOLF.Net.Entities.Subscribers
         }
 
         public string ToDisplayName(bool withId = true, bool trimAds = false) => withId ? $"{(trimAds ? Nickname.TrimAds() : Nickname)} ({Id})" : $"{(trimAds ? Nickname.TrimAds() : Nickname)}";
+   
+        [Obsolete("Deprecated use UpdateProfile() instead")]
+        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile(WolfBot bot) =>  UpdateProfile();
+        
 
-        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile(WolfBot bot)
+        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile()
         {
-            if (bot.CurrentSubscriber.Id != Id)
+            if (Bot.CurrentSubscriber.Id != Id)
                 throw new Exception("You can only update the current logged in users profile!");
 
-            return new Helpers.ProfileBuilders.SubscriberUpdateBuilder(bot, this);
+            return new Helpers.ProfileBuilders.SubscriberUpdateBuilder(Bot, this);
         }
+
+
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content) => await Bot.SendPrivateMessageAsync(Id, content);
+
+        public async Task<Response> AddToContacts() => await Bot.AddSubscriberAsync(Id);
+
+        public async Task<Response> RemoveFromContacts() => await Bot.RemoveSubscriberAsync(Id);
+
+        public async Task<Response> Block() => await Bot.BlockSubscriberAsync(Id);
+
+        public async Task<Response> Unblock() => await Bot.UnblockSubscriberAsync(Id);
+
+
     }
 
     public class Extended

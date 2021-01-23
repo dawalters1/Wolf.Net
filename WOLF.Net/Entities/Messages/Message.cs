@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Entities.API;
+using WOLF.Net.Entities.Tipping;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Utilities;
 
@@ -26,14 +27,14 @@ namespace WOLF.Net.Entities.Messages
             this.Timestamp = message.Timestamp;
         }
 
-        public Guid Id { get;set; }
+        public Guid Id { get; set; }
 
-        public string Content { get;set; }
+        public string Content { get; set; }
 
         [Obsolete("This property will be deprecated soon, please use SourceSubscriberId", true)]
         public int UserId => SourceSubscriberId;
 
-        public int SourceSubscriberId { get;set; }
+        public int SourceSubscriberId { get; set; }
 
         [Obsolete("This property will be deprecated soon, please use SourceTargetId", true)]
         public int ReturnAddress => SourceTargetId;
@@ -43,20 +44,20 @@ namespace WOLF.Net.Entities.Messages
         /// <summary>
         /// Contains the timestamp and User id of the account that edited or deleted the message
         /// </summary>
-        public MessageEdit Edited { get;set; }
+        public MessageEdit Edited { get; set; }
 
         /// <summary>
         /// Contains the IsSpam, IsDeleted, IsEdited data (Normally Null)
         /// </summary>
-        public MessageMetadata Metadata { get;set; }
+        public MessageMetadata Metadata { get; set; }
 
-        public MessageType MessageType { get;set; }
+        public MessageType MessageType { get; set; }
 
-        public ContentType ContentType { get;set; }
+        public ContentType ContentType { get; set; }
 
-        public string FlightId { get;set; }
+        public string FlightId { get; set; }
 
-        public long Timestamp { get;set; }
+        public long Timestamp { get; set; }
 
         public bool IsCommand => Bot.CommandManager.Commands.Any(r => Bot.UsingTranslations ? Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(r.Value.Trigger)) || Bot.FormManager.Forms.Any(r => Bot.UsingTranslations ? Bot.GetAllPhrasesByName(r.Value.Trigger).Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(r.Value.Trigger));
 
@@ -76,5 +77,12 @@ namespace WOLF.Net.Entities.Messages
                 return await Bot.SendGroupMessageAsync(SourceTargetId, content);
             return await Bot.SendPrivateMessageAsync(SourceSubscriberId, content);
         }
+
+        public async Task<Response<Message>> DeleteAsync() => await Bot.DeleteMessageAsync(this);
+
+        public async Task<Response<Message>> RestoreAsync() => await Bot.RestoreMessageAsync(this);
+
+        public async Task<Response> Tip(params TipCharm[] charms) => await Bot.AddTip(this, charms);
+
     }
 }

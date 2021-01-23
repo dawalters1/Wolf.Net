@@ -24,7 +24,9 @@ namespace WOLF.Net.ExampleBot
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
 
+#pragma warning disable CA1822 // Mark members as static
         public async Task Main()
+#pragma warning restore CA1822 // Mark members as static
         {
             //JSON or Database call would go here to load translations
             Bot.LoadPhrases(new List<Phrase>()
@@ -173,7 +175,10 @@ namespace WOLF.Net.ExampleBot
             Bot.On.ConnectionError += error => Console.WriteLine($"[Connection Error]: Connection error has occurred :( - error: {error}");
             Bot.On.Reconnected += () => Console.WriteLine($"[Reconnected]: Reconnected to V3 servers");
             Bot.On.Reconnecting += () => Console.WriteLine($"[Reconnecting]: Reconnecting to V3 servers");
+            Bot.On.ReconnectFailed += error => Console.WriteLine($"[Reconnection Failed]: Failed to reconnect to V3 servers");
             Bot.On.Welcomed += welcome => Console.WriteLine($"[Welcomed]: Welcomed by V3 servers");
+            Bot.On.Ping += () => Console.WriteLine($"[PING]");
+            Bot.On.Pong += (ts) => Console.WriteLine($"[PONG]: {ts.Milliseconds}ms");
 
             #endregion
 
@@ -193,7 +198,7 @@ namespace WOLF.Net.ExampleBot
                 Console.WriteLine("[Ready]: Bot is ready for use");
 
                 //Updating subscriber profiles
-                await Bot.CurrentSubscriber.UpdateProfile(Bot).SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
+                await Bot.CurrentSubscriber.UpdateProfile().SetNickname("Update Example Nickname").SetStatus("Update Example Status").Save();
             };
 
             #endregion
@@ -203,6 +208,8 @@ namespace WOLF.Net.ExampleBot
             Bot.On.MessageReceived += message => Console.WriteLine($"[Message Received]: Received {(message.IsGroup ? "group" : "private")} message [isCommand: {(message.IsCommand ? "Yes" : "No")}]");
 
             Bot.On.MessageUpdated += message => Console.WriteLine($"[Message Updated]: Message has been udpated");
+
+            Bot.On.TipAdded += tip => Console.WriteLine($"[Tip Added]: {JsonConvert.SerializeObject(tip, Formatting.Indented)}");
 
             #endregion
 

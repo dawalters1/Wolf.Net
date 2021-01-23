@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "WOLF.Net/4.2.3": {
+      "WOLF.Net/4.2.4": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "SocketIOClient": "2.1.1",
@@ -174,7 +174,7 @@
     }
   },
   "libraries": {
-    "WOLF.Net/4.2.3": {
+    "WOLF.Net/4.2.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

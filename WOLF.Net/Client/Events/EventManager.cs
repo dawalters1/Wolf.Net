@@ -9,7 +9,7 @@ using WOLF.Net.Entities.Groups;
 using WOLF.Net.Entities.Groups.Subscribers;
 using WOLF.Net.Entities.Groups.Stages;
 using WOLF.Net.Entities.Messages;
-using WOLF.Net.Entities.Messages.Tipping;
+using WOLF.Net.Entities.Tipping;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Constants;
 using Newtonsoft.Json;
@@ -21,7 +21,7 @@ namespace WOLF.Net.Client.Events
     {
         private readonly Dictionary<string, Action<object, object>> _events = new Dictionary<string, Action<object, object>>();
 
-        private Dictionary<string, IEvent> events = new Dictionary<string, IEvent>();
+        private readonly Dictionary<string, IEvent> events = new Dictionary<string, IEvent>();
 
         #region ConnectionEvents
 
@@ -80,9 +80,11 @@ namespace WOLF.Net.Client.Events
         public Action Ping = delegate { };
 
         public Action<TimeSpan> Pong = delegate { };
+
         #endregion
 
         #region Group Events
+
         /// <summary>
         /// A groups audio configuration has been updated
         /// </summary>
@@ -147,6 +149,7 @@ namespace WOLF.Net.Client.Events
         /// The websocket has sent a packet
         /// </summary>
         public Action<string, object> PacketSent = delegate { };
+
         #endregion
 
         #region Subscriber
@@ -160,6 +163,7 @@ namespace WOLF.Net.Client.Events
         /// A subscribers online state or device has changed
         /// </summary>
         public Action<Subscriber, PresenceUpdate> PresenceUpdate = delegate { };
+
         #endregion
 
         #region Commands
@@ -191,6 +195,7 @@ namespace WOLF.Net.Client.Events
         #endregion
 
         #region Contacts
+
         /// <summary>
         /// A contact has been added to your contacts list
         /// </summary>

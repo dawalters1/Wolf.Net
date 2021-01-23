@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WOLF.Net.Entities.Messages.Tipping
+namespace WOLF.Net.Entities.Tipping
 {
     public class TipDetail
     {
