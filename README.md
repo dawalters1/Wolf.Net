@@ -40,9 +40,9 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
 # Known Issues/Lacking features
 
 - Cannot join Stages
-- Cannot update avatars - WIP (4.3.0 Maybe?) 
+- Cannot update avatars
 - Cannot receive new notifications
-- Cannot send Voice Messages - WIP (4.3.0 Maybe?) 
+- Cannot send Voice Messages
 
 # Contact 
 
