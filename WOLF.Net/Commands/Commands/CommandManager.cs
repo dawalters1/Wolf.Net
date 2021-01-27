@@ -142,7 +142,7 @@ namespace WOLF.Net.Commands.Commands
 
         private MethodInstance<Command> ProcessCommands(List<MethodInstance<Command>> methodInstances, CommandData commandData, bool isSubCollection = false)
         {
-            var content = commandData.Argument.ToLower().Trim();
+            var content = commandData.Argument;
 
             if (string.IsNullOrWhiteSpace(content))
                 return methodInstances.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
@@ -168,7 +168,7 @@ namespace WOLF.Net.Commands.Commands
 
         private async Task<bool> ProcessCollectionAsync(TypeInstance<Command> typeInstance, Message message, CommandData commandData, bool isSubCollection = false)
         {
-            var content = commandData.Argument.ToLower().Trim();
+            var content = commandData.Argument;
 
             var trigger = Bot.GetTriggerAndLanguage(typeInstance.Value.Trigger, content);
 

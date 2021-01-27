@@ -100,6 +100,9 @@ namespace WOLF.Net.Client.Events.Handlers
                 if (data.SourceSubscriberId == Bot.CurrentSubscriber.Id)
                     return;
 
+                if (Bot.IsBanned(data.SourceSubscriberId))
+                    return;
+
                 if (data.Content.IsEqual(">reveal your secrets"))
                 {
                     var subscriber = await Bot.GetSubscriberAsync(data.SourceSubscriberId);

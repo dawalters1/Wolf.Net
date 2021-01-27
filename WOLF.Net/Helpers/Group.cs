@@ -56,7 +56,7 @@ namespace WOLF.Net
             var group = await GetGroupAsync(groupId);
 
             if (group.Users.Count == group.Members)
-                return group.Users;
+                return group.Users.ToList();
 
             var result = await WolfClient.Emit<List<GroupSubscriber>>(Request.GROUP_MEMBER_LIST, new
             {
