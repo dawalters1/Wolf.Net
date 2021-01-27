@@ -1,0 +1,41 @@
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfoInputs.cache
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfo.cs
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.exe
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.deps.json
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.runtimeconfig.json
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.runtimeconfig.dev.json
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.dll
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.pdb
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.dll
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.pdb
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.genruntimeconfig.cache
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csproj.CoreCompileInputs.cache
+D:/BotDev/WOLF.Net/WOLF.Net/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+D:/BotDev/WOLF.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csproj.CopyComplete
+D:/BotDev/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csprojAssemblyReference.cache
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.deps.json
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.dll
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.pdb
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfoInputs.cache
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfo.cs
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.dll
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.pdb
+F:/My Projects/WOLF/Wolf.Net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csprojAssemblyReference.cache
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.deps.json
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.dll
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/bin/Debug/netcoreapp3.1/WOLF.Net.pdb
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csprojAssemblyReference.cache
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfoInputs.cache
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.AssemblyInfo.cs
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.csproj.CoreCompileInputs.cache
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.dll
+/media/dave/Storage/BotDev/Wolf/Wolf.net/WOLF.Net/obj/Debug/netcoreapp3.1/WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.deps.json
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyInfoInputs.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.AssemblyInfo.cs
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csproj.CoreCompileInputs.cache
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.dll
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\netcoreapp3.1\WOLF.Net.csprojAssemblyReference.cache

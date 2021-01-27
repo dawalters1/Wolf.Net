@@ -1,0 +1,81 @@
+﻿using Newtonsoft.Json;
+using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WOLF.Net.Redis
+{
+    public class RedisCli
+    {
+        ConnectionMultiplexer redis;
+
+        private IDatabase database => redis.GetDatabase();
+
+        public RedisCli()
+        {
+            redis = ConnectionMultiplexer.Connect("localhost");
+        }
+
+        public async Task<string> GetAsync(string key)
+        {
+            return await database.StringGetAsync(key);
+        }
+
+        public async Task<bool> SetAsync<T>(string key, T value, TimeSpan? expire)
+        {
+            return await database.StringSetAsync(key, JsonConvert.SerializeObject(value), expire);
+        }
+
+        public async Task<bool> DeleteAsync(string key)
+        {
+            return await database.KeyDeleteAsync(key);
+        }
+
+        public async Task<bool> ExistsAsync(string key)
+        {
+            return await database.KeyExistsAsync(key);
+        }
+
+        public async Task<bool> SAddAsync<T>(string key, T value)
+        {
+            return await database.SetAddAsync(key, JsonConvert.SerializeObject(value));
+        }
+
+        public async Task<bool> SAddAsync<T>(string key, List<T> values)
+        {
+            return await database.SetAddAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray())>0;
+        }
+
+        public async Task<bool> SAddAsync<T>(string key, IEnumerable<T> values)
+        {
+            return await SAddAsync(key, values.ToList());
+        }
+
+        public async Task<bool> SDeleteAsync<T>(string key, T value)
+        {
+            return await database.SetRemoveAsync(key, JsonConvert.SerializeObject(value));
+        }
+
+        public async Task<bool> SDeleteAsync<T>(string key, List<T> values)
+        {
+            return await database.SetRemoveAsync(key, values.Select(r => new RedisValue(JsonConvert.SerializeObject(r))).ToArray()) > 0;
+        }
+
+        public async Task<bool> SDeleteAsync<T>(string key, IEnumerable<T> values)
+        {
+            return await SDeleteAsync(key, values.ToList());
+        }
+
+        public async Task<List<T>> SMembersAsync<T>(string key)
+        {
+            return (await database.SetMembersAsync(key)).Select(r => JsonConvert.DeserializeObject<T>(r.ToString())).ToList();
+        }
+
+        public async Task<bool> ExpireAsync(string key, TimeSpan expire)
+        {
+            return await database.KeyExpireAsync(key, expire);
+        }
+    }
+}
