@@ -302,7 +302,7 @@
           "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       },
-      "WOLF.Net/4.2.6": {
+      "WOLF.Net/4.2.7": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -1076,7 +1076,7 @@
         "websocketsharp-netstandard.nuspec"
       ]
     },
-    "WOLF.Net/4.2.6": {
+    "WOLF.Net/4.2.7": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -1089,7 +1089,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 4.2.6",
+      "WOLF.Net >= 4.2.7",
       "WOLF.Net.Redis >= 3.2.1"
     ]
   },
@@ -1099,11 +1099,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
+      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
       "projectName": "WOLF.Net.Example.Translations",
-      "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
+      "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
       "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-      "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example.Translations\\obj\\",
+      "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example.Translations\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1120,11 +1120,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
-              "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
+            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
             },
-            "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-              "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj"
+            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
             }
           }
         }

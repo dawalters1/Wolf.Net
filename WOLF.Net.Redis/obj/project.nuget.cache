@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QnRb9puXDcoC6mV26yKUDCQXCYCvVFADJVe5BeDhavBeQ2tGslx6lz8oJyaQNEw4njK5ly5q1qo/iZSUKKGDIQ==",
+  "dgSpecHash": "5UrGaeOj2/lgKOK+Yp15LIamqfjAY660maqjRhr3CNx4QQghy57dp7hFTXt/oJXmRErkV/xzprk7reaSkh6BKw==",
   "success": true,
-  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj": {}
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj": {}
   },
   "projects": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj": {
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
         "projectName": "WOLF.Net.Examples.NoTranslations",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
-                "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
+              "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+                "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
               },
-              "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-                "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj"
+              "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
+                "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
               }
             }
           }
@@ -65,14 +65,14 @@
         }
       }
     },
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
       "version": "3.2.1",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
         "projectName": "WOLF.Net.Redis",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -198,14 +198,14 @@
         }
       }
     },
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "4.2.6",
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
+      "version": "4.2.7",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {}
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {}
   },
   "projects": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
       "version": "3.2.1",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
         "projectName": "WOLF.Net.Redis",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

@@ -35,9 +35,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\net5.0\WOLF.Net.dll" target="lib\net5.0\WOLF.Net.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll" target="lib\netcoreapp3.1\WOLF.Net.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netstandard2.1\WOLF.Net.dll" target="lib\netstandard2.1\WOLF.Net.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\icon.png" target="icon.png" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\net5.0\WOLF.Net.dll" target="lib\net5.0\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll" target="lib\netcoreapp3.1\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netstandard2.1\WOLF.Net.dll" target="lib\netstandard2.1\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\icon.png" target="icon.png" />
   </files>
 </package>

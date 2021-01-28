@@ -26,9 +26,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\net5.0\WOLF.Net.Redis.dll" target="lib\net5.0\WOLF.Net.Redis.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\netcoreapp3.1\WOLF.Net.Redis.dll" target="lib\netcoreapp3.1\WOLF.Net.Redis.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\bin\Debug\netstandard2.1\WOLF.Net.Redis.dll" target="lib\netstandard2.1\WOLF.Net.Redis.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\icon.png" target="icon.png" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Redis\bin\Debug\net5.0\WOLF.Net.Redis.dll" target="lib\net5.0\WOLF.Net.Redis.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Redis\bin\Debug\netcoreapp3.1\WOLF.Net.Redis.dll" target="lib\netcoreapp3.1\WOLF.Net.Redis.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Redis\bin\Debug\netstandard2.1\WOLF.Net.Redis.dll" target="lib\netstandard2.1\WOLF.Net.Redis.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\icon.png" target="icon.png" />
   </files>
 </package>
