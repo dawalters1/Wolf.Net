@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6o3LjW34XbC0NPu89ECTNxZZhn/yVYRpAmf1FVTRDM9L4eq4hGDQAYbKOibTNVOchR2o+ZuhmlUQkWeUbDogIw==",
+  "dgSpecHash": "hosdCd+bO+xfpc8i+4QfKBUTMmauuchlpoAVJ8UMq4bWyRBnQXzC8gSvj8O/QMvnu2C157Ex8thDbrlbrxwhzQ==",
   "success": true,
-  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

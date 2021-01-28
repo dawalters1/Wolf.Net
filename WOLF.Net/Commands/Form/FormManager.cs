@@ -96,7 +96,12 @@ namespace WOLF.Net.Commands.Form
         /// <returns></returns>
         public bool GroupHasForms(int groupId)
         {
-            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Count > 1;
+            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Count > 0;
+        }
+
+        public bool GroupHasForms(int groupId, params int[] excludeIds)
+        {
+            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Where(r=>excludeIds.Any(s=>s!=r.Key)).Count() > 0;
         }
 
         /// <summary>
