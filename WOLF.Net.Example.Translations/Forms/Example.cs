@@ -16,7 +16,7 @@ namespace WOLF.Net.ExampleBot.Flows
 
         public override async void Start(string message)
         {
-            if (Bot.FormManager.GroupHasForms(Command.SourceTargetId))
+            if (Bot.FormManager.GroupHasForms(Command.SourceTargetId, Command.SourceTargetId))//Ensure to include the current subscriber Id this will exclude them from the count, else this will always throw true
             {
                 Finish();
 
