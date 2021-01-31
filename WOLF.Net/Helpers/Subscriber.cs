@@ -126,17 +126,19 @@ namespace WOLF.Net
                     }
                 });
 
-
-                foreach (var subscriber in results.Body)
+                if (results.Success)
                 {
-                    if (subscriber.Value.Success)
+                    foreach (var subscriber in results.Body)
                     {
-                        ProcessSubscriber(subscriber.Value.Body);
+                        if (subscriber.Value.Success)
+                        {
+                            ProcessSubscriber(subscriber.Value.Body);
 
-                        subscribers.Add(subscriber.Value.Body);
+                            subscribers.Add(subscriber.Value.Body);
+                        }
+                        else
+                            subscribers.Add(new Subscriber(subscriber.Key));
                     }
-                    else
-                        subscribers.Add(new Subscriber(subscriber.Key));
                 }
 
             }

@@ -9,3 +9,4 @@ D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\net5.0\WOLF.Net.Redis.csproj.Co
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\net5.0\WOLF.Net.Redis.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\net5.0\ref\WOLF.Net.Redis.dll
 D:\BotDev\Wolf\Wolf.net\WOLF.Net.Redis\obj\Debug\net5.0\WOLF.Net.Redis.pdb
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Redis\obj\Debug\net5.0\WOLF.Net.Redis.csprojAssemblyReference.cache
