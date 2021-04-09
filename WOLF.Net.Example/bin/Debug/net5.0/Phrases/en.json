@@ -1,0 +1,102 @@
+[{
+        "Name": "example_command_example",
+        "Value": "!example",
+        "Language": "en"
+    }, {
+        "Name": "example_command_example_form",
+        "Value": "!example",
+        "Language": "en"
+    }, {
+        "Name": "example_command_help",
+        "Value": "help",
+        "Language": "en"
+    }, {
+        "Name": "example_help_message",
+        "Value": "example_help_message",
+        "Language": "en"
+    }, {
+        "Name": "example_command_hello",
+        "Value": "",
+        "Language": "en"
+    }, {
+        "Name": "example_hello_message",
+        "Value": "Hello there, {0}!",
+        "Language": "en"
+    }, {
+        "Name": "example_command_embed",
+        "Value": "embed",
+        "Language": "en"
+    }, {
+        "Name": "example_link_message",
+        "Value": "This message should contain an embed!\nhttps://i.imgur.com/fuwb6KH.jpg",
+        "Language": "en"
+    }, {
+        "Name": "example_command_image",
+        "Value": "image",
+        "Language": "en"
+    }, {
+        "Name": "example_command_tip",
+        "Value": "tip",
+        "Language": "en"
+    }, {
+        "Name": "example_command_join",
+        "Value": "join",
+        "Language": "en"
+    }, {
+        "Name": "example_join_error_provide_arguments_message",
+        "Value": "(N) {0}, you must provide the name of the group you wish to have me join",
+        "Language": "en"
+    }, {
+        "Name": "example_join_success_message",
+        "Value": "(Y) {0}, I have joined this group",
+        "Language": "en"
+    }, {
+        "Name": "example_join_error_failed_message",
+        "Value": "(N) {0}, I have failed to join this group\nReason: {1}",
+        "Language": "en"
+    }, {
+        "Name": "example_command_cancel",
+        "Value": "cancel",
+        "Language": "en"
+    }, {
+        "Name": "example_error_no_form_exists_message",
+        "Value": "(N) {0}, there is no form to cancel",
+        "Language": "en"
+    }, {
+        "Name": "example_form_cancelled_message",
+        "Value": "(Y) {0}, your form has been cancelled",
+        "Language": "en"
+    }, {
+        "Name": "example_form_error_exists_message",
+        "Value": "(N) Someone in this group has already started this process",
+        "Language": "en"
+    }, {
+        "Name": "example_timeout_message",
+        "Value": "(N) {0}, you failed to complete this process in time",
+        "Language": "en"
+    }, {
+        "Name": "example_send_age_message",
+        "Value": "(Y) How old are you {0}?",
+        "Language": "en"
+    }, {
+        "Name": "example_form_error_doubt_you_are_that_young_message",
+        "Value": "(N) {0}, I find it highly unlikely you are that young",
+        "Language": "en"
+    }, {
+        "Name": "example_form_error_doubt_you_are_that_old_message",
+        "Value": "(N) {0}, I find it highly unlikely you are that old",
+        "Language": "en"
+    }, {
+        "Name": "example_send_name_message",
+        "Value": "(Y) What is your name {0}?",
+        "Language": "en"
+    }, {
+        "Name": "example_form_error_invalid_number_message",
+        "Value": "(N) {0}, that is not a valid number, try again",
+        "Language": "en"
+    }, {
+        "Name": "example_details_message",
+        "Value": "(Y) Alright {2}, your name is {1} and you are {0} year(s) old",
+        "Language": "en"
+    }
+]

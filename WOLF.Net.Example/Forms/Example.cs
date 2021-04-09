@@ -7,7 +7,7 @@ using WOLF.Net.Commands.Form;
 
 namespace Wolf.Net.Example.Forms
 {
-    [Form("example_form")]
+    [Form("example_command_example_form")]
     class Example : FormContext
     {
         public int age { get; set; }
@@ -23,10 +23,9 @@ namespace Wolf.Net.Example.Forms
                 return;
             }
 
-            OnCancel += async () => await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_cancelled_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
             OnTimeout += async () => await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_timeout_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
 
-            await SendMessageAsync(Bot.Phrase().GetByName(Command.Language, "example_send_age_message"));
+            await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_send_age_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
 
             NextStage(AgeInput);
         }
@@ -37,22 +36,22 @@ namespace Wolf.Net.Example.Forms
 
             if (int.TryParse(message.ToEnglishNumbers(), out int age))
                 if (age <= 0)
-                    await SendMessageAsync(Bot.Phrase().GetByName(Command.Language, "example_form_error_doubt_you_are_that_young_message"));
+                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_form_error_doubt_you_are_that_young_message", Command.Subscriber.ToDisplayName(trimAds: true)));
                 else if (age >= 100)
-                    await SendMessageAsync(Bot.Phrase().GetByName(Command.Language, "example_form_error_doubt_you_are_that_old_message"));
+                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_form_error_doubt_you_are_that_old_message", Command.Subscriber.ToDisplayName(trimAds: true)));
                 else
                 {
                     this.age = age;
                     NextStage(NameInput);
-                    await SendMessageAsync(Bot.Phrase().GetByName(Command.Language, "example_send_name_message"));
+                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_send_name_message", Command.Subscriber.ToDisplayName(trimAds: true)));
                 }
             else
-                await SendMessageAsync(Bot.Phrase().GetByName(Command.Language, "example_form_error_invalid_number_message"));
+                await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_form_error_invalid_number_message", Command.Subscriber.ToDisplayName(trimAds: true)));
         }
 
         public async void NameInput(string message)
         {
-            await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_details_message"), age, message));
+            await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_details_message"), age, message, Command.Subscriber.ToDisplayName(trimAds: true)));
 
             Finish();
         }
