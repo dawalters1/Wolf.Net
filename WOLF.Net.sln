@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.Net.Example", "Wolf.Net.Example\Wolf.Net.Example.csproj", "{067231CD-3E1A-47E1-ABEC-C535649808C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF.Net.Example", "WOLF.Net.Example\WOLF.Net.Example.csproj", "{067231CD-3E1A-47E1-ABEC-C535649808C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
