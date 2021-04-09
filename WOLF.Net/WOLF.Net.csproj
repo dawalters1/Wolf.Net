@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net5.0;</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <Version>5.0.0</Version>
+    <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
+    <PackageTags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</PackageTags>
+    <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ApplicationIcon></ApplicationIcon>
+    <Authors>David Walters</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\NewFolder\**" />
+    <EmbeddedResource Remove="Entities\NewFolder\**" />
+    <None Remove="Entities\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\Achievements\" />
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SocketIoClient" Version="2.1.7" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+</Project>
