@@ -48,8 +48,9 @@ namespace WOLF.Net.Entities.Messages
         {
             "text/plain" => ContentType.TEXT,
             "text/html" => ContentType.MESSAGE_PACK,
-            "image/jpeg" => ContentType.IMAGE,
-            "text/image_link" => ContentType.IMAGE,
+            "image/jpeg" => ContentType.IMAGE_JPEG,
+            "image/gif"=>   ContentType.IMAGE_GIF,
+            "text/image_link" => ContentType.IMAGE_LINK,
             "text/voice_link" => ContentType.VOICE_MESSAGE,
             "audio/x-speex" => ContentType.VOICE_MESSAGE,
             "audio/aac" => ContentType.VOICE_MESSAGE,

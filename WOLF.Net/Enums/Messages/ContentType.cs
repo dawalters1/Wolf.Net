@@ -11,14 +11,18 @@ namespace WOLF.Net.Enums.Messages
 
         TEXT = 1,
 
-        IMAGE = 2,
+        IMAGE_LINK = 2,
 
-        MESSAGE_PACK = 4,
+        IMAGE_GIF = 4,
 
-        VOICE_MESSAGE = 8,
+        IMAGE_JPEG = 8,
 
-        GROUP_ACTION = 16,
+        MESSAGE_PACK = 16,
 
-        PRIVATE_REQUEST_RESPONSE = 32
+        VOICE_MESSAGE = 32,
+
+        GROUP_ACTION = 64,
+
+        PRIVATE_REQUEST_RESPONSE = 128
     }
 }

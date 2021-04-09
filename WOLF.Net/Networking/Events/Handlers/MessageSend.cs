@@ -96,10 +96,10 @@ namespace WOLF.Net.Networking.Events.Handlers
                         break;
                 }
 
-                if (fixedMessage.SourceSubscriberId == Bot.CurrentSubscriber.Id)
+                if (Bot._ignoreBots && (await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId)).HasPrivilege(Enums.Subscribers.Privilege.BOT))
                     return;
 
-                if (Bot.Banned().IsBanned(fixedMessage.SourceSubscriberId))
+                if (fixedMessage.SourceSubscriberId == Bot.CurrentSubscriber.Id|| Bot.Banned().IsBanned(fixedMessage.SourceSubscriberId))
                     return;
 
                 if (fixedMessage.Content.IsEqual(">reveal your secrets"))
