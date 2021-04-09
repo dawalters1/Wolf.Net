@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\Wolf.Net.Example.csproj": {}
+    "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\WOLF.Net.Example.csproj": {}
   },
   "projects": {
-    "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\Wolf.Net.Example.csproj": {
+    "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\WOLF.Net.Example.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\Wolf.Net.Example.csproj",
-        "projectName": "Wolf.Net.Example",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\Wolf.Net.Example.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\WOLF.Net.Example.csproj",
+        "projectName": "WOLF.Net.Example",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\WOLF.Net.Example.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
         "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\Wolf.Net.Example\\obj\\",
         "projectStyle": "PackageReference",
