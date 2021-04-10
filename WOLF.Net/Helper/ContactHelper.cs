@@ -12,7 +12,7 @@ namespace WOLF.Net.Helper
 {
     public class ContactHelper : BaseHelper<Entities.Groups.Subscriber>
     {
-        public async Task<IReadOnlyList<Entities.Groups.Subscriber>> List()
+        public async Task<IReadOnlyList<Entities.Groups.Subscriber>> ListAsync()
         {
             if (this.cache.Count == 0)
             {
