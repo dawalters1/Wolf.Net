@@ -114,7 +114,7 @@ namespace WOLF.Net.Helper
 
         public Builders.Profiles.Group UpdateGroupAsync(Group group) => new Builders.Profiles.Group(this.Bot, group);
 
-        public async Task<List<Group>> GetJoinedGroupsAsync(bool requestNew = false)
+        public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
             if (this.cache.Where(r => r.InGroup).Count() > 0 && !requestNew)
                 return this.cache.Where(r => r.InGroup).ToList();
