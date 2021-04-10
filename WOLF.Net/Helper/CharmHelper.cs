@@ -12,7 +12,7 @@ namespace WOLF.Net.Helper
 {
     public class CharmHelper : BaseHelper<Charm>
     {
-        public async Task<List<Charm>> GetAllAsync(bool requestNew = false)
+        public async Task<List<Charm>> ListAsync(bool requestNew = false)
         {
             if (cache.Count > 0 && !requestNew)
                 return cache;
@@ -30,8 +30,6 @@ namespace WOLF.Net.Helper
         public async Task<List<Charm>> GetByIdsAsync(List<int> charmIds, bool requestNew = false) => await GetByIdsAsync(charmIds.ToArray(), requestNew);
 
         public async Task<List<Charm>> GetByIdsAsync(int[] charmIds, bool requestNew = false) => (await GetAllAsync(requestNew)).Where((charm) => charmIds.Any((id) => id == charm.Id)).ToList();
-
-        public async Task<Charm> GetByNameAsync(string name, bool requestNew = false) => (await GetAllAsync(requestNew)).Where((charm) => charm.Name.IsEqual(name)).FirstOrDefault();
 
         internal CharmHelper(WolfBot bot, WebSocket WebSocket) : base(bot, WebSocket) { }
     }
