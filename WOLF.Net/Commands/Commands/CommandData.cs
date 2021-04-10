@@ -13,7 +13,7 @@ namespace WOLF.Net.Commands.Commands
     {
         public string Language { get; set; }
 
-        public int TargetGroupId => IsGroup ? Group.Id : SourceSubscriberId;
+        public int TargetGroupId => IsGroup && Group!=null? Group.Id : 0;
 
         public int SourceSubscriberId => Subscriber != null ? Subscriber.Id : 0;
 

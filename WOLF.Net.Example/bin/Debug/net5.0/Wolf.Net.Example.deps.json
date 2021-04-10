@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "Wolf.Net.Example/1.0.0": {
+      "WOLF.Net.Example/1.0.0": {
         "dependencies": {
           "WOLF.Net": "5.0.0"
         },
         "runtime": {
-          "Wolf.Net.Example.dll": {}
+          "WOLF.Net.Example.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {},
@@ -115,7 +115,7 @@
     }
   },
   "libraries": {
-    "Wolf.Net.Example/1.0.0": {
+    "WOLF.Net.Example/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

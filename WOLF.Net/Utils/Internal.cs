@@ -16,7 +16,7 @@ namespace WOLF.Net.Utils
             if (!bot._usingTranslations)
                 return new KeyValuePair<string, string>("en", trigger);
 
-            var phrase = bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
+            var phrase = bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.ToLower().StartsWith(r.Value.ToLower()));
 
             if (phrase != null)
                 return new KeyValuePair<string, string>(phrase.Language, phrase.Value);

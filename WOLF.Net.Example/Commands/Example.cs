@@ -53,16 +53,17 @@ namespace Wolf.Net.Example.Commands
             if (Command.IsGroup)
             {
                 if (Bot.FormManager.HasGroupForm(Command.TargetGroupId, Command.SourceSubscriberId) ? Bot.FormManager.CancelGroupForm(Command.TargetGroupId, Command.SourceSubscriberId) : Bot.FormManager.CancelGroupForms(Command.TargetGroupId))
-                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_error_no_form_exists_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
-                else
                     await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_form_cancelled_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
+                else
+                await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_error_no_form_exists_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
             }
             else
             {
                 if (Bot.FormManager.CancelPrivateForm(Command.SourceSubscriberId))
-                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_error_no_form_exists_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
-                else
                     await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_form_cancelled_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
+                else
+                    await SendMessageAsync(string.Format(Bot.Phrase().GetByName(Command.Language, "example_error_no_form_exists_message"), Command.Subscriber.ToDisplayName(trimAds: true)));
+               
             }
         }
     }

@@ -4,7 +4,7 @@
         "Language": "en"
     }, {
         "Name": "example_command_example_form",
-        "Value": "!example",
+        "Value": "!example form",
         "Language": "en"
     }, {
         "Name": "example_command_help",
@@ -12,11 +12,11 @@
         "Language": "en"
     }, {
         "Name": "example_help_message",
-        "Value": "example_help_message",
+        "Value": "This is an example help message",
         "Language": "en"
     }, {
         "Name": "example_command_hello",
-        "Value": "",
+        "Value": "hello",
         "Language": "en"
     }, {
         "Name": "example_hello_message",

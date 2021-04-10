@@ -146,7 +146,7 @@ namespace WOLF.Net.Helper
 
         internal async Task<Response<MessageResponse>> SendMessageAsync(int recipient, object content, MessageType messageType, bool includeEmbeds = false)
         {
-            bool isImage = content.GetType() == typeof(Image);
+            bool isImage = content.GetType() == typeof(Bitmap);
 
             dynamic body = new ExpandoObject();
 
