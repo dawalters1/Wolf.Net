@@ -50,9 +50,9 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Charm().ListAsync(Language language)``` - Returns the list of charms 
  - ```Bot.Charm().GetByIdAsync(int id)``` - Returns a charms if it exists
  - ```Bot.Charm().GetByIdsAsync(int[] ids)``` - Returns a list of charms if they exist
- - ```Bot.Charm().GetSubscriberStatisticsAsync(int id) - Return subscribers charm statistics (Total Gifted, Total Sent, Overall, ETC)
- - ```Bot.Charm().GetSubscriberExpiredList(int id, int offset = 0, int limit = 25) - Returns a list of expired charms for a subscriber
- - ```Bot.Charm().GetSubscriberActiveList(int id, int offset = 0, int limit = 25) - Returns a list of active charms for a subscriber
+ - ```Bot.Charm().GetSubscriberStatisticsAsync(int id)``` - Return subscribers charm statistics (Total Gifted, Total Sent, Overall, ETC)
+ - ```Bot.Charm().GetSubscriberExpiredList(int id, int offset = 0, int limit = 25)``` - Returns a list of expired charms for a subscriber
+ - ```Bot.Charm().GetSubscriberActiveList(int id, int offset = 0, int limit = 25)``` - Returns a list of active charms for a subscriber
 
 
 #### Contact ```Bot.Contact()``` - Contacts List Manager
