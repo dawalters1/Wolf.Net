@@ -112,7 +112,7 @@ namespace WOLF.Net.Helper
 
         public async Task<Response> UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType capability) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_UPDATE, new { groupId, id = subscriberId, capability = (int)capability });
 
-        public Builders.Profiles.Group UpdateGroupAsync(Group group) => new Builders.Profiles.Group(this.Bot, group);
+        public Builders.Profiles.Group UpdateAsync(Group group) => new Builders.Profiles.Group(this.Bot, group);
 
         public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
