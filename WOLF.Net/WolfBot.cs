@@ -35,6 +35,7 @@ namespace WOLF.Net
         /// </summary>
         public Subscriber CurrentSubscriber { get; internal set; }
 
+        internal BaseAchievementHelper _achievement;
         internal AuthorizationHelper _authorization;
         internal BannedHelper _banned;
         internal BlockHelper _blocked;
@@ -58,6 +59,7 @@ namespace WOLF.Net
         /// </summary>
         public FormManager FormManager { get; internal set; }
 
+        public BaseAchievementHelper _achivement => _achievement;
         /// <summary>
         /// Used to bypass permissions checks for specific users
         /// </summary>
@@ -167,6 +169,10 @@ namespace WOLF.Net
             _phrase.cache.Clear();
             _tip.cache.Clear();
             _messaging.cache.Clear();
+            _achievement._achievements.Clear();
+            _achievement._categories.Clear();
+            _achievement.Group()._group.Clear();
+            _achievement.Subscriber()._subscriber.Clear();
         }
 
         /// <summary>
@@ -177,6 +183,7 @@ namespace WOLF.Net
         public WolfBot(bool usingTranslations = false, bool ignoreBots = false)
         {
             _webSocket = new WebSocket(this);
+            _achievement = new BaseAchievementHelper(this, _webSocket);
             _authorization = new AuthorizationHelper(this, _webSocket);
             _banned = new BannedHelper(this, _webSocket);
             _blocked = new BlockHelper(this, _webSocket);

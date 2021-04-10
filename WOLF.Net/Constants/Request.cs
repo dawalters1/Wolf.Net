@@ -7,7 +7,9 @@ namespace WOLF.Net.Constants
     internal class Request
     {
         public const string ACHIEVEMENT_LIST = "achievement list";
-        public const string ACHIVEMENT_SUBSCRIBER_LIST = "achievement subscriber list";
+        public const string ACHIEVEMENT_SUBSCRIBER_LIST = "achievement subscriber list";
+        public const string ACHIEVEMENT_GROUP_LIST = "achievement group list";
+        public const string ACHIEVEMENT_CATEGORY_LIST = "achivement category list";
 
         public const string CHARM_LIST = "charm list";
         public const string CHARM_SUBSCRIBER_EXPIRED_LIST = "charm subscriber expired list";

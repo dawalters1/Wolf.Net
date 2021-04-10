@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Achievements\" />
     <Folder Include="Commands\" />
   </ItemGroup>
 
