@@ -85,4 +85,6 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Messaging().DeleteAsync(Message message)``` - Delete a message (Group only)
  - ```Bot.Messaging().RestoreAsync(int targetId, long targetTimestamp, bool isGroup = true)``` - Restore a message (Group Only)
  - ```Bot.Messaging().RestoreAsync(Message message)``` - Restore a message (Group only)
+
+
 ---WIP
