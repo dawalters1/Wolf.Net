@@ -59,7 +59,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Authorization().IsAuthorized(int id)``` - Boolean of whether or not a user is authorized 
  - ```Bot.Authorization().Authorize(int id)```/```await Bot.Authorization().Authorize(int[] ids)``` - Authorize a single user or multiple users 
  - ```Bot.Authorization().Deauthorize(int id)```/```await Bot.Authorization().Deauthorize(int[] ids)``` - Unauthorize a single user or multiple users 
-
+---
 #### Banned 
 ```Bot.Banned()``` - Allows user ids to be added to prevent them from using the bot (Messages wont be processed)
 
@@ -67,7 +67,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Banned().IsBanned(1)``` - Boolean of whether or not a user is banned 
  - ```Bot.Banned().Ban(int id)```/```await Bot.Authorization().Ban(1,2,3)``` - Ban a single user or multiple users 
  - ```Bot.Banned().Unban(int id)```/```await Bot.Authorization().Unban(int[] ids)``` - Unban a single user or multiple users 
-
+---
 #### Blocked 
 ```Bot.Blocked()``` - Contacts Blocked List Manager
 
@@ -75,7 +75,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Blocked().IsBlockedAsync(int id)``` - See if a user is blocked
  - ```Bot.Blocked().BlockedAsync(int id)``` - Block a user
  - ```Bot.Blocked().UnblockedAsync(int id)``` - Unblock a user 
-
+---
 #### Charm 
 ```Bot.Charm()``` - Charm Manager
 
@@ -85,8 +85,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Charm().GetSubscriberStatisticsAsync(int id)``` - Return subscribers charm statistics (Total Gifted, Total Sent, Overall, ETC)
  - ```Bot.Charm().GetSubscriberExpiredList(int id, int offset = 0, int limit = 25)``` - Returns a list of expired charms for a subscriber
  - ```Bot.Charm().GetSubscriberActiveList(int id, int offset = 0, int limit = 25)``` - Returns a list of active charms for a subscriber
-
-
+---
 #### Contact
 ```Bot.Contact()``` - Contacts List Manager
 
@@ -94,7 +93,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Contact().IsContactAsync(int id)``` - See if a user is contact
  - ```Bot.Contact().AddAsync(int id)``` - Add a user
  - ```Bot.Contact().DeleteAsync(int id)``` - Delete a user 
-
+---
 #### Group 
 ```Bot.Group()``` - Group Manager
 
@@ -130,13 +129,13 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Messaging().GetPrivateHistoryAsync(int subscriberId, long timestamp)``` - Get the last 5 private messages from the given timestamp by subscriber ID
  - ```Bot.Messaging().GetPrivateHistoryAsync(Message message)``` - Get the last 5 private messages from the given message timestamp
  - ```Bot.Messaging().LinkMetadataAsync(Uri uri)``` - Retrieve a links metadata
-
+---
 #### Notification 
 ```Bot.Notification()``` - Notification Manager
 
  - ```Bot.Notification().ListAsync()``` - Returns the list of notifications (404 if none)
  - ```Bot.Notification().ClearAsync()``` - Clears the the notification list
-
+---
 #### Phrase 
 ```Bot.Phrase()``` - Phrase Manager
 
@@ -145,15 +144,14 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Phrase().GetByName(string language, string name)``` - Get a phrase by language and name (Default language is 'en')
  - ```Bot.Phrase().IsRequestedPhrase(string name, string value)``` - See if input is the requested phrase
  - ```Bot.Phrase().GetNameByValue(string value)``` - Gets a phrase name by the given value (Null if not a valid phrase)
-
-
+---
 #### Subscriber 
 ```Bot.Subscriber()``` - Subscriber Manager
 
  - ```Bot.Subscriber().GetByIdAsync(int id)``` - Get a subscriber by ID if it exists
  - ```Bot.Subscriber().GetByIdsAsync(List<int> id)``` - Get a list of subscribers by list of IDs if they exist
  - ```Bot.Subscriber().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
-
+---
 #### Tip 
 ```Bot.Tip()``` - Tip Manager
 
