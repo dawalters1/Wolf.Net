@@ -165,11 +165,8 @@ namespace WOLF.Net
             idList = ids
         });
 
-        internal void _cleanUp(bool removeSocket = true)
+        internal void _cleanUp(bool removeSocket = false)
         {
-            if (removeSocket)
-                _webSocket._socket = null;
-
             CurrentSubscriber = null;
             _subscriber.cache.Clear();
             _group.cache.Clear();
@@ -177,7 +174,6 @@ namespace WOLF.Net
             _notification.cache.Clear();
             _authorization.cache.Clear();
             _banned.cache.Clear();
-            _phrase.cache.Clear();
             _tip.cache.Clear();
             _messaging.cache.Clear();
             _achievement._achievements.Clear();
