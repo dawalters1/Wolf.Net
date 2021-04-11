@@ -20,7 +20,15 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
     - [Subscriber](#subscriber)
     - [Tip](#tip)
 
+ - [Features](#features)
+   - [Embeds](#embeds)
+   - [Formatting](#formatting)
+   - [Group Achievements](#group-achievements) - WIP
+   - [Login Types](#login-types)
 
+ - [Bug Fixes]
+   - [Command Case Sensitivity](#command-case-sensitivity)
+   - [[INVALID EVENT\]: private message accept response](#invalid-event)
 
 ## Helpers
 
@@ -140,3 +148,31 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  -  - ```Bot.Tip().GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard
  - ```Bot.Tip().GetGroupLeaderboardSummary(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard summary
  -  - ```Bot.Tip().GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard summary
+
+
+## Features
+
+### Embeds
+WOLF V10.9 Introduces 'embeds' to messages, which allow users to pick or display embeds with group ads or urls
+
+### Formatting
+WOLF V10.9 Introduces 'formatting' which allows clients to easily determine where group ads or urls are located at in a message
+
+### Group Achievements
+WOLF V10.8 Introduced 'group achievements'
+
+### Login Types
+As requested, I have added support for logging into the various login types that WOLF has supported over the past year
+ - How do I get the login information?
+   - Chrome or Firefox Developer console -> Network -> WS -> Login -> Retreive the email and password from the login packet
+ - How do I login with this information?
+   - Simple: ```await Bot.LoginAsync("login email", "login password", loginType: LoginType.YOUR_TYPE)```
+
+
+## Bug Fixes
+
+### Command Case Sensitivity
+```[Command("your command")]``` case sensitivity has been addressed
+
+### Invalid Event
+Event 'private message accept response' now has an event ```Bot.On.PrivateMessageRequestAccepted +=(subscriber)=>{}```
