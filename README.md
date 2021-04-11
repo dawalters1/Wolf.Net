@@ -24,28 +24,32 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
 
 ## Helpers
 
-#### Authorization ```Bot.Authorization()``` - Allows user ids to be added to bypass permission checks
+#### Authorization 
+```Bot.Authorization()``` - Allows user ids to be added to bypass permission checks
 
  - ```Bot.Authorization().List()``` - Returns the list of IDs that are authorized 
  - ```Bot.Authorization().IsAuthorized(int id)``` - Boolean of whether or not a user is authorized 
  - ```Bot.Authorization().Authorize(int id)```/```await Bot.Authorization().Authorize(int[] ids)``` - Authorize a single user or multiple users 
  - ```Bot.Authorization().Deauthorize(int id)```/```await Bot.Authorization().Deauthorize(int[] ids)``` - Unauthorize a single user or multiple users 
 
-#### Banned ```Bot.Banned()``` - Allows user ids to be added to prevent them from using the bot (Messages wont be processed)
+#### Banned 
+```Bot.Banned()``` - Allows user ids to be added to prevent them from using the bot (Messages wont be processed)
 
  - ```Bot.Banned().List()``` - Returns the list of IDs that are banned 
  - ```Bot.Banned().IsBanned(1)``` - Boolean of whether or not a user is banned 
  - ```Bot.Banned().Ban(int id)```/```await Bot.Authorization().Ban(1,2,3)``` - Ban a single user or multiple users 
  - ```Bot.Banned().Unban(int id)```/```await Bot.Authorization().Unban(int[] ids)``` - Unban a single user or multiple users 
 
-#### Blocked ```Bot.Blocked()``` - Contacts Blocked List Manager
+#### Blocked 
+```Bot.Blocked()``` - Contacts Blocked List Manager
 
  - ```Bot.Blocked().ListAsync()``` - Returns the list of Contacts that are blocked 
  - ```Bot.Blocked().IsBlockedAsync(int id)``` - See if a user is blocked
  - ```Bot.Blocked().BlockedAsync(int id)``` - Block a user
  - ```Bot.Blocked().UnblockedAsync(int id)``` - Unblock a user 
 
-#### Charm ```Bot.Charm()``` - Charm Manager
+#### Charm 
+```Bot.Charm()``` - Charm Manager
 
  - ```Bot.Charm().ListAsync(Language language)``` - Returns the list of charms 
  - ```Bot.Charm().GetByIdAsync(int id)``` - Returns a charms if it exists
@@ -55,14 +59,16 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Charm().GetSubscriberActiveList(int id, int offset = 0, int limit = 25)``` - Returns a list of active charms for a subscriber
 
 
-#### Contact ```Bot.Contact()``` - Contacts List Manager
+#### Contact
+```Bot.Contact()``` - Contacts List Manager
 
  - ```Bot.Contact().ListAsync()``` - Returns the list of Contacts
  - ```Bot.Contact().IsContactAsync(int id)``` - See if a user is contact
  - ```Bot.Contact().AddAsync(int id)``` - Add a user
  - ```Bot.Contact().DeleteAsync(int id)``` - Delete a user 
 
-#### Group ```Bot.Group()``` - Group Manager
+#### Group 
+```Bot.Group()``` - Group Manager
 
  - ```Bot.Group().CreateAsync()``` - Returns the profile builder class
  - ```Bot.Group().GetByIdAsync(int id)``` - Get a group by ID if it exists
@@ -77,7 +83,8 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Group().UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType actionType)``` - Update a group members capability/role
  - ```Bot.Group().UpdateAsync(Group group)``` - Returns the profile builder class
  
- #### Messaging ```Bot.Messaging()``` - Messaging Manager
+ #### Messaging 
+ ```Bot.Messaging()``` - Messaging Manager
 
  - ```Bot.Messaging().SendGroupMessageAsync(int groupId, object content, bool encludeEmbeds = false)``` - Send a group message (Text/Image)
  - ```Bot.Messaging().SendPrivateMessageAsync(int subscriberId, object content, bool encludeEmbeds = false)``` - Send a private message (Text/Image)
@@ -96,12 +103,14 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Messaging().GetPrivateHistoryAsync(Message message)``` - Get the last 5 private messages from the given message timestamp
  - ```Bot.Messaging().LinkMetadataAsync(Uri uri)``` - Retrieve a links metadata
 
-#### Notification ```Bot.Notification()``` - Notification Manager
+#### Notification 
+```Bot.Notification()``` - Notification Manager
 
  - ```Bot.Notification().ListAsync()``` - Returns the list of notifications (404 if none)
  - ```Bot.Notification().ClearAsync()``` - Clears the the notification list
 
-#### Phrase ```Bot.Phrase()``` - Phrase Manager
+#### Phrase 
+```Bot.Phrase()``` - Phrase Manager
 
  - ```Bot.Phrase().Load(List<Phrase> phrases)``` - Load a list of phrases to be used by the bot
  - ```Bot.Phrase().Load(Phrase[] phrases)``` - Load an array of phrases to be used by the bot
@@ -110,13 +119,15 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Phrase().GetNameByValue(string value)``` - Gets a phrase name by the given value (Null if not a valid phrase)
 
 
-#### Subscriber ```Bot.Subscriber()``` - Subscriber Manager
+#### Subscriber 
+```Bot.Subscriber()``` - Subscriber Manager
 
  - ```Bot.Subscriber().GetByIdAsync(int id)``` - Get a subscriber by ID if it exists
  - ```Bot.Subscriber().GetByIdsAsync(List<int> id)``` - Get a list of subscribers by list of IDs if they exist
  - ```Bot.Subscriber().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
 
-#### Tip ```Bot.Tip()``` - Tip Manager
+#### Tip 
+```Bot.Tip()``` - Tip Manager
 
  - ```Bot.Tip().AddTip(int subscriberId, int groupId, long timestamp, ContextType contextType, params TipCharm[] charms)``` - Gift a tip to a subscriber by Subscriber and Group Id
  - ```Bot.Tip().AddTip(Message, params TipCharm[] charms)``` - Gift a tip to a subscriber by message
