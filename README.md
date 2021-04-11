@@ -163,9 +163,9 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Tip().GetTipSummary(Message message, int limit = 20, int offset = 0)``` - Get a message tip summary
  - ```Bot.Tip().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
  - ```Bot.Tip().GetGroupLeaderboard(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard
- -  - ```Bot.Tip().GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard
+ - ```Bot.Tip().GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard
  - ```Bot.Tip().GetGroupLeaderboardSummary(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard summary
- -  - ```Bot.Tip().GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard summary
+ - ```Bot.Tip().GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard summary
 
 
 ## New Features
