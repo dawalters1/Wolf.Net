@@ -85,6 +85,47 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - ```Bot.Messaging().DeleteAsync(Message message)``` - Delete a message (Group only)
  - ```Bot.Messaging().RestoreAsync(int targetId, long targetTimestamp, bool isGroup = true)``` - Restore a message (Group Only)
  - ```Bot.Messaging().RestoreAsync(Message message)``` - Restore a message (Group only)
+ - ```Bot.Messaging().RestoreAsync(Message message)``` - Restore a message (Group only)
+ - ```Bot.Messaging().SubscribeToNextMessageAsync(Func<Message, bool> fun)``` - Subscribe to a specific message predic
+ - ```Bot.Messaging().SubscribeToNextGroupMessageAsync(int groupId)``` - Subscribe to the next group message
+ - ```Bot.Messaging().SubscribeToNextPrivateMessageAsync(int subscriberId)``` - Subscribe to the next subscriber message
+ - ```Bot.Messaging().SubscribeToNextGroupSubscriberMessageAsync(int subscriberId, int groupId)``` - Subscribe to the next group subscriber message
+ - ```Bot.Messaging().GetGroupHistoryAsync(int groupId, long timestamp)``` - Get the last 5 group messages from the given timestamp by group ID
+ - ```Bot.Messaging().GetGroupHistoryAsync(Message message)``` - Get the last 5 group messages from the given message timestamp
+ - ```Bot.Messaging().GetPrivateHistoryAsync(int subscriberId, long timestamp)``` - Get the last 5 private messages from the given timestamp by subscriber ID
+ - ```Bot.Messaging().GetPrivateHistoryAsync(Message message)``` - Get the last 5 private messages from the given message timestamp
+ - ```Bot.Messaging().LinkMetadataAsync(Uri uri)``` - Retrieve a links metadata
+
+#### Notification ```Bot.Notification()``` - Notification Manager
+
+ - ```Bot.Notification().ListAsync()``` - Returns the list of notifications (404 if none)
+ - ```Bot.Notification().ClearAsync()``` - Clears the the notification list
+
+#### Phrase ```Bot.Phrase()``` - Phrase Manager
+
+ - ```Bot.Phrase().Load(List<Phrase> phrases)``` - Load a list of phrases to be used by the bot
+ - ```Bot.Phrase().Load(Phrase[] phrases)``` - Load an array of phrases to be used by the bot
+ - ```Bot.Phrase().GetByName(string language, string name)``` - Get a phrase by language and name (Default language is 'en')
+ - ```Bot.Phrase().IsRequestedPhrase(string name, string value)``` - See if input is the requested phrase
+ - ```Bot.Phrase().GetNameByValue(string value)``` - Gets a phrase name by the given value (Null if not a valid phrase)
 
 
----WIP
+#### Subscriber ```Bot.Subscriber()``` - Subscriber Manager
+
+ - ```Bot.Subscriber().GetByIdAsync(int id)``` - Get a subscriber by ID if it exists
+ - ```Bot.Subscriber().GetByIdsAsync(List<int> id)``` - Get a list of subscribers by list of IDs if they exist
+ - ```Bot.Subscriber().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
+
+#### Tip ```Bot.Tip()``` - Tip Manager
+
+ - ```Bot.Tip().AddTip(int subscriberId, int groupId, long timestamp, ContextType contextType, params TipCharm[] charms)``` - Gift a tip to a subscriber by Subscriber and Group Id
+ - ```Bot.Tip().AddTip(Message, params TipCharm[] charms)``` - Gift a tip to a subscriber by message
+ - ```Bot.Tip().GetTipDetails(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0) - Get a message tip details
+ - ```Bot.Tip().GetTipDetails(Message message, int limit = 20, int offset = 0) - Get a message tip details
+ - ```Bot.Tip().GetTipSummary(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0) - Get a message tip summary
+ - ```Bot.Tip().GetTipSummary(Message message, int limit = 20, int offset = 0) - Get a message tip summary
+ - ```Bot.Tip().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
+ - ```Bot.Tip().GetGroupLeaderboard(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard
+ -  - ```Bot.Tip().GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard
+ - ```Bot.Tip().GetGroupLeaderboardSummary(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard summary
+ -  - ```Bot.Tip().GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard summary
