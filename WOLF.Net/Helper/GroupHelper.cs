@@ -117,7 +117,7 @@ namespace WOLF.Net.Helper
         public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
             if (this.cache.Where(r => r.InGroup).Count() > 0 && !requestNew)
-                return this.cache.Where(r => r.InGroup).ToList();
+                return joinedOnly ? this.cache.Where(r => r.InGroup).ToList() : this.cache.ToList();
 
             var joinedGroups = await WebSocket.Emit<Response<List<SubscriberGroup>>>(Request.SUBSCRIBER_GROUP_LIST, new
             {

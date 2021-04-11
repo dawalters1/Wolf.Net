@@ -10,7 +10,7 @@ using WOLF.Net.Networking;
 
 namespace WOLF.Net.Helper
 {
-    public class SubscriberAchievementHelper : BaseAchievementHelper
+    public class SubscriberAchievementHelper : BaseHelper<SubscriberAchievement>
     {
         internal Dictionary<int, List<SubscriberAchievement>> _subscriber = new Dictionary<int, List<SubscriberAchievement>>();
       

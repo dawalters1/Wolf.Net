@@ -72,7 +72,7 @@ namespace WOLF.Net.Networking.Events.Handlers
         {
             try
             {
-                await Bot.Group().GetJoinedGroupsAsync(true);
+                await Bot.Group().ListAsync(true, true);
 
                 Bot.CurrentSubscriber = await Bot.Subscriber().GetByIdAsync(Bot.CurrentSubscriber.Id, true);
 

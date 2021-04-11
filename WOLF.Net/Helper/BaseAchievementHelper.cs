@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,11 @@ namespace WOLF.Net.Helper
         internal Dictionary<Language, List<Category>> _categories = new Dictionary<Language, List<Category>>();
 
         private SubscriberAchievementHelper _subscriber;
-        private GroupAchievementHelper _group;
+        //private GroupAchievementHelper _group;
 
         public SubscriberAchievementHelper  Subscriber() => _subscriber;
-        public GroupAchievementHelper Group() => _group;
+
+       // public GroupAchievementHelper Group() => throw new Exception("NOT IMPLEMENTED");
 
         public async Task<List<Achievement>> GetAllAsync(Language language = Language.ENGLISH, bool requestNew = false)
         {
@@ -72,7 +74,7 @@ namespace WOLF.Net.Helper
         {
             if (requestNew || !_categories.ContainsKey(language))
             {
-                var result = await WebSocket.Emit<Response<List<Category>>>(Request.ACHIEVEMENT_CATEGORY_LIST, new { language = (int)language });
+                var result = await WebSocket.Emit<Response<List<Category>>>(Request.ACHIEVEMENT_CATEGORY_LIST, new { languageId = (int)language });
 
                 if (result.Success)
                 {
@@ -86,6 +88,6 @@ namespace WOLF.Net.Helper
             return _categories.ContainsKey(language) ? _categories[language] : new List<Category>();
         }
 
-        internal BaseAchievementHelper(WolfBot bot, WebSocket websocket) : base(bot, websocket) { this._subscriber = new SubscriberAchievementHelper(bot, websocket); this._group = new GroupAchievementHelper(bot, websocket); }
+        internal BaseAchievementHelper(WolfBot bot, WebSocket websocket) : base(bot, websocket) { this._subscriber = new SubscriberAchievementHelper(bot, websocket); /*this._group = new GroupAchievementHelper(bot, websocket);*/ }
     }
 }

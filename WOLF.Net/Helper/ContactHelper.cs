@@ -25,6 +25,7 @@ namespace WOLF.Net.Helper
             }
             return cache;
         }
+        public async Task<bool> IsContactAsync(int id) => (await ListAsync()).Any((blocked) => blocked.Id == id);
 
         public async Task<Response> AddAsync(int subscriberId) => await WebSocket.Emit<Response>(Request.SUBSCRIBER_CONTACT_ADD, new { id = subscriberId });
 

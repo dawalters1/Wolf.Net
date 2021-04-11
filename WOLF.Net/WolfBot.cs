@@ -7,6 +7,7 @@ using WOLF.Net.Commands.Commands;
 using WOLF.Net.Commands.Form;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
+using WOLF.Net.Entities.Charms;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.API;
 using WOLF.Net.Enums.Subscribers;
@@ -28,7 +29,7 @@ namespace WOLF.Net
         /// <summary>
         /// The login data for the bot
         /// </summary>
-        public LoginSetting LoginSettings { get; private set; } 
+        public LoginSetting LoginSettings { get; private set; }
 
         /// <summary>
         /// The current subscriber logged in
@@ -59,7 +60,7 @@ namespace WOLF.Net
         /// </summary>
         public FormManager FormManager { get; internal set; }
 
-        public BaseAchievementHelper _achivement => _achievement;
+        public BaseAchievementHelper Achievement() => _achievement;
         /// <summary>
         /// Used to bypass permissions checks for specific users
         /// </summary>
@@ -152,8 +153,18 @@ namespace WOLF.Net
 
         public Builders.Profiles.Subscriber UpdateProfile() => new Builders.Profiles.Subscriber(this, this.CurrentSubscriber);
 
-        public async Task<Response> SetOnlineStateAsync(OnlineState onlineState)=> await _webSocket.Emit<Response>(Request.SUBSCRIBER_SETTINGS_UPDATE, new { state = new { state = (int)onlineState } /* State inside state? wtf is this shit...*/ });
-        
+        public async Task<Response> SetOnlineStateAsync(OnlineState onlineState) => await _webSocket.Emit<Response>(Request.SUBSCRIBER_SETTINGS_UPDATE, new { state = new { state = (int)onlineState } /* State inside state? wtf is this shit...*/ });
+
+        public async Task<Response> SetCharmsAsync(params SelectedCharm[] charms) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_SET_SELECTED, new
+        {
+            selectedList = charms
+        });
+
+        public async Task<Response> DeleteCharmsAsync(params int[] ids) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_DELETE, new
+        {
+            idList = ids
+        });
+
         internal void _cleanUp(bool removeSocket = true)
         {
             if (removeSocket)
@@ -171,7 +182,7 @@ namespace WOLF.Net
             _messaging.cache.Clear();
             _achievement._achievements.Clear();
             _achievement._categories.Clear();
-            _achievement.Group()._group.Clear();
+            //  _achievement.Group()._group.Clear();
             _achievement.Subscriber()._subscriber.Clear();
         }
 
@@ -197,7 +208,7 @@ namespace WOLF.Net
             _tip = new TipHelper(this, _webSocket);
             _eventHandler = new Networking.Events.EventHandler(this, _webSocket);
 
-           _usingTranslations = usingTranslations;
+            _usingTranslations = usingTranslations;
             _ignoreBots = ignoreBots;
 
             CommandManager = new CommandManager(this);

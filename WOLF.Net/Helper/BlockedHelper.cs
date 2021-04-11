@@ -12,7 +12,7 @@ namespace WOLF.Net.Helper
 {
     public class BlockHelper : BaseHelper<Entities.Groups.Subscriber>
     {
-        public async Task<IReadOnlyList<Entities.Groups.Subscriber>> List()
+        public async Task<IReadOnlyList<Entities.Groups.Subscriber>> ListAsync()
         {
             if (this.cache.Count == 0)
             {
@@ -25,6 +25,8 @@ namespace WOLF.Net.Helper
             }
             return cache;
         }
+        public async Task<bool> IsBlockedAsync(int id) => (await ListAsync()).Any((blocked) => blocked.Id == id);
+
         public async Task<Response> BlockAsync(int subscriberId) => await WebSocket.Emit<Response>(Request.SUBSCRIBER_BLOCK_ADD, new { id = subscriberId });
 
         public async Task<Response> UnblockAsync(int subscriberId) => await WebSocket.Emit<Response>(Request.SUBSCRIBER_BLOCK_DELETE, new { id = subscriberId });
