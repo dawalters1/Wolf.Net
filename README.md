@@ -46,7 +46,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
    - [Group Achievements](#group-achievements) - WIP
    - [Login Types](#login-types)
 
- - [Bug Fixes]
+ - [Bug Fixes](#bug-fixes)
    - [Command Case Sensitivity](#command-case-sensitivity)
    - [[INVALID EVENT\]: private message accept response](#invalid-event)
 
