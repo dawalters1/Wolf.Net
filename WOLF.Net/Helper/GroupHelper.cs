@@ -44,6 +44,8 @@ namespace WOLF.Net.Helper
                 if (result.Success)
                     foreach (var group in result.Body)
                         groups.Add(Process(group.Value.Success ? group.Value.Body.Compile() : new Group(group.Key)));
+                else
+                    groups.AddRange(groupIds.Where((groupId) => !groups.Any((group) => group.Id == groupId)).ToList().Select(r => new Group(r)).ToList());
             }
 
             return groups;

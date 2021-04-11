@@ -48,14 +48,7 @@ namespace Wolf.Net.Example
             Bot.On.ContactRemoved += subscriber => Console.WriteLine($"[Contact Removed]: {subscriber.ToDisplayName()} has been removed as a contact");
             Bot.On.SubscriberBlocked += subscriber => Console.WriteLine($"[Subscriber Blocked]: {subscriber.ToDisplayName()} has been added as a contact");
             Bot.On.SubscriberUnblocked += subscriber => Console.WriteLine($"[Subscriber Unblocked]: {subscriber.ToDisplayName()} has been removed as a contact");
-
-            Bot.On.Ready += async () =>
-            {
-                Console.WriteLine("[Ready]: Bot is ready for use");
-
-                //Updating subscriber profiles
-                await Bot.UpdateProfile().SetNickname(Bot.CurrentSubscriber.Nickname).SetStatus(Bot.CurrentSubscriber.Status).Save();
-            };
+            Bot.On.PrivateMessageRequestAccepted += (subscriber) => Console.WriteLine($"[Subscriber Private Message Request Response]: {subscriber.Nickname} has accepted your private message request");
 
             #endregion
 
@@ -93,7 +86,6 @@ namespace Wolf.Net.Example
 
             Bot.On.SubscriberUpdated += subscriber => Console.WriteLine($"[Subscriber Profile Updated]: {subscriber.ToDisplayName()} updated their profile");
             Bot.On.PresenceUpdate += (subscriber, presence) => Console.WriteLine($"[Subscriber Presence Updated]: {subscriber.ToDisplayName()} presence changed - device: {presence.DeviceType} - onlineState: {presence.OnlineState}");
-            Bot.On.PrivateMessageRequestAccepted += (subscriber) => Console.WriteLine($"[Subscriber Private Message Request Response]: {subscriber.Nickname} has accepted your private message request");
 
             #endregion
 
@@ -114,10 +106,17 @@ namespace Wolf.Net.Example
             Bot.On.Log += log => Console.WriteLine($"[Log]: {log}");
             Bot.On.Error += error => Console.WriteLine($"[Internal Error]: {error}");
 
+            Bot.On.Ready += async () =>
+            {
+                Console.WriteLine("[Ready]: Bot is ready for use");
+
+                //Updating subscriber profiles
+                await Bot.UpdateProfile().SetNickname(Bot.CurrentSubscriber.Nickname).SetStatus(Bot.CurrentSubscriber.Status).Save();
+            };
             #endregion
 
             await Bot.LoginAsync("email@xyz.com", "password");
-           
+
             await Task.Delay(-1);
         }
     }

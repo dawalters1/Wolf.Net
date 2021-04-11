@@ -42,6 +42,8 @@ namespace WOLF.Net.Helper
                 if (result.Success)
                     foreach (var subscriber in result.Body)
                         subscribers.Add(Process(subscriber.Value.Success ? subscriber.Value.Body : new Subscriber(subscriber.Key)));
+                else
+                    subscribers.AddRange(subscriberIds.Where((subscriberId) => !subscribers.Any((subscriber) => subscriber.Id == subscriberId)).ToList().Select(r => new Subscriber(r)).ToList());
             }
 
             return subscribers;

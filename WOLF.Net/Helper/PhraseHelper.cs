@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WOLF.Net.Commands.Commands;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Networking;
 
@@ -20,6 +21,18 @@ namespace WOLF.Net.Helper
             cache = phrases;
         }
 
+        public List<string> GetLanguageList() => cache.Select(r => r.Language).Distinct().ToList();
+
+        public List<string> GetAllByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new Exception("Name cannot be empty");
+
+            return cache.Where((phrase) => phrase.Name.IsEqual(name)).Select((phrase)=>phrase.Value).ToList();
+        }
+
+        public string GetByName(CommandData commandData, string name) => GetByName(commandData.Language, name);
+
         public string GetByName(string language, string name)
         {
             if (string.IsNullOrWhiteSpace(language) || string.IsNullOrWhiteSpace(name))
@@ -29,7 +42,7 @@ namespace WOLF.Net.Helper
 
             if (requested == null)
                 if (language.IsEqual("en"))
-                    return null;
+                    return $"requested_{language}_phrase_{name}_missing";
                 else
                     return GetByName("en", name);
 
