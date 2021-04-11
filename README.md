@@ -24,7 +24,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  
 
 
-### What's New in Version 5
+## What's New in Version 5
  
   - [Chained Helpers](#helpers)
     - [Authorization](#authorization)
