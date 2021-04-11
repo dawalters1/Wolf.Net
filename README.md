@@ -24,7 +24,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  
 
 
-## What's New in Version 5
+# What's New in Version 5
  
   - [Chained Helpers](#helpers)
     - [Authorization](#authorization)
@@ -49,12 +49,6 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - [Bug Fixes]
    - [Command Case Sensitivity](#command-case-sensitivity)
    - [[INVALID EVENT\]: private message accept response](#invalid-event)
-
-### Known Issues
-- Cannot join Stages
-- Cannot update avatars
-- Cannot receive new notifications
-- Cannot send Voice Messages or GIFS
 
 ## Helpers
 
@@ -203,3 +197,10 @@ As requested, I have added support for logging into the various login types that
 
 ### Invalid Event
 Event 'private message accept response' now has an event ```Bot.On.PrivateMessageRequestAccepted +=(subscriber)=>{}```
+
+
+### Known Issues
+- Cannot join Stages
+- Cannot update avatars
+- Cannot receive new notifications
+- Cannot send Voice Messages or GIFS
