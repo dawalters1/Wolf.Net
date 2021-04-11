@@ -12,7 +12,7 @@ namespace WOLF.Net.Helper
 {
     public class NotificationHelper : BaseHelper<Notification>
     {
-        public async Task<Response<List<Notification>>> GetAsync(Language language = Language.ENGLISH) => await Bot._webSocket.Emit<Response<List<Notification>>>(Request.NOTIFICATION_LIST, new
+        public async Task<Response<List<Notification>>> ListAsync(Language language = Language.ENGLISH) => await Bot._webSocket.Emit<Response<List<Notification>>>(Request.NOTIFICATION_LIST, new
         {
             language = (int)language,
             deviceType = Bot.LoginSettings.LoginDeviceId
