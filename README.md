@@ -199,7 +199,7 @@ As requested, I have added support for logging into the various login types that
 Event 'private message accept response' now has an event ```Bot.On.PrivateMessageRequestAccepted +=(subscriber)=>{}```
 
 
-### Known Issues
+# Known Issues
 - Cannot join Stages
 - Cannot update avatars
 - Cannot receive new notifications
