@@ -1,10 +1,30 @@
-# Wolf.Net
-Unofficial C# API For connecting to WOLF (AKA Palringo) 
+# WOLF.Net Version 5 -- WIP
+
+**Current Release:** [![Nuget Status](https://img.shields.io/nuget/v/wolf.net?style=flat-square)](https://www.nuget.org/packages/Wolf.Net/)![Nuget Downloads](https://img.shields.io/nuget/dt/wolf.net?style=flat-square)
+
+**Prerelease:** [![Nuget Status](https://img.shields.io/nuget/vpre/wolf.net?style=flat-square)](https://www.nuget.org/packages/Wolf.Net/)
+
+[![WOLF](https://i.imgur.com/SwV8IYZ.png)](https://wolf.live/)
+
+An unofficial .NET API for [WOLF](https://wolf.live.com/) (AKA Palringo).
+
+# Installation 
+
+You can install the WOLF.Net package directly from [Nuget](https://www.nuget.org/packages/Wolf.Net/) or by using Install-Package Wolf.Net
+ 
+# Required
+
+- [Net 5](https://dotnet.microsoft.com/download/dotnet/5.0) or above
+- [Net Core 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0) or above
+- [Visual Studio 2019](https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2019) OR [VS Code](https://code.visualstudio.com/download)
+
+# Approval
+
+Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/bot+approval?r=80280172) or [bot approval.ar](http://wolflive.com/bot+approval.ar?r=80280172)
+ 
 
 
-# Version 5
-
-### What's New
+### What's New in Version 5
  
   - [Chained Helpers](#helpers)
     - [Authorization](#authorization)
@@ -20,7 +40,7 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
     - [Subscriber](#subscriber)
     - [Tip](#tip)
 
- - [Features](#features)
+ - [New Features](#features)
    - [Embeds](#embeds)
    - [Formatting](#formatting)
    - [Group Achievements](#group-achievements) - WIP
@@ -29,6 +49,12 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  - [Bug Fixes]
    - [Command Case Sensitivity](#command-case-sensitivity)
    - [[INVALID EVENT\]: private message accept response](#invalid-event)
+
+### Known Issues
+- Cannot join Stages
+- Cannot update avatars
+- Cannot receive new notifications
+- Cannot send Voice Messages or GIFS
 
 ## Helpers
 
@@ -150,7 +176,7 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
  -  - ```Bot.Tip().GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard summary
 
 
-## Features
+## New Features
 
 ### Embeds
 WOLF V10.9 Introduces 'embeds' to messages, which allow users to pick or display embeds with group ads or urls
@@ -158,7 +184,8 @@ WOLF V10.9 Introduces 'embeds' to messages, which allow users to pick or display
 ### Formatting
 WOLF V10.9 Introduces 'formatting' which allows clients to easily determine where group ads or urls are located at in a message
 
-### Group Achievements
+### Group Achievements 
+WORK IN PROGRESS
 WOLF V10.8 Introduced 'group achievements'
 
 ### Login Types
