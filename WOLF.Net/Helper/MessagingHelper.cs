@@ -264,12 +264,12 @@ namespace WOLF.Net.Helper
             };
         }
 
-        public async Task<Response<List<Message>>> GetGroupHistoryAsync(Message message, long timestamp)
+        public async Task<Response<List<Message>>> GetGroupHistoryAsync(Message message)
         {
             if (message.MessageType != MessageType.GROUP)
                 return new Response<List<Message>>() { Code = 400, Body = default, Headers = new Dictionary<string, string>() { { "error", "You cannot request group message history from a private message" } } };
 
-            return await GetGroupHistoryAsync(message.TargetGroupId, timestamp);
+            return await GetGroupHistoryAsync(message.TargetGroupId, message.Timestamp);
         }
 
         public async Task<Response<List<Message>>> GetPrivateHistoryAsync(int subscriberId, long timestamp = 0)
