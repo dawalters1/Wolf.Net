@@ -7,18 +7,18 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
 ### What's New
  
   - [Chained Helpers](#helpers)
-    - [Authorization](#authorization-)
-    - [Banned](#banned-)
-    - [Achievement](#achievement-) - WIP
-    - [Blocked](#blocked-)
-    - [Charm](#charm-)
-    - [Contact](#contact-)
-    - [Group](#group-)
-    - [Messaging](#messaging-)
-    - [Notification](#notification-)
-    - [Phrase](#phrase-)
-    - [Subscriber](#subscriber-)
-    - [Tip](#tip-)
+    - [Authorization](#authorization)
+    - [Banned](#banned)
+    - [Achievement](#achievement) - WIP
+    - [Blocked](#blocked)
+    - [Charm](#charm)
+    - [Contact](#contact)
+    - [Group](#group)
+    - [Messaging](#messaging)
+    - [Notification](#notification)
+    - [Phrase](#phrase)
+    - [Subscriber](#subscriber)
+    - [Tip](#tip)
 
 
 
@@ -131,10 +131,10 @@ Unofficial C# API For connecting to WOLF (AKA Palringo)
 
  - ```Bot.Tip().AddTip(int subscriberId, int groupId, long timestamp, ContextType contextType, params TipCharm[] charms)``` - Gift a tip to a subscriber by Subscriber and Group Id
  - ```Bot.Tip().AddTip(Message, params TipCharm[] charms)``` - Gift a tip to a subscriber by message
- - ```Bot.Tip().GetTipDetails(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0) - Get a message tip details
- - ```Bot.Tip().GetTipDetails(Message message, int limit = 20, int offset = 0) - Get a message tip details
- - ```Bot.Tip().GetTipSummary(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0) - Get a message tip summary
- - ```Bot.Tip().GetTipSummary(Message message, int limit = 20, int offset = 0) - Get a message tip summary
+ - ```Bot.Tip().GetTipDetails(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0)``` - Get a message tip details
+ - ```Bot.Tip().GetTipDetails(Message message, int limit = 20, int offset = 0)``` - Get a message tip details
+ - ```Bot.Tip().GetTipSummary(int groupId, long timestamp, ContextType contextType, int limit = 20, int offset = 0)``` - Get a message tip summary
+ - ```Bot.Tip().GetTipSummary(Message message, int limit = 20, int offset = 0)``` - Get a message tip summary
  - ```Bot.Tip().GetByIdsAsync(int[] id)``` - Get a list of subscribers by array of IDs if they exist
  - ```Bot.Tip().GetGroupLeaderboard(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific group tip leaderboard
  -  - ```Bot.Tip().GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT)``` - Get a specific global tip leaderboard
