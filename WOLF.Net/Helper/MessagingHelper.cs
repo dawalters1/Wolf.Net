@@ -126,7 +126,7 @@ namespace WOLF.Net.Helper
                                 embeds.Add(new
                                 {
                                     type = metadata.Body.ImageSize > 0 ? "imagePreview" : "linkPreview",
-                                    url = metadata.Body.ImageSize > 0 ? (string)link.value : metadata.Body.Domain,
+                                    url = (string)link.value,
                                     image = metadata.Body.ImageSize > 0 || string.IsNullOrWhiteSpace(metadata.Body.ImageUrl) ? null : (await Public.DownloadImageFromUrl(metadata.Body.ImageUrl)).ToBytes(),
                                     title = metadata.Body.Title,
                                     body = metadata.Body.Description
