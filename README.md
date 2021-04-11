@@ -109,7 +109,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - ```Bot.Group().GetStatsAsync(int id)``` - Gets a list of group stats
  - ```Bot.Group().UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType actionType)``` - Update a group members capability/role
  - ```Bot.Group().UpdateAsync(Group group)``` - Returns the profile builder class
- 
+ ---
  #### Messaging 
  ```Bot.Messaging()``` - Messaging Manager
 
