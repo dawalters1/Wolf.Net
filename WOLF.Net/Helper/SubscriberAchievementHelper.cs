@@ -14,7 +14,7 @@ namespace WOLF.Net.Helper
     {
         internal Dictionary<int, List<SubscriberAchievement>> _subscriber = new Dictionary<int, List<SubscriberAchievement>>();
       
-        public async Task<Response<List<SubscriberAchievement>>> GetById(int subscriberId, bool requestNew = false)
+        public async Task<Response<List<SubscriberAchievement>>> GetByIdAsync(int subscriberId, bool requestNew = false)
         {
 
             if (!requestNew && _subscriber.ContainsKey(subscriberId))

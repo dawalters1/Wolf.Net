@@ -80,7 +80,7 @@ namespace WOLF.Net.Networking.Events.Handlers
 
                 await Bot.Messaging().PrivateSubscribeAsync();
 
-                await Bot.Tip().GroupTipSubscribeAsync();
+                await Bot.Tip().GroupSubscribeAsync();
 
                 Bot.On.Emit(Internal.READY);
             }

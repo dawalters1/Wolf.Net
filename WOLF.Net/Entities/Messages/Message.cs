@@ -73,7 +73,7 @@ namespace WOLF.Net.Entities.Messages
 
         public async Task<Response<Message>> RestoreAsync() => await _bot.Messaging().RestoreAsync(this);
 
-        public async Task<Response> Tip(params TipCharm[] charms) => await _bot.Tip().AddTip(this, charms);
+        public async Task<Response> Tip(params TipCharm[] charms) => await _bot.Tip().AddAsync(this, charms);
 
     }
 }

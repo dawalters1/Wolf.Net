@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WOLF.Net.Commands.Commands;
+using WOLF.Net.Commands.Form;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Networking;
 
@@ -32,6 +33,7 @@ namespace WOLF.Net.Helper
         }
 
         public string GetByName(CommandData commandData, string name) => GetByName(commandData.Language, name);
+        public string GetByName(FormData formData, string name) => GetByName(formData.Language, name);
 
         public string GetByName(string language, string name)
         {

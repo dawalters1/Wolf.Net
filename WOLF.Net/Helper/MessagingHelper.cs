@@ -41,7 +41,7 @@ namespace WOLF.Net.Helper
         /// <param name="content"></param>
         /// <param name="includeEmbeds"></param>
         /// <returns></returns>
-        internal async Task<object> GetFormattingData(dynamic body, string content, bool includeEmbeds)
+        internal async Task<object> GetFormattingDataAsync(dynamic body, string content, bool includeEmbeds)
         {
             dynamic formatting = new ExpandoObject();
 
@@ -156,7 +156,7 @@ namespace WOLF.Net.Helper
             body.data = !isImage ? Encoding.UTF8.GetBytes(content.ToString()) : ((Bitmap)content).ToBytes();
             body.flightId = Guid.NewGuid();
 
-            return await WebSocket.Emit<Response<MessageResponse>>(Request.MESSAGE_SEND, isImage ? body : await GetFormattingData(body, content.ToString(), includeEmbeds));
+            return await WebSocket.Emit<Response<MessageResponse>>(Request.MESSAGE_SEND, isImage ? body : await GetFormattingDataAsync(body, content.ToString(), includeEmbeds));
         }
 
         public async Task<Response<MessageResponse>> SendGroupMessageAsync(int groupId, object content, bool includeEmbeds = false) => await SendMessageAsync(groupId, content, MessageType.GROUP, includeEmbeds);
@@ -231,9 +231,9 @@ namespace WOLF.Net.Helper
 
         public async Task<Message> SubscribeToNextGroupMessageAsync(int groupId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.GROUP && r.TargetGroupId == groupId).TimeoutAfter(timeout);
 
-        public async Task<Message> SubscribeToNextPrivateMessageAsync(int userId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.PRIVATE && r.SourceSubscriberId == userId).TimeoutAfter(timeout);
+        public async Task<Message> SubscribeToNextPrivateMessageAsync(int subscriberId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.PRIVATE && r.SourceSubscriberId == subscriberId).TimeoutAfter(timeout);
 
-        public async Task<Message> SubscribeToNextGroupUserMessageAsync(int userId, int groupId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.GROUP && r.TargetGroupId == groupId && r.SourceSubscriberId == userId).TimeoutAfter(timeout);
+        public async Task<Message> SubscribeToNextGroupUserMessageAsync(int subscriberId, int groupId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.GROUP && r.TargetGroupId == groupId && r.SourceSubscriberId == subscriberId).TimeoutAfter(timeout);
 
         public async Task<Response<LinkMetadata>> LinkMetadataAsync(Uri uri) => await LinkMetadataAsync(uri.ToString());
 
