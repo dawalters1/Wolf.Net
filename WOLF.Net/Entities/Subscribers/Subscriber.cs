@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,6 +120,24 @@ namespace WOLF.Net.Entities.Subscribers
         private readonly Privilege[] privileges = { Privilege.BOT, Privilege.STAFF, Privilege.ELITECLUB_1, Privilege.ELITECLUB_2, Privilege.ELITECLUB_3, Privilege.SELECTCLUB_1, Privilege.SELECTCLUB_2, Privilege.ENTERTAINER, Privilege.VOLUNTEER };
 
         public Privilege GetTag() => privileges.Any(r => Privileges.HasFlag(r)) ? privileges.FirstOrDefault(r => Privileges.HasFlag(r)) : Privilege.SUBSCRIBER;
+
+        public async Task<Bitmap> GetAvatar(int size = 640, bool placeholder = false)
+        {
+            var tsk = new TaskCompletionSource<Bitmap>();
+            try
+            {
+                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/user/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.EndPoints.AvatarEndpoint}/FileServerSpring/group/subscriber/{Id}?size={size}").DownloadImageFromUrl());
+            }
+            catch (Exception error)
+            {
+                if (placeholder)
+                    tsk.SetException(error);
+                else
+                    return await GetAvatar(size, true);
+            }
+
+            return await tsk.Task;
+        }
     }
 
     public class Extended

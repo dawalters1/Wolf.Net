@@ -568,7 +568,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "5.0.0",
+    "version": "5.0.0-beta2",
     "restore": {
       "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
       "projectName": "WOLF.Net",

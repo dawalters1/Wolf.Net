@@ -9,6 +9,8 @@ using WOLF.Net.Enums.Misc;
 using WOLF.Net.Entities.Groups;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Entities.Misc;
+using System.Drawing;
+using System.Linq;
 
 namespace WOLF.Net.Entities.Groups
 {
@@ -127,6 +129,24 @@ namespace WOLF.Net.Entities.Groups
         public async Task<Response<Stats>> GetStats() => await Bot.Group().GetStatsAsync(Id);
 
         public async Task<List<Subscriber>> GetSubscriberListAsync() => await Bot.Group().GetSubscribersListAsync(Id);
+
+        public async Task<Bitmap> GetAvatar(int size = 640, bool placeholder = false)
+        {
+            var tsk = new TaskCompletionSource<Bitmap>();
+            try
+            {
+                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/group/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.EndPoints.AvatarEndpoint}/FileServerSpring/group/avatar/{Id}?size={size}").DownloadImageFromUrl());
+            }
+            catch (Exception error)
+            {
+                if (placeholder)
+                    tsk.SetException(error);
+                else
+                    return await GetAvatar(size, true);
+            }
+
+            return await tsk.Task;
+        }
     }
 
 

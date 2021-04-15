@@ -11,10 +11,30 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WOLF.Net.Entities.Subscribers;
+using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
 
 public static class Public
 {
+    public static string ToPhraseLanguage(Language language) => language switch
+    {
+        Language.ARABIC => "ar",
+        Language.ENGLISH => "en",
+        Language.BAHASA_INDONESIA => "in",
+        Language.BRAZILIAN_PORTUGUESE => "brpt",
+        Language.DUTCH => "de",
+        Language.GERMAN => "de",
+        Language.HINDI => "hi",
+        Language.LATIN_SPANISH => "es",
+        Language.PERSIAN_FARSI => "fa",
+        Language.POLISH => "pl",
+        Language.RUSSIAN => "ru",
+        Language.SPANISH => "es",
+        Language.SWEDISH => "sv",
+        Language.TURKISH => "tr",
+        _ => "en",
+    };
+
     public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize = 8) => source.Select((x, i) => new { Index = i, Value = x }).GroupBy(x => x.Index / chunkSize).Select(x => x.Select(v => v.Value).ToList()).ToList();
 
     public static bool IsEqual(this string key, string value) => key != null && value != null && key.Trim().ToLower() == value.Trim().ToLower();

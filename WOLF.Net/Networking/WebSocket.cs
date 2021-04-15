@@ -81,16 +81,7 @@ namespace WOLF.Net.Networking
 
             _bot._eventHandler.Register();
 
-            _socket.OnConnected += (sender, eventArgs) =>
-            {
-                if (!isReconnecting)
-                    _bot.On.Emit(Constants.Internal.CONNCETED);
-                else
-                {
-                    isReconnecting = false;
-                    _bot.On.Emit(Constants.Internal.RECONNECTED);
-                }
-            };
+            _socket.OnConnected += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.CONNCETED);
 
             _socket.OnDisconnected += (sender, eventArgs) =>
             {
@@ -106,11 +97,7 @@ namespace WOLF.Net.Networking
 
             _socket.OnReceivedEvent += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.PACKET_RECEIVED, eventArgs.Event, eventArgs.Response.GetValue<Response<object>>());
 
-            _socket.OnReconnecting += (sender, eventArgs) =>
-            {
-                isReconnecting = true;
-                _bot.On.Emit(Constants.Internal.RECONNECTING);
-            };
+            _socket.OnReconnecting += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.RECONNECTING);
 
             _socket.OnReconnectFailed += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.RECONNECT_FAILED, eventArgs);
 

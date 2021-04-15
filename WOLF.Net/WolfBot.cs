@@ -8,6 +8,7 @@ using WOLF.Net.Commands.Form;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Charms;
+using WOLF.Net.Entities.Misc;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.API;
 using WOLF.Net.Enums.Subscribers;
@@ -31,6 +32,10 @@ namespace WOLF.Net
         /// </summary>
         public LoginSetting LoginSettings { get; private set; }
 
+        /// <summary>
+        /// Houses the avatar end point and MMS endpoint
+        /// </summary>
+        public EndpointConfig EndPoints { get; private set; }
         /// <summary>
         /// The current subscriber logged in
         /// </summary>

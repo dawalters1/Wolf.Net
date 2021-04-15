@@ -60,7 +60,7 @@ namespace WOLF.Net.Networking.Events.Handlers
 
                     Bot.CurrentSubscriber = data.LoggedInUser;
                 }
-                await OnLoginSuccess();
+                await OnLoginSuccess(data.LoggedInUser != null);
             }
             catch (Exception d)
             {
@@ -68,7 +68,7 @@ namespace WOLF.Net.Networking.Events.Handlers
             }
         }
 
-        private async Task OnLoginSuccess()
+        private async Task OnLoginSuccess(bool reconnect = false)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace WOLF.Net.Networking.Events.Handlers
 
                 await Bot.Tip().GroupSubscribeAsync();
 
-                Bot.On.Emit(Internal.READY);
+                Bot.On.Emit(!reconnect?Internal.READY:Internal.RECONNECTED);
             }
             catch (Exception d)
             {
