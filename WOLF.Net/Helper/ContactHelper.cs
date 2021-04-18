@@ -12,6 +12,10 @@ namespace WOLF.Net.Helper
 {
     public class ContactHelper : BaseHelper<Entities.Groups.Subscriber>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of contacts</returns>
         public async Task<IReadOnlyList<Entities.Groups.Subscriber>> ListAsync()
         {
             if (this.cache.Count == 0)
@@ -25,10 +29,26 @@ namespace WOLF.Net.Helper
             }
             return cache;
         }
+
+        /// <summary>
+        /// Check to see if a subscriber is a contact
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>bool</returns>
         public async Task<bool> IsContactAsync(int id) => (await ListAsync()).Any((blocked) => blocked.Id == id);
 
+        /// <summary>
+        /// Add a subscriber as a contact
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <returns>Response</returns>
         public async Task<Response> AddAsync(int subscriberId) => await WebSocket.Emit<Response>(Request.SUBSCRIBER_CONTACT_ADD, new { id = subscriberId });
 
+        /// <summary>
+        /// Remove a subscriber as a contact
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <returns></returns>
         public async Task<Response> DeleteAsync(int subscriberId) => await WebSocket.Emit<Response>(Request.SUBSCRIBER_CONTACT_DELETE, new { id = subscriberId });
 
         internal async Task<Entities.Groups.Subscriber> Process(int id)

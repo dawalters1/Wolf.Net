@@ -159,8 +159,22 @@ namespace WOLF.Net.Helper
             return await WebSocket.Emit<Response<MessageResponse>>(Request.MESSAGE_SEND, isImage ? body : await GetFormattingDataAsync(body, content.ToString(), includeEmbeds));
         }
 
+        /// <summary>
+        /// Send a group message
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="content"></param>
+        /// <param name="includeEmbeds"></param>
+        /// <returns>Response<MessageResponse></returns>
         public async Task<Response<MessageResponse>> SendGroupMessageAsync(int groupId, object content, bool includeEmbeds = false) => await SendMessageAsync(groupId, content, MessageType.GROUP, includeEmbeds);
 
+        /// <summary>
+        /// Send a private message
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="content"></param>
+        /// <param name="includeEmbeds"></param>
+        /// <returns>Response<MessageResponse></returns>
         public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content, bool includeEmbeds = false) => await SendMessageAsync(subscriberId, content, MessageType.PRIVATE, includeEmbeds);
 
         internal async Task<Response> GroupSubscribeAsync() => await WebSocket.Emit<Response>(Request.MESSAGE_GROUP_SUBSCRIBE, new { headers = new { version = 3 } });
@@ -169,6 +183,13 @@ namespace WOLF.Net.Helper
 
         internal async Task<Response> PrivateSubscribeAsync() => await WebSocket.Emit<Response>(Request.MESSAGE_PRIVATE_SUBSCRIBE, new { headers = new { version = 2 } });
 
+        /// <summary>
+        /// Delete a message
+        /// </summary>
+        /// <param name="targetId"></param>
+        /// <param name="targetTimestamp"></param>
+        /// <param name="isGroup"></param>
+        /// <returns>Response<Message></returns>
         public async Task<Response<Message>> DeleteAsync(int targetId, long targetTimestamp, bool isGroup = true)
         {
             var result = await WebSocket.Emit<Response<BaseMessage>>(Request.MESSAGE_UPDATE, new
@@ -188,8 +209,20 @@ namespace WOLF.Net.Helper
             return new Response<Message>() { Code = result.Code, Body = default, Headers = result.Headers };
         }
 
+        /// <summary>
+        /// Delete a message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Response<Message></returns>
         public async Task<Response<Message>> DeleteAsync(Message message) => await DeleteAsync(message.TargetGroupId, message.Timestamp, message.IsGroup);
 
+        /// <summary>
+        /// Restore a message
+        /// </summary>
+        /// <param name="targetId"></param>
+        /// <param name="targetTimestamp"></param>
+        /// <param name="isGroup"></param>
+        /// <returns>Response<Message></returns>
         public async Task<Response<Message>> RestoreAsync(int targetId, long targetTimestamp, bool isGroup = true)
         {
             var result = await WebSocket.Emit<Response<BaseMessage>>(Request.MESSAGE_UPDATE, new
@@ -209,8 +242,18 @@ namespace WOLF.Net.Helper
             return new Response<Message>() { Code = result.Code, Body = default, Headers = result.Headers };
         }
 
+        /// <summary>
+        /// Restore a message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Response<Message></returns>
         public async Task<Response<Message>> RestoreAsync(Message message) => await RestoreAsync(message.TargetGroupId, message.Timestamp, message.IsGroup);
 
+        /// <summary>
+        /// Subscribe to the next message the bot receives
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns>Message</returns>
         public async Task<Message> SubscribeToNextMessageAsync(Func<Message, bool> func)
         {
             try
@@ -229,16 +272,50 @@ namespace WOLF.Net.Helper
             }
         }
 
+        /// <summary>
+        /// subscribe to the next message in a group
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="timeout"></param>
+        /// <returns>Message</returns>
         public async Task<Message> SubscribeToNextGroupMessageAsync(int groupId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.GROUP && r.TargetGroupId == groupId).TimeoutAfter(timeout);
 
+        /// <summary>
+        /// Subscribe to the next message in a private conversation
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="timeout"></param>
+        /// <returns>Message</returns>
         public async Task<Message> SubscribeToNextPrivateMessageAsync(int subscriberId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.PRIVATE && r.SourceSubscriberId == subscriberId).TimeoutAfter(timeout);
 
+        /// <summary>
+        /// Subscribe to the next message in a group by a specific user
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="groupId"></param>
+        /// <param name="timeout"></param>
+        /// <returns>Message</returns>
         public async Task<Message> SubscribeToNextGroupUserMessageAsync(int subscriberId, int groupId, double timeout = Timeout.Infinite) => await SubscribeToNextMessageAsync(r => r.MessageType == MessageType.GROUP && r.TargetGroupId == groupId && r.SourceSubscriberId == subscriberId).TimeoutAfter(timeout);
 
+        /// <summary>
+        /// Request information about a link
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns>Response<LinkMetadata></returns>
         public async Task<Response<LinkMetadata>> LinkMetadataAsync(Uri uri) => await LinkMetadataAsync(uri.ToString());
-
+        /// <summary>
+        /// Request information about a link
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>Response<LinkMetadata></returns>
         public async Task<Response<LinkMetadata>> LinkMetadataAsync(string url) => await WebSocket.Emit<Response<LinkMetadata>>(Request.METADATA_URL, new { url });
 
+        /// <summary>
+        /// Request group message history
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="timestamp">First message timestamp</param>
+        /// <returns>Response<List<Message>></returns>
         public async Task<Response<List<Message>>> GetGroupHistoryAsync(int groupId, long timestamp = 0)
         {
             var result = await WebSocket.Emit<Response<List<BaseMessage>>>(Request.MESSAGE_GROUP_HISTORY_LIST, new
@@ -264,6 +341,11 @@ namespace WOLF.Net.Helper
             };
         }
 
+        /// <summary>
+        /// Request group message history by message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Response<List<Message>></returns>
         public async Task<Response<List<Message>>> GetGroupHistoryAsync(Message message)
         {
             if (message.MessageType != MessageType.GROUP)
@@ -271,7 +353,12 @@ namespace WOLF.Net.Helper
 
             return await GetGroupHistoryAsync(message.TargetGroupId, message.Timestamp);
         }
-
+        /// <summary>
+        /// Request subscriber message history
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="timestamp">First message timestamp</param>
+        /// <returns>Response<List<Message>></returns>
         public async Task<Response<List<Message>>> GetPrivateHistoryAsync(int subscriberId, long timestamp = 0)
         {
             var result = await WebSocket.Emit<Response<List<BaseMessage>>>(Request.MESSAGE_PRIVATE_HISTORY_LIST, new
@@ -295,6 +382,11 @@ namespace WOLF.Net.Helper
             };
         }
 
+        /// <summary>
+        /// Request subscriber message history by message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Response<List<Message>></returns>
         public async Task<Response<List<Message>>> GetPrivateHistoryAsync(Message message, long timestamp = 0)
         {
             if (message.MessageType != MessageType.PRIVATE)

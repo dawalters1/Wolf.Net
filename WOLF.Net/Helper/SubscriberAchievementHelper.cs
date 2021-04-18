@@ -13,7 +13,13 @@ namespace WOLF.Net.Helper
     public class SubscriberAchievementHelper : BaseHelper<SubscriberAchievement>
     {
         internal Dictionary<int, List<SubscriberAchievement>> _subscriber = new Dictionary<int, List<SubscriberAchievement>>();
-      
+
+        /// <summary>
+        /// Get a list of subscriber achievements
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>Response<List<SubscriberAchievement>></returns>
         public async Task<Response<List<SubscriberAchievement>>> GetByIdAsync(int subscriberId, bool requestNew = false)
         {
 

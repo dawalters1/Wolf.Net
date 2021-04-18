@@ -12,10 +12,28 @@ namespace WOLF.Net.Helper
 {
     public class SubscriberHelper : BaseHelper<Subscriber>
     {
+        /// <summary>
+        /// Get a subscriber by Id
+        /// </summary>
+        /// <param name="subscriberId"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>Subscriber</returns>
         public async Task<Subscriber> GetByIdAsync(int subscriberId, bool requestNew = false) => (await GetByIdsAsync(new List<int>() { subscriberId }, requestNew)).FirstOrDefault();
 
+        /// <summary>
+        /// Get a list of subscribers by Id
+        /// </summary>
+        /// <param name="subscriberIds"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List<Subscriber>></returns>
         public async Task<List<Subscriber>> GetByIdsAsync(List<int> subscriberIds, bool requestNew = false) => await GetByIdsAsync(subscriberIds.ToArray(), requestNew);
-
+     
+        /// <summary>
+        /// Get a list of subscribers by Id
+        /// </summary>
+        /// <param name="subscriberIds"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List<Subscriber>></returns>
         public async Task<List<Subscriber>> GetByIdsAsync(int[] subscriberIds, bool requestNew = false)
         {
             List<Subscriber> subscribers = new List<Subscriber>();

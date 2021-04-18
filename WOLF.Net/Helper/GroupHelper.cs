@@ -12,12 +12,34 @@ namespace WOLF.Net.Helper
 {
     public class GroupHelper : BaseHelper<Group>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Group profile builder</returns>
         public Builders.Profiles.Group CreateAsync() => new Builders.Profiles.Group(this.Bot); 
 
+        /// <summary>
+        /// Get a group by ID
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>Group</returns>
         public async Task<Group> GetByIdAsync(int groupId, bool requestNew = false) => (await GetByIdsAsync(new List<int>() { groupId }, requestNew)).FirstOrDefault();
 
+        /// <summary>
+        /// Get a list of groups by ID
+        /// </summary>
+        /// <param name="groupIds"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List of groups</returns>
         public async Task<List<Group>> GetByIdsAsync(List<int> groupIds, bool requestNew = false) => await GetByIdsAsync(groupIds.ToArray(), requestNew);
-
+       
+        /// <summary>
+        /// Get a list of groups by ID
+        /// </summary>
+        /// <param name="groupIds"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List of groups</returns>
         public async Task<List<Group>> GetByIdsAsync(int[] groupIds, bool requestNew = false)
         {
             List<Group> groups = new List<Group>();
@@ -51,6 +73,12 @@ namespace WOLF.Net.Helper
             return groups;
         }
 
+        /// <summary>
+        /// Get a group by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>Group</returns>
         public async Task<Group> GetByNameAsync(string name, bool requestNew = false)
         {
             if (!requestNew && cache.Any((group) => group.Name.IsEqual(name)))
@@ -73,6 +101,12 @@ namespace WOLF.Net.Helper
            return Process(result.Success ? result.Body.Compile() : new Group(name));
         }
 
+        /// <summary>
+        /// Get a groups subscriber list (member list)
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List of subscribers</returns>
         public async Task<List<Subscriber>> GetSubscribersListAsync(int groupId, bool requestNew = false)
         {
             var group = await GetByIdAsync(groupId);
@@ -102,20 +136,65 @@ namespace WOLF.Net.Helper
             return group.Subscribers;
         }
 
+        /// <summary>
+        /// Join a group by ID
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="password"></param>
+        /// <returns>Response</returns>
         public async Task<Response> JoinAsync(int groupId, string password = null) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_ADD, new { groupId, password });
 
+        /// <summary>
+        /// Join a group by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns>Response</returns>
         public async Task<Response> JoinAsync(string name, string password = null) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_ADD, new { name = name.ToLower(), password });
 
+        /// <summary>
+        /// Leave a group by ID
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns>Response</returns>
         public async Task<Response> LeaveAsync(int groupId) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_DELETE, new { groupId });
 
+        /// <summary>
+        /// Leave a group by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Response</returns>
         public async Task<Response> LeaveAsync(string name) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_DELETE, new { groupId = (await GetByNameAsync(name)).Id });
 
+        /// <summary>
+        /// Get group activity statistics
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns>Response<Stats></returns>
         public async Task<Response<Stats>> GetStatsAsync(int groupId) => await WebSocket.Emit<Response<Stats>>(Request.GROUP_STATS, new { id = groupId });
 
+        /// <summary>
+        /// Update a group subscribers role
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="subscriberId"></param>
+        /// <param name="capability"></param>
+        /// <returns>Response</returns>
         public async Task<Response> UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType capability) => await WebSocket.Emit<Response>(Request.GROUP_MEMBER_UPDATE, new { groupId, id = subscriberId, capability = (int)capability });
 
+        /// <summary>
+        /// Update a groups profile
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns>Group profile builder</returns>
         public Builders.Profiles.Group UpdateAsync(Group group) => new Builders.Profiles.Group(this.Bot, group);
 
+        /// <summary>
+        /// Get all the groups that a bot has requested
+        /// </summary>
+        /// <param name="joinedOnly"></param>
+        /// <param name="requestNew"></param>
+        /// <returns>List of groups</returns>
         public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
             if (this.cache.Where(r => r.InGroup).Count() > 0 && !requestNew)

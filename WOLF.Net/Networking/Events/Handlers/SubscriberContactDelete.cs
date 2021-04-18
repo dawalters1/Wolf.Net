@@ -20,7 +20,7 @@ namespace WOLF.Net.Networking.Events.Handlers
             }
             catch (Exception d)
             {
-                Bot._eventHandler.Emit(Internal.INTERNAL_ERROR, d.ToString());
+                Bot._eventHandler.Emit(Internal.ERROR, d.ToString());
             }
         }
     }

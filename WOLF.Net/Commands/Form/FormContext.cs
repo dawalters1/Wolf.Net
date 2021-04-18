@@ -19,7 +19,7 @@ namespace WOLF.Net.Commands.Form
 
         public async Task<Response<MessageResponse>> ReplyAsync(object content, bool includeEmbeds = false) => await SendMessageAsync(content, includeEmbeds);
 
-        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false) => await Bot.Messaging().SendMessageAsync(Command.IsGroup ? Command.TargetGroupId : Command.SourceSubscriberId, content, Command.MessageType, includeEmbeds);
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false) => await Bot.Messaging().SendMessageAsync(Message.IsGroup ? Message.TargetGroupId : Message.SourceSubscriberId, content, Message.MessageType, includeEmbeds);
 
         public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content, bool includeEmbeds = false) => await Bot.Messaging().SendPrivateMessageAsync(subscriberId, content, includeEmbeds);
 

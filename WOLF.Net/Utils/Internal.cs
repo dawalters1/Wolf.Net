@@ -13,8 +13,8 @@ namespace WOLF.Net.Utils
     {
         internal static KeyValuePair<string, string> GetTriggerAndLanguage(this WolfBot bot, string trigger, string content)
         {
-            if (!bot._usingTranslations)
-                return new KeyValuePair<string, string>("en", trigger);
+            if (!bot.Configuration.UseTranslations)
+                return new KeyValuePair<string, string>(bot.Configuration.DefaultLanguage.ToPhraseLanguage(), trigger);
 
             var phrase = bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList()
                 .OrderByDescending(r => r.Value.Length)

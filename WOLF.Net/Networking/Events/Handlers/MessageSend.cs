@@ -96,7 +96,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                         break;
                 }
 
-                if (Bot._ignoreBots && (await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId)).HasPrivilege(Enums.Subscribers.Privilege.BOT))
+                if (Bot.Configuration.IgnoreOfficialBots && (await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId)).HasPrivilege(Enums.Subscribers.Privilege.BOT))
                     return;
 
                 if (fixedMessage.SourceSubscriberId == Bot.CurrentSubscriber.Id|| Bot.Banned().IsBanned(fixedMessage.SourceSubscriberId))
@@ -106,14 +106,17 @@ namespace WOLF.Net.Networking.Events.Handlers
                 {
                     var subscriber = await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
+                    {
                         await Bot.Messaging().SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs {(subscriber.Extended.Gender == Enums.Subscribers.Gender.MALE ? "him" : subscriber.Extended.Gender == Enums.Subscribers.Gender.FEMALE ? "her" : "them")} to keep {(subscriber.Extended.Gender == Enums.Subscribers.Gender.MALE ? "his" : subscriber.Extended.Gender == Enums.Subscribers.Gender.FEMALE ? "her" : "their")} abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", fixedMessage.MessageType);
+                        return;
+                    }
                 }
 
                 Bot.On.Emit(Command, fixedMessage);
             }
             catch (Exception d)
             {
-                Bot.On.Emit(Internal.INTERNAL_ERROR, d.ToString());
+                Bot.On.Emit(Internal.ERROR, d.ToString());
             }
         }
     }

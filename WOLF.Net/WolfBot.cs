@@ -19,9 +19,6 @@ namespace WOLF.Net
 {
     public class WolfBot
     {
-        internal bool _usingTranslations { get; set; }
-        internal bool _ignoreBots { get; set; }
-
         /// <summary>
         /// The websocket instance for the bot
         /// </summary>
@@ -36,6 +33,8 @@ namespace WOLF.Net
         /// Houses the avatar end point and MMS endpoint
         /// </summary>
         public EndpointConfig EndPoints { get; private set; }
+
+        public Configuration Configuration { get; private set; } = new Configuration();
         /// <summary>
         /// The current subscriber logged in
         /// </summary>
@@ -56,12 +55,12 @@ namespace WOLF.Net
         internal Networking.Events.EventHandler _eventHandler;
 
         /// <summary>
-        /// 
+        /// Houses an manages the bots [Command] commands
         /// </summary>
         public CommandManager CommandManager { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Houses an manages the bots [Form] commands
         /// </summary>
         public FormManager FormManager { get; internal set; }
 
@@ -137,6 +136,16 @@ namespace WOLF.Net
         /// </summary>
         public Networking.Events.EventHandler On => _eventHandler;
 
+        /// <summary>
+        /// Log the bot in
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="loginDevice"></param>
+        /// <param name="onlineState"></param>
+        /// <param name="loginType"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task LoginAsync(string email, string password, LoginDevice loginDevice = LoginDevice.ANDROID, OnlineState onlineState = OnlineState.ONLINE, LoginType loginType = LoginType.EMAIL, string token = null)
         {
             LoginSettings = new LoginSetting(email, password, loginDevice, loginType, onlineState, token);
@@ -145,6 +154,10 @@ namespace WOLF.Net
             await _webSocket.CreateSocket();
         }
 
+        /// <summary>
+        /// Log the bot out
+        /// </summary>
+        /// <returns></returns>
         public async Task LogoutAsync()
         {
             await _webSocket.Emit<Response>(Request.SECURITY_LOGOUT);
@@ -156,21 +169,40 @@ namespace WOLF.Net
             _cleanUp();
         }
 
+        /// <summary>
+        /// Update the bots profile
+        /// </summary>
+        /// <returns>Subscriber profile builder</returns>
         public Builders.Profiles.Subscriber UpdateProfile() => new Builders.Profiles.Subscriber(this, this.CurrentSubscriber);
 
+        /// <summary>
+        /// Set the online state for the bot
+        /// </summary>
+        /// <param name="onlineState"></param>
+        /// <returns></returns>
         public async Task<Response> SetOnlineStateAsync(OnlineState onlineState) => await _webSocket.Emit<Response>(Request.SUBSCRIBER_SETTINGS_UPDATE, new { state = new { state = (int)onlineState } /* State inside state? wtf is this shit...*/ });
 
+        /// <summary>
+        /// Set charms for the bots profile
+        /// </summary>
+        /// <param name="charms"></param>
+        /// <returns></returns>
         public async Task<Response> SetCharmsAsync(params SelectedCharm[] charms) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_SET_SELECTED, new
         {
             selectedList = charms
         });
 
+        /// <summary>
+        /// Delete charms from the bots account
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public async Task<Response> DeleteCharmsAsync(params int[] ids) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_DELETE, new
         {
             idList = ids
         });
 
-        internal void _cleanUp(bool removeSocket = false)
+        internal void _cleanUp()
         {
             CurrentSubscriber = null;
             _subscriber.cache.Clear();
@@ -191,7 +223,7 @@ namespace WOLF.Net
         /// </summary>
         /// <param name="usingTranslations">If you are using Bot.Phrase()</param>
         /// <param name="ignoreBots">If you wish for Official bot messages not to be processed</param>
-        public WolfBot(bool usingTranslations = false, bool ignoreBots = false)
+        public WolfBot(Configuration configuration = null)
         {
             _webSocket = new WebSocket(this);
             _achievement = new BaseAchievementHelper(this, _webSocket);
@@ -208,8 +240,7 @@ namespace WOLF.Net
             _tip = new TipHelper(this, _webSocket);
             _eventHandler = new Networking.Events.EventHandler(this, _webSocket);
 
-            _usingTranslations = usingTranslations;
-            _ignoreBots = ignoreBots;
+            Configuration = configuration ?? this.Configuration;
 
             CommandManager = new CommandManager(this);
             FormManager = new FormManager(this);
@@ -221,15 +252,12 @@ namespace WOLF.Net
                 if (!await FormManager.ProcessMessage(msg))
                     await CommandManager.ProcessMessage(msg);
 
-                foreach (var subscription in _messaging._currentMessageSubscriptions.ToList())
+                _messaging._currentMessageSubscriptions.Where(r => r.Key(msg)).ToList().ForEach((match) =>
                 {
-                    if (!subscription.Key(msg))
-                        continue;
+                    _messaging._currentMessageSubscriptions.Remove(match.Key);
 
-                    _messaging._currentMessageSubscriptions.Remove(subscription.Key);
-
-                    subscription.Value.SetResult(msg);
-                }
+                    match.Value.SetResult(msg);
+                });
             };
         }
     }

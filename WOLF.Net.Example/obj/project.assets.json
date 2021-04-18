@@ -113,7 +113,7 @@
           "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       },
-      "WOLF.Net/5.0.0-beta2": {
+      "WOLF.Net/5.0.0-beta5": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -453,7 +453,7 @@
         "websocketsharp-netstandard.nuspec"
       ]
     },
-    "WOLF.Net/5.0.0-beta2": {
+    "WOLF.Net/5.0.0-beta5": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -461,7 +461,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 5.0.0-beta2"
+      "WOLF.Net >= 5.0.0-beta5"
     ]
   },
   "packageFolders": {
@@ -521,7 +521,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

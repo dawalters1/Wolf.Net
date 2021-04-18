@@ -16,29 +16,69 @@ using WOLF.Net.Enums.Subscribers;
 
 public static class Public
 {
-    public static string ToPhraseLanguage(Language language) => language switch
+    /// <summary>
+    /// Convert a language to phrase language
+    /// </summary>
+    /// <param name="language"></param>
+    /// <returns></returns>
+    public static string ToPhraseLanguage(this Language language) => language switch
     {
         Language.ARABIC => "ar",
-        Language.ENGLISH => "en",
-        Language.BAHASA_INDONESIA => "in",
+        Language.BAHASA_INDONESIA => "bin",
         Language.BRAZILIAN_PORTUGUESE => "brpt",
-        Language.DUTCH => "de",
-        Language.GERMAN => "de",
+        Language.BULGARIAN => "bu",
+        Language.CHINESE_SIMPLIFIED => "ch",
+        Language.CZECH => "cz",
+        Language.DANISH => "da",
+        Language.DUTCH => "du",
+        Language.ENGLISH => "en",
+        Language.ESTONIAN => "est",
+        Language.FINNISH => "fi",
+        Language.FRENCH => "fr",
+        Language.GERMAN => "ge",
+        Language.GREEK => "gr",
         Language.HINDI => "hi",
-        Language.LATIN_SPANISH => "es",
+        Language.HUNGARIAN => "hu",
+        Language.ITALIAN => "it",
+        Language.JAPANESE => "ja",
+        Language.KAZAKH => "ka",
+        Language.KOREAN => "ko",
+        Language.LATIN_SPANISH => "les",
+        Language.LATVIAN => "la",
+        Language.LITHUANIAN => "li",
+        Language.MALAY => "ma",
+        Language.NORWEGIAN => "no",
         Language.PERSIAN_FARSI => "fa",
-        Language.POLISH => "pl",
+        Language.POLISH => "po",
+        Language.PORTUGUESE => "pt",
         Language.RUSSIAN => "ru",
+        Language.SLOVAK => "sl",
         Language.SPANISH => "es",
         Language.SWEDISH => "sv",
+        Language.THAI => "th",
         Language.TURKISH => "tr",
-        _ => "en",
+        Language.UKRAINIAN => "uk",
+        Language.VIETNAMESE => "vi",
+        _ => "en"
     };
 
+    /// <summary>
+    /// Chunk a list into a lists of chunkSize
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source"></param>
+    /// <param name="chunkSize"></param>
+    /// <returns>List<List<T>></returns>
     public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize = 8) => source.Select((x, i) => new { Index = i, Value = x }).GroupBy(x => x.Index / chunkSize).Select(x => x.Select(v => v.Value).ToList()).ToList();
 
+    /// <summary>
+    /// Check to see if two strings are the same
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <returns>bool</returns>
     public static bool IsEqual(this string key, string value) => key != null && value != null && key.Trim().ToLower() == value.Trim().ToLower();
-    
+
     internal static string ToMD5(this string input)
     {
         using MD5 hash = MD5.Create();
@@ -52,6 +92,11 @@ public static class Public
         return sBuilder.ToString();
     }
 
+    /// <summary>
+    /// Get an image from url
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns>Bitmap</returns>
     public static async Task<Bitmap> DownloadImageFromUrl(this string url)
     {
         var tsk = new TaskCompletionSource<Bitmap>();
@@ -68,6 +113,11 @@ public static class Public
         return await tsk.Task;
     }
 
+    /// <summary>
+    /// Convert an image to bytes
+    /// </summary>
+    /// <param name="image"></param>
+    /// <returns>byte[]</returns>
     public static byte[] ToBytes(this Bitmap image)
     {
         using MemoryStream m = new MemoryStream();
@@ -77,6 +127,14 @@ public static class Public
         return m.ToArray();
     }
 
+    /// <summary>
+    /// Split a string into chunks of a specific length
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="max"></param>
+    /// <param name="splitChar"></param>
+    /// <param name="joinChar"></param>
+    /// <returns></returns>
     public static List<string> BatchString(this string text, int max, string splitChar = "\n", string joinChar = "\n")
     {
         var charCount = 0;
@@ -87,6 +145,11 @@ public static class Public
                     .ToList();
     }
 
+    /// <summary>
+    /// Convert all numbers in a string to english
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public static string ToEnglishNumbers(this string input)
     {
         string EnglishNumbers = "";
@@ -100,6 +163,11 @@ public static class Public
         return EnglishNumbers;
     }
 
+    /// <summary>
+    /// Convert all numbers in a string to arabic
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public static string ToArabicNumbers(this string input)
     {
         return input.Replace('0', '\u0660')
@@ -114,16 +182,34 @@ public static class Public
                 .Replace('9', '\u0669');
     }
 
-    public static string ToArabicNumbers(this int input) =>  input.ToString().ToArabicNumbers();
+    /// <summary>
+    /// Convert all numbers in a string to arabic
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    /// 
+    public static string ToArabicNumbers(this int input) => input.ToString().ToArabicNumbers();
 
-    public static string TrimAds(this string nickname)
+    /// <summary>
+    /// Remove all ads from a string
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public static string TrimAds(this string input)
     {
-        if (nickname.StartsWith("[") && nickname.EndsWith("]"))
-            nickname = nickname.TrimStart('[').TrimEnd(']');
+        if (input.StartsWith("[") && input.EndsWith("]"))
+            input = input.TrimStart('[').TrimEnd(']');
 
-        return Regex.Replace(nickname, @"\[.*?\]", string.Empty);
+        return Regex.Replace(input, @"\[.*?\]", string.Empty);
     }
 
+    /// <summary>
+    /// Timeout a task after specified milliseconds
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
+    /// <param name="task"></param>
+    /// <param name="timeoutInMilliseconds"></param>
+    /// <returns></returns>
     public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, double timeoutInMilliseconds = 60000)
     {
         if (timeoutInMilliseconds == Timeout.Infinite)
@@ -136,6 +222,12 @@ public static class Public
 
     }
 
+    /// <summary>
+    /// Timeout a task after specified milliseconds
+    /// </summary>
+    /// <param name="task"></param>
+    /// <param name="timeoutInMilliseconds"></param>
+    /// <returns></returns>
     public static async Task TimeoutAfter(this Task task, double timeoutInMilliseconds = 60000)
     {
         if (timeoutInMilliseconds == Timeout.Infinite)
@@ -145,8 +237,4 @@ public static class Public
         else
             throw new TimeoutException();
     }
-
-    private static readonly Privilege[] privileges = { Privilege.BOT, Privilege.STAFF, Privilege.ELITECLUB_1, Privilege.ELITECLUB_2, Privilege.ELITECLUB_3, Privilege.SELECTCLUB_1, Privilege.SELECTCLUB_2, Privilege.ENTERTAINER, Privilege.VOLUNTEER };
-
-    public static Privilege GetTag(this Subscriber subscriber) => privileges.Any(r => subscriber.Privileges.HasFlag(r)) ? privileges.FirstOrDefault(r => subscriber.Privileges.HasFlag(r)) : Privilege.SUBSCRIBER;
 }

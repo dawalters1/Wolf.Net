@@ -65,7 +65,7 @@ namespace WOLF.Net.Entities.Messages
         /// </summary>
         public bool IsGroup => MessageType != MessageType.PRIVATE;
 
-        public bool IsCommand => _bot.CommandManager.Commands.Any(command => _bot._usingTranslations ? _bot.Phrase().cache.Where(phrase => phrase.Name.IsEqual(command.Value.Trigger)).ToList().Any(phrase => Content.StartsWithCommand(phrase.Value)) : Content.StartsWith(command.Value.Trigger)) || _bot.FormManager.Forms.Any(form => _bot._usingTranslations ? _bot.Phrase().cache.Where(phrase => phrase.Name.IsEqual(form.Value.Trigger)).ToList().Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(form.Value.Trigger));
+        public bool IsCommand => _bot.CommandManager.Commands.Any(command => _bot.Configuration.UseTranslations ? _bot.Phrase().cache.Where(phrase => phrase.Name.IsEqual(command.Value.Trigger)).ToList().Any(phrase => Content.StartsWithCommand(phrase.Value)) : Content.StartsWith(command.Value.Trigger)) || _bot.FormManager.Forms.Any(form => _bot.Configuration.UseTranslations ? _bot.Phrase().cache.Where(phrase => phrase.Name.IsEqual(form.Value.Trigger)).ToList().Any(s => Content.StartsWithCommand(s.Value)) : Content.StartsWith(form.Value.Trigger));
 
 
         public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false)=> await (IsGroup?_bot.Messaging().SendGroupMessageAsync(TargetGroupId, content, includeEmbeds):_bot.Messaging().SendPrivateMessageAsync(SourceSubscriberId, content, includeEmbeds));
@@ -73,7 +73,7 @@ namespace WOLF.Net.Entities.Messages
 
         public async Task<Response<Message>> RestoreAsync() => await _bot.Messaging().RestoreAsync(this);
 
-        public async Task<Response> Tip(params TipCharm[] charms) => await _bot.Tip().AddAsync(this, charms);
+        public async Task<Response> Tip(params TipCharm[] charms) => await _bot.Tip().TipAsync(this, charms);
 
     }
 }

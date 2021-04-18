@@ -17,6 +17,7 @@ namespace WOLF.Net.Constants
         public const string CHARM_SUBSCRIBER_STATISTICS = "charm subscriber statistics";
         public const string CHARM_SUBSCRIBER_SET_SELECTED = "charm subscriber set selected";
         public const string CHARM_SUBSCRIBER_DELETE = "charm subscriber delete";
+        public const string CHARM_SUBSCRIBER_SUMMARY_LIST = "charm subscriber summary list";
 
         public const string GROUP_CREATE = "group create";
         public const string GROUP_DISCOVERY_LIST = "group discovery list";

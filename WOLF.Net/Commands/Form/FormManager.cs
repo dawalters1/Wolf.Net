@@ -178,7 +178,7 @@ namespace WOLF.Net.Commands.Form
                     if (message.IsCommand)
                         return false;
 
-                    var p = PrivateInstances[message.TargetGroupId];
+                    var p = PrivateInstances[message.SourceSubscriberId];
                     p.Key.Message = message;
                     p.Value(message.Content);
                     return true;
@@ -186,7 +186,7 @@ namespace WOLF.Net.Commands.Form
             }
             catch (Exception ex)
             {
-                _bot.On.Emit(Constants.Internal.INTERNAL_ERROR, ex);
+                _bot.On.Emit(Constants.Internal.ERROR, ex.ToString());
                 return false;
             }
 
@@ -327,14 +327,14 @@ namespace WOLF.Net.Commands.Form
             }
             catch (Exception ex)
             {
-                _bot.On.Emit(Constants.Internal.INTERNAL_ERROR, ex);
+                _bot.On.Emit(Constants.Internal.ERROR, ex.ToString());
             }
         }
 
         private async Task<bool> FindForm(Message message)
         {
 
-            if (_bot._usingTranslations)
+            if (_bot.Configuration.UseTranslations)
             {
                 var forms = Forms.Where(r => _bot.Phrase().cache.Any(s => s.Name.IsEqual(r.Value.Trigger))).ToList();
 
@@ -363,7 +363,7 @@ namespace WOLF.Net.Commands.Form
                     if (!await ValidateAttributes(form, message, commandData))
                         return false;
 
-                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot._ignoreBots)
+                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                         return true;
 
                     ExecuteForm(form, message, commandData, message.Content.Remove(0, phrase.Value.Length).Trim());
@@ -395,7 +395,7 @@ namespace WOLF.Net.Commands.Form
                     if (!await ValidateAttributes(form, message, commandData))
                         return false;
 
-                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot._ignoreBots)
+                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                         return true;
 
                     ExecuteForm(form, message, commandData, message.Content.Remove(0, form.Value.Trigger.Length).Trim());

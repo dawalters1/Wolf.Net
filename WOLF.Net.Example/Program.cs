@@ -12,7 +12,7 @@ namespace Wolf.Net.Example
         /// <summary>
         /// Create a new bot instance
         /// </summary>
-        public static WolfBot Bot = new WolfBot(true, true);
+        public static WolfBot Bot = new WolfBot(new Configuration(true, true));
 
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
@@ -62,7 +62,7 @@ namespace Wolf.Net.Example
                     return;
 
                 if (!message.IsGroup && !Bot.FormManager.HasPrivateForm(message.SourceSubscriberId))
-                    await Bot.Messaging().SendPrivateMessageAsync(message.SourceSubscriberId, Bot.Phrase().GetByName("en", "example_help_message"));
+                    await Bot.Messaging().SendPrivateMessageAsync(message.SourceSubscriberId, Bot.Phrase().GetByName(Bot.Configuration.DefaultLanguage.ToPhraseLanguage(), "example_help_message"));
             };
 
             Bot.On.MessageUpdated += message => Console.WriteLine($"[Message Updated]: Message has been udpated");

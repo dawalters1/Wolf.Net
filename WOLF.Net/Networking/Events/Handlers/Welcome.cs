@@ -56,7 +56,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                 else
                 {
 
-                    Bot._cleanUp(false);
+                    Bot._cleanUp();
 
                     Bot.CurrentSubscriber = data.LoggedInUser;
                 }
@@ -64,7 +64,7 @@ namespace WOLF.Net.Networking.Events.Handlers
             }
             catch (Exception d)
             {
-                Bot._eventHandler.Emit(Internal.INTERNAL_ERROR, d.ToString());
+                Bot._eventHandler.Emit(Internal.ERROR, d.ToString());
             }
         }
 
@@ -86,7 +86,7 @@ namespace WOLF.Net.Networking.Events.Handlers
             }
             catch (Exception d)
             {
-                Bot.On.Emit(Internal.INTERNAL_ERROR, d.ToString());
+                Bot.On.Emit(Internal.ERROR, d.ToString());
             }
         }
     }

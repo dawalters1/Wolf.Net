@@ -64,7 +64,6 @@ namespace WOLF.Net.Networking
 
         internal async Task CreateSocket()
         {
-            bool isReconnecting = false;
             _socket = new SocketIO($"{Host}:{Port}", new SocketIOOptions()
             {
                 AllowedRetryFirstConnection = true,

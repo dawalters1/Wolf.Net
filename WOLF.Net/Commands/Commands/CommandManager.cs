@@ -35,7 +35,7 @@ namespace WOLF.Net.Commands.Commands
             {
                 var trigger = command.Value.Trigger;
 
-                if (_bot._usingTranslations)
+                if (_bot.Configuration.UseTranslations)
                 {
                     var phrase = _bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
 
@@ -76,7 +76,7 @@ namespace WOLF.Net.Commands.Commands
 
             var phrase = _bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
             commandData.Argument = commandData.Argument[(phrase != null ? phrase.Value.Length : trigger.Length)..];
-            commandData.Language = phrase != null ? phrase.Language : "en";
+            commandData.Language = phrase != null ? phrase.Language : _bot.Configuration.DefaultLanguage.ToPhraseLanguage();
 
             ExecuteCommand(foundCollection, command, message, commandData);
         }
@@ -96,7 +96,7 @@ namespace WOLF.Net.Commands.Commands
             }
             catch
             {
-                _bot.On.Emit(Constants.Internal.INTERNAL_ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
+                _bot.On.Emit(Constants.Internal.ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
 
                 return true;
             }
@@ -191,7 +191,7 @@ namespace WOLF.Net.Commands.Commands
             if (!await ValidateAttributes(typeInstance, message, commandData))
                 return false;
 
-            if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot._ignoreBots)
+            if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                 return true;
 
             foreach (var subCollection in typeInstance.Value.TypeInstances)

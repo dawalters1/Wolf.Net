@@ -29,7 +29,7 @@ namespace Wolf.Net.Example.Commands
         public async Task Image() => await SendMessageAsync(await "https://i.imgur.com/fuwb6KH.jpg".DownloadImageFromUrl());
 
         [Command("example_command_tip")]
-        public async Task Tip() => await Bot.Tip().AddAsync(Message, new TipCharm(594, 1));
+        public async Task Tip() => await Bot.Tip().TipAsync(Message, new TipCharm(594, 1));
 
         [Command("example_command_join"), RequiredPermissions(Privilege.STAFF)]
         public async Task Join()

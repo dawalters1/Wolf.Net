@@ -229,7 +229,7 @@ namespace WOLF.Net.Networking.Events
             }
             catch (Exception d)
             {
-                _events[Internal.INTERNAL_ERROR]($"Event \"{name}\" error ", d.ToString());
+                _events[Internal.ERROR]($"Event \"{name}\" error ", d.ToString());
             }
         }
 
@@ -321,7 +321,7 @@ namespace WOLF.Net.Networking.Events
                 [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
                 [Internal.PING] = (a, b) => Ping(),
                 [Internal.PONG] = (a, b) => Pong((TimeSpan)a),
-                [Internal.INTERNAL_ERROR] = (a, b) => Error((string)a),
+                [Internal.ERROR] = (a, b) => Error((string)a),
                 [Internal.PRIVATE_MESSAGE_ACCEPT_RESPONSE] = (a,b)=>PrivateMessageRequestAccepted((Entities.Subscribers.Subscriber)a)
             };
         }
