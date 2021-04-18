@@ -14,7 +14,7 @@ namespace WOLF.Net.Entities.API
 
         public PhraseCount(List<Phrase> phrases)
         {
-            var languages = ((Language[])Enum.GetValues(typeof(Language))).Select((language) => language.ToPhraseLanguage()).ToList();
+            var languages = ((Language[])Enum.GetValues(typeof(Language))).Where((language)=>language!= Language.NOT_SPECIFIED).Select((language) => language.ToPhraseLanguage()).ToList();
 
             foreach (var language in languages)
                 CountPerLanguage.Add(language, phrases.Count((phrase) => phrase.Language.IsEqual(language)));
