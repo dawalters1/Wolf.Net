@@ -251,13 +251,6 @@ namespace WOLF.Net
             {
                 if (!await FormManager.ProcessMessage(msg))
                     await CommandManager.ProcessMessage(msg);
-
-                _messaging._currentMessageSubscriptions.Where(r => r.Key(msg)).ToList().ForEach((match) =>
-                {
-                    _messaging._currentMessageSubscriptions.Remove(match.Key);
-
-                    match.Value.SetResult(msg);
-                });
             };
         }
     }
