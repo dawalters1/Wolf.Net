@@ -33,20 +33,20 @@ namespace WOLF.Net.Utilities
 
             return key.Trim().ToLower() == value.Trim().ToLower();
         }
-        internal static KeyValuePair<string, byte[]> GetMimeTypeAndData(this object content)
+        /// <summary>
+        /// Convert an image to bytes
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns>byte[]</returns>
+        public static byte[] ToBytes(this Bitmap image)
         {
-            if (content.GetType() == typeof(Bitmap))
-            {
-                using MemoryStream m = new MemoryStream();
+            using MemoryStream m = new MemoryStream();
 
-                using var bitmap = ((Bitmap)content);
+            image.Save(m, ImageFormat.Jpeg);
 
-                bitmap.Save(m, ImageFormat.Jpeg);
-
-                return new KeyValuePair<string, byte[]>("image/jpeg", m.ToArray());
-            }
-            return new KeyValuePair<string, byte[]>("text/plain", Encoding.UTF8.GetBytes(content.ToString()));
+            return m.ToArray();
         }
+
         internal static string ToMD5(this string input)
         {
             using MD5 hash = MD5.Create();

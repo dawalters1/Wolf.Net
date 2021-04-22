@@ -73,12 +73,12 @@ namespace WOLF.Net.Entities.Messages
 
         #endregion
 
-        public async Task<Response<MessageResponse>> SendMessageAsync(object content)
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false)
         {
 
             if (IsGroup)
-                return await Bot.SendGroupMessageAsync(SourceTargetId, content);
-            return await Bot.SendPrivateMessageAsync(SourceSubscriberId, content);
+                return await Bot.SendGroupMessageAsync(SourceTargetId, content, includeEmbeds);
+            return await Bot.SendPrivateMessageAsync(SourceSubscriberId, content, includeEmbeds);
         }
 
         public async Task<Response<Message>> DeleteAsync() => await Bot.DeleteMessageAsync(this);

@@ -21,5 +21,11 @@ namespace WOLF.Net.Entities.Messages
 
         [JsonProperty("isBlacklisted")]
         public bool IsBlackListed { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
     }
 }

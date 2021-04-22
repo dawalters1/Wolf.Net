@@ -172,7 +172,9 @@ namespace WOLF.Net.Client.Events
         /// A subscriber tried to use a command they dont have the permissions to use
         /// </summary>
         public Action<FailedPermission> PermissionFailed = delegate { };
-
+       
+        public Action<Subscriber> PrivateMessageRequestAccepted = delegate { };
+        
         #endregion
 
         #region Messages
@@ -257,6 +259,7 @@ namespace WOLF.Net.Client.Events
                 [Request.TIP_ADD] = (a, b) => TipAdded((Tip)a),
                 [InternalEvent.PING] = (a, b) => Ping(),
                 [InternalEvent.PONG] = (a, b) => Pong((TimeSpan)a),
+                [InternalEvent.PRIVATE_MESSAGE_ACCEPT_RESPONSE] = (a, b) => PrivateMessageRequestAccepted((Entities.Subscribers.Subscriber)a)
             };
         }
 

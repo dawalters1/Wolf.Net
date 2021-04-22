@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WOLF.Net.Constants;
@@ -19,29 +21,149 @@ namespace WOLF.Net
     {
         internal Dictionary<Func<Message, bool>, TaskCompletionSource<Message>> currentMessageSubscriptions
            = new Dictionary<Func<Message, bool>, TaskCompletionSource<Message>>();
-
-        internal async Task<Response<MessageResponse>> SendMessageAsync(int recipient, object content, MessageType messageType)
+        internal bool PropertyExists(dynamic obj, string name)
         {
-            var mimeTypeAndData = content.GetMimeTypeAndData();
+            Type objType = obj.GetType();
 
-            return await WolfClient.Emit<MessageResponse>(Request.MESSAGE_SEND, new
+            if (objType == typeof(ExpandoObject))
             {
-                recipient,
-                isGroup = messageType == MessageType.Group,
-                mimeType = mimeTypeAndData.Key,
-                data = mimeTypeAndData.Value,
-                flightId = Guid.NewGuid()
-            });
+                return ((IDictionary<string, object>)obj).ContainsKey(name);
+            }
+
+            return objType.GetProperty(name) != null;
         }
 
-        public async Task<Response<MessageResponse>> SendGroupMessageAsync(int groupId, object content)
+        /// <summary>
+        /// Cancerous, but dont care it works
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="content"></param>
+        /// <param name="includeEmbeds"></param>
+        /// <returns></returns>
+        internal async Task<object> GetFormattingDataAsync(dynamic body, string content, bool includeEmbeds)
         {
-            return await SendMessageAsync(groupId, content, MessageType.Group);
+            dynamic formatting = new ExpandoObject();
+
+            var groupLinks = new List<dynamic>();
+
+            foreach (Match result in Regex.Matches(content, @"\[.*?\]"))
+            {
+                dynamic link = new ExpandoObject();
+                link.start = content.IndexOf(result.Value);
+                link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
+                link.name = result.Value.TrimStart('[').TrimEnd(']');
+
+                var group = await GetGroupAsync((string)link.name);
+
+                if (group.Exists)
+                    link.groupId = group.Id;
+
+                groupLinks.Add(link);
+            };
+
+            var links = Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
+            new
+            {
+                start = content.IndexOf(result.Value),
+                end = content.IndexOf(result.Value) + result.Value.Length - 1,
+                value = result.Value
+            }).ToList();
+
+            if (groupLinks.Count > 0 || links.Count > 0)
+            {
+                var data = new List<dynamic>();
+
+                if (groupLinks.Count > 0)
+                {
+                    data.AddRange(groupLinks);
+
+                    formatting.groupLinks = groupLinks.Select((link) =>
+                    {
+                        dynamic fixedLink = new ExpandoObject();
+                        fixedLink.start = link.start;
+                        fixedLink.end = link.end;
+
+                        if (PropertyExists(link, "groupId"))
+                            fixedLink.groupId = link.groupId;
+
+                        return fixedLink;
+                    }).ToList();
+                }
+                if (links.Count > 0)
+                {
+                    data.AddRange(links);
+                    formatting.links = links.Select((link) => new { link.start, link.end, url = link.value }).ToList();
+                }
+                body.metadata = new
+                {
+                    formatting
+                };
+
+                if (includeEmbeds && data.Count > 0)
+                {
+                    var embeds = new List<object>();
+
+                    foreach (dynamic link in data.OrderBy((link) => (int)link.start).ToList())
+                    {
+                        if (PropertyExists(link, "name") && PropertyExists(link, "groupId"))
+                        {
+                            embeds.Add(new
+                            {
+                                type = "groupPreview",
+                                link.groupId
+                            });
+
+                            continue;
+                        }
+                        else
+                        {
+                            var metadata = await LinkMetadataAsync((string)link.value);
+
+                            if (metadata.Success && !metadata.Body.IsBlackListed)
+                            {
+                                embeds.Add(new
+                                {
+                                    type = metadata.Body.ImageSize > 0 ? "imagePreview" : "linkPreview",
+                                    url = (string)link.value,
+                                    image = metadata.Body.ImageSize > 0 || string.IsNullOrWhiteSpace(metadata.Body.ImageUrl) ? null : (await Public.DownloadImageFromUrl(metadata.Body.ImageUrl)).ToBytes(),
+                                    title = metadata.Body.Title,
+                                    body = metadata.Body.Description
+                                }); ;
+
+                                break;
+                            }
+                        }
+                    }
+
+                    if (embeds.Count > 0)
+                        body.embeds = embeds;
+                }
+            }
+            return body;
+        }
+        internal async Task<Response<MessageResponse>> SendMessageAsync(int recipient, object content, MessageType messageType, bool includeEmbeds = false)
+        {
+            bool isImage = content.GetType() == typeof(Bitmap);
+
+            dynamic body = new ExpandoObject();
+
+            body.recipient = recipient;
+            body.isGroup = messageType == MessageType.Group;
+            body.mimeType = isImage ? "image/jpeg" : "text/plain";
+            body.data = !isImage ? Encoding.UTF8.GetBytes(content.ToString()) : ((Bitmap)content).ToBytes();
+            body.flightId = Guid.NewGuid();
+
+            return await WolfClient.Emit<MessageResponse>(Request.MESSAGE_SEND, isImage ? body : await GetFormattingDataAsync(body, content.ToString(), includeEmbeds));
         }
 
-        public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content)
+        public async Task<Response<MessageResponse>> SendGroupMessageAsync(int groupId, object content, bool includeEmbeds = false)
         {
-            return await SendMessageAsync(subscriberId, content, MessageType.Private);
+            return await SendMessageAsync(groupId, content, MessageType.Group, includeEmbeds);
+        }
+
+        public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content, bool includeEmbeds = false)
+        {
+            return await SendMessageAsync(subscriberId, content, MessageType.Private, includeEmbeds);
         }
 
         internal async Task<Response> GroupMessageSubscribeAsync()

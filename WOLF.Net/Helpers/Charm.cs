@@ -110,5 +110,10 @@ namespace WOLF.Net
                 idList = ids
             });
         }
+
+        public async Task<Response<List<CharmSummary>>> GetSubscriberCharmSummaryAsync(int subscriberId) => await WolfClient.Emit<List<CharmSummary>>(Request.CHARM_SUBSCRIBER_SUMMARY_LIST, new
+        {
+            id = subscriberId,
+        });
     }
 }

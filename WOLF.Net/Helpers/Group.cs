@@ -256,7 +256,7 @@ namespace WOLF.Net
             if (groupIds.Count == 0)
                 return groups;
 
-            var chunks = groupIds.ChunkBy(50).ToList();
+            var chunks = groupIds.Distinct().ToList().ChunkBy(50).ToList();
 
             foreach (var chunk in chunks)
             {

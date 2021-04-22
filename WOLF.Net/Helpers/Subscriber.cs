@@ -108,7 +108,7 @@ namespace WOLF.Net
             if (subscriberIds.Count == 0)
                 return subscribers;
 
-            var chunks = subscriberIds.ChunkBy(50).ToList();
+            var chunks = subscriberIds.Distinct().ToList().ChunkBy(50).ToList();
 
             foreach (var chunk in chunks)
             {

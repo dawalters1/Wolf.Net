@@ -92,7 +92,7 @@ namespace WOLF.Net.Client.Events.Handlers
                         break;
                     case ContentType.PrivateRequestResponse:
                         {
-                            Bot.On.Emit(InternalEvent.PRIVATE_MESSAGE_ACCEPT_RESPONSE, data.SourceSubscriberId);
+                            Bot.On.Emit(InternalEvent.PRIVATE_MESSAGE_ACCEPT_RESPONSE, await Bot.GetSubscriberAsync(data.SourceSubscriberId));
                         }
                         break;
                 }

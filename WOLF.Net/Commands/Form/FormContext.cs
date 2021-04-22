@@ -17,13 +17,13 @@ namespace WOLF.Net.Commands.Form
 
         public Message Message { get; set; }
 
-        public async Task<Response<MessageResponse>> ReplyAsync(object content) => await SendMessageAsync(content);
+        public async Task<Response<MessageResponse>> ReplyAsync(object content, bool includeEmbeds = false) => await SendMessageAsync(content, includeEmbeds);
 
-        public async Task<Response<MessageResponse>> SendMessageAsync(object content) => await Bot.SendMessageAsync(Command.SourceTargetId, content, Command.MessageType);
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false) => await Bot.SendMessageAsync(Message.IsGroup ? Message.SourceTargetId : Message.SourceSubscriberId, content, Message.MessageType, includeEmbeds);
 
-        public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content) => await Bot.SendPrivateMessageAsync(subscriberId, content);
+        public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content, bool includeEmbeds = false) => await Bot.SendPrivateMessageAsync(subscriberId, content, includeEmbeds);
 
-        public async Task<Response<MessageResponse>> SendGroupMessageAsync(int targetGroupId, object content) => await Bot.SendGroupMessageAsync(targetGroupId, content);
+        public async Task<Response<MessageResponse>> SendGroupMessageAsync(int targetGroupId, object content, bool includeEmbeds = false) => await Bot.SendGroupMessageAsync(targetGroupId, content, includeEmbeds);
 
         [JsonIgnore]
         public Action Finish { get; set; }
