@@ -2,6 +2,7 @@
 using SocketIOClient;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,15 +50,14 @@ namespace WOLF.Net.Networking
                 }
                 catch (Exception d)
                 {
-                    var result = default(T);
-
-                    (result as Response).Code = 400;
-                    (result as Response).Headers = new Dictionary<string, string>()
+                    dynamic error = new ExpandoObject();
+                    error.Code = 400;
+                    error.Headers = new Dictionary<string, string>()
                 {
                     { "message", d.Message }
                 };
 
-                    tsk.SetResult(result);
+                    tsk.SetResult(JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(error, Formatting.Indented)));
                 }
 
             }
