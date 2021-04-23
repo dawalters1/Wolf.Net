@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jUvI/DRDiOPR5q7NlGsPYif+/Mg/bO47fEBp19M4AVsgZd2565p9jeJqdkCAz7bwjX+BqqJ7EnvWj7fFmNpBxA==",
+  "dgSpecHash": "HGqXUUR97/tIyDeA7cRbxwIQPRKNRWbN4d9uPqthtGyAAieo7BBK5GBw+J1H7pLVGcmWdlb+P6a4xyiWN/ReEg==",
   "success": true,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
   "expectedPackageFiles": [
@@ -12,8 +12,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\wolf.net\\5.0.0-beta6\\wolf.net.5.0.0-beta6.nupkg.sha512"
+    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512"
   ],
   "logs": []
 }
