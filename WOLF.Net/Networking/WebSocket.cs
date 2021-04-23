@@ -36,41 +36,29 @@ namespace WOLF.Net.Networking
         public async Task<T> Emit<T>(string command, object data = null)
         {
             var tsk = new TaskCompletionSource<T>();
+
+            if (data != null && !data.HasProperty("body") && !data.HasProperty("headers"))
+                data = new { body = data };
+
+            _bot.On.Emit(Constants.Internal.PACKET_SENT, command, data);
             try
             {
-                if (data != null && !data.HasProperty("body") && !data.HasProperty("headers"))
-                    data = new { body = data };
-
-                _bot.On.Emit(Constants.Internal.PACKET_SENT, command, data);
-                try
-                {
-                    await _socket.EmitAsync(
-                        command, resp => tsk.SetResult(resp.GetValue<T>()),
-                        data);
-                }
-                catch (Exception d)
-                {
-                    dynamic error = new ExpandoObject();
-                    error.Code = 400;
-                    error.Headers = new Dictionary<string, string>()
+                await _socket.EmitAsync(
+                    command, resp => tsk.SetResult(resp.GetValue<T>()),
+                    data);
+            }
+            catch (Exception d)
+            {
+                dynamic error = new ExpandoObject();
+                error.Code = 400;
+                error.Headers = new Dictionary<string, string>()
                 {
                     { "message", d.Message }
                 };
 
-                    tsk.SetResult(JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(error, Formatting.Indented)));
-                }
-
+                tsk.SetResult(JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(error, Formatting.Indented)));
             }
-            catch (Exception d)
-            {
-                Console.WriteLine(d.Message);
-                Console.WriteLine($"Command: {command}");
-                Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-                Console.WriteLine($"Is bot null? " + _bot == null);
-                Console.WriteLine($"Websocket is null? " + _socket == null);
 
-                tsk.SetException(d);
-            }
 
             return await tsk.Task;
         }
