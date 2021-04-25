@@ -16,7 +16,7 @@ namespace WOLF.Net.Helper
         /// 
         /// </summary>
         /// <returns>Group profile builder</returns>
-        public Builders.Profiles.Group CreateAsync() => new Builders.Profiles.Group(this.Bot); 
+        public Builders.Profiles.Group CreateAsync() => new(this.Bot); 
 
         /// <summary>
         /// Get a group by ID
@@ -33,7 +33,7 @@ namespace WOLF.Net.Helper
         /// <param name="requestNew"></param>
         /// <returns>List of groups</returns>
         public async Task<List<Group>> GetByIdsAsync(List<int> groupIds, bool requestNew = false) => await GetByIdsAsync(groupIds.ToArray(), requestNew);
-       
+
         /// <summary>
         /// Get a list of groups by ID
         /// </summary>
@@ -42,6 +42,8 @@ namespace WOLF.Net.Helper
         /// <returns>List of groups</returns>
         public async Task<List<Group>> GetByIdsAsync(int[] groupIds, bool requestNew = false)
         {
+            groupIds = groupIds.Distinct().ToArray();
+
             List<Group> groups = new List<Group>();
 
             if (!requestNew)
@@ -49,25 +51,28 @@ namespace WOLF.Net.Helper
 
             if (groups.Count != groupIds.Length)
             {
-                var result = await WebSocket.Emit<Response<Dictionary<int, Response<GroupEntity>>>>(Request.GROUP_PROFILE, new
+                foreach (var batchGroupIdList in groupIds.Where((groupId) => !groups.Any((group) => group.Id == groupId)).ToList().ChunkBy(50))
                 {
-                    headers = new
+                    var result = await WebSocket.Emit<Response<Dictionary<int, Response<GroupEntity>>>>(Request.GROUP_PROFILE, new
                     {
-                        version = 4
-                    },
-                    body = new
-                    {
-                        idList = groupIds.Where((groupId) => !groups.Any((group) => group.Id == groupId)).ToList(),
-                        subscribe = true,
-                        entities = new List<string>() { "base", "extended", "audioCounts", "audioConfig" }
-                    }
-                });
+                        headers = new
+                        {
+                            version = 4
+                        },
+                        body = new
+                        {
+                            idList = batchGroupIdList,
+                            subscribe = true,
+                            entities = new List<string>() { "base", "extended", "audioCounts", "audioConfig" }
+                        }
+                    });
 
-                if (result.Success)
-                    foreach (var group in result.Body)
-                        groups.Add(Process(group.Value.Success ? group.Value.Body.Compile() : new Group(group.Key)));
-                else
-                    groups.AddRange(groupIds.Where((groupId) => !groups.Any((group) => group.Id == groupId)).ToList().Select(r => new Group(r)).ToList());
+                    if (result.Success)
+                        foreach (var group in result.Body)
+                            groups.Add(Process(group.Value.Success ? group.Value.Body.Compile() : new Group(group.Key)));
+                    else
+                        groups.AddRange(groupIds.Where((groupId) => !groups.Any((group) => group.Id == groupId)).ToList().Select(r => new Group(r)).ToList());
+                }
             }
 
             return groups;
@@ -187,7 +192,7 @@ namespace WOLF.Net.Helper
         /// </summary>
         /// <param name="group"></param>
         /// <returns>Group profile builder</returns>
-        public Builders.Profiles.Group UpdateAsync(Group group) => new Builders.Profiles.Group(this.Bot, group);
+        public Builders.Profiles.Group UpdateAsync(Group group) => new (this.Bot, group);
 
         /// <summary>
         /// Get all the groups that a bot has requested
@@ -197,30 +202,32 @@ namespace WOLF.Net.Helper
         /// <returns>List of groups</returns>
         public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
-            if (this.cache.Where(r => r.InGroup).Count() > 0 && !requestNew)
-                return joinedOnly ? this.cache.Where(r => r.InGroup).ToList() : this.cache.ToList();
-
-            var joinedGroups = await WebSocket.Emit<Response<List<SubscriberGroup>>>(Request.SUBSCRIBER_GROUP_LIST, new
+            if (this.cache.Where(r => r.InGroup).Count() <= 0 || requestNew)
             {
-                subscribe = true
-            });
-
-            if (joinedGroups.Success)
-            {
-                var groups = await GetByIdsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
-
-                foreach (var group in groups)
+                var joinedGroups = await WebSocket.Emit<Response<List<SubscriberGroup>>>(Request.SUBSCRIBER_GROUP_LIST, new
                 {
-                    group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
-                    group.InGroup = true;
-                    if (requestNew && group.Subscribers.Count > 0)
-                        await GetSubscribersListAsync(group.Id);
-                }
+                    subscribe = true
+                });
 
-                return groups;
+                if (joinedGroups.Success)
+                {
+                    var groups = await GetByIdsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
+
+                    foreach (var group in groups)
+                    {
+                        group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
+                        group.InGroup = true;
+                        if (requestNew && group.Subscribers.Count > 0)
+                            await GetSubscribersListAsync(group.Id);
+                    }
+
+                    return groups;
+                }
+                else
+                    return new List<Group>();
             }
-            else
-                return new List<Group>();
+
+            return joinedOnly ? this.cache.Where(r => r.InGroup).ToList() : this.cache.ToList();
         }
 
         internal Group Process(Group group)

@@ -137,6 +137,9 @@ public static class Public
     /// <returns></returns>
     public static List<string> BatchString(this string text, int max, string splitChar = "\n", string joinChar = "\n")
     {
+        if (text.Length <= max)
+            return new List<string>() { text };
+
         var charCount = 0;
         var lines = text.Split(new[] { splitChar }, StringSplitOptions.RemoveEmptyEntries);
         return lines.GroupBy(w => (charCount += (((charCount % max) + w.Length + 1 >= max)

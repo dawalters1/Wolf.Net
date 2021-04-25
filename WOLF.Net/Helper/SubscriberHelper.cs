@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
@@ -27,7 +25,7 @@ namespace WOLF.Net.Helper
         /// <param name="requestNew"></param>
         /// <returns>List<Subscriber>></returns>
         public async Task<List<Subscriber>> GetByIdsAsync(List<int> subscriberIds, bool requestNew = false) => await GetByIdsAsync(subscriberIds.ToArray(), requestNew);
-     
+
         /// <summary>
         /// Get a list of subscribers by Id
         /// </summary>
@@ -36,6 +34,8 @@ namespace WOLF.Net.Helper
         /// <returns>List<Subscriber>></returns>
         public async Task<List<Subscriber>> GetByIdsAsync(int[] subscriberIds, bool requestNew = false)
         {
+            subscriberIds = subscriberIds.Distinct().ToArray();
+
             List<Subscriber> subscribers = new List<Subscriber>();
 
             if (!requestNew)
@@ -43,25 +43,29 @@ namespace WOLF.Net.Helper
 
             if (subscribers.Count != subscriberIds.Length)
             {
-                var result = await WebSocket.Emit<Response<Dictionary<int, Response<Subscriber>>>>(Request.SUBSCRIBER_PROFILE, new
+                foreach (var batchSubscriberIdList in subscriberIds.Where((subscriberId) => !subscribers.Any((subscriber) => subscriber.Id == subscriberId)).ToList().ChunkBy(50))
                 {
-                    headers = new
+                    var result = await WebSocket.Emit<Response<Dictionary<int, Response<Subscriber>>>>(Request.SUBSCRIBER_PROFILE, new
                     {
-                        version = 4
-                    },
-                    body = new
-                    {
-                        idList = subscriberIds.Where((subscriberId) => !subscribers.Any((subscriber) => subscriber.Id == subscriberId)).ToList(),
-                        subscribe = true,
-                        extended = true
-                    }
-                });
+                        headers = new
+                        {
+                            version = 4
+                        },
+                        body = new
+                        {
+                            idList = batchSubscriberIdList,
+                            subscribe = true,
+                            extended = true
+                        }
 
-                if (result.Success)
-                    foreach (var subscriber in result.Body)
-                        subscribers.Add(Process(subscriber.Value.Success ? subscriber.Value.Body : new Subscriber(subscriber.Key)));
-                else
-                    subscribers.AddRange(subscriberIds.Where((subscriberId) => !subscribers.Any((subscriber) => subscriber.Id == subscriberId)).ToList().Select(r => new Subscriber(r)).ToList());
+                    });
+
+                    if (result.Success)
+                        foreach (var subscriber in result.Body)
+                            subscribers.Add(Process(subscriber.Value.Success ? subscriber.Value.Body : new Subscriber(subscriber.Key)));
+                    else
+                        subscribers.AddRange(subscriberIds.Where((subscriberId) => !subscribers.Any((subscriber) => subscriber.Id == subscriberId)).ToList().Select(r => new Subscriber(r)).ToList());
+                }
             }
 
             return subscribers;

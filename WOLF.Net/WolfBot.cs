@@ -11,6 +11,7 @@ using WOLF.Net.Entities.Charms;
 using WOLF.Net.Entities.Misc;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.API;
+using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
 using WOLF.Net.Helper;
 using WOLF.Net.Networking;
@@ -200,6 +201,26 @@ namespace WOLF.Net
         public async Task<Response> DeleteCharmsAsync(params int[] ids) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_DELETE, new
         {
             idList = ids
+        });
+
+        /// <summary>
+        /// Get bot message settings
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Response<MessageSetting>> GetMessageSettingsAsync() => await _webSocket.Emit<Response<MessageSetting>>(Request.MESSAGE_SETTING);
+
+        /// <summary>
+        /// Update bot message settings
+        /// </summary>
+        /// <param name="messageFilterType"></param>
+        /// <returns></returns>
+        public async Task<Response> UpdateMessageSettingsAsync(MessageFilterType messageFilterType) => await _webSocket.Emit<Response>(Request.MESSAGE_SETTING_UPDATE, new
+        {
+            spamFilter = new
+            {
+                enabled = messageFilterType != MessageFilterType.OFF,
+                tier = (int)messageFilterType
+            },
         });
 
         internal void _cleanUp()

@@ -39,6 +39,8 @@ namespace WOLF.Net.Constants
         public const string MESSAGE_GROUP_HISTORY_LIST = "message group history list";
         public const string MESSAGE_PRIVATE_HISTORY_LIST = "message private history list";
         public const string METADATA_URL = "metadata url";
+        public const string MESSAGE_SETTING = "message setting";
+        public const string MESSAGE_SETTING_UPDATE = "message setting update";
 
         public const string NOTIFICATION_LIST = "notification list";
         public const string NOTIFICATION_LIST_CLEAR = "notification list clear";
