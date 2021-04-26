@@ -16,7 +16,7 @@ namespace WOLF.Net.Utilities
         {
             dynamic link = new ExpandoObject();
             link.start = content.IndexOf(result.Value);
-            link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
+            link.end = content.IndexOf(result.Value) + result.Value.Length;
 
             var group = await bot.GetGroupAsync(content.Substring(link.start + 1, result.Value.Length - 2));
 
@@ -24,7 +24,6 @@ namespace WOLF.Net.Utilities
                 link.groupId = group.Id;
             return link;
         }))).ToList();
-
         internal static List<dynamic> GetLinksFromMessageAsync(this WolfBot bot, string content) => Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
         {
             dynamic link = new ExpandoObject();
@@ -32,17 +31,18 @@ namespace WOLF.Net.Utilities
 
             link.start = content.IndexOf(result.Value);
             link.end = content.IndexOf(result.Value) + result.Value.Length;
-            link.value = result.Value;
+            link.url = result.Value;
 
             return link;
         }).ToList();
-
         internal static KeyValuePair<string, string> GetTriggerAndLanguage(this WolfBot bot, string trigger, string content)
         {
             if (!bot.UsingTranslations)
                 return new KeyValuePair<string, string>("en", trigger);
 
-            var phrase = bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value.ToLower()));
+            var phrase = bot.GetAllPhrasesByName(trigger).Where(r => r.Name.IsEqual(trigger)).ToList()
+                .OrderByDescending(r => r.Value.Length)
+                .FirstOrDefault(r => content.ToLower().StartsWith(r.Value.ToLower()));
 
             if (phrase != null)
                 return new KeyValuePair<string, string>(phrase.Language, phrase.Value);

@@ -73,16 +73,16 @@ namespace WOLF.Net
 
                             foreach (dynamic link in data.OrderBy((link) => (int)link.start).ToList())
                             {
-                                if (PropertyExists(link, "value"))
+                                if (PropertyExists(link, "url"))
                                 {
-                                    var metadata = await this.LinkMetadataAsync((string)link.value);
+                                    var metadata = await LinkMetadataAsync((string)link.url);
 
                                     if (metadata.Success && !metadata.Body.IsBlackListed)
                                     {
                                         embeds.Add(new
                                         {
                                             type = metadata.Body.ImageSize > 0 ? "imagePreview" : "linkPreview",
-                                            url = (string)link.value,
+                                            url = (string)link.url,
                                             image = metadata.Body.ImageSize > 0 || string.IsNullOrWhiteSpace(metadata.Body.ImageUrl) ? null : (await Public.DownloadImageFromUrl(metadata.Body.ImageUrl)).ToBytes(),
                                             title = metadata.Body.Title,
                                             body = metadata.Body.Description
