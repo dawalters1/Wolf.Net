@@ -21,6 +21,7 @@ namespace Wolf.Net.Example
         public async Task Main()
 #pragma warning restore CA1822 // Mark members as static
         {
+
             Bot.Phrase().Load(JsonConvert.DeserializeObject<Phrase[]>(File.ReadAllText($"{AppDomain.CurrentDomain.BaseDirectory}/Phrases/en.json")));
 
             #region WS events

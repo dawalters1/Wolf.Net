@@ -16,7 +16,7 @@ namespace WOLF.Net.Helper
         /// 
         /// </summary>
         /// <returns>Group profile builder</returns>
-        public Builders.Profiles.Group CreateAsync() => new(this.Bot); 
+        public Builders.Profiles.Group CreateAsync() => new Builders.Profiles.Group(Bot); 
 
         /// <summary>
         /// Get a group by ID
@@ -192,7 +192,7 @@ namespace WOLF.Net.Helper
         /// </summary>
         /// <param name="group"></param>
         /// <returns>Group profile builder</returns>
-        public Builders.Profiles.Group UpdateAsync(Group group) => new (this.Bot, group);
+        public Builders.Profiles.Group UpdateAsync(Group group) => new Builders.Profiles.Group(Bot, group);
 
         /// <summary>
         /// Get all the groups that a bot has requested
@@ -202,7 +202,7 @@ namespace WOLF.Net.Helper
         /// <returns>List of groups</returns>
         public async Task<List<Group>> ListAsync(bool joinedOnly = false, bool requestNew = false)
         {
-            if (this.cache.Where(r => r.InGroup).Count() <= 0 || requestNew)
+            if (cache.Where(r => r.InGroup).Count() <= 0 || requestNew)
             {
                 var joinedGroups = await WebSocket.Emit<Response<List<SubscriberGroup>>>(Request.SUBSCRIBER_GROUP_LIST, new
                 {

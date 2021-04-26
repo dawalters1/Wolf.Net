@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,12 +12,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WOLF.Net;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
 
 public static class Public
 {
+
     /// <summary>
     /// Convert a language to phrase language
     /// </summary>
@@ -84,7 +88,8 @@ public static class Public
         using MD5 hash = MD5.Create();
         byte[] data = hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
-        StringBuilder sBuilder = new StringBuilder();
+        StringBuilder sBuilder = new 
+            StringBuilder();
 
         for (int i = 0; i < data.Length; i++)
             sBuilder.Append(data[i].ToString("x2"));

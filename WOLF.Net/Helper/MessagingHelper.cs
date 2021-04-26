@@ -45,100 +45,69 @@ namespace WOLF.Net.Helper
         {
             dynamic formatting = new ExpandoObject();
 
-            var groupLinks = new List<dynamic>();
+            var ads = await Bot.GetGroupAdsFromMessageAsync(content);
 
+            var urls = Bot.GetLinksFromMessageAsync(content);
 
-            foreach (Match result in Regex.Matches(content, @"\[.*?\]"))
+            if (ads.Count > 0 || urls.Count > 0)
             {
-                dynamic link = new ExpandoObject();
-                link.start = content.IndexOf(result.Value);
-                link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
-                link.name = result.Value.TrimStart('[').TrimEnd(']');
 
-                var group = await Bot.Group().GetByNameAsync((string)link.name);
+                if (ads.Count > 0)
+                    formatting.groupLinks = ads;
+                if (urls.Count > 0)
+                    formatting.links = urls;
 
-                if (group.Exists)
-                    link.groupId = group.Id;
-
-                groupLinks.Add(link);
-            };
-
-            var links = Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
-            new
-            {
-                start = content.IndexOf(result.Value),
-                end = content.IndexOf(result.Value) + result.Value.Length - 1,
-                value = result.Value
-            }).ToList();
-
-            if (groupLinks.Count > 0 || links.Count > 0)
-            {
-                var data = new List<dynamic>();
-
-                if (groupLinks.Count > 0)
+                if (PropertyExists(formatting, "groupLinks") || PropertyExists(formatting, "links"))
                 {
-                    data.AddRange(groupLinks);
-
-                    formatting.groupLinks = groupLinks.Select((link) =>
+                    body.metadata = new
                     {
-                        dynamic fixedLink = new ExpandoObject();
-                        fixedLink.start = link.start;
-                        fixedLink.end = link.end;
+                        formatting
+                    };
 
-                        if (PropertyExists(link, "groupId"))
-                            fixedLink.groupId = link.groupId;
-
-                        return fixedLink;
-                    }).ToList();
-                }
-                if (links.Count > 0)
-                {
-                    data.AddRange(links);
-                    formatting.links = links.Select((link) => new { link.start, link.end, url = link.value }).ToList();
-                }
-                body.metadata = new
-                {
-                    formatting
-                };
-
-                if (includeEmbeds && data.Count > 0)
-                {
-                    var embeds = new List<object>();
-
-                    foreach (dynamic link in data.OrderBy((link) => (int)link.start).ToList())
+                    if (includeEmbeds)
                     {
-                        if (PropertyExists(link, "name") && PropertyExists(link, "groupId"))
-                        {
-                            embeds.Add(new
-                            {
-                                type = "groupPreview",
-                                link.groupId
-                            });
+                        var data = ads.Concat(urls);
 
-                            continue;
-                        }
-                        else
+                        if (data.Any())
                         {
-                            var metadata = await Bot.Messaging().LinkMetadataAsync((string)link.value);
+                            var embeds = new List<object>();
 
-                            if (metadata.Success && !metadata.Body.IsBlackListed)
+                            foreach (dynamic link in data.OrderBy((link) => (int)link.start).ToList())
                             {
-                                embeds.Add(new
+                                if (PropertyExists(link, "value"))
                                 {
-                                    type = metadata.Body.ImageSize > 0 ? "imagePreview" : "linkPreview",
-                                    url = (string)link.value,
-                                    image = metadata.Body.ImageSize > 0 || string.IsNullOrWhiteSpace(metadata.Body.ImageUrl) ? null : (await Public.DownloadImageFromUrl(metadata.Body.ImageUrl)).ToBytes(),
-                                    title = metadata.Body.Title,
-                                    body = metadata.Body.Description
-                                });
+                                    var metadata = await Bot.Messaging().LinkMetadataAsync((string)link.value);
 
-                                break;
+                                    if (metadata.Success && !metadata.Body.IsBlackListed)
+                                    {
+                                        embeds.Add(new
+                                        {
+                                            type = metadata.Body.ImageSize > 0 ? "imagePreview" : "linkPreview",
+                                            url = (string)link.value,
+                                            image = metadata.Body.ImageSize > 0 || string.IsNullOrWhiteSpace(metadata.Body.ImageUrl) ? null : (await Public.DownloadImageFromUrl(metadata.Body.ImageUrl)).ToBytes(),
+                                            title = metadata.Body.Title,
+                                            body = metadata.Body.Description
+                                        });
+
+                                        break;
+                                    }
+                                }
+                                else if(PropertyExists(link, "groupId"))
+                                {
+                                    embeds.Add(new
+                                    {
+                                        type = "groupPreview",
+                                        link.groupId
+                                    });
+
+                                    continue;
+                                }
                             }
+
+                            if (embeds.Count > 0)
+                                body.embeds = embeds;
                         }
                     }
-
-                    if (embeds.Count > 0)
-                        body.embeds = embeds;
                 }
             }
             return body;
