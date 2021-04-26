@@ -1,8 +1,8 @@
-D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.AssemblyInfoInputs.cache
-D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.AssemblyInfo.cs
-D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netstandard2.1\WOLF.Net.deps.json
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netstandard2.1\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netstandard2.1\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.AssemblyInfoInputs.cache
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.AssemblyInfo.cs
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.pdb

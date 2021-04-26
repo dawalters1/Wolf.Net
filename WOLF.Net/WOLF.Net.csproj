@@ -10,7 +10,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon></ApplicationIcon>
     <PackageReleaseNotes>Added SubscriberCharmSummary
 Added WOLF V10.9 message formatting
