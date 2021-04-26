@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "WOLF.Net/5.0.0-beta9": {
+      "WOLF.Net/5.0.0-beta10": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
           "SocketIOClient": "2.1.7",
@@ -107,7 +107,7 @@
     }
   },
   "libraries": {
-    "WOLF.Net/5.0.0-beta9": {
+    "WOLF.Net/5.0.0-beta10": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -16,7 +16,7 @@ namespace WOLF.Net.Utils
         {
             dynamic link = new ExpandoObject();
             link.start = content.IndexOf(result.Value);
-            link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
+            link.end = content.IndexOf(result.Value) + result.Value.Length;
 
             var group = await bot.Group().GetByNameAsync(content.Substring(link.start + 1, result.Value.Length - 2));
 
@@ -30,8 +30,8 @@ namespace WOLF.Net.Utils
 
 
            link.start = content.IndexOf(result.Value);
-           link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
-           link.value = result.Value;
+           link.end = content.IndexOf(result.Value) + result.Value.Length;
+           link.url = result.Value;
 
            return link;
        }).ToList();
