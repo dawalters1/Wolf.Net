@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0;</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <Version>4.2.9</Version>
+    <Version>4.2.10</Version>
     <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
     <PackageTags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</PackageTags>
     <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>
@@ -15,7 +15,8 @@
     <PackageReleaseNotes>Added SubscriberCharmSummary
 Added WOLF V10.9 message formatting
 Added 'private message accept response' event
-Fixed issues with Command and Form message sending</PackageReleaseNotes>
+Fixed issues with Command and Form message sending
+Fixed formatting issue</PackageReleaseNotes>
     <Authors>David Walters</Authors>
   </PropertyGroup>
 

@@ -1,14 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using WOLF.Net.Enums.Groups;
 
 namespace WOLF.Net.Utilities
 {
     internal static class Internal
     {
+        internal static async Task<List<dynamic>> GetGroupAdsFromMessageAsync(this WolfBot bot, string content) => (await Task.WhenAll(Regex.Matches(content, @"\[.*?\]").Select(async (result) =>
+        {
+            dynamic link = new ExpandoObject();
+            link.start = content.IndexOf(result.Value);
+            link.end = content.IndexOf(result.Value) + result.Value.Length - 1;
+
+            var group = await bot.GetGroupAsync(content.Substring(link.start + 1, result.Value.Length - 2));
+
+            if (group.Exists)
+                link.groupId = group.Id;
+            return link;
+        }))).ToList();
+
+        internal static List<dynamic> GetLinksFromMessageAsync(this WolfBot bot, string content) => Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
+        {
+            dynamic link = new ExpandoObject();
+
+
+            link.start = content.IndexOf(result.Value);
+            link.end = content.IndexOf(result.Value) + result.Value.Length;
+            link.value = result.Value;
+
+            return link;
+        }).ToList();
+
         internal static KeyValuePair<string, string> GetTriggerAndLanguage(this WolfBot bot, string trigger, string content)
         {
             if (!bot.UsingTranslations)
