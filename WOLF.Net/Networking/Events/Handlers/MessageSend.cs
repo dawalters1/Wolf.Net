@@ -109,7 +109,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                     var subscriber = await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
                     {
-                        await Bot.Messaging().SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs {(subscriber.Extended.Gender == Enums.Subscribers.Gender.MALE ? "him" : subscriber.Extended.Gender == Enums.Subscribers.Gender.FEMALE ? "her" : "them")} to keep {(subscriber.Extended.Gender == Enums.Subscribers.Gender.MALE ? "his" : subscriber.Extended.Gender == Enums.Subscribers.Gender.FEMALE ? "her" : "their")} abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", fixedMessage.MessageType);
+                        await Bot.Messaging().SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, $"I'd love to stay and chat, but I'm lying.\nWDN: {Assembly.GetExecutingAssembly().GetName().Version}", fixedMessage.MessageType);
                         return;
                     }
                 }
