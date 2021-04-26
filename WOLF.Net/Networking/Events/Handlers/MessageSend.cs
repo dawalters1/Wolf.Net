@@ -14,6 +14,14 @@ namespace WOLF.Net.Networking.Events.Handlers
 {
     public class MessageSend : BaseEvent<BaseMessage>
     {
+        private List<string> secrets = new List<string>()
+        {
+            "I'd love to stay and chat, but I'm lying.\nWDN: {0}",
+            "Hey, I found your nose... It was in my Business\nWDN: {0}",
+            "Beep Boo Boo Beep\nWDN: {0}",
+            "In my defense, I was left unsupervised\nWDN: {0}",
+            "I am a bot using\nWDN: {0}"
+        };
         public override string Command => Event.MESSAGE_SEND;
 
         public override bool ReturnBody => true;
@@ -109,7 +117,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                     var subscriber = await Bot.Subscriber().GetByIdAsync(fixedMessage.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
                     {
-                        await Bot.Messaging().SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, $"I'd love to stay and chat, but I'm lying.\nWDN: {Assembly.GetExecutingAssembly().GetName().Version}", fixedMessage.MessageType);
+                        await Bot.Messaging().SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, string.Format(secrets.OrderBy((secret) => Guid.NewGuid()).FirstOrDefault(), Assembly.GetExecutingAssembly().GetName().Version), fixedMessage.MessageType);
                         return;
                     }
                 }
