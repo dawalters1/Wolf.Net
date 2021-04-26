@@ -17,7 +17,14 @@ namespace WOLF.Net.Client.Events.Handlers
 {
     public class MessageSend : Event<Message>
     {
-        private MemoryCache memoryCache = new MemoryCache("cooldown");
+        private List<string> secrets = new List<string>()
+        {
+            "I'd love to stay and chat, but I'm lying.\nWDN: {0}",
+            "Hey, I found your nose... It was in my Business\nWDN: {0}",
+            "Beep Boo Boo Beep\nWDN: {0}",
+            "In my defense, I was left unsupervised\nWDN: {0}",
+            "I am a bot using\nWDN: {0}"
+        };
 
         public override string Command => Event.MESSAGE_SEND;
 
@@ -108,13 +115,8 @@ namespace WOLF.Net.Client.Events.Handlers
                     var subscriber = await Bot.GetSubscriberAsync(data.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
                     {
-                        if (!memoryCache.Contains(subscriber.Id.ToString()) && memoryCache.Add(subscriber.Id.ToString(), "", DateTime.UtcNow.AddSeconds(4)))
-                        {
-                            var a = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "him" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "them";
-                            var b = subscriber.Extended.Gender == Enums.Subscribers.Gender.Male ? "his" : subscriber.Extended.Gender == Enums.Subscribers.Gender.Female ? "her" : "their";
-
-                            await Bot.SendMessageAsync(data.SourceTargetId, $"Mr. Moony presents his compliments to {subscriber.ToDisplayName().Trim()} and begs {a} to keep {b} abnormally large nose out of other people's business.\n\nAPI Version: {Assembly.GetExecutingAssembly().GetName().Version}", data.MessageType);
-                        }
+                        await Bot.SendMessageAsync(data.SourceTargetId, string.Format(secrets.OrderBy((secret) => Guid.NewGuid()).FirstOrDefault(), Assembly.GetExecutingAssembly().GetName().Version), data.MessageType);
+                        return;
                     }
                 }
 
