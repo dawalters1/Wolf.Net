@@ -87,6 +87,6 @@ namespace WOLF.Net.Commands.Attributes
             }
         }
 
-        private void EmitFail(WolfBot bot, CommandData commandData) => bot.On.Emit(Internal.PERMISSIONS_FAILED, new FailedPermission(commandData.SourceSubscriberId, commandData.TargetGroupId, commandData.Language, Capability, Privileges, commandData.IsGroup, AuthOnly));
+        private void EmitFail(WolfBot bot, CommandData commandData) => bot.On.Emit(Internal.PERMISSIONS_FAILED, new FailedPermission(commandData.SourceSubscriberId, commandData.TargetGroupId, commandData.Language, Capability, Privileges, commandData.IsGroup, AuthOnly, false));
     }
 }

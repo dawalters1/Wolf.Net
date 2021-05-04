@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Unofficial C# library for connecting to WOLF (AKA Palringo)")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("5.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("5.0.0-beta10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("5.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("WOLF.Net")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WOLF.Net")]
 [assembly: System.Reflection.AssemblyVersionAttribute("5.0.0.0")]
