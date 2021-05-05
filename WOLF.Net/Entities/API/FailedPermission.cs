@@ -27,5 +27,7 @@ namespace WOLF.Net.Entities.API
         public string Language { get; set; }
 
         public bool IsGroup { get; set; }
+
+        public bool OwnerOnly { get; set; }
     }
 }

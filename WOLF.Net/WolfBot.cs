@@ -21,6 +21,7 @@ namespace WOLF.Net
         
         internal bool IgnoreBots { get; set; }
 
+        internal int BotOwnerId { get; set; } = 0;
         internal CommandManager CommandManager { get; set; }
 
         public FormManager FormManager { get; set; }
@@ -37,10 +38,12 @@ namespace WOLF.Net
         /// Create an instance of a bot
         /// </summary>
         /// <param name="usingTranslations">Set to true if you plan on using <see cref="LoadPhrases(List{Entities.Phrases.Phrase})"/></param>
-        public WolfBot(bool usingTranslations = false, bool ignoreBots = false)
+        public WolfBot(bool usingTranslations = false, bool ignoreBots = false, int botOwnerId = 0)
         {
+
             UsingTranslations = usingTranslations;
             IgnoreBots = ignoreBots;
+            BotOwnerId = botOwnerId;
 
             WolfClient = new WolfClient(this);
 
