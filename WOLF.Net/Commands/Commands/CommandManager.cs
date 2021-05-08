@@ -3,26 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Instances;
-using WOLF.Net.Constants;
-using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Messages;
-using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Utilities;
+using WOLF.Net.Utils;
 
+/// <summary>
+/// Utter Trash
+/// </summary>
 namespace WOLF.Net.Commands.Commands
 {
     public class CommandManager
-    { 
+    {
         [JsonProperty]
-        private readonly WolfBot Bot;
+        private readonly WolfBot _bot;
 
         internal List<TypeInstance<Command>> Commands = new List<TypeInstance<Command>>();
 
@@ -32,9 +29,9 @@ namespace WOLF.Net.Commands.Commands
             {
                 var trigger = command.Value.Trigger;
 
-                if (Bot.UsingTranslations)
+                if (_bot.Configuration.UseTranslations)
                 {
-                    var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
+                    var phrase = _bot.Phrases.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
 
                     if (phrase != null)
                         return trigger;
@@ -68,12 +65,12 @@ namespace WOLF.Net.Commands.Commands
 
             var command = foundCollection.Value.MethodInstances.FirstOrDefault(r => string.IsNullOrWhiteSpace(r.Value.Trigger));
 
-            if (!await ValidatePermissions(command, message, commandData)||!await ValidateAttributes(command, message, commandData))
+            if (!await ValidatePermissions(command, message, commandData) || !await ValidateAttributes(command, message, commandData))
                 return;
 
-            var phrase = Bot.GetAllPhrasesByName(trigger).OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
+            var phrase = _bot.Phrases.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
             commandData.Argument = commandData.Argument[(phrase != null ? phrase.Value.Length : trigger.Length)..];
-            commandData.Language = phrase != null ? phrase.Language : "en";
+            commandData.Language = phrase != null ? phrase.Language : _bot.Configuration.DefaultLanguage.ToPhraseLanguage();
 
             ExecuteCommand(foundCollection, command, message, commandData);
         }
@@ -83,7 +80,7 @@ namespace WOLF.Net.Commands.Commands
             var i = (CommandContext)Activator.CreateInstance(collection.Type);
 
             i.Command = commandData;
-            i.Bot = Bot;
+            i.Bot = _bot;
             i.Message = message;
             try
             {
@@ -93,7 +90,7 @@ namespace WOLF.Net.Commands.Commands
             }
             catch
             {
-                Bot.On.Emit(InternalEvent.INTERNAL_ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
+                _bot.On.Emit(Constants.Internal.ERROR, $"Error executing command {command.Value.Trigger} please ensure that this method doesnt contain any parameters and try again");
 
                 return true;
             }
@@ -101,44 +98,44 @@ namespace WOLF.Net.Commands.Commands
 
         private async Task<bool> ValidateAttribute(RequiredPermissions requiredPermissions, Message message, CommandData commandData)
         {
-            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            commandData.Group = message.IsGroup ? commandData.Group ?? await _bot.GetGroupAsync(message.TargetGroupId) : null;
+            commandData.Subscriber ??= await _bot.GetSubscriberAsync(message.SourceSubscriberId);
 
             if (requiredPermissions == null)
                 return true;
 
-            return await requiredPermissions.Validate(Bot, commandData);
+            return await requiredPermissions.Validate(_bot, commandData);
         }
 
         private async Task<bool> ValidatePermissions(MethodInstance<Command> methodInstance, Message message, CommandData commandData) => await ValidateAttribute(methodInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
 
         private async Task<bool> ValidatePermissions(TypeInstance<Command> typeInstance, Message message, CommandData commandData) => await ValidateAttribute(typeInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
 
-        private async Task<bool> ValidateAttributes(List<CustomAttribute> customAttributes, Message message, CommandData commandData)
+        private async Task<bool> ValidateAttributes(List<CustomAttribute> customAttributes, CommandData commandData)
         {
             foreach (var attrib in customAttributes)
-                if (!await attrib.Validate(Bot, commandData))
+                if (!await attrib.Validate(_bot, commandData))
                     return false;
 
             return true;
         }
         private async Task<bool> ValidateAttributes(TypeInstance<Command> typeInstance, Message message, CommandData commandData)
         {
-            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            commandData.Group = message.IsGroup ? commandData.Group ?? await _bot.GetGroupAsync(message.TargetGroupId) : null;
+            commandData.Subscriber ??= await _bot.GetSubscriberAsync(message.SourceSubscriberId);
 
             if (await ValidatePermissions(typeInstance, message, commandData))
-                return await ValidateAttributes(typeInstance.CustomAttributes, message, commandData);
+                return await ValidateAttributes(typeInstance.CustomAttributes, commandData);
 
             return false;
         }
 
         private async Task<bool> ValidateAttributes(MethodInstance<Command> methodInstance, Message message, CommandData commandData)
         {
-            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            commandData.Group = message.IsGroup ? commandData.Group ?? await _bot.GetGroupAsync(message.TargetGroupId) : null;
+            commandData.Subscriber ??= await _bot.GetSubscriberAsync(message.SourceSubscriberId);
 
-            return await ValidateAttributes(methodInstance.CustomAttributes, message, commandData);
+            return await ValidateAttributes(methodInstance.CustomAttributes, commandData);
         }
 
         private MethodInstance<Command> ProcessCommands(List<MethodInstance<Command>> methodInstances, CommandData commandData, bool isSubCollection = false)
@@ -150,7 +147,7 @@ namespace WOLF.Net.Commands.Commands
 
             foreach (var command in methodInstances.Where(r => !string.IsNullOrWhiteSpace(r.Value.Trigger)).ToList())
             {
-                var trigger = Bot.GetTriggerAndLanguage(command.Value.Trigger, content);
+                var trigger = _bot.GetTriggerAndLanguage(command.Value.Trigger, content);
 
                 if (trigger.Key == null)
                     continue;
@@ -171,7 +168,7 @@ namespace WOLF.Net.Commands.Commands
         {
             var content = commandData.Argument;
 
-            var trigger = Bot.GetTriggerAndLanguage(typeInstance.Value.Trigger, content);
+            var trigger = _bot.GetTriggerAndLanguage(typeInstance.Value.Trigger, content);
 
             if (trigger.Key == null)
                 return false;
@@ -188,7 +185,7 @@ namespace WOLF.Net.Commands.Commands
             if (!await ValidateAttributes(typeInstance, message, commandData))
                 return false;
 
-            if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && Bot.IgnoreBots)
+            if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                 return true;
 
             foreach (var subCollection in typeInstance.Value.TypeInstances)
@@ -233,35 +230,35 @@ namespace WOLF.Net.Commands.Commands
         private void ValidateCollection(TypeInstance<Command> typeInstance)
         {
             if (typeInstance.Value.MethodInstances.Any(r => r.Type.GetParameters().Length > 0))
-                throw new Exception($"Commands cannot contain generic parameters\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
+                throw new Exception($"Commands cannot contain generic parameters");
 
             var parentMessageTypeAttrib = typeInstance.Type.GetCustomAttribute<RequiredMessageType>();
 
-            var parentMessageType = parentMessageTypeAttrib != null ? parentMessageTypeAttrib.MessageType : MessageType.Both;
+            var parentMessageType = parentMessageTypeAttrib != null ? parentMessageTypeAttrib.MessageType : MessageType.BOTH;
 
-            if (parentMessageType != MessageType.Both)
+            if (parentMessageType != MessageType.BOTH)
             {
                 foreach (var childMethodInstance in typeInstance.Value.MethodInstances)
                 {
                     var childMessageTypeAttrib = childMethodInstance.Type.GetCustomAttribute<RequiredMessageType>();
 
-                    var childMessageType = childMessageTypeAttrib != null ? childMessageTypeAttrib.MessageType : MessageType.Both;
+                    var childMessageType = childMessageTypeAttrib != null ? childMessageTypeAttrib.MessageType : MessageType.BOTH;
 
-                    if (childMessageType != MessageType.Both && childMessageType != parentMessageType)
+                    if (childMessageType != MessageType.BOTH && childMessageType != parentMessageType)
                         throw new Exception("Commands must have the same message type as the parent collection");
                 }
             }
 
-            foreach(var childTypeInstance in typeInstance.Value.TypeInstances)
+            foreach (var childTypeInstance in typeInstance.Value.TypeInstances)
             {
                 var childMessageTypeAttrib = childTypeInstance.Type.GetCustomAttribute<RequiredMessageType>();
 
-                var childMessageType = childMessageTypeAttrib != null ? childMessageTypeAttrib.MessageType : MessageType.Both;
+                var childMessageType = childMessageTypeAttrib != null ? childMessageTypeAttrib.MessageType : MessageType.BOTH;
 
-                if ((parentMessageType != MessageType.Both &&childMessageType!= MessageType.Both) && childMessageType != parentMessageType)
+                if ((parentMessageType != MessageType.BOTH && childMessageType != MessageType.BOTH) && childMessageType != parentMessageType)
                     throw new Exception("Children collections must have the same message type as the parent collection");
 
-                if(typeInstance.Value.MethodInstances.Any(r=>r.Value.Trigger.IsEqual(childTypeInstance.Value.Trigger)))
+                if (typeInstance.Value.MethodInstances.Any(r => r.Value.Trigger.IsEqual(childTypeInstance.Value.Trigger)))
                     throw new Exception("You cannot have a command using the same trigger as a collection");
 
                 ValidateCollection(childTypeInstance);
@@ -294,27 +291,27 @@ namespace WOLF.Net.Commands.Commands
             foreach (var collection in commandCollections)
                 Commands.Add(LoadCommandCollection(collection));
 
-            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLower(), r => r, (trigger, content) => new { trigger, containsRequiredPermissions = content.Select(r=> { return r.Type.GetCustomAttribute<RequiredPermissions>() != null; }).ToList(),  methodInstances = content.SelectMany(r => r.Value.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.Value.TypeInstances).ToList() }).ToList();
+            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLower(), r => r, (trigger, content) => new { trigger, containsRequiredPermissions = content.Select(r => { return r.Type.GetCustomAttribute<RequiredPermissions>() != null; }).ToList(), methodInstances = content.SelectMany(r => r.Value.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.Value.TypeInstances).ToList() }).ToList();
 
             foreach (var duplicate in duplicateCollections)
             {
-                 if (duplicate.containsRequiredPermissions.Any(r=>r))
-                     throw new Exception("You cannot have RequiredPermissions attribute in the main collection when several collections use the same trigger");
-     
+                if (duplicate.containsRequiredPermissions.Any(r => r))
+                    throw new Exception("You cannot have RequiredPermissions attribute in the main collection when several collections use the same trigger");
+
                 if (duplicate.methodInstances.Count(r => string.IsNullOrWhiteSpace(r.Value.Trigger)) > 1)
-                    throw new Exception($"You can only have 1 default command per collection key\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
+                    throw new Exception($"You can only have 1 default command per collection key");
 
                 if (duplicate.methodInstances.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You cannot have multiple commands using the same trigger per collection key\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
+                    throw new Exception($"You cannot have multiple commands using the same trigger per collection key");
 
                 if (duplicate.typeInstances.GroupBy(r => r.Value.Trigger).Any(r => r.Count() > 1))
-                    throw new Exception($"You cannot have multiple SubCollections using the same trigger per collection key\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
+                    throw new Exception($"You cannot have multiple SubCollections using the same trigger per collection key");
             }
         }
 
         internal CommandManager(WolfBot bot)
         {
-            Bot = bot;
+            _bot = bot;
         }
     }
 }

@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Instances;
-using WOLF.Net.Constants;
 using WOLF.Net.Entities.Messages;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Utilities;
+using WOLF.Net.Utils;
 
 namespace WOLF.Net.Commands.Form
 {
@@ -20,7 +18,7 @@ namespace WOLF.Net.Commands.Form
     public class FormManager
     {
         [JsonIgnore]
-        private WolfBot Bot;
+        private readonly WolfBot _bot;
 
         /// <summary>
         /// Called when a Form is canceled (for internal use)
@@ -48,13 +46,13 @@ namespace WOLF.Net.Commands.Form
 
         private async Task<bool> ValidateAttribute(RequiredPermissions requiredPermissions, Message message, FormData commandData)
         {
-            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            commandData.Group = message.IsGroup ? commandData.Group ?? await _bot.GetGroupAsync(message.TargetGroupId) : null;
+            commandData.Subscriber ??= await _bot.GetSubscriberAsync(message.SourceSubscriberId);
 
             if (requiredPermissions == null)
                 return true;
 
-            return await requiredPermissions.Validate(Bot, commandData.ToCommandData());
+            return await requiredPermissions.Validate(_bot, commandData.ToCommandData());
         }
 
         private async Task<bool> ValidatePermissions(TypeInstance<Form> typeInstance, Message message, FormData commandData) => await ValidateAttribute(typeInstance.Type.GetCustomAttribute<RequiredPermissions>(), message, commandData);
@@ -62,15 +60,15 @@ namespace WOLF.Net.Commands.Form
         private async Task<bool> ValidateAttributes(List<CustomAttribute> customAttributes, FormData commandData)
         {
             foreach (var attrib in customAttributes)
-                if (!await attrib.Validate(Bot, commandData.ToCommandData()))
+                if (!await attrib.Validate(_bot, commandData.ToCommandData()))
                     return false;
 
             return true;
         }
         private async Task<bool> ValidateAttributes(TypeInstance<Form> typeInstance, Message message, FormData commandData)
         {
-            commandData.Group = message.IsGroup ? commandData.Group ?? await Bot.GetGroupAsync(message.SourceTargetId) : null;
-            commandData.Subscriber ??= await Bot.GetSubscriberAsync(message.SourceSubscriberId);
+            commandData.Group = message.IsGroup ? commandData.Group ?? await _bot.GetGroupAsync(message.TargetGroupId) : null;
+            commandData.Subscriber ??= await _bot.GetSubscriberAsync(message.SourceSubscriberId);
 
             if (await ValidatePermissions(typeInstance, message, commandData))
                 return await ValidateAttributes(typeInstance.CustomAttributes, commandData);
@@ -84,57 +82,43 @@ namespace WOLF.Net.Commands.Form
         /// <param name="groupId"></param>
         /// <param name="subscriberId"></param>
         /// <returns></returns>
-        public bool HasGroupForm(int groupId, int subscriberId)
-        {
-            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].ContainsKey(subscriberId);
-        }
+        public bool HasGroupForm(int groupId, int subscriberId) => GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].ContainsKey(subscriberId);
 
         /// <summary>
         /// Check to see if there are any forms for the current group
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public bool GroupHasForms(int groupId)
-        {
-            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Count > 0;
-        }
+        public bool GroupHasForms(int groupId) =>GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Count > 0;
 
-        public bool GroupHasForms(int groupId, params int[] excludeIds)
-        {
-            return GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Where(r=>excludeIds.Any(s=>s!=r.Key)).Count() > 0;
-        }
+        public bool GroupHasForms(int groupId, params int[] excludeIds) => GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].Any(r=>excludeIds.Any(s=>s!=r.Key));
 
         /// <summary>
         /// Check to see if a subscriber has form in any of the groups
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="subscriberId"></param>
         /// <returns></returns>
-        public bool HasGroupForm(int userid)
-        {
-            return GroupInstances.Any(t => t.Value.ContainsKey(userid));
-        }
+        public bool HasGroupForm(int subscriberId)=>GroupInstances.Any(t => t.Value.ContainsKey(subscriberId));
 
         /// <summary>
         /// Check to see if a subscriber has a private form
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="subscriberId"></param>
         /// <returns></returns>
-        public bool HasPrivateForm(int userid)
-        {
-            return PrivateInstances.ContainsKey(userid);
-        }
+        public bool HasPrivateForm(int subscriberId) =>  PrivateInstances.ContainsKey(subscriberId);
+        
 
         /// <summary>
         /// Cancel a subscribers form in a specific group
         /// </summary>
         /// <param name="groupId"></param>
-        /// <param name="userId"></param>
+        /// <param name="subscriberId"></param>
         /// <returns></returns>
-        public bool CancelGroupForm(int groupId, int userId)
+        public bool CancelGroupForm(int groupId, int subscriberId)
         {
-            if (GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].ContainsKey(userId))
+            if (GroupInstances.ContainsKey(groupId) && GroupInstances[groupId].ContainsKey(subscriberId))
             {
-                GroupInstances[groupId][userId].Key.Cancel();
+                GroupInstances[groupId][subscriberId].Key.Cancel();
                 return true;
             }
             return false;
@@ -159,13 +143,13 @@ namespace WOLF.Net.Commands.Form
         /// <summary>
         /// Cancel a subscribers form
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="subscriberId"></param>
         /// <returns></returns>
-        public bool CancelPrivateForm(int userId)
+        public bool CancelPrivateForm(int subscriberId)
         {
-            if (PrivateInstances.ContainsKey(userId))
+            if (PrivateInstances.ContainsKey(subscriberId))
             {
-                PrivateInstances[userId].Key.Cancel();
+                PrivateInstances[subscriberId].Key.Cancel();
                 return true;
             }
 
@@ -177,12 +161,12 @@ namespace WOLF.Net.Commands.Form
             try
             {
 
-                if (message.IsGroup && GroupInstances.ContainsKey(message.SourceTargetId) && GroupInstances[message.SourceTargetId].ContainsKey(message.SourceSubscriberId))
+                if (message.IsGroup && GroupInstances.ContainsKey(message.TargetGroupId) && GroupInstances[message.TargetGroupId].ContainsKey(message.SourceSubscriberId))
                 {
                     if (message.IsCommand)
                         return false;
 
-                    var p = GroupInstances[message.SourceTargetId][message.SourceSubscriberId];
+                    var p = GroupInstances[message.TargetGroupId][message.SourceSubscriberId];
                     p.Key.Message = message;
                     p.Value(message.Content);
                     return true;
@@ -192,7 +176,7 @@ namespace WOLF.Net.Commands.Form
                     if (message.IsCommand)
                         return false;
 
-                    var p = PrivateInstances[message.SourceTargetId];
+                    var p = PrivateInstances[message.SourceSubscriberId];
                     p.Key.Message = message;
                     p.Value(message.Content);
                     return true;
@@ -200,19 +184,19 @@ namespace WOLF.Net.Commands.Form
             }
             catch (Exception ex)
             {
-                Bot.On.Emit(InternalEvent.INTERNAL_ERROR, ex);
+                _bot.On.Emit(Constants.Internal.ERROR, ex.ToString());
                 return false;
             }
 
             return await FindForm(message);
         }
 
-        private void AddForm(IFormContext form, Action<string> method, int groupId, int userId, double duration)
+        private void AddForm(IFormContext form, Action<string> method, int groupId, int subscriberId, double duration)
         {
             if (!GroupInstances.ContainsKey(groupId))
                 GroupInstances.Add(groupId, new Dictionary<int, KeyValuePair<IFormContext, Action<string>>>());
          
-            GroupInstances[groupId].Add(userId, new KeyValuePair<IFormContext, Action<string>>(form, method));
+            GroupInstances[groupId].Add(subscriberId, new KeyValuePair<IFormContext, Action<string>>(form, method));
           
             form.TimeoutTimer = new System.Timers.Timer()
             {
@@ -221,20 +205,20 @@ namespace WOLF.Net.Commands.Form
                 Interval = duration
             };
 
-            form.NextStage = (a) => GroupInstances[groupId][userId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
+            form.NextStage = (a) => GroupInstances[groupId][subscriberId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
          
             form.Finish = () =>
             {
                 form.TimeoutTimer.Stop();
                 FormFinished(form);
-                GroupInstances[groupId].Remove(userId);
+                GroupInstances[groupId].Remove(subscriberId);
             };
 
             form.Cancel = () =>
             {
                 form.TimeoutTimer.Stop();
                 FormCancelled(form);
-                GroupInstances[groupId].Remove(userId);
+                GroupInstances[groupId].Remove(subscriberId);
             };
 
             form.ChangeTimeoutDelay = (i) =>
@@ -250,27 +234,27 @@ namespace WOLF.Net.Commands.Form
             {
                 form.TimeoutTimer.Stop();
                 FormTimeout(form);
-                GroupInstances[groupId].Remove(userId);
+                GroupInstances[groupId].Remove(subscriberId);
             };
 
             form.MoveToGroup = (i) => false;
             form.MoveToPrivate = () =>
             {
-                if (PrivateInstances.ContainsKey(userId))
+                if (PrivateInstances.ContainsKey(subscriberId))
                     return false;
 
                 form.TimeoutTimer.Stop();
-                AddForm(form, GroupInstances[groupId][userId].Value, userId,duration);
-                GroupInstances[groupId].Remove(userId);
+                AddForm(form, GroupInstances[groupId][subscriberId].Value, subscriberId,duration);
+                GroupInstances[groupId].Remove(subscriberId);
                 return true;
             };
 
-            ((FormContext)form)._doStartUp(Bot);
+            ((FormContext)form)._doStartUp(_bot);
         }
 
-        private void AddForm(IFormContext form, Action<string> method, int userId, double duration)
+        private void AddForm(IFormContext form, Action<string> method, int subscriberId, double duration)
         {
-            PrivateInstances.Add(userId, new KeyValuePair<IFormContext, Action<string>>(form, method));
+            PrivateInstances.Add(subscriberId, new KeyValuePair<IFormContext, Action<string>>(form, method));
 
             form.TimeoutTimer = new System.Timers.Timer()
             {
@@ -278,18 +262,18 @@ namespace WOLF.Net.Commands.Form
                 Enabled = true,
                 Interval = duration
             };
-            form.NextStage = (a) => PrivateInstances[userId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
+            form.NextStage = (a) => PrivateInstances[subscriberId] = new KeyValuePair<IFormContext, Action<string>>(form, a);
             form.Finish = () =>
             {
                 form.TimeoutTimer.Stop();
                 FormFinished(form);
-                PrivateInstances.Remove(userId);
+                PrivateInstances.Remove(subscriberId);
             };
             form.Cancel = () =>
             {
                 form.TimeoutTimer.Stop();
                 FormCancelled(form);
-                PrivateInstances.Remove(userId);
+                PrivateInstances.Remove(subscriberId);
             };
             form.ChangeTimeoutDelay = (i) =>
             {
@@ -303,7 +287,7 @@ namespace WOLF.Net.Commands.Form
             form.TimeoutTimer.Elapsed += (a, d) =>
             {
                 FormTimeout(form);
-                PrivateInstances.Remove(userId);
+                PrivateInstances.Remove(subscriberId);
             };
 
             form.MoveToPrivate = () => false;
@@ -311,16 +295,16 @@ namespace WOLF.Net.Commands.Form
             {
                 if (!GroupInstances.ContainsKey(i))
                     GroupInstances.Add(i, new Dictionary<int, KeyValuePair<IFormContext, Action<string>>>());
-                if (GroupInstances[i].ContainsKey(userId))
+                if (GroupInstances[i].ContainsKey(subscriberId))
                     return false;
 
                 form.TimeoutTimer.Stop();
-                AddForm(form, PrivateInstances[userId].Value, i, userId);
-                PrivateInstances.Remove(userId);
+                AddForm(form, PrivateInstances[subscriberId].Value, i, subscriberId);
+                PrivateInstances.Remove(subscriberId);
                 return true;
             };
 
-            ((FormContext)form)._doStartUp(Bot);
+            ((FormContext)form)._doStartUp(_bot);
         }
 
         private void ExecuteForm(TypeInstance<Form> form, Message message, FormData commandData, string args)
@@ -328,12 +312,12 @@ namespace WOLF.Net.Commands.Form
             var i = (IFormContext)Activator.CreateInstance(form.Type);
 
             if (message.IsGroup)
-                AddForm(i, i.Start, message.SourceTargetId, message.SourceSubscriberId, form.Value.Duration);
+                AddForm(i, i.Start, message.TargetGroupId, message.SourceSubscriberId, form.Value.Duration);
             else
                 AddForm(i, i.Start, message.SourceSubscriberId,  form.Value.Duration);
             try
             {
-                i.Bot = Bot;
+                i.Bot = _bot;
                 i.Message = message;
                 i.Command = commandData;
 
@@ -341,20 +325,20 @@ namespace WOLF.Net.Commands.Form
             }
             catch (Exception ex)
             {
-                Bot.On.Emit(InternalEvent.INTERNAL_ERROR, ex);
+                _bot.On.Emit(Constants.Internal.ERROR, ex.ToString());
             }
         }
 
         private async Task<bool> FindForm(Message message)
         {
 
-            if (Bot.UsingTranslations)
+            if (_bot.Configuration.UseTranslations)
             {
-                var forms = Forms.Where(r => Bot.Phrases.Any(s => s.Name.IsEqual(r.Value.Trigger))).ToList();
+                var forms = Forms.Where(r => _bot.Phrases.Any(s => s.Name.IsEqual(r.Value.Trigger))).ToList();
 
                 if (forms.Count > 0)
                 {
-                    var phrase = Bot.Phrases.Where(r => forms.Any(s => s.Value.Trigger.IsEqual(r.Name)) && message.Content.StartsWithCommand(r.Value)).OrderByDescending(r => r.Value.Length).FirstOrDefault();
+                    var phrase = _bot.Phrases.Where(r => forms.Any(s => s.Value.Trigger.IsEqual(r.Name)) && message.Content.StartsWithCommand(r.Value)).OrderByDescending(r => r.Value.Length).FirstOrDefault();
 
                     if (phrase == null)
                         return false;
@@ -366,8 +350,8 @@ namespace WOLF.Net.Commands.Form
 
                     var commandData = new FormData(message)
                     {
-                        Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null,
-                        Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId),
+                        Group = message.IsGroup ? await _bot.GetGroupAsync(message.TargetGroupId) : null,
+                        Subscriber = await _bot.GetSubscriberAsync(message.SourceSubscriberId),
                          Language = phrase.Language
                     };
 
@@ -377,7 +361,7 @@ namespace WOLF.Net.Commands.Form
                     if (!await ValidateAttributes(form, message, commandData))
                         return false;
 
-                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && Bot.IgnoreBots)
+                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                         return true;
 
                     ExecuteForm(form, message, commandData, message.Content.Remove(0, phrase.Value.Length).Trim());
@@ -399,8 +383,8 @@ namespace WOLF.Net.Commands.Form
 
                     var commandData = new FormData(message)
                     {
-                        Group = message.IsGroup ? await Bot.GetGroupAsync(message.SourceTargetId) : null,
-                        Subscriber = await Bot.GetSubscriberAsync(message.SourceSubscriberId)
+                        Group = message.IsGroup ? await _bot.GetGroupAsync(message.TargetGroupId) : null,
+                        Subscriber = await _bot.GetSubscriberAsync(message.SourceSubscriberId)
                     };
 
                     if (!await ValidatePermissions(form, message, commandData))
@@ -409,7 +393,7 @@ namespace WOLF.Net.Commands.Form
                     if (!await ValidateAttributes(form, message, commandData))
                         return false;
 
-                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && Bot.IgnoreBots)
+                    if (commandData.Subscriber.Privileges.HasFlag(Privilege.BOT) && _bot.Configuration.IgnoreOfficialBots)
                         return true;
 
                     ExecuteForm(form, message, commandData, message.Content.Remove(0, form.Value.Trigger.Length).Trim());
@@ -433,7 +417,7 @@ namespace WOLF.Net.Commands.Form
 
         internal FormManager(WolfBot bot)
         {    
-            Bot = bot;
+            _bot = bot;
         }
     }
 }

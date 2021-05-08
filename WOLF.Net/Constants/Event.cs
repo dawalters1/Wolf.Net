@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WOLF.Net.Constants
+﻿namespace WOLF.Net.Constants
 {
-    internal static class Event
+    internal class Event
     {
         public const string GROUP_AUDIO_CONFIGURATION_UPDATE = "group audio configuration update";
         public const string GROUP_AUDIO_COUNT_UPDATE = "group audio count update";

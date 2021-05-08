@@ -1,93 +1,100 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WOLF.Net.Client;
-using WOLF.Net.Client.Events;
 using WOLF.Net.Commands.Commands;
 using WOLF.Net.Commands.Form;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
+using WOLF.Net.Entities.Misc;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.API;
 using WOLF.Net.Enums.Subscribers;
+using WOLF.Net.Networking;
 
 namespace WOLF.Net
 {
     public partial class WolfBot
     {
-        internal bool UsingTranslations { get; set; }
-        
-        internal bool IgnoreBots { get; set; }
+        /// <summary>
+        /// The websocket instance for the bot
+        /// </summary>
+        public WebSocket _webSocket { get; private set; }
 
-        internal int BotOwnerId { get; set; } = 0;
+        /// <summary>
+        /// The login data for the bot
+        /// </summary>
+        public LoginSetting LoginSettings { get; private set; }
+
+        /// <summary>
+        /// Houses the avatar end point and MMS endpoint
+        /// </summary>
+        public EndpointConfig EndPoints { get; private set; }
+
+        public Configuration Configuration { get; private set; } = new Configuration();
+        /// <summary>
+        /// The current subscriber logged in
+        /// </summary>
+        public Subscriber CurrentSubscriber { get; internal set; }
+
         internal CommandManager CommandManager { get; set; }
 
         public FormManager FormManager { get; set; }
 
-        public Subscriber CurrentSubscriber { get; internal set; }
+        public Networking.Events.EventHandler On { get; private set; }
 
-        public WolfClient WolfClient { get; private set; }
-
-        public EventManager On { get; private set; }
-
-        public LoginData LoginData { get; private set; }
 
         /// <summary>
         /// Create an instance of a bot
         /// </summary>
         /// <param name="usingTranslations">Set to true if you plan on using <see cref="LoadPhrases(List{Entities.Phrases.Phrase})"/></param>
-        public WolfBot(bool usingTranslations = false, bool ignoreBots = false, int botOwnerId = 0)
+        public WolfBot(Configuration configuration = null)
         {
+            _webSocket = new WebSocket(this);
 
-            UsingTranslations = usingTranslations;
-            IgnoreBots = ignoreBots;
-            BotOwnerId = botOwnerId;
-
-            WolfClient = new WolfClient(this);
+            Configuration = configuration ?? this.Configuration;
 
             CommandManager = new CommandManager(this);
             FormManager = new FormManager(this);
 
-            On = new EventManager();
+            On = new Networking.Events.EventHandler(this, _webSocket);
 
             On.MessageReceived += async msg =>
             {
                 if (!await FormManager.ProcessMessage(msg))
                     await CommandManager.ProcessMessage(msg);
-
-                foreach (var subscription in currentMessageSubscriptions.ToList())
-                {
-                    if (!subscription.Key(msg))
-                        continue;
-
-                    currentMessageSubscriptions.Remove(subscription.Key);
-
-                    subscription.Value.SetResult(msg);
-                }
             };
         }
 
-        public async Task LoginAsync(string email, string password, LoginDevice loginDevice = LoginDevice.Android, OnlineState onlineState = OnlineState.Online)
+        public async Task LoginAsync(string email, string password, LoginDevice loginDevice = LoginDevice.ANDROID, OnlineState onlineState = OnlineState.ONLINE, LoginType loginType = LoginType.EMAIL, string token = null)
         {
+            LoginSettings = new LoginSetting(email, password, loginDevice, loginType, onlineState, token);
             CommandManager.Load();
             FormManager.Load();
-
-            LoginData = new LoginData(email, password, loginDevice, LoginType.Email, onlineState);
-
-            await WolfClient.CreateSocket();
+            await _webSocket.CreateSocket();
         }
 
+        /// <summary>
+        /// Log the bot out
+        /// </summary>
+        /// <returns></returns>
         public async Task LogoutAsync()
         {
-            await InternalLogoutAsync();
+            await _webSocket.Emit<Response>(Request.SECURITY_LOGOUT);
 
-            await WolfClient.Socket.DisconnectAsync();
+            await _webSocket._socket.DisconnectAsync();
 
-            On.UnregisterEvents(this);
+            On.Unregister();
 
-            WolfClient.Socket = null;
+            _cleanUp();
+        }
+
+        internal void _cleanUp()
+        {
+            CurrentSubscriber = null;
+            Groups.Clear();
+            Subscribers.Clear();
+            contactCache.Clear();
+            blockedCache.Clear();
+            charmCache.Clear();
         }
     }
 }

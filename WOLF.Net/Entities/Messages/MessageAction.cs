@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WOLF.Net.Enums.Groups;
 
 namespace WOLF.Net.Entities.Messages
@@ -14,28 +11,32 @@ namespace WOLF.Net.Entities.Messages
         [JsonProperty("type")]
         public string Type { get; set; }
 
-        public GroupActionType Action => Type.ToLower() switch
+        public ActionType Action => Type.ToLower() switch
         {
-            "ban" => GroupActionType.Ban,
-            "kick" => GroupActionType.Kick,
-            "mod" => GroupActionType.Mod,
-            "reset" => GroupActionType.Regular,
-            "admin" => GroupActionType.Admin,
-            "join" => GroupActionType.Join,
-            "leave" => GroupActionType.Leave,
-            _ => GroupActionType.Silence,
+            "ban" => ActionType.BAN,
+            "kick" => ActionType.KICK,
+            "mod" => ActionType.MOD,
+            "reset" => ActionType.REGULAR,
+            "admin" => ActionType.ADMIN,
+            "join" => ActionType.JOIN,
+            "leave" => ActionType.LEAVE,
+            "owner" => ActionType.OWNER,
+            "silence" => ActionType.SILENCE,
+            _ => ActionType.REGULAR,
         };
 
         public Capability Role => Type.ToLower() switch
         {
-            "ban" => Capability.Banned,
-            "kick" => Capability.None,
-            "mod" => Capability.Mod,
-            "reset" => Capability.Regular,
-            "admin" => Capability.Admin,
-            "join" => Capability.Regular,
-            "leave" => Capability.None,
-            _ => Capability.Silenced,
+            "ban" => Capability.BANNED,
+            "kick" => Capability.NOT_MEMBER,
+            "mod" => Capability.MOD,
+            "reset" => Capability.REGULAR,
+            "admin" => Capability.ADMIN,
+            "join" => Capability.REGULAR,
+            "leave" => Capability.NOT_MEMBER,
+            "owner" => Capability.OWNER,
+            "silence" => Capability.SILENCED,
+            _ => Capability.REGULAR,
         };
     }
 }

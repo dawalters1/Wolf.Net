@@ -1,132 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
-using WOLF.Net.Entities.Contacts;
-using WOLF.Net.Entities.Groups;
+using WOLF.Net.Entities.Charms;
+using WOLF.Net.Entities.Misc;
+using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net
 {
 
     public partial class WolfBot
     {
-        public List<Contact> Contacts { get; internal set; } = new List<Contact>();
 
-        public async Task<List<Group>> GetJoinedGroupsAsync(bool requestNew = false)
+        /// <summary>
+        /// Update the bots profile
+        /// </summary>
+        /// <returns>Subscriber profile builder</returns>
+        public Builders.Profiles.Subscriber UpdateProfile() => new Builders.Profiles.Subscriber(this, this.CurrentSubscriber);
+
+        /// <summary>
+        /// Set the online state for the bot
+        /// </summary>
+        /// <param name="onlineState"></param>
+        /// <returns></returns>
+        public async Task<Response> SetOnlineStateAsync(OnlineState onlineState) => await _webSocket.Emit<Response>(Request.SUBSCRIBER_SETTINGS_UPDATE, new { state = new { state = (int)onlineState } /* State inside state? wtf is this shit...*/ });
+
+        /// <summary>
+        /// Set charms for the bots profile
+        /// </summary>
+        /// <param name="charms"></param>
+        /// <returns></returns>
+        public async Task<Response> SetCharmsAsync(params SelectedCharm[] charms) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_SET_SELECTED, new
         {
-            if (Groups.Where(r => r.InGroup).Count() > 0 && !requestNew)
-                return Groups.Where(r => r.InGroup).ToList();
+            selectedList = charms
+        });
 
-            var joinedGroups = await WolfClient.Emit<List<SubscriberGroup>>(Request.SUBSCRIBER_GROUP_LIST, new
-            {
-                subscribe = true
-            });
-
-            if (joinedGroups.Success)
-            {
-                var groups = await GetGroupsAsync(joinedGroups.Body.Select(r => r.Id).ToList(), requestNew);
-
-                foreach (var group in groups)
-                {
-                    group.MyCapabilities = joinedGroups.Body.FirstOrDefault(r => r.Id == group.Id).Capabilities;
-                    group.InGroup = true;
-                    if (requestNew && group.Users.Count > 0)
-                        await GetGroupSubscribersListAsync(group.Id);
-                }
-
-                return groups;
-            }
-            else
-                return new List<Group>();
-        }
-
-        internal async Task<Response<LoginResponse>> InternalLoginAsync()
+        /// <summary>
+        /// Delete charms from the bots account
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public async Task<Response> DeleteCharmsAsync(params int[] ids) => await _webSocket.Emit<Response>(Request.CHARM_SUBSCRIBER_DELETE, new
         {
-            return await WolfClient.Emit<LoginResponse>(Request.SECURITY_LOGIN, new
-            {
-                headers = new
-                {
-                    version = 2
-                },
-                body = new
-                {
-                    type = "email",
-                    deviceTypeId = (int)LoginData.LoginDevice,
-                    username = LoginData.Email,
-                    password = LoginData.Password.ToMD5(),
-                    md5Password = true
-                }
-            });
+            idList = ids
+        });
 
-        }
+        /// <summary>
+        /// Get bot message settings
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Response<MessageSetting>> GetMessageSettingsAsync() => await _webSocket.Emit<Response<MessageSetting>>(Request.MESSAGE_SETTING);
 
-        internal async Task<Response> InternalLogoutAsync()
+        /// <summary>
+        /// Update bot message settings
+        /// </summary>
+        /// <param name="messageFilterType"></param>
+        /// <returns></returns>
+        public async Task<Response> UpdateMessageSettingsAsync(MessageFilterType messageFilterType) => await _webSocket.Emit<Response>(Request.MESSAGE_SETTING_UPDATE, new
         {
-            return await WolfClient.Emit(Request.SECURITY_LOGOUT, new { });
-        }
-
-        public async Task<Response> SetOnlineStateAsync(OnlineState onlineState)
-        {
-            return await WolfClient.Emit(Request.SUBSCRIBER_SETTINGS_UPDATE, new
+            spamFilter = new
             {
-                state = new { state = (int)onlineState } // State inside state? wtf is this shit...
-            });
-        }
-
-        public async Task<List<Contact>> GetContactsAsync()
-        {
-            if (Contacts.Count > 0 && !Contacts.All(r => r.IsBlocked))
-                return Contacts.Where(r => !r.IsBlocked).ToList();
-
-            var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_CONTACT_LIST, new
-            {
-                subscribe = true
-            });
-
-            if (result.Success)
-            {
-                Contacts.AddRange(result.Body.Select(r => { r.IsBlocked = false; return r; }).ToList());
-
-                return Contacts.Where(r => !r.IsBlocked).ToList();
-            }
-
-            return new List<Contact>();
-        }
-
-        public async Task<List<Contact>> GetBlockedListAsync()
-        {
-            if (Contacts.Count > 0 && Contacts.Any(r => r.IsBlocked))
-                return Contacts.Where(r => r.IsBlocked).ToList();
-
-            var result = await WolfClient.Emit<List<Contact>>(Request.SUBSCRIBER_BLOCK_LIST, new
-            {
-                subscribe = true
-            });
-
-            if (result.Success)
-            {
-                Contacts.AddRange(result.Body.Select(r => { r.IsBlocked = true; return r; }).ToList());
-
-                return Contacts.Where(r => r.IsBlocked).ToList();
-            }
-
-            return new List<Contact>();
-
-        }
-
-
-        internal void ProcessContact(Contact contact)
-        {
-            if (Contacts.Any(r => r.Id == contact.Id))
-                Contacts.FirstOrDefault(r => r.Id == contact.Id).Update(contact);
-            else
-                Contacts.Add(contact);
-        }
-
+                enabled = messageFilterType != MessageFilterType.OFF,
+                tier = (int)messageFilterType
+            },
+        });
     }
 }

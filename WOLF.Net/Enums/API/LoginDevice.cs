@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.API
 {
     [Flags]
     public enum LoginDevice
     {
-        iPhone = 5,
+        IPHONE = 5,
+        [Obsolete("use IPHONE")]
+        iPhone = IPHONE,
 
-        iPad = 6,
+        IPAD = 6,
+        [Obsolete("use IPHONE")]
+        iPad = IPAD,
 
-        Android = 7,
+        ANDROID = 7,
+        [Obsolete("use ANDROID")]
+        Android = ANDROID,
 
-        Web = 8
+        WEB = 8,
+        [Obsolete("use WEB")]
+        Web = WEB,
     }
 }

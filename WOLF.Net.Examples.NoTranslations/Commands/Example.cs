@@ -1,15 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Commands;
-using WOLF.Net.Enums.Groups;
-using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Commands
 {
@@ -28,7 +21,7 @@ namespace WOLF.Net.ExampleBot.Commands
         {
             if (Command.IsGroup)
             {
-                if (Bot.FormManager.HasGroupForm(Command.SourceTargetId, Command.SourceSubscriberId) ? Bot.FormManager.CancelGroupForm(Command.SourceTargetId, Command.SourceSubscriberId) : Bot.FormManager.CancelGroupForms(Command.SourceTargetId))
+                if (Bot.FormManager.HasGroupForm(Command.TargetGroupId, Command.SourceSubscriberId) ? Bot.FormManager.CancelGroupForm(Command.TargetGroupId, Command.SourceSubscriberId) : Bot.FormManager.CancelGroupForms(Command.TargetGroupId))
                     await ReplyAsync("(Y) Form Cancelled");
                 else
                     await ReplyAsync("(N) Theres nothing to cancel");
@@ -48,7 +41,7 @@ namespace WOLF.Net.ExampleBot.Commands
             [Command]
             public async Task Default() => await ReplyAsync("Welcome to the example bot\n\n!example help - Will display this message\n!example get subscriber <subscriberId> - get a subscriber profile\n!example get group <groupId> - get a group profile");
 
-            [Command("subscriber"), RequiredPermissions(Enums.Groups.Capability.Mod, Privilege.STAFF)]
+            [Command("subscriber"), RequiredPermissions(Enums.Groups.Capability.MOD, Privilege.STAFF)]
             public async Task Subscriber()
             {
                 int subscriberId = Message.SourceSubscriberId;
@@ -69,10 +62,10 @@ namespace WOLF.Net.ExampleBot.Commands
                     await ReplyAsync("No such subscriber exists with this ID");
             }
 
-            [Command("group"), RequiredPermissions(Enums.Groups.Capability.Mod, Privilege.STAFF)]
+            [Command("group"), RequiredPermissions(Enums.Groups.Capability.MOD, Privilege.STAFF)]
             public async Task Group()
             {
-                int groupId = Message.SourceTargetId;
+                int groupId = Message.TargetGroupId;
 
                 if (int.TryParse(Command.Argument.ToEnglishNumbers(), out int gid) && gid > 0)
                     groupId = gid;

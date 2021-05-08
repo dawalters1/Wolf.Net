@@ -1,36 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Groups
 {
     [Flags]
     public enum Category
     {
-        NotSpecified = 0,
+        NOT_SPECIFIED = 0,
+        [Obsolete("use NOT_SPECIFIED")]
+        NotSpecified = NOT_SPECIFIED,
 
-        Business = 8,
+        BUSINESS = 8,
+        [Obsolete("use BUSINESS")]
+        Business = BUSINESS,
 
-        Education = 10,
+        EDUCATION = 10,
+        [Obsolete("use EDUCATION")]
+        Education = EDUCATION,
 
-        Entertainment = 26,
+        ENTERTAINMENT = 26,
+        [Obsolete("use ENTERTAINMENT")]
+        Entertainment = ENTERTAINMENT,
 
-        Gaming = 12,
+        GAMING = 12,
+        [Obsolete("use GAMING")]
+        Gaming = GAMING,
 
-        Lifestyle = 13,
+        LIFESTYLE = 13,
+        [Obsolete("use LIFESTYLE")]
+        Lifestyle = LIFESTYLE,
 
-        Music = 14,
+        MUSIC = 14,
+        [Obsolete("use MUSIC")]
+        Music = MUSIC,
 
-        NewsAndPolitics = 15,
+        NEWS_AND_POLITICS = 15,
+        [Obsolete("use NEWS_AND_POLITICES")]
+        NewsAndPolitics = NEWS_AND_POLITICS,
 
-        Photography = 16,
+        PHOTOGRAPHY = 16,
+        [Obsolete("use PHOTOGRAPHY")]
+        Photography = PHOTOGRAPHY,
 
-        ScienceAndTech = 25,
+        SCIENCE_AND_TECH = 25,
+        [Obsolete("use SCIENCE_AND_TECH")]
+        ScienceAndTech = SCIENCE_AND_TECH,
 
-        SocialAndPeople = 17,
+        SOCIAL_AND_PEOPLE = 17,
+        [Obsolete("use SOCIAL_AND_PEOPLE")]
+        SocialAndPeople = SOCIAL_AND_PEOPLE,
 
-        Sports = 19,
+        SPORTS = 19,
+        [Obsolete("use SPORTS")]
+        Sports = SPORTS, 
 
-        TravelAndLocal = 18
+        TRAVEL_AND_LOCAL = 18,
+        [Obsolete("use TRAVEL_AND_LOCAL")]
+        TraveAndLocal = TRAVEL_AND_LOCAL,
     }
 }

@@ -56,18 +56,30 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -144,6 +156,15 @@
           }
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
       "System.Security.AccessControl/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -210,6 +231,28 @@
           }
         }
       },
+      "System.Text.Encodings.Web/5.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
+        }
+      },
+      "System.Text.Json/5.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
+          "System.Text.Encodings.Web": "5.0.1"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        }
+      },
       "System.Windows.Extensions/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -227,18 +270,18 @@
             "rid": "win"
           }
         }
-      },
-      "WebSocketSharp-netstandard/1.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        }
       }
     },
     ".NETStandard,Version=v2.1": {
+      "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "compile": {
@@ -275,12 +318,11 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
@@ -289,10 +331,23 @@
           "lib/netstandard2.0/SocketIOClient.dll": {}
         }
       },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Buffers.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Buffers.dll": {}
@@ -339,16 +394,16 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.3"
         },
         "compile": {
-          "lib/netstandard2.0/_._": {}
+          "lib/netstandard2.0/System.Memory.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Memory.dll": {}
         }
       },
-      "System.Numerics.Vectors/4.4.0": {
+      "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Numerics.Vectors.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {}
@@ -382,10 +437,10 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/4.5.3": {
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
@@ -454,13 +509,43 @@
           }
         }
       },
-      "WebSocketSharp-netstandard/1.0.1": {
+      "System.Text.Encodings.Web/5.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "lib/netstandard2.1/System.Text.Encodings.Web.dll": {}
+        }
+      },
+      "System.Text.Json/5.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
+          "System.Buffers": "4.5.1",
+          "System.Memory": "4.5.4",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
+          "System.Text.Encodings.Web": "5.0.1",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Json.dll": {}
+        }
+      },
+      "System.Threading.Tasks.Extensions/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       }
     },
@@ -519,18 +604,30 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -673,6 +770,15 @@
           }
         }
       },
+      "System.Text.Json/5.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        }
+      },
       "System.Windows.Extensions/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -690,19 +796,32 @@
             "rid": "win"
           }
         }
-      },
-      "WebSocketSharp-netstandard/1.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        }
       }
     }
   },
   "libraries": {
+    "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
+      "sha512": "W8DPQjkMScOMTtJbPwmPyj9c3zYSFGawDW3jwlBOOsnY+EzZFLgNQ/UMkK35JmkNOVPdCyPr2Tw7Vv9N+KA3ZQ==",
+      "type": "package",
+      "path": "microsoft.bcl.asyncinterfaces/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/net461/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.xml",
+        "microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
+        "microsoft.bcl.asyncinterfaces.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "Microsoft.CSharp/4.7.0": {
       "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
       "type": "package",
@@ -875,19 +994,29 @@
         "packageIcon.png"
       ]
     },
-    "SocketIOClient/2.1.7": {
-      "sha512": "mQimb0aTRbyhy+zQEJPwQQbW6qipwTFhx2i/K1PDgZtiiZ18JAyvit2WQsSG1NOhLo9pj3zNalDSpLj1RPG0oA==",
+    "SocketIOClient/2.2.0": {
+      "sha512": "vcHjmA15Vd+5e9Es6ypJOdCk//IbBN4+8L2zh7cns02Jjr/OMWWSUdojaHaWtzD7HlBsCM4VAN52HSIcrlKEKw==",
       "type": "package",
-      "path": "socketioclient/2.1.7",
+      "path": "socketioclient/2.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net45/SocketIOClient.dll",
-        "lib/net45/SocketIOClient.xml",
         "lib/netstandard2.0/SocketIOClient.dll",
         "lib/netstandard2.0/SocketIOClient.xml",
-        "socketioclient.2.1.7.nupkg.sha512",
+        "socketioclient.2.2.0.nupkg.sha512",
         "socketioclient.nuspec"
+      ]
+    },
+    "SocketIOClient.Newtonsoft.Json/2.2.1": {
+      "sha512": "lokBsdxpH9T4+UThBgaVpoRSylUSPoUKnnfjOdFsEoG6fIhSeLE5cu531wPWPt0vy0r6jC9JDo169HCSLurX5Q==",
+      "type": "package",
+      "path": "socketioclient.newtonsoft.json/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll",
+        "socketioclient.newtonsoft.json.2.2.1.nupkg.sha512",
+        "socketioclient.newtonsoft.json.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -1078,10 +1207,10 @@
         "version.txt"
       ]
     },
-    "System.Numerics.Vectors/4.4.0": {
-      "sha512": "UiLzLW+Lw6HLed1Hcg+8jSRttrbuXv7DANVj0DkL9g6EnnzbL75EB7EWsw5uRbhxd/4YdG8li5XizGWepmG3PQ==",
+    "System.Numerics.Vectors/4.5.0": {
+      "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
       "type": "package",
-      "path": "system.numerics.vectors/4.4.0",
+      "path": "system.numerics.vectors/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1098,12 +1227,15 @@
         "lib/netstandard2.0/System.Numerics.Vectors.xml",
         "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.dll",
         "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.xml",
+        "lib/uap10.0.16299/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
+        "ref/net45/System.Numerics.Vectors.dll",
+        "ref/net45/System.Numerics.Vectors.xml",
         "ref/net46/System.Numerics.Vectors.dll",
         "ref/net46/System.Numerics.Vectors.xml",
         "ref/netcoreapp2.0/_._",
@@ -1111,11 +1243,12 @@
         "ref/netstandard1.0/System.Numerics.Vectors.xml",
         "ref/netstandard2.0/System.Numerics.Vectors.dll",
         "ref/netstandard2.0/System.Numerics.Vectors.xml",
+        "ref/uap10.0.16299/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.numerics.vectors.4.4.0.nupkg.sha512",
+        "system.numerics.vectors.4.5.0.nupkg.sha512",
         "system.numerics.vectors.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -1250,17 +1383,18 @@
         "version.txt"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/4.5.3": {
-      "sha512": "3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/4.5.3",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
@@ -1273,7 +1407,9 @@
         "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -1459,6 +1595,91 @@
         "version.txt"
       ]
     },
+    "System.Text.Encodings.Web/5.0.1": {
+      "sha512": "KmJ+CJXizDofbq6mpqDoRRLcxgOd2z9X3XoFNULSbvbqVRZkFX3istvr+MUjL6Zw1RT+RNdoI4GYidIINtgvqQ==",
+      "type": "package",
+      "path": "system.text.encodings.web/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Encodings.Web.dll",
+        "lib/net461/System.Text.Encodings.Web.xml",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.dll",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard1.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard1.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.1/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.1/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.5.0.1.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Text.Json/5.0.2": {
+      "sha512": "I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+      "type": "package",
+      "path": "system.text.json/5.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Json.dll",
+        "lib/net461/System.Text.Json.xml",
+        "lib/netcoreapp3.0/System.Text.Json.dll",
+        "lib/netcoreapp3.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.5.0.2.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Threading.Tasks.Extensions/4.5.4": {
+      "sha512": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+      "type": "package",
+      "path": "system.threading.tasks.extensions/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Threading.Tasks.Extensions.dll",
+        "lib/net461/System.Threading.Tasks.Extensions.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.1/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+        "system.threading.tasks.extensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Windows.Extensions/5.0.0": {
       "sha512": "c1ho9WU9ZxMZawML+ssPKZfdnrg/OjR3pe0m9v8230z3acqphwvPJqzAkH54xRYm5ntZHGG1EPP3sux9H3qSPg==",
       "type": "package",
@@ -1480,44 +1701,27 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "WebSocketSharp-netstandard/1.0.1": {
-      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
-      "type": "package",
-      "path": "websocketsharp-netstandard/1.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35/websocket-sharp.dll",
-        "lib/net35/websocket-sharp.xml",
-        "lib/net45/websocket-sharp.dll",
-        "lib/net45/websocket-sharp.xml",
-        "lib/netstandard2.0/websocket-sharp.dll",
-        "lib/netstandard2.0/websocket-sharp.xml",
-        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
-        "websocketsharp-netstandard.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.CSharp >= 4.7.0",
       "Newtonsoft.Json >= 13.0.1",
-      "SocketIoClient >= 2.1.7",
+      "SocketIOClient.Newtonsoft.Json >= 2.2.1",
       "System.Drawing.Common >= 5.0.2",
       "System.Runtime.Caching >= 5.0.0"
     ],
     ".NETStandard,Version=v2.1": [
       "Microsoft.CSharp >= 4.7.0",
       "Newtonsoft.Json >= 13.0.1",
-      "SocketIoClient >= 2.1.7",
+      "SocketIOClient.Newtonsoft.Json >= 2.2.1",
       "System.Drawing.Common >= 5.0.2",
       "System.Runtime.Caching >= 5.0.0"
     ],
     "net5.0": [
       "Microsoft.CSharp >= 4.7.0",
       "Newtonsoft.Json >= 13.0.1",
-      "SocketIoClient >= 2.1.7",
+      "SocketIOClient.Newtonsoft.Json >= 2.2.1",
       "System.Drawing.Common >= 5.0.2",
       "System.Runtime.Caching >= 5.0.0"
     ]
@@ -1526,7 +1730,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "4.2.12",
+    "version": "4.3.0",
     "restore": {
       "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
       "projectName": "WOLF.Net",
@@ -1580,9 +1784,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "SocketIoClient": {
+          "SocketIOClient.Newtonsoft.Json": {
             "target": "Package",
-            "version": "[2.1.7, )"
+            "version": "[2.2.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",
@@ -1621,9 +1825,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "SocketIoClient": {
+          "SocketIOClient.Newtonsoft.Json": {
             "target": "Package",
-            "version": "[2.1.7, )"
+            "version": "[2.2.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",
@@ -1662,9 +1866,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "SocketIoClient": {
+          "SocketIOClient.Newtonsoft.Json": {
             "target": "Package",
-            "version": "[2.1.7, )"
+            "version": "[2.2.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

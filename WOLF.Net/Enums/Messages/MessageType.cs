@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Messages
 {
-    [Flags]
     public enum MessageType
     {
-        Group = 1,
-        Private = 2,
-        Both = 4,
+        GROUP = 1,
+        [Obsolete("use GROUP")]
+        Group = GROUP,
+
+        PRIVATE = 2,
+        [Obsolete("use PRIVATE")]
+        Private = PRIVATE,
+
+        BOTH = GROUP | PRIVATE,
+        [Obsolete("use BOTH")]
+        Both = BOTH
     }
 }

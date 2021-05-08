@@ -1,84 +1,156 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Misc
 {
     [Flags]
     public enum Language
     {
-        NotSpecified = 0,
+        NOT_SPECIFIED = 0,
+        [Obsolete("use NOT_SPECIFIED")]
+        NotSpecified = NOT_SPECIFIED,
 
-        English = 1,
+        ENGLISH = 1,
+        [Obsolete("use ENGLISH")]
+        English = ENGLISH,
 
-        German = 3,
+        GERMAN = 3,
+        [Obsolete("use GERMAN")]
+        German = GERMAN,
 
-        Spanish = 4,
+        SPANISH = 4,
+        [Obsolete("use SPANISH")]
+        Spanish = SPANISH,
 
-        French = 6,
+        FRENCH = 6,
+        [Obsolete("use FRENCH")]
+        French = FRENCH,
 
-        Polish = 10,
+        POLISH = 10,
+        [Obsolete("use POLISH")]
+        Polish = POLISH,
 
-        Chinese_Simplified = 11,
+        CHINESE_SIMPLIFIED = 11,
+        [Obsolete("use CHINESE_SIMPLIFIED")]
+        Chinese_Simplified = CHINESE_SIMPLIFIED,
 
-        Russian = 12,
+        RUSSIAN = 12,
+        [Obsolete("use RUSSIAN")]
+        Russian = RUSSIAN,
 
-        Italian = 13,
+        ITALIAN = 13,
+        [Obsolete("use ITALIAN")]
+        Italian = ITALIAN,
 
-        Arabic = 14,
+        ARABIC = 14,
+        [Obsolete("use ARABIC")]
+        Arabic = ARABIC,
 
-        Persian_Farsi = 15,
+        PERSIAN_FARSI = 15,
+        [Obsolete("use PERSIAN_FARSI")]
+        Persian_Farsi = PERSIAN_FARSI,
 
-        Greek = 16,
+        GREEK = 16,
+        [Obsolete("use GREEK")]
+        Greek = GREEK,
 
-        Portuguese = 17,
+        PORTUGUESE = 17,
+        [Obsolete("use PORTUGUESE")]
+        Portuguese = PORTUGUESE,
 
-        Hindi = 18,
+        HINDI = 18,
+        [Obsolete("use HINDI")]
+        Hindi = HINDI,
 
-        Japanese = 19,
+        JAPANESE = 19,
+        [Obsolete("use JAPANESE")]
+        Japanese = JAPANESE,
 
-        Latin_Spanish = 20,
+        LATIN_SPANISH = 20,
+        [Obsolete("use LATIN_SPANISH")]
+        Latin_Spanish = LATIN_SPANISH,
 
-        Slovak = 21,
+        SLOVAK = 21,
+        [Obsolete("use SLOVAK")]
+        Slovak = SLOVAK,
 
-        Czech = 22,
+        CZECH = 22,
+        [Obsolete("use CZECH")]
+        Czech = CZECH,
 
-        Danish = 24,
+        DANISH = 24,
+        [Obsolete("use DANISH")]
+        Danish = DANISH,
 
-        Finnish = 25,
+        FINNISH = 25,
+        [Obsolete("use FINNISH")]
+        Finnish = FINNISH,
 
-        Hungarian = 27,
+        HUNGARIAN = 27,
+        [Obsolete("use HUNGARIAN")]
+        Hungarian = HUNGARIAN,
 
-        Bahasa_Indonesia = 28,
+        BAHASA_INDONESIA = 28,
+        [Obsolete("use BAHASA_INDONESIA")]
+        Bahasa_Indonesia = BAHASA_INDONESIA,
 
-        Malay = 29,
+        MALAY = 29,
+        [Obsolete("use MALAY")]
+        Malay = MALAY,
 
-        Dutch = 30,
+        DUTCH = 30,
+        [Obsolete("use DUTCH")]
+        Dutch = DUTCH,
 
-        Norwegian = 31,
+        NORWEGIAN = 31,
+        [Obsolete("use NORWEGIAN")]
+        Norwegian = NORWEGIAN,
 
-        Swedish = 32,
+        SWEDISH = 32,
+        [Obsolete("use SWEDISH")]
+        Swedish = SWEDISH,
 
-        Thai = 33,
+        THAI = 33,
+        [Obsolete("use ")]
+        Thai = THAI,
 
-        Turkish = 34,
+        TURKISH = 34,
+        [Obsolete("use TURKISH")]
+        Turkish = TURKISH,
 
-        Vietnamese = 35,
+        VIETNAMESE = 35,
+        [Obsolete("use VIETNAMESE")]
+        Vietnamese = VIETNAMESE,
 
-        Korean = 36,
+        KOREAN = 36,
+        [Obsolete("use KOREAN")]
+        Korean = KOREAN,
 
-        Brazilian_Portuguese = 37,
+        BRAZILIAN_PORTUGUESE = 37,
+        [Obsolete("use BRAZILIAN_PORTUGUESE")]
+        Brazilian_Portuguese = BRAZILIAN_PORTUGUESE,
 
-        Estonian = 39,
+        ESTONIAN = 39,
+        [Obsolete("use ESTONIAN")]
+        Estonian = ESTONIAN,
 
-        Kazakh = 41,
+        KAZAKH = 41,
+        [Obsolete("use KAZAKH")]
+        Kazakh = KAZAKH,
 
-        Latvian = 42,
+        LATVIAN = 42,
+        [Obsolete("use LATVIAN")]
+        Latvian = LATVIAN,
 
-        Lithuanian = 43,
+        LITHUANIAN = 43,
+        [Obsolete("use LITHUANIAN")]
+        Lithuanian = LITHUANIAN,
 
-        Ukrainian = 44,
+        UKRAINIAN = 44,
+        [Obsolete("use UKRAINIAN")]
+        Ukrainian = UKRAINIAN,
 
-        Bulgarian = 45
+        BULGARIAN = 45,
+        [Obsolete("use BULGARIAN")]
+        Bulgarian = BULGARIAN
     }
 }

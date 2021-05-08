@@ -1,20 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Commands;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Messages;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Example.Entities;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Commands
 {
 
-    [Command("example"), RequiredMessageType(MessageType.Group)]
+    [Command("example"), RequiredMessageType(MessageType.GROUP)]
     class Example : CommandContext
     {
         [Command]
@@ -23,12 +18,12 @@ namespace WOLF.Net.ExampleBot.Commands
         [Command("help")]
         public async Task Help() => await ReplyAsync(Bot.GetPhraseByName(Command.Language, "help_message"));
 
-        [Command("cancel"), RequiredPermissions(Capability.Admin, Privilege.STAFF)]
+        [Command("cancel"), RequiredPermissions(Capability.ADMIN, Privilege.STAFF)]
         public async Task Cancel()
         {
             if (Command.IsGroup)
             {
-                if (Bot.FormManager.HasGroupForm(Command.SourceTargetId, Command.SourceSubscriberId)? Bot.FormManager.CancelGroupForm(Command.SourceTargetId, Command.SourceSubscriberId):Bot.FormManager.CancelGroupForms(Command.SourceTargetId))
+                if (Bot.FormManager.HasGroupForm(Command.TargetGroupId, Command.SourceSubscriberId)? Bot.FormManager.CancelGroupForm(Command.TargetGroupId, Command.SourceSubscriberId):Bot.FormManager.CancelGroupForms(Command.TargetGroupId))
                     await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_flow_exists_message"));
                 else
                     await ReplyAsync(Bot.GetPhraseByName(Command.Language, "flow_cancelled_message"));
@@ -48,7 +43,7 @@ namespace WOLF.Net.ExampleBot.Commands
             [Command]
             public async Task Default() => await ReplyAsync(Bot.GetPhraseByName(Command.Language, "help_message"));
 
-            [Command("subscriber"), RequiredPermissions(Enums.Groups.Capability.Mod, Privilege.STAFF)]
+            [Command("subscriber"), RequiredPermissions(Enums.Groups.Capability.MOD, Privilege.STAFF)]
             public async Task Subscriber()
             {
                 int subscriberId = Message.SourceSubscriberId;
@@ -69,10 +64,10 @@ namespace WOLF.Net.ExampleBot.Commands
                     await ReplyAsync(Bot.GetPhraseByName(Command.Language, "no_such_subscriber_exists_message"));
             }
 
-            [Command("group"), RequiredPermissions(Enums.Groups.Capability.Mod, Privilege.STAFF)]
+            [Command("group"), RequiredPermissions(Enums.Groups.Capability.MOD, Privilege.STAFF)]
             public async Task Group()
             {
-                int groupId = Message.SourceTargetId;
+                int groupId = Message.TargetGroupId;
 
                 if (int.TryParse(Command.Argument.ToEnglishNumbers(), out int gid) && gid > 0)
                     groupId = gid;

@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
     [Flags]
     public enum Gender
     {
-        NotSpecified = 0,
+        NOT_SPECIFIED = 0,
+        [Obsolete("use NOT_SPECIFIED")]
+        NotSpecified = NOT_SPECIFIED,
 
-        Male = 1,
+        MALE = 1,
+        [Obsolete("use MALE")]
+        Male = MALE,
 
-        Female = 2
+        FEMALE = 2,
+        [Obsolete("use FEMALE")]
+        Female = FEMALE,
     }
 }

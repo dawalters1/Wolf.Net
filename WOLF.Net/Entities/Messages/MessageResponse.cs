@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Entities.Messages
 {
@@ -12,6 +9,5 @@ namespace WOLF.Net.Entities.Messages
 
         [JsonProperty("timestamp")]
         public long Timestamp { get; set; }
-
     }
 }

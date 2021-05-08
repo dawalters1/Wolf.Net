@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
@@ -8,38 +6,52 @@ namespace WOLF.Net.Enums.Subscribers
     public enum Relationship
     {
         /// <summary>
-        /// User has not specified their relationship status
+        /// Subscriber has not specified their relationship status
         /// </summary>
-        NotSpecified = 0,
+        NOT_SPECIFIED = 0,
+        [Obsolete("use NOT_SPECIFIED")]
+        NotSpecified = NOT_SPECIFIED,
 
         /// <summary>
-        /// User is single
+        /// Subscriber is single
         /// </summary>
-        Single = 1,
+        SINGLE = 1,
+        [Obsolete("use SINGLE")]
+        Single = SINGLE,
 
         /// <summary>
-        /// User is in a relationship
+        /// Subscriber is in a relationship
         /// </summary>
-        Relationship = 2,
+        RELATIONSHIP = 2,
+        [Obsolete("use RELATIONSHIP")]
+        Relationship = RELATIONSHIP,
 
         /// <summary>
-        /// User is engaged
+        /// Subscriber is engaged
         /// </summary>
-        Engaged = 3,
+        ENGAGED = 3,
+        [Obsolete("use ENGAGED")]
+        Engaged = ENGAGED,
 
         /// <summary>
-        /// User is married
+        /// Subscriber is married
         /// </summary>
-        Married = 4,
+        MARRIED = 4,
+        [Obsolete("use MARRIED")]
+        Married = MARRIED,
 
         /// <summary>
         /// Complicated? sucks to be you
         /// </summary>
-        Compilicated = 5,
+        COMPLICATED = 5,
+        [Obsolete("use COMPLICATED")]
+        Complicated = COMPLICATED,
 
         /// <summary>
-        /// User is in an open relationship
+        /// Subscriber is in an open relationship
         /// </summary>
-        Open = 6
+        OPEN = 6,
+        [Obsolete("use OPEN")]
+        Open = OPEN,
     }
 }

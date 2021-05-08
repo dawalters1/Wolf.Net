@@ -1,21 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Threading.Tasks;
-using WOLF.Net.Commands.Attributes;
+﻿using WOLF.Net.Commands.Attributes;
 using WOLF.Net.Commands.Form;
-using WOLF.Net.Entities.Messages;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot.Flows
 {
-    [Form("!example form", 5000), RequiredMessageType(Enums.Messages.MessageType.Group)]
+    [Form("!example form", 5000), RequiredMessageType(Enums.Messages.MessageType.GROUP)]
     public class ExampleForm : FormContext
     {
         public int Age { get; set; }
 
         public override async void Start(string message)
         {
-            if (Bot.FormManager.GroupHasForms(Command.SourceTargetId, Command.SourceSubscriberId))//Ensure to include the current subscriber Id this will exclude them from the count, else this will always throw true
+            if (Bot.FormManager.GroupHasForms(Command.TargetGroupId, Command.SourceSubscriberId))//Ensure to include the current subscriber Id this will exclude them from the count, else this will always throw true
             {
                 Finish();
 

@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using WOLF.Net.Entities.API;
@@ -19,7 +17,7 @@ namespace WOLF.Net.Commands.Form
 
         public async Task<Response<MessageResponse>> ReplyAsync(object content, bool includeEmbeds = false) => await SendMessageAsync(content, includeEmbeds);
 
-        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false) => await Bot.SendMessageAsync(Message.IsGroup ? Message.SourceTargetId : Message.SourceSubscriberId, content, Message.MessageType, includeEmbeds);
+        public async Task<Response<MessageResponse>> SendMessageAsync(object content, bool includeEmbeds = false) => await Bot.SendMessageAsync(Message.IsGroup ? Message.TargetGroupId : Message.SourceSubscriberId, content, Message.MessageType, includeEmbeds);
 
         public async Task<Response<MessageResponse>> SendPrivateMessageAsync(int subscriberId, object content, bool includeEmbeds = false) => await Bot.SendPrivateMessageAsync(subscriberId, content, includeEmbeds);
 

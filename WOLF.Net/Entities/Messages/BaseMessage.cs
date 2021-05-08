@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using WOLF.Net.Entities.Misc;
 using WOLF.Net.Enums.Messages;
 
@@ -15,7 +14,7 @@ namespace WOLF.Net.Entities.Messages
         public Guid Id { get; set; }
 
         [JsonProperty("edited")]
-        public MessageEdit Edited { get; set; }
+        public Edit Edited { get; set; }
 
         [JsonProperty("recipient")]
         public IdHash Recipient { get; set; }
@@ -39,22 +38,27 @@ namespace WOLF.Net.Entities.Messages
         public string FlightId { get; set; }
 
         [JsonProperty("metadata")]
-        public MessageMetadata Metadata { get; set; }
+        public Metadata Metadata { get; set; }
+
+        [JsonProperty("embeds")]
+        public List<Embed> Embeds { get; set; }
 
         public ContentType ContentType => MimeType switch
         {
-            "text/plain" => ContentType.Text,
-            "text/html" => ContentType.MessagePack,
-            "image/jpeg" => ContentType.Image,
-            "text/image_link" => ContentType.Image,
-            "text/voice_link" => ContentType.VoiceMessage,
-            "audio/x-speex" => ContentType.VoiceMessage,
-            "audio/aac" => ContentType.VoiceMessage,
-            "application/palringo-group-action" => ContentType.GroupAction,
-            "text/palringo-private-request-response" => ContentType.PrivateRequestResponse,
-            _ => ContentType.Unknown
+            "text/plain" => ContentType.TEXT,
+            "text/html" => ContentType.MESSAGE_PACK,
+            "image/jpeg" => ContentType.IMAGE_JPEG,
+            "image/gif"=>   ContentType.IMAGE_GIF,
+            "text/image_link" => ContentType.IMAGE_LINK,
+            "text/voice_link" => ContentType.VOICE_MESSAGE,
+            "audio/x-speex" => ContentType.VOICE_MESSAGE,
+            "audio/aac" => ContentType.VOICE_MESSAGE,
+            "application/palringo-group-action" => ContentType.GROUP_ACTION,
+            "text/palringo-private-request-response" => ContentType.PRIVATE_REQUEST_RESPONSE,
+            _ => ContentType.UNKNOWN
         };
-        public Message ToNormalMessage(WolfBot bot)
+
+        public Message NormalizeMessage(WolfBot bot)
         {
             return new Message(bot, this);
         }

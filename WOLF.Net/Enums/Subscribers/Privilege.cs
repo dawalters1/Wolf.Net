@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
@@ -10,12 +8,12 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// Has an account duh
         /// </summary>
-        SUBSCRIBER = 1, 
-        
+        SUBSCRIBER = 1,
+
         /// <summary>
         /// User is a bot tester
         /// </summary>
-        BOT_TESTER = 1 << 1, 
+        BOT_TESTER = 1 << 1,
 
         /// <summary>
         /// User is a game tester (Obs)
@@ -46,17 +44,17 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// User is a volunteer
         /// </summary>
-        VOLUNTEER = 1 << 9, 
+        VOLUNTEER = 1 << 9,
 
         /// <summary>
         /// 
         /// </summary>
-        SELECTCLUB_2 = 1 << 10, 
+        SELECTCLUB_2 = 1 << 10,
 
         /// <summary>
         /// User is a client tester
         /// </summary>
-        ALPHA_TESTER = 1 << 11, 
+        ALPHA_TESTER = 1 << 11,
 
         /// <summary>
         /// User is a staff member
@@ -86,7 +84,7 @@ namespace WOLF.Net.Enums.Subscribers
         /// User is a pest
         /// </summary>
         PEST = 1 << 18, // pest
-        
+
         /// <summary>
         /// User has validated their email
         /// </summary>
@@ -112,12 +110,12 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// ??
         /// </summary>
-        USER_ADMIN = 1 << 24, 
+        USER_ADMIN = 1 << 24,
 
         /// <summary>
         /// User is 'super admin'
         /// </summary>
-        GROUP_ADMIN = 1 << 25, 
+        GROUP_ADMIN = 1 << 25,
 
         /// <summary>
         /// User is a bot
@@ -136,6 +134,6 @@ namespace WOLF.Net.Enums.Subscribers
         /// <summary>
         /// User is shadow banned
         /// </summary>
-        SHADOW_BANNED = 1 << 30, 
+        SHADOW_BANNED = 1 << 30,
     }
 }

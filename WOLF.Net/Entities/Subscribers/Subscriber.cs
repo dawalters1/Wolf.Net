@@ -1,15 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Entities.API;
-using WOLF.Net.Entities.Charms;
 using WOLF.Net.Entities.Messages;
 using WOLF.Net.Enums.Misc;
 using WOLF.Net.Enums.Subscribers;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net.Entities.Subscribers
 {
@@ -20,13 +18,13 @@ namespace WOLF.Net.Entities.Subscribers
 
         [JsonIgnore]
         internal WolfBot Bot;
-        
+
         internal Subscriber() { }
 
         internal Subscriber(int subscriberId)
         {
             Id = subscriberId;
-            Nickname = $"<ID{subscriberId}>";
+            Nickname = $"<ID:{subscriberId}>";
             Exists = false;
         }
 
@@ -37,7 +35,7 @@ namespace WOLF.Net.Entities.Subscribers
         public string Hash { get; set; }
 
         [JsonProperty("charms")]
-        public SubscriberCharm Charms { get; set; }
+        public Charm Charms { get; set; }
 
         [JsonProperty("nickname")]
         public string Nickname { get; set; }
@@ -105,30 +103,48 @@ namespace WOLF.Net.Entities.Subscribers
         }
 
         public string ToDisplayName(bool withId = true, bool trimAds = false) => withId ? $"{(trimAds ? Nickname.TrimAds() : Nickname)} ({Id})" : $"{(trimAds ? Nickname.TrimAds() : Nickname)}";
-   
-        [Obsolete("Deprecated use UpdateProfile() instead")]
-        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile(WolfBot bot) =>  UpdateProfile();
-        
-
-        public Helpers.ProfileBuilders.SubscriberUpdateBuilder UpdateProfile()
-        {
-            if (Bot.CurrentSubscriber.Id != Id)
-                throw new Exception("You can only update the current logged in users profile!");
-
-            return new Helpers.ProfileBuilders.SubscriberUpdateBuilder(Bot, this);
-        }
-
 
         public async Task<Response<MessageResponse>> SendMessageAsync(object content) => await Bot.SendPrivateMessageAsync(Id, content);
 
-        public async Task<Response> AddToContacts() => await Bot.AddSubscriberAsync(Id);
+        public async Task<Response> Add() => await Bot.AddSubscriberAsync(Id);
 
-        public async Task<Response> RemoveFromContacts() => await Bot.RemoveSubscriberAsync(Id);
+        public async Task<Response> Delete() => await Bot.DeleteSubscriberAsync(Id);
 
         public async Task<Response> Block() => await Bot.BlockSubscriberAsync(Id);
 
         public async Task<Response> Unblock() => await Bot.UnblockSubscriberAsync(Id);
 
+        public bool HasPrivilege(Privilege privilege) => Privileges.HasFlag(privilege);
+
+        private readonly Privilege[] privileges = { Privilege.BOT, Privilege.STAFF, Privilege.ELITECLUB_1, Privilege.ELITECLUB_2, Privilege.ELITECLUB_3, Privilege.SELECTCLUB_1, Privilege.SELECTCLUB_2, Privilege.ENTERTAINER, Privilege.VOLUNTEER };
+
+        public Privilege GetTag() => privileges.Any(r => Privileges.HasFlag(r)) ? privileges.FirstOrDefault(r => Privileges.HasFlag(r)) : Privilege.SUBSCRIBER;
+
+        public async Task<Bitmap> GetAvatar(int size = 640, bool placeholder = false)
+        {
+            var tsk = new TaskCompletionSource<Bitmap>();
+            try
+            {
+                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/user/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.EndPoints.AvatarEndpoint}/FileServerSpring/group/subscriber/{Id}?size={size}").DownloadImageFromUrl());
+            }
+            catch (Exception error)
+            {
+                if (placeholder)
+                    tsk.SetException(error);
+                else
+                    return await GetAvatar(size, true);
+            }
+
+            return await tsk.Task;
+        }
+
+        public Builders.Profiles.Subscriber UpdateProfile()
+        {
+            if (Bot.CurrentSubscriber.Id != Id)
+                throw new Exception("You can only update the current logged in users profile!");
+
+            return new Builders.Profiles.Subscriber(Bot, this);
+        }
 
     }
 

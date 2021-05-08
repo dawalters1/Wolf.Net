@@ -1,22 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
     [Flags]
     public enum OnlineState
     {
-        Offline = 0,
+        /// <summary>
+        /// Subscriber is offline
+        /// </summary>
+        OFFLINE = 0,
+        [Obsolete("use OFFLINE")]
+        Offline = OFFLINE,
 
-        Online = 1,
+        /// <summary>
+        /// Subscriber is online
+        /// </summary>
+        ONLINE = 1,
+        [Obsolete("use ONLINE")]
+        Online = ONLINE,
 
-        Away = 2,
+        /// <summary>
+        /// Subscriber is away from the app
+        /// </summary>
+        AWAY = 2,
+        [Obsolete("use AWAY")]
+        Away = AWAY,
 
-        Invisible = 3,
+        /// <summary>
+        /// Subscriber is online, but appearing offline
+        /// </summary>
+        INVISIBLE = 3,
+        [Obsolete("use INVISIBLE")]
+        Invisible = INVISIBLE,
 
-        Busy = 5,
+        /// <summary>
+        /// Subscriber is busy
+        /// </summary>
+        BUSY = 5,
+        [Obsolete("use BUSY")]
+        Busy = BUSY,
 
-        Idle = 9,
+        /// <summary>
+        /// Pointless ass state
+        /// </summary>
+        IDLE = 9,
+        [Obsolete("use IDLE")]
+        Idle = IDLE
     }
 }

@@ -1,22 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
     [Flags]
     public enum DeviceType
     {
-        Other,
+        OTHER,
+        [Obsolete("use OTHER")]
+        Other = OTHER,
 
-        Bot = 1,
+        BOT = 1,
+        [Obsolete("use BOT")]
+        Bot = BOT,
 
-        iPhone = 5,
+        IPHONE = 5,
+        [Obsolete("use IPHONE")]
+        iPhone = IPHONE,
 
-        iPad = 6,
+        IPAD = 6,
+        [Obsolete("use IPAD")]
+        iPad = IPAD,
 
-        Android = 7,
+        ANDROID = 7,
+        [Obsolete("use ANDROID")]
+        Android = ANDROID,
 
-        Web = 8
+        WEB = 8,
+        [Obsolete("use WEB")]
+        Web = WEB,
     }
 }

@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WOLF.Net.Entities.API;
-using WOLF.Net.Entities.Groups.Stages;
-using WOLF.Net.Entities.Groups.Stats;
-using WOLF.Net.Entities.Groups.Subscribers;
 using WOLF.Net.Entities.Messages;
-using WOLF.Net.Entities.Misc;
-using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Misc;
+using WOLF.Net.Enums.Groups;
+using WOLF.Net.Entities.Misc;
+using System.Drawing;
+using System.Linq;
 
 namespace WOLF.Net.Entities.Groups
 {
@@ -26,24 +24,16 @@ namespace WOLF.Net.Entities.Groups
 
         internal Group(int groupId)
         {
-            Id = groupId;
-            Name = $"<ID{groupId}>";
-            Exists = false;
+            this.Id = groupId;
+            this.Name = $"<ID:{groupId}>";
+            this.Exists = false;
         }
 
         internal Group(string name)
         {
-            Id = 0;
-            Name = name;
-            Exists = false;
-        }
-
-        internal Group(Group group, GroupAudioConfiguration groupAudioConfiguration, GroupAudioCount groupAudioCount, Extended extended)
-        {
-            Update(group);
-            AudioConfiguration = groupAudioConfiguration;
-            AudioCount = groupAudioCount;
-            Extended = extended;
+            this.Id = 0;
+            this.Name = name;
+            this.Exists = false;
         }
 
         [JsonProperty("id")]
@@ -67,12 +57,8 @@ namespace WOLF.Net.Entities.Groups
         [JsonProperty("members")]
         public int Members { get; internal set; }
 
-        /// <summary>
-        /// A list of the members in the group
-        /// <remarks>This is only requested when a user uses a valid command, to load the group members list any other time  <see cref="GetMembersListAsync"/> </remarks>
-        /// </summary>
         [JsonIgnore]
-        public List<GroupSubscriber> Users { get; internal set; } = new List<GroupSubscriber>();
+        internal List<Subscriber> Subscribers { get; set; } = new List<Subscriber>();
 
         [JsonProperty("official")]
         public bool Official { get; set; }
@@ -87,10 +73,10 @@ namespace WOLF.Net.Entities.Groups
         public Extended Extended { get; set; }
 
         [JsonIgnore]
-        public GroupAudioConfiguration AudioConfiguration { get; set; }
+        public AudioConfiguration AudioConfiguration { get; set; }
 
         [JsonIgnore]
-        public GroupAudioCount AudioCount { get; set; }
+        public AudioCount AudioCount { get; set; }
 
         /// <summary>
         /// The current user is in the group
@@ -102,58 +88,65 @@ namespace WOLF.Net.Entities.Groups
         /// The group exists
         /// </summary>
         [JsonIgnore]
-        public bool Exists { get; set; }
+        public bool Exists { get; set; } = true;
 
         [JsonIgnore]
-        public Capability MyCapabilities { get; internal set; } = Capability.None;
+        public Capability MyCapabilities { get; internal set; } = Capability.NOT_MEMBER;
 
         internal void Update(Group group)
         {
-            Id = group.Id;
-            Hash = group.Hash;
-            Icon = group.Icon;
-            Name = group.Name;
-            Description = group.Description;
-            Reputation = group.Reputation;
-            Official = group.Official;
-            Peekable = group.Peekable;
-            Members = group.Members;
-            Extended = group.Extended;
-            Owner = group.Owner;
+            this.Id = group.Id;
+            this.Hash = group.Hash;
+            this.Icon = group.Icon;
+            this.Name = group.Name;
+            this.Description = group.Description;
+            this.Reputation = group.Reputation;
+            this.Official = group.Official;
+            this.Peekable = group.Peekable;
+            this.Members = group.Members;
+            this.Extended = group.Extended;
+            this.Owner = group.Owner;
 
-            Exists = true;
+            this.Exists = true;
 
             Updated();
         }
 
         public string ToDisplayName(bool withId = true) => withId ? $"[{Name}] ({Id})" : $"[{Name}]";
 
+        public Builders.Profiles.Group UpdateProfile() => new Builders.Profiles.Group(Bot, this);
 
-        [Obsolete("Deprecated use UpdateProfile() instead")]
-        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile(WolfBot bot) => UpdateProfile();
+        public async Task<Response> JoinAsync(string password = null) => await Bot.JoinGroupAsync(Id, password);
 
-        public Helpers.ProfileBuilders.GroupUpdateBuilder UpdateProfile() => new Helpers.ProfileBuilders.GroupUpdateBuilder(Bot, this);
-
-
-        [Obsolete("Deprecated use UpdateStage() instead")]
-        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage(WolfBot bot) => UpdateStage();
-
-        public Helpers.ProfileBuilders.StageUpdateBuilder UpdateStage() => new Helpers.ProfileBuilders.StageUpdateBuilder(Bot, this.AudioConfiguration);
-
-
-        public async Task<Response> JoinGroupAsync(string password = null)=> await Bot.JoinGroupAsync(Id, password);
-        
-        public async Task<Response> LeaveGroupAsync() => await Bot.LeaveGroupAsync(Id);
+        public async Task<Response> LeaveAsync() => await Bot.LeaveGroupAsync(Id);
 
         public async Task<Response<MessageResponse>> SendMessageAsync(object content) => await Bot.SendGroupMessageAsync(Id, content);
 
-        public async Task<Response> GroupActionAsync(int targetSubscriberId, GroupActionType groupActionType) => await Bot.GroupActionAsync(Id, targetSubscriberId, groupActionType);
+        public async Task<Response> ActionAsync(int targetSubscriberId, ActionType actionType) => await Bot.UpdateGroupSubscriberAsync(Id, targetSubscriberId, actionType);
 
-        public async Task<Response<GroupStats>> Stats() => await Bot.GroupStatsAsync(Id);
+        public async Task<Response<Stats>> GetStats() => await Bot.GetGroupStatsAsync(Id);
 
-        public async Task<List<GroupSubscriber>> GetGroupSubscriberListAsync() => await Bot.GetGroupSubscribersListAsync(Id);
+        public async Task<List<Subscriber>> GetSubscriberListAsync() => await Bot.GetGroupSubscribersListAsync(Id);
+
+        public async Task<Bitmap> GetAvatar(int size = 640, bool placeholder = false)
+        {
+            var tsk = new TaskCompletionSource<Bitmap>();
+            try
+            {
+                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/group/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.EndPoints.AvatarEndpoint}/FileServerSpring/group/avatar/{Id}?size={size}").DownloadImageFromUrl());
+            }
+            catch (Exception error)
+            {
+                if (placeholder)
+                    tsk.SetException(error);
+                else
+                    return await GetAvatar(size, true);
+            }
+
+            return await tsk.Task;
+        }
     }
-    
+
 
     public class Extended
     {

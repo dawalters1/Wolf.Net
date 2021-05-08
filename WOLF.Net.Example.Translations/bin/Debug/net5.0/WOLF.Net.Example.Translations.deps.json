@@ -8,13 +8,14 @@
     ".NETCoreApp,Version=v5.0": {
       "WOLF.Net.Example.Translations/1.0.0": {
         "dependencies": {
-          "WOLF.Net": "4.2.8",
+          "WOLF.Net": "4.3.0",
           "WOLF.Net.Redis": "3.2.1"
         },
         "runtime": {
           "WOLF.Net.Example.Translations.dll": {}
         }
       },
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "Microsoft.Win32.Registry/5.0.0": {
@@ -42,11 +43,11 @@
           }
         }
       },
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/13.0.1": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.3.23909"
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
           }
         }
       },
@@ -61,16 +62,27 @@
           }
         }
       },
-      "SocketIOClient/2.1.1": {
+      "SocketIOClient/2.2.0": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {
-            "assemblyVersion": "2.1.1.0",
-            "fileVersion": "2.1.1.0"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {
+            "assemblyVersion": "2.2.1.0",
+            "fileVersion": "2.2.1.0"
           }
         }
       },
@@ -127,28 +139,28 @@
           }
         }
       },
-      "System.Drawing.Common/5.0.0": {
+      "System.Drawing.Common/5.0.2": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "5.0.0"
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.2",
+            "fileVersion": "5.0.421.11614"
           }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
             "rid": "unix",
             "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.2",
+            "fileVersion": "5.0.421.11614"
           },
           "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.2",
+            "fileVersion": "5.0.421.11614"
           }
         }
       },
@@ -220,9 +232,17 @@
         }
       },
       "System.Security.Principal.Windows/5.0.0": {},
+      "System.Text.Json/5.0.2": {
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.521.16609"
+          }
+        }
+      },
       "System.Windows.Extensions/5.0.0": {
         "dependencies": {
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
@@ -239,32 +259,16 @@
           }
         }
       },
-      "WebSocketSharp-netstandard/1.0.1": {
-        "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
-          }
-        }
-      },
-      "WOLF.Net/4.2.8": {
+      "WOLF.Net/4.3.0": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
-          "SocketIOClient": "2.1.1",
-          "System.Drawing.Common": "5.0.0",
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient.Newtonsoft.Json": "2.2.1",
+          "System.Drawing.Common": "5.0.2",
           "System.Runtime.Caching": "5.0.0"
         },
         "runtime": {
           "WOLF.Net.dll": {}
-        }
-      },
-      "WOLF.Net.Redis/3.2.1": {
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
-          "StackExchange.Redis": "2.2.4"
-        },
-        "runtime": {
-          "WOLF.Net.Redis.dll": {}
         }
       }
     }
@@ -274,6 +278,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",
@@ -303,12 +314,12 @@
       "path": "microsoft.win32.systemevents/5.0.0",
       "hashPath": "microsoft.win32.systemevents.5.0.0.nupkg.sha512"
     },
-    "Newtonsoft.Json/12.0.3": {
+    "Newtonsoft.Json/13.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
-      "path": "newtonsoft.json/12.0.3",
-      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
     "Pipelines.Sockets.Unofficial/2.2.0": {
       "type": "package",
@@ -317,12 +328,19 @@
       "path": "pipelines.sockets.unofficial/2.2.0",
       "hashPath": "pipelines.sockets.unofficial.2.2.0.nupkg.sha512"
     },
-    "SocketIOClient/2.1.1": {
+    "SocketIOClient/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-f4t8NfIMjEAVNhSva9woblJmg5+mE4q6Be0qFrtJssuZr0tcoTVwUbAUXKNhSjNEoJZuNEtD2oc2irBzgzvgDA==",
-      "path": "socketioclient/2.1.1",
-      "hashPath": "socketioclient.2.1.1.nupkg.sha512"
+      "sha512": "sha512-vcHjmA15Vd+5e9Es6ypJOdCk//IbBN4+8L2zh7cns02Jjr/OMWWSUdojaHaWtzD7HlBsCM4VAN52HSIcrlKEKw==",
+      "path": "socketioclient/2.2.0",
+      "hashPath": "socketioclient.2.2.0.nupkg.sha512"
+    },
+    "SocketIOClient.Newtonsoft.Json/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lokBsdxpH9T4+UThBgaVpoRSylUSPoUKnnfjOdFsEoG6fIhSeLE5cu531wPWPt0vy0r6jC9JDo169HCSLurX5Q==",
+      "path": "socketioclient.newtonsoft.json/2.2.1",
+      "hashPath": "socketioclient.newtonsoft.json.2.2.1.nupkg.sha512"
     },
     "StackExchange.Redis/2.2.4": {
       "type": "package",
@@ -352,12 +370,12 @@
       "path": "system.diagnostics.performancecounter/5.0.0",
       "hashPath": "system.diagnostics.performancecounter.5.0.0.nupkg.sha512"
     },
-    "System.Drawing.Common/5.0.0": {
+    "System.Drawing.Common/5.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SztFwAnpfKC8+sEKXAFxCBWhKQaEd97EiOL7oZJZP56zbqnLpmxACWA8aGseaUExciuEAUuR9dY8f7HkTRAdnw==",
-      "path": "system.drawing.common/5.0.0",
-      "hashPath": "system.drawing.common.5.0.0.nupkg.sha512"
+      "sha512": "sha512-rvr/M1WPf24ljpvvrVd74+NdjRUJu1bBkspkZcnzSZnmAUQWSvanlQ0k/hVHk+cHufZbZfu7vOh/vYc0q5Uu/A==",
+      "path": "system.drawing.common/5.0.2",
+      "hashPath": "system.drawing.common.5.0.2.nupkg.sha512"
     },
     "System.IO.Pipelines/5.0.0": {
       "type": "package",
@@ -408,6 +426,13 @@
       "path": "system.security.principal.windows/5.0.0",
       "hashPath": "system.security.principal.windows.5.0.0.nupkg.sha512"
     },
+    "System.Text.Json/5.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+      "path": "system.text.json/5.0.2",
+      "hashPath": "system.text.json.5.0.2.nupkg.sha512"
+    },
     "System.Windows.Extensions/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -415,19 +440,7 @@
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
-    "WebSocketSharp-netstandard/1.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
-      "path": "websocketsharp-netstandard/1.0.1",
-      "hashPath": "websocketsharp-netstandard.1.0.1.nupkg.sha512"
-    },
-    "WOLF.Net/4.2.8": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "WOLF.Net.Redis/3.2.1": {
+    "WOLF.Net/4.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

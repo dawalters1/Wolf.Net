@@ -1,16 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using WOLF.Net.Commands.Commands;
-using WOLF.Net.Commands.Instances;
-using WOLF.Net.Entities.Phrases;
-using WOLF.Net.ExampleBot.Flows;
-using WOLF.Net.Utilities;
 
 namespace WOLF.Net.ExampleBot
 {
@@ -98,9 +88,9 @@ namespace WOLF.Net.ExampleBot
             Bot.On.PermissionFailed += async permFailure =>
             {
                 if (permFailure.IsGroup)
-                    await Bot.SendGroupMessageAsync(permFailure.SourceTargetId, "You do not have the proper permissions to use this command");
+                    await Bot.SendGroupMessageAsync(permFailure.TargetGroupId, "You do not have the proper permissions to use this command");
                 else
-                    await Bot.SendPrivateMessageAsync(permFailure.SourceTargetId, "You do not have the proper permissions to use this command");
+                    await Bot.SendPrivateMessageAsync(permFailure.TargetGroupId, "You do not have the proper permissions to use this command");
             };
 
             #endregion
@@ -108,7 +98,7 @@ namespace WOLF.Net.ExampleBot
             #region API Events
 
             Bot.On.Log += log => Console.WriteLine($"[Log]: {log}");
-            Bot.On.InternalError += error => Console.WriteLine($"[Internal Error]: {error}");
+            Bot.On.Error += error => Console.WriteLine($"[Internal Error]: {error}");
 
             #endregion
 

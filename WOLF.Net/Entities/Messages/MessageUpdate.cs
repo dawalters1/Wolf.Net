@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using WOLF.Net.Entities.Misc;
 
@@ -18,10 +16,10 @@ namespace WOLF.Net.Entities.Messages
         public bool IsGroup { get; set; }
 
         [JsonProperty("metadata")]
-        public MessageMetadata Metadata { get; set; }
+        public Metadata Metadata { get; set; }
 
         [JsonProperty("edit")]
-        public MessageEdit Edit { get; set; }
+        public Edit Edit { get; set; }
 
         [JsonProperty("timestamp")]
         public long Timestamp { get; set; }

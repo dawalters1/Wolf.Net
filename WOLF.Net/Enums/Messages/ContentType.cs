@@ -1,24 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Messages
 {
     [Flags]
     public enum ContentType
     {
-        Unknown = 0,
+        UNKNOWN = 0,
+        [Obsolete("use UNKNOWN")]
+        Unknown = UNKNOWN,
 
-        Text = 1,
+        TEXT = 1,
+        [Obsolete("use TEXT")]
+        Text = TEXT,
 
-        Image = 2,
+        IMAGE_LINK = 2,
+        [Obsolete("use IMAGE_LINK")]
+        Image = IMAGE_LINK,
 
-        MessagePack = 4,
+        IMAGE_GIF = 4,
 
-        VoiceMessage = 8,
+        IMAGE_JPEG = 8,
 
-        GroupAction = 16,
+        MESSAGE_PACK = 16,
+        [Obsolete("use MESSAGE_PACK")]
+        MessagePack = MESSAGE_PACK,
 
-        PrivateRequestResponse = 32
+        VOICE_MESSAGE = 32,
+        [Obsolete("use VOICE_MESSAGE")]
+        VoiceMessage = VOICE_MESSAGE,
+
+        GROUP_ACTION = 64,
+        [Obsolete("use GROUP_ACTION")]
+        GroupAction = GROUP_ACTION,
+
+        PRIVATE_REQUEST_RESPONSE = 128,
+        [Obsolete("use PRIVATE_REQUEST_RESPONSE")]
+        PrivateRequestResponse = PRIVATE_REQUEST_RESPONSE,
     }
 }

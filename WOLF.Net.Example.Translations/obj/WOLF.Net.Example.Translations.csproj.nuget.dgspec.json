@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -199,7 +199,7 @@
       }
     },
     "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "4.2.8",
+      "version": "4.3.0",
       "restore": {
         "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
@@ -245,17 +245,21 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             },
-            "SocketIoClient": {
+            "SocketIOClient.Newtonsoft.Json": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[2.2.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.2, )"
             },
             "System.Runtime.Caching": {
               "target": "Package",
@@ -277,22 +281,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         },
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             },
-            "SocketIoClient": {
+            "SocketIOClient.Newtonsoft.Json": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[2.2.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.2, )"
             },
             "System.Runtime.Caching": {
               "target": "Package",
@@ -314,22 +322,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "dependencies": {
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             },
-            "SocketIoClient": {
+            "SocketIOClient.Newtonsoft.Json": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[2.2.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.2, )"
             },
             "System.Runtime.Caching": {
               "target": "Package",
@@ -351,7 +363,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

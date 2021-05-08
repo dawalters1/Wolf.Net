@@ -1,20 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Subscribers
 {
     [Flags]
     public enum LookingFor
     {
-        NotSpecified = 0,
+        NOT_SPECIFIED = 0,
+        [Obsolete("use NOT_SPECIFIED")]
+        NotSpecified = NOT_SPECIFIED,
 
-        Friendship = 1,
+        FRIENDSHIP = 1,
+        [Obsolete("use FRIENDSHIP")]
+        Friendship = FRIENDSHIP,
 
-        Dating = 2,
+        DATING = 2,
+        [Obsolete("use DATING")]
+        Dating = DATING,
 
-        Relationship = 4,
+        RELATIONSHIP = 4,
+        [Obsolete("use RELATIONSHIP")]
+        Relationship = RELATIONSHIP,
 
-        Networking = 8
+        NETWORKING = 8,
+        [Obsolete("use NETWORKING")]
+        Networking = NETWORKING
     }
 }

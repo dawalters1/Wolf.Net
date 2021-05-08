@@ -1,24 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WOLF.Net.Enums.Groups
 {
     [Flags]
     public enum Capability
     {
-        None = -1,
+        /// <summary>
+        /// Subscriber is not in the group
+        /// </summary>
+        NOT_MEMBER = -1,
+        [Obsolete("use NOT_MEMBER")]
+        None = NOT_MEMBER,
 
-        Regular = 0,
+        /// <summary>
+        /// Subscriber is a regular group subscriber
+        /// </summary>
+        REGULAR = 0,
+        [Obsolete("use REGULAR")]
+        Regular = REGULAR,
 
-        Admin = 1,
+        /// <summary>
+        /// Subscriber is an admin
+        /// </summary>
+        ADMIN = 1,
+        [Obsolete("use ADMIN")]
+        Admin = ADMIN,
 
-        Mod = 2,
+        /// <summary>
+        /// Subscriber is a mod
+        /// </summary>
+        MOD = 2,
+        [Obsolete("use MOD")]
+        Mod = MOD,
 
-        Banned = 4,
+        /// <summary>
+        /// Subscriber is banned from the group
+        /// </summary>
+        BANNED = 4,
+        [Obsolete("use BANNED")]
+        Banned = BANNED,
 
-        Silenced= 8,
+        /// <summary>
+        /// Subscriber is silenced
+        /// </summary>
+        SILENCED = 8,
+        [Obsolete("use SILENCED")]
+        Silenced = SILENCED,
 
-        Owner = 32
+        /// <summary>
+        /// Subscriber owns the group
+        /// </summary>
+        OWNER = 32,
+        [Obsolete("use OWNER")]
+        Owner = OWNER
     }
 }

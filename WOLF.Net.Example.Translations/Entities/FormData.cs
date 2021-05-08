@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WOLF.Net.Example.Entities
+﻿namespace WOLF.Net.Example.Entities
 {
     public class FormData
     {

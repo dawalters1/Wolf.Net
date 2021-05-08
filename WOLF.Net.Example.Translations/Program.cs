@@ -1,17 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using WOLF.Net.Commands.Commands;
-using WOLF.Net.Commands.Instances;
-using WOLF.Net.Entities.Phrases;
-using WOLF.Net.Example.Entities;
-using WOLF.Net.ExampleBot.Flows;
-using WOLF.Net.Utilities;
+using WOLF.Net.Entities.API;
 
 namespace WOLF.Net.ExampleBot
 {
@@ -20,7 +12,7 @@ namespace WOLF.Net.ExampleBot
         /// <summary>
         /// Create a new bot instance, with bool true (REQUIRED FOR TRANSLATIONS TO WORK)
         /// </summary>
-        public static WolfBot Bot = new WolfBot(true);
+        public static WolfBot Bot = new WolfBot(new Configuration(true));
         public static void Main(string[] args)
             => new Program().Main().GetAwaiter().GetResult();
 
@@ -236,9 +228,9 @@ namespace WOLF.Net.ExampleBot
             Bot.On.PermissionFailed += async permFailure =>
             {
                 if (permFailure.IsGroup)
-                    await Bot.SendGroupMessageAsync(permFailure.SourceTargetId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
+                    await Bot.SendGroupMessageAsync(permFailure.TargetGroupId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
                 else
-                    await Bot.SendPrivateMessageAsync(permFailure.SourceTargetId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
+                    await Bot.SendPrivateMessageAsync(permFailure.TargetGroupId, Bot.GetPhraseByName(permFailure.Language, "permissions_failed_message"));
             };
 
             #endregion
@@ -246,7 +238,7 @@ namespace WOLF.Net.ExampleBot
             #region API Events
 
             Bot.On.Log += log => Console.WriteLine($"[Log]: {log}");
-            Bot.On.InternalError += error => Console.WriteLine($"[Internal Error]: {error}");
+            Bot.On.Error += error => Console.WriteLine($"[Internal Error]: {error}");
 
             #endregion
 

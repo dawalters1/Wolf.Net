@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using WOLF.Net.Enums.Groups;
 using WOLF.Net.Enums.Subscribers;
 
@@ -8,26 +6,29 @@ namespace WOLF.Net.Entities.API
 {
     public class FailedPermission
     {
-        [Obsolete("This property will be deprecated soon, please use SourceSubscriberId", true)]
-        public int UserId => SourceSubscriberId;
-
         public int SourceSubscriberId { get; set; }
 
-        [Obsolete("This property will be deprecated soon, please use SourceTargetId", true)]
-        public int ReturnAddress => SourceTargetId;
+        public int TargetGroupId { get; set; }
 
-        public int SourceTargetId { get; set; }
-
-        public bool AuthOnly { get; set; }
+        public bool IsAuthOnly { get; set; }
 
         public Capability Capabilities { get; set; }
 
-        public Privilege[] Privileges = { };
+        public Privilege[] Privileges = Array.Empty<Privilege>();
 
         public string Language { get; set; }
 
         public bool IsGroup { get; set; }
 
-        public bool OwnerOnly { get; set; }
+        internal FailedPermission(int sourceSubscriberId, int sourceTargetGroupId, string language, Capability capabilities, Privilege[] privileges, bool isGroup, bool isAuthOnly)
+        {
+            this.SourceSubscriberId = sourceSubscriberId;
+            this.TargetGroupId = sourceTargetGroupId;
+            this.Language = language;
+            this.Capabilities = capabilities;
+            this.Privileges = privileges;
+            this.IsGroup = isGroup;
+            this.IsAuthOnly = isAuthOnly;
+        }
     }
 }

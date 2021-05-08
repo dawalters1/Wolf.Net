@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WOLF.Net.Commands.Commands;
+﻿using WOLF.Net.Commands.Commands;
 using WOLF.Net.Entities.Groups;
 using WOLF.Net.Entities.Messages;
 using WOLF.Net.Entities.Subscribers;
@@ -13,7 +10,7 @@ namespace WOLF.Net.Commands.Form
     {
         public string Language { get; set; }
 
-        public int SourceTargetId => IsGroup ? Group.Id : SourceSubscriberId;
+        public int TargetGroupId => IsGroup && Group != null ? Group.Id : 0;
 
         public int SourceSubscriberId => Subscriber != null ? Subscriber.Id : 0;
 
@@ -21,7 +18,7 @@ namespace WOLF.Net.Commands.Form
 
         public Group Group { get; set; }
 
-        public Subscriber Subscriber { get; set; }
+        public Entities.Subscribers.Subscriber Subscriber { get; set; }
 
         public MessageType MessageType { get; set; }
 

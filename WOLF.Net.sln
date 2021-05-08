@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Example.Translations", "WOLF.Net.Example.Translations\WOLF.Net.Example.Translations.csproj", "{425CBCCC-8C1C-4A9E-859A-C9C8FA3970BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOLF.Net.Examples.NoTranslations", "WOLF.Net.Examples.NoTranslations\WOLF.Net.Examples.NoTranslations.csproj", "{3C3F1A82-8923-4D82-9051-3023C1BFB64C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{1381AFD2-8889-4EB1-B7D5-C7DFDB0E29CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1381AFD2-8889-4EB1-B7D5-C7DFDB0E29CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1381AFD2-8889-4EB1-B7D5-C7DFDB0E29CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425CBCCC-8C1C-4A9E-859A-C9C8FA3970BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425CBCCC-8C1C-4A9E-859A-C9C8FA3970BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425CBCCC-8C1C-4A9E-859A-C9C8FA3970BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425CBCCC-8C1C-4A9E-859A-C9C8FA3970BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3F1A82-8923-4D82-9051-3023C1BFB64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3F1A82-8923-4D82-9051-3023C1BFB64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3F1A82-8923-4D82-9051-3023C1BFB64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3F1A82-8923-4D82-9051-3023C1BFB64C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
