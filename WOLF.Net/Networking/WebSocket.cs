@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SocketIOClient;
+//using SocketIOClient.Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
-using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Utils;
 
@@ -44,7 +42,8 @@ namespace WOLF.Net.Networking
             try
             {
                 await _socket.EmitAsync(
-                    command, resp => tsk.SetResult(resp.GetValue<T>()),
+                    command, resp =>
+                    tsk.SetResult(resp.GetValue<T>()),
                     data);
             }
             catch (Exception d)
@@ -78,8 +77,9 @@ namespace WOLF.Net.Networking
                     ["state"] = ((int)_bot.LoginSettings.OnlineState).ToString()
                 },
             });
+            _socket.JsonSerializer = new CustomJsonSerializer(_socket.Options.EIO);
 
-            _bot._eventHandler.Register();
+            _bot.On.Register();
 
             _socket.OnConnected += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.CONNCETED);
 
@@ -95,7 +95,8 @@ namespace WOLF.Net.Networking
             _socket.OnPing += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.PING);
             _socket.OnPong += (sender, EventArgs) => _bot.On.Emit(Constants.Internal.PONG, EventArgs);
 
-            _socket.OnReceivedEvent += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.PACKET_RECEIVED, eventArgs.Event, eventArgs.Response.GetValue<Response<object>>());
+            _socket.OnReceivedEvent += (sender, eventArgs) =>
+                _bot.On.Emit(Constants.Internal.PACKET_RECEIVED, eventArgs.Event, eventArgs.Response.GetValue<Response<object>>());
 
             _socket.OnReconnecting += (sender, eventArgs) => _bot.On.Emit(Constants.Internal.RECONNECTING);
 
@@ -109,12 +110,6 @@ namespace WOLF.Net.Networking
         public WebSocket(WolfBot bot)
         {
             this._bot = bot;
-
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
         }
     }
 }

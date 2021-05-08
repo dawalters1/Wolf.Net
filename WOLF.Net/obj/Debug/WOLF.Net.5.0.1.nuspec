@@ -2,25 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WOLF.Net</id>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
     <authors>David Walters</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <icon>icon.png</icon>
     <description>Unofficial C# library for connecting to WOLF (AKA Palringo)</description>
-    <releaseNotes>V5.0 Change Log
-
-What's New:
-- Introduced chained helpers, things are now easier to locate.
-- Added WOLF 10.9 Message formatting as well as embeds
-- Added Social Sign-in support
-- Added SubscriberCharmSummary to charm helper
-- Readded Message Setting fetch and update
-
-Bug Fixes:
-- Fixed command case sensitivity
-- Fixed missing event 'private message accept response'</releaseNotes>
+    <releaseNotes>Update to latest SocketIO version
+Fixed loginTypes</releaseNotes>
     <tags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</tags>
     <repository url="https://github.com/dawalters1/Wolf.Net" />
     <dependencies>

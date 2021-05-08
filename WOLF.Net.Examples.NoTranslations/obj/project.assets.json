@@ -47,30 +47,18 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.2.0": {
+      "SocketIOClient/2.1.7": {
         "type": "package",
         "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "System.Text.Json": "5.0.2"
+          "WebSocketSharp-netstandard": "1.0.1"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
-        }
-      },
-      "SocketIOClient.Newtonsoft.Json/2.2.1": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "13.0.1",
-          "SocketIOClient": "2.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -116,21 +104,21 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
-      "System.Text.Json/5.0.2": {
+      "WebSocketSharp-netstandard/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+          "lib/netstandard2.0/websocket-sharp.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+          "lib/netstandard2.0/websocket-sharp.dll": {}
         }
       },
-      "WOLF.Net/5.0.1": {
+      "WOLF.Net/5.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
-          "SocketIOClient.Newtonsoft.Json": "2.2.1",
+          "SocketIoClient": "2.1.7",
           "System.Drawing.Common": "5.0.2"
         },
         "compile": {
@@ -231,29 +219,19 @@
         "packageIcon.png"
       ]
     },
-    "SocketIOClient/2.2.0": {
-      "sha512": "vcHjmA15Vd+5e9Es6ypJOdCk//IbBN4+8L2zh7cns02Jjr/OMWWSUdojaHaWtzD7HlBsCM4VAN52HSIcrlKEKw==",
+    "SocketIOClient/2.1.7": {
+      "sha512": "mQimb0aTRbyhy+zQEJPwQQbW6qipwTFhx2i/K1PDgZtiiZ18JAyvit2WQsSG1NOhLo9pj3zNalDSpLj1RPG0oA==",
       "type": "package",
-      "path": "socketioclient/2.2.0",
+      "path": "socketioclient/2.1.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net45/SocketIOClient.dll",
+        "lib/net45/SocketIOClient.xml",
         "lib/netstandard2.0/SocketIOClient.dll",
         "lib/netstandard2.0/SocketIOClient.xml",
-        "socketioclient.2.2.0.nupkg.sha512",
+        "socketioclient.2.1.7.nupkg.sha512",
         "socketioclient.nuspec"
-      ]
-    },
-    "SocketIOClient.Newtonsoft.Json/2.2.1": {
-      "sha512": "lokBsdxpH9T4+UThBgaVpoRSylUSPoUKnnfjOdFsEoG6fIhSeLE5cu531wPWPt0vy0r6jC9JDo169HCSLurX5Q==",
-      "type": "package",
-      "path": "socketioclient.newtonsoft.json/2.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll",
-        "socketioclient.newtonsoft.json.2.2.1.nupkg.sha512",
-        "socketioclient.newtonsoft.json.nuspec"
       ]
     },
     "System.Collections/4.3.0": {
@@ -458,29 +436,24 @@
         "system.runtime.nuspec"
       ]
     },
-    "System.Text.Json/5.0.2": {
-      "sha512": "I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+    "WebSocketSharp-netstandard/1.0.1": {
+      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
       "type": "package",
-      "path": "system.text.json/5.0.2",
+      "path": "websocketsharp-netstandard/1.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Text.Json.dll",
-        "lib/net461/System.Text.Json.xml",
-        "lib/netcoreapp3.0/System.Text.Json.dll",
-        "lib/netcoreapp3.0/System.Text.Json.xml",
-        "lib/netstandard2.0/System.Text.Json.dll",
-        "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.5.0.2.nupkg.sha512",
-        "system.text.json.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "lib/net35/websocket-sharp.dll",
+        "lib/net35/websocket-sharp.xml",
+        "lib/net45/websocket-sharp.dll",
+        "lib/net45/websocket-sharp.xml",
+        "lib/netstandard2.0/websocket-sharp.dll",
+        "lib/netstandard2.0/websocket-sharp.xml",
+        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
+        "websocketsharp-netstandard.nuspec"
       ]
     },
-    "WOLF.Net/5.0.1": {
+    "WOLF.Net/5.0.0": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -488,7 +461,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 5.0.1"
+      "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+      "WOLF.Net >= 5.0.0"
     ]
   },
   "packageFolders": {
@@ -497,11 +471,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
-      "projectName": "WOLF.Net.Example",
-      "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+      "projectName": "WOLF.Net.Examples.NoTranslations",
+      "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
       "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-      "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\obj\\",
+      "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -518,6 +492,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
+            },
             "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
               "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
             }
@@ -551,5 +528,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }

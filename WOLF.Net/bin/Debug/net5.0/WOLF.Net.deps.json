@@ -6,10 +6,10 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "WOLF.Net/5.0.0": {
+      "WOLF.Net/5.0.1": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
-          "SocketIOClient": "2.1.7",
+          "SocketIOClient.Newtonsoft.Json": "2.2.1",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
@@ -45,16 +45,27 @@
           }
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {
-            "assemblyVersion": "2.1.7.0",
-            "fileVersion": "2.1.7.0"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {
+            "assemblyVersion": "2.2.1.0",
+            "fileVersion": "2.2.1.0"
           }
         }
       },
@@ -96,18 +107,18 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
-      "WebSocketSharp-netstandard/1.0.1": {
+      "System.Text.Json/5.0.2": {
         "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
+          "lib/netcoreapp3.0/System.Text.Json.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.521.16609"
           }
         }
       }
     }
   },
   "libraries": {
-    "WOLF.Net/5.0.0": {
+    "WOLF.Net/5.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -140,12 +151,19 @@
       "path": "newtonsoft.json/13.0.1",
       "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
-    "SocketIOClient/2.1.7": {
+    "SocketIOClient/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mQimb0aTRbyhy+zQEJPwQQbW6qipwTFhx2i/K1PDgZtiiZ18JAyvit2WQsSG1NOhLo9pj3zNalDSpLj1RPG0oA==",
-      "path": "socketioclient/2.1.7",
-      "hashPath": "socketioclient.2.1.7.nupkg.sha512"
+      "sha512": "sha512-vcHjmA15Vd+5e9Es6ypJOdCk//IbBN4+8L2zh7cns02Jjr/OMWWSUdojaHaWtzD7HlBsCM4VAN52HSIcrlKEKw==",
+      "path": "socketioclient/2.2.0",
+      "hashPath": "socketioclient.2.2.0.nupkg.sha512"
+    },
+    "SocketIOClient.Newtonsoft.Json/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lokBsdxpH9T4+UThBgaVpoRSylUSPoUKnnfjOdFsEoG6fIhSeLE5cu531wPWPt0vy0r6jC9JDo169HCSLurX5Q==",
+      "path": "socketioclient.newtonsoft.json/2.2.1",
+      "hashPath": "socketioclient.newtonsoft.json.2.2.1.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
@@ -168,12 +186,12 @@
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
     },
-    "WebSocketSharp-netstandard/1.0.1": {
+    "System.Text.Json/5.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
-      "path": "websocketsharp-netstandard/1.0.1",
-      "hashPath": "websocketsharp-netstandard.1.0.1.nupkg.sha512"
+      "sha512": "sha512-I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+      "path": "system.text.json/5.0.2",
+      "hashPath": "system.text.json.5.0.2.nupkg.sha512"
     }
   }
 }

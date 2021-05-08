@@ -47,18 +47,30 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -104,13 +116,35 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
-      "WebSocketSharp-netstandard/1.0.1": {
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "System.Text.Encodings.Web/5.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
+        }
+      },
+      "System.Text.Json/5.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
+          "System.Text.Encodings.Web": "5.0.1"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       }
     },
@@ -160,18 +194,30 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SocketIOClient/2.1.7": {
+      "SocketIOClient/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
-          "WebSocketSharp-netstandard": "1.0.1"
+          "System.Text.Json": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/SocketIOClient.dll": {}
+        }
+      },
+      "SocketIOClient.Newtonsoft.Json/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SocketIOClient": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -217,13 +263,13 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
-      "WebSocketSharp-netstandard/1.0.1": {
+      "System.Text.Json/5.0.2": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       }
     }
@@ -317,19 +363,29 @@
         "packageIcon.png"
       ]
     },
-    "SocketIOClient/2.1.7": {
-      "sha512": "mQimb0aTRbyhy+zQEJPwQQbW6qipwTFhx2i/K1PDgZtiiZ18JAyvit2WQsSG1NOhLo9pj3zNalDSpLj1RPG0oA==",
+    "SocketIOClient/2.2.0": {
+      "sha512": "vcHjmA15Vd+5e9Es6ypJOdCk//IbBN4+8L2zh7cns02Jjr/OMWWSUdojaHaWtzD7HlBsCM4VAN52HSIcrlKEKw==",
       "type": "package",
-      "path": "socketioclient/2.1.7",
+      "path": "socketioclient/2.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net45/SocketIOClient.dll",
-        "lib/net45/SocketIOClient.xml",
         "lib/netstandard2.0/SocketIOClient.dll",
         "lib/netstandard2.0/SocketIOClient.xml",
-        "socketioclient.2.1.7.nupkg.sha512",
+        "socketioclient.2.2.0.nupkg.sha512",
         "socketioclient.nuspec"
+      ]
+    },
+    "SocketIOClient.Newtonsoft.Json/2.2.1": {
+      "sha512": "lokBsdxpH9T4+UThBgaVpoRSylUSPoUKnnfjOdFsEoG6fIhSeLE5cu531wPWPt0vy0r6jC9JDo169HCSLurX5Q==",
+      "type": "package",
+      "path": "socketioclient.newtonsoft.json/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/SocketIOClient.Newtonsoft.Json.dll",
+        "socketioclient.newtonsoft.json.2.2.1.nupkg.sha512",
+        "socketioclient.newtonsoft.json.nuspec"
       ]
     },
     "System.Collections/4.3.0": {
@@ -534,33 +590,96 @@
         "system.runtime.nuspec"
       ]
     },
-    "WebSocketSharp-netstandard/1.0.1": {
-      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
       "type": "package",
-      "path": "websocketsharp-netstandard/1.0.1",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net35/websocket-sharp.dll",
-        "lib/net35/websocket-sharp.xml",
-        "lib/net45/websocket-sharp.dll",
-        "lib/net45/websocket-sharp.xml",
-        "lib/netstandard2.0/websocket-sharp.dll",
-        "lib/netstandard2.0/websocket-sharp.xml",
-        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
-        "websocketsharp-netstandard.nuspec"
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Text.Encodings.Web/5.0.1": {
+      "sha512": "KmJ+CJXizDofbq6mpqDoRRLcxgOd2z9X3XoFNULSbvbqVRZkFX3istvr+MUjL6Zw1RT+RNdoI4GYidIINtgvqQ==",
+      "type": "package",
+      "path": "system.text.encodings.web/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Encodings.Web.dll",
+        "lib/net461/System.Text.Encodings.Web.xml",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.dll",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard1.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard1.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.1/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.1/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.5.0.1.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Text.Json/5.0.2": {
+      "sha512": "I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+      "type": "package",
+      "path": "system.text.json/5.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Json.dll",
+        "lib/net461/System.Text.Json.xml",
+        "lib/netcoreapp3.0/System.Text.Json.dll",
+        "lib/netcoreapp3.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.5.0.2.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Newtonsoft.Json >= 13.0.1",
-      "SocketIoClient >= 2.1.7",
+      "SocketIOClient.Newtonsoft.Json >= 2.2.1",
       "System.Drawing.Common >= 5.0.2"
     ],
     "net5.0": [
       "Newtonsoft.Json >= 13.0.1",
-      "SocketIoClient >= 2.1.7",
+      "SocketIOClient.Newtonsoft.Json >= 2.2.1",
       "System.Drawing.Common >= 5.0.2"
     ]
   },
@@ -568,7 +687,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "5.0.0",
+    "version": "5.0.1",
     "restore": {
       "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
       "projectName": "WOLF.Net",
@@ -613,9 +732,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "SocketIoClient": {
+          "SocketIOClient.Newtonsoft.Json": {
             "target": "Package",
-            "version": "[2.1.7, )"
+            "version": "[2.2.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",
@@ -646,9 +765,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "SocketIoClient": {
+          "SocketIOClient.Newtonsoft.Json": {
             "target": "Package",
-            "version": "[2.1.7, )"
+            "version": "[2.2.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

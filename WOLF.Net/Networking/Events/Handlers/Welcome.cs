@@ -29,7 +29,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                         },
                         body = new
                         {
-                            type = "email",
+                            type = Bot.LoginSettings.LoginType.ToString().ToLower(),
                             deviceTypeId = (int)Bot.LoginSettings.LoginDevice,
                             username = Bot.LoginSettings.Email,
                             password = Bot.LoginSettings.Password.ToMD5(),
