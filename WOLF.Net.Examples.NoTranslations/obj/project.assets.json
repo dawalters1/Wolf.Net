@@ -1201,11 +1201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
       "projectName": "WOLF.Net.Examples.NoTranslations",
-      "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
+      "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\WOLF.Net.Examples.NoTranslations.csproj",
       "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-      "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Examples.NoTranslations\\obj\\",
+      "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Examples.NoTranslations\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1222,11 +1222,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
-              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
+            "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Redis\\WOLF.Net.Redis.csproj"
             },
-            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
+            "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj"
             }
           }
         }
