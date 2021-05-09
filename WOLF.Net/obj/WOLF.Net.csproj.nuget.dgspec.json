@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {}
+    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {}
   },
   "projects": {
-    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "5.0.2",
+    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
+      "version": "5.0.2-beta2",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

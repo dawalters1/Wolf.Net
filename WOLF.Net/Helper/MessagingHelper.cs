@@ -45,9 +45,9 @@ namespace WOLF.Net.Helper
         {
             dynamic formatting = new ExpandoObject();
 
-            var ads = await Bot.GetGroupAdsFromMessageAsync(content);
+            var ads = await content.GetGroupAdsFromMessageAsync(Bot);
 
-            var urls = Bot.GetLinksFromMessageAsync(content);
+            var urls = content.GetLinksFromMessageAsync();
 
             if (ads.Count > 0 || urls.Count > 0)
             {
