@@ -42,9 +42,9 @@ namespace WOLF.Net
         {
             dynamic formatting = new ExpandoObject();
 
-            var ads = await this.GetGroupAdsFromMessageAsync(content);
+            var ads = await content.GetGroupAdsFromMessageAsync(this);
 
-            var urls = this.GetLinksFromMessageAsync(content);
+            var urls = content.GetLinksFromMessageAsync();
 
             if (ads.Count > 0 || urls.Count > 0)
             {

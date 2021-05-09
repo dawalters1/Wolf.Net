@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>WOLF.Net</id>
+    <version>5.0.2-beta2</version>
+    <authors>David Walters</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <description>Unofficial C# library for connecting to WOLF (AKA Palringo)</description>
+    <releaseNotes>Fix message formatting</releaseNotes>
+    <tags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</tags>
+    <repository url="https://github.com/dawalters1/Wolf.Net" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="SocketIOClient.Newtonsoft.Json" version="2.2.1" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net5.0">
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="SocketIOClient.Newtonsoft.Json" version="2.2.1" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\net5.0\WOLF.Net.dll" target="lib\net5.0\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll" target="lib\netcoreapp3.1\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\icon.png" target="icon.png" />
+  </files>
+</package>
