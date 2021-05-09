@@ -11,7 +11,7 @@ namespace WOLF.Net.Entities.Messages
         [JsonProperty("type")]
         public string Type { get; set; }
 
-        public ActionType Action => Type.ToLower() switch
+        public ActionType Action => Type.ToLowerInvariant() switch
         {
             "ban" => ActionType.BAN,
             "kick" => ActionType.KICK,
@@ -25,7 +25,7 @@ namespace WOLF.Net.Entities.Messages
             _ => ActionType.REGULAR,
         };
 
-        public Capability Role => Type.ToLower() switch
+        public Capability Role => Type.ToLowerInvariant() switch
         {
             "ban" => Capability.BANNED,
             "kick" => Capability.NOT_MEMBER,

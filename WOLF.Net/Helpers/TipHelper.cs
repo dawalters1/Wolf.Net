@@ -32,7 +32,7 @@ namespace WOLF.Net
             charmList,
             context = new
             {
-                type = contextType.ToString().ToLower(),
+                type = contextType.ToString().ToLowerInvariant(),
                 id = timestamp
             }
         });
@@ -58,7 +58,7 @@ namespace WOLF.Net
         {
             groupId,
             id = timestamp,
-            contextType = contextType.ToString().ToLower(),
+            contextType = contextType.ToString().ToLowerInvariant(),
             limit,
             offset
         });
@@ -85,7 +85,7 @@ namespace WOLF.Net
         {
             groupId,
             id = timestamp,
-            contextType = contextType.ToString().ToLower(),
+            contextType = contextType.ToString().ToLowerInvariant(),
             limit,
             offset
         });
@@ -110,9 +110,9 @@ namespace WOLF.Net
         public async Task<Response<TipLeaderboardSummary>> GetGroupLeaderboardSummary(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT) => await _webSocket.Emit<Response<TipLeaderboardSummary>>(Request.TIP_LEADERBOARD_GROUP_SUMMARY, new
         {
             id = groupId,
-            period = tipPeriod.ToString().ToLower(),
-            type = tipType.ToString().ToLower(),
-            tipDirection = tipType == TipType.CHARM ? null : tipDirection.ToString().ToLower()
+            period = tipPeriod.ToString().ToLowerInvariant(),
+            type = tipType.ToString().ToLowerInvariant(),
+            tipDirection = tipType == TipType.CHARM ? null : tipDirection.ToString().ToLowerInvariant()
         });
 
         /// <summary>
@@ -126,9 +126,9 @@ namespace WOLF.Net
         public async Task<Response<TipLeaderboard>> GetGroupLeaderboard(int groupId, TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT) => await _webSocket.Emit<Response<TipLeaderboard>>(Request.TIP_LEADERBOARD_GROUP, new
         {
             groupId,
-            period = tipPeriod.ToString().ToLower(),
-            type = tipType.ToString().ToLower(),
-            tipDirection = tipType == TipType.CHARM ? null : tipDirection.ToString().ToLower()
+            period = tipPeriod.ToString().ToLowerInvariant(),
+            type = tipType.ToString().ToLowerInvariant(),
+            tipDirection = tipType == TipType.CHARM ? null : tipDirection.ToString().ToLowerInvariant()
         });
 
         /// <summary>
@@ -140,9 +140,9 @@ namespace WOLF.Net
         /// <returns>Response<TipLeaderboardSummary></returns>
         public async Task<Response<TipLeaderboardSummary>> GetGlobalLeaderboardSummary(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT) => await _webSocket.Emit<Response<TipLeaderboardSummary>>(Request.TIP_LEADERBOARD_GLOBAL_SUMMARY, new
         {
-            period = tipPeriod.ToString().ToLower(),
-            type = tipType.ToString().ToLower(),
-            tipDirection = tipType == TipType.CHARM || tipType == TipType.GROUP ? null : tipDirection.ToString().ToLower()
+            period = tipPeriod.ToString().ToLowerInvariant(),
+            type = tipType.ToString().ToLowerInvariant(),
+            tipDirection = tipType == TipType.CHARM || tipType == TipType.GROUP ? null : tipDirection.ToString().ToLowerInvariant()
         });
 
         /// <summary>
@@ -154,9 +154,9 @@ namespace WOLF.Net
         /// <returns>Response<TipLeaderboard></returns>
         public async Task<Response<TipLeaderboard>> GetGlobalLeaderboard(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT) => await _webSocket.Emit<Response<TipLeaderboard>>(Request.TIP_LEADERBOARD_GLOBAL, new
         {
-            period = tipPeriod.ToString().ToLower(),
-            type = tipType.ToString().ToLower(),
-            tipDirection = tipType == TipType.CHARM || tipType == TipType.GROUP ? null : tipDirection.ToString().ToLower()
+            period = tipPeriod.ToString().ToLowerInvariant(),
+            type = tipType.ToString().ToLowerInvariant(),
+            tipDirection = tipType == TipType.CHARM || tipType == TipType.GROUP ? null : tipDirection.ToString().ToLowerInvariant()
         });
     }
 }

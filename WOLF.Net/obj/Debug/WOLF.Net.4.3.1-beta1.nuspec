@@ -2,18 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WOLF.Net</id>
-    <version>4.3.0</version>
+    <version>4.3.1-beta1</version>
     <authors>David Walters</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <icon>icon.png</icon>
     <description>Unofficial C# library for connecting to WOLF (AKA Palringo)</description>
-    <releaseNotes>Added SubscriberCharmSummary
-Added WOLF V10.9 message formatting
-Added 'private message accept response' event
-Fixed issues with Command and Form message sending
-Fixed formatting issue</releaseNotes>
     <tags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</tags>
     <repository url="https://github.com/dawalters1/Wolf.Net" />
     <dependencies>

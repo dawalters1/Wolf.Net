@@ -76,7 +76,7 @@ public static class Public
     /// <param name="key"></param>
     /// <param name="value"></param>
     /// <returns>bool</returns>
-    public static bool IsEqual(this string key, string value) => key != null && value != null && key.Trim().ToLower() == value.Trim().ToLower();
+    public static bool IsEqual(this string key, string value) => key != null && value != null && key.Trim().ToLowerInvariant() == value.Trim().ToLowerInvariant();
 
     internal static string ToMD5(this string input)
     {

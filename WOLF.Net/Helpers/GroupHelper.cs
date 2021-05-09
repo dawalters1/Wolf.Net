@@ -155,7 +155,7 @@ namespace WOLF.Net
         /// <param name="name"></param>
         /// <param name="password"></param>
         /// <returns>Response</returns>
-        public async Task<Response> JoinGroupAsync(string name, string password = null) => await _webSocket.Emit<Response>(Request.GROUP_MEMBER_ADD, new { name = name.ToLower(), password });
+        public async Task<Response> JoinGroupAsync(string name, string password = null) => await _webSocket.Emit<Response>(Request.GROUP_MEMBER_ADD, new { name = name.ToLowerInvariant(), password });
 
         /// <summary>
         /// Leave a group by ID

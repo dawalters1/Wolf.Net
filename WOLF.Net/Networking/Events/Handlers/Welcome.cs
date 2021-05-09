@@ -25,7 +25,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                         },
                         body = new
                         {
-                            type = Bot.LoginSettings.LoginType.ToString().ToLower(),
+                            type = Bot.LoginSettings.LoginType.ToString().ToLowerInvariant(),
                             deviceTypeId = (int)Bot.LoginSettings.LoginDevice,
                             username = Bot.LoginSettings.Email,
                             password = Bot.LoginSettings.Password.ToMD5(),

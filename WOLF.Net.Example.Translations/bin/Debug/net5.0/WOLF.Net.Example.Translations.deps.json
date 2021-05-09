@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "WOLF.Net.Example.Translations/1.0.0": {
         "dependencies": {
-          "WOLF.Net": "4.3.0",
+          "WOLF.Net": "4.3.1-beta1",
           "WOLF.Net.Redis": "3.2.1"
         },
         "runtime": {
@@ -259,7 +259,7 @@
           }
         }
       },
-      "WOLF.Net/4.3.0": {
+      "WOLF.Net/4.3.1-beta1": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.1",
@@ -440,7 +440,7 @@
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
-    "WOLF.Net/4.3.0": {
+    "WOLF.Net/4.3.1-beta1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
