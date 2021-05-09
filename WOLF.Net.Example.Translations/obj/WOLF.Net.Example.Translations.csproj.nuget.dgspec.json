@@ -66,7 +66,7 @@
       }
     },
     "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "5.0.0",
+      "version": "5.0.1",
       "restore": {
         "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
@@ -111,9 +111,9 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
-            "SocketIoClient": {
+            "SocketIOClient.Newtonsoft.Json": {
               "target": "Package",
-              "version": "[2.1.7, )"
+              "version": "[2.2.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
@@ -144,9 +144,9 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
-            "SocketIoClient": {
+            "SocketIOClient.Newtonsoft.Json": {
               "target": "Package",
-              "version": "[2.1.7, )"
+              "version": "[2.2.1, )"
             },
             "System.Drawing.Common": {
               "target": "Package",

@@ -43,7 +43,7 @@ namespace WOLF.Net.Utils
 
             var phrase = bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList()
                 .OrderByDescending(r => r.Value.Length)
-                .FirstOrDefault(r => content.ToLower().StartsWith(r.Value.ToLower()));
+                .FirstOrDefault(r => content.ToLowerInvariant().StartsWith(r.Value.ToLowerInvariant()));
 
             if (phrase != null)
                 return new KeyValuePair<string, string>(phrase.Language, phrase.Value);
@@ -74,8 +74,8 @@ namespace WOLF.Net.Utils
 
         internal static bool StartsWithCommand(this string content, string startsWith)
         {
-            content = content.ToLower();
-            startsWith = startsWith.ToLower();
+            content = content.ToLowerInvariant();
+            startsWith = startsWith.ToLowerInvariant();
 
             if (startsWith.Length > content.Length)
                 return false;

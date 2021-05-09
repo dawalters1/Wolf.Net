@@ -413,7 +413,7 @@ namespace WOLF.Net.Commands.Form
 
             Forms = typeof(FormContext).GetAllTypes().Where(t => Attribute.IsDefined(t, typeof(Form))).Select(t => new TypeInstance<Form>(t, t.GetCustomAttribute<Form>())).ToList();
 
-            if (Forms.GroupBy(r => r.Value.Trigger.ToLower()).Any(r => r.Count() > 1))
+            if (Forms.GroupBy(r => r.Value.Trigger.ToLowerInvariant()).Any(r => r.Count() > 1))
                 throw new Exception($"You cannot have multiple forms using the same trigger\nPlease take a look at the new V4 command layout: https://github.com/dawalters1/Wolf.Net");
         }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Hqfok0CFuM5bqfE1f5Q2uPsnc6e2PEwjshZzcaGAq/aD/mLXx38YGWyztvO5Pr8IAbK4gxC6+CNADuln14lQRA==",
+  "dgSpecHash": "lDmIpVOG8KtsfdfGxosPXP+r7kg4z2BuyPhERoBKXK2VI173ELDow3SL+8on1zssbf6Emp+xNNKD0FLmzfN1gw==",
   "success": false,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
   "expectedPackageFiles": [
@@ -8,12 +8,12 @@
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.7\\socketioclient.2.1.7.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.2.0\\socketioclient.2.2.0.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient.newtonsoft.json\\2.2.1\\socketioclient.newtonsoft.json.2.2.1.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\wolf.net\\5.0.0\\wolf.net.5.0.0.nupkg.sha512"
+    "C:\\Users\\Dave\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512"
   ],
   "logs": [
     {

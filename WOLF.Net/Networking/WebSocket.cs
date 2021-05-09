@@ -73,7 +73,7 @@ namespace WOLF.Net.Networking
                 Query = new Dictionary<string, string>()
                 {
                     ["token"] = _bot.LoginSettings.Token,
-                    ["device"] = $"{_bot.LoginSettings.LoginDevice}".ToLower(),
+                    ["device"] = $"{_bot.LoginSettings.LoginDevice}".ToLowerInvariant(),
                     ["state"] = ((int)_bot.LoginSettings.OnlineState).ToString()
                 },
             });

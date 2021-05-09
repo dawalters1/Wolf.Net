@@ -74,7 +74,7 @@ namespace WOLF.Net.Commands.Commands
             if (!await ValidatePermissions(command, message, commandData)||!await ValidateAttributes(command, message, commandData))
                 return;
 
-            var phrase = _bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLower()));
+            var phrase = _bot.Phrase().cache.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLowerInvariant()));
             commandData.Argument = commandData.Argument[(phrase != null ? phrase.Value.Length : trigger.Length)..];
             commandData.Language = phrase != null ? phrase.Language : _bot.Configuration.DefaultLanguage.ToPhraseLanguage();
 
@@ -297,7 +297,7 @@ namespace WOLF.Net.Commands.Commands
             foreach (var collection in commandCollections)
                 Commands.Add(LoadCommandCollection(collection));
 
-            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLower(), r => r, (trigger, content) => new { trigger, containsRequiredPermissions = content.Select(r=> { return r.Type.GetCustomAttribute<RequiredPermissions>() != null; }).ToList(),  methodInstances = content.SelectMany(r => r.Value.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.Value.TypeInstances).ToList() }).ToList();
+            var duplicateCollections = Commands.GroupBy(r => r.Value.Trigger.ToLowerInvariant(), r => r, (trigger, content) => new { trigger, containsRequiredPermissions = content.Select(r=> { return r.Type.GetCustomAttribute<RequiredPermissions>() != null; }).ToList(),  methodInstances = content.SelectMany(r => r.Value.MethodInstances).ToList(), typeInstances = content.SelectMany(r => r.Value.TypeInstances).ToList() }).ToList();
 
             foreach (var duplicate in duplicateCollections)
             {
