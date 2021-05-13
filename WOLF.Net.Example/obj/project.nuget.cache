@@ -1,15 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "CsAXqRX6Tn41/bBDxy/sdrzOA3i9X7iPQ1rxQI9Yzw9reh4Ryr+N/Z+m9/2S3VNopNPWp6leipcfotptmHTd3g==",
+  "dgSpecHash": "WW9841bKjbUYI3RoRngb/Ve7N93V65kT7M+U7RXlxJ893s5+G/d9+QVkGx9EjIYtT+pgniaC+LsOhdEV2Lq/nQ==",
   "success": true,
-  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.1.7\\socketioclient.2.1.7.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient\\2.2.0\\socketioclient.2.2.0.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\socketioclient.newtonsoft.json\\2.2.1\\socketioclient.newtonsoft.json.2.2.1.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
@@ -19,8 +20,8 @@
     "C:\\Users\\Dave\\.nuget\\packages\\system.security.cryptography.protecteddata\\5.0.0\\system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.security.permissions\\5.0.0\\system.security.permissions.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512"
+    "C:\\Users\\Dave\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
