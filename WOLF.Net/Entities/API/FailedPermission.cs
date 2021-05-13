@@ -22,9 +22,7 @@ namespace WOLF.Net.Entities.API
 
         public bool IsGroup { get; set; }
 
-        public bool OwnerOnly { get; set; }
-
-        internal FailedPermission(int sourceSubscriberId, int sourceTargetGroupId, string language, Capability capabilities, Privilege[] privileges, bool isGroup, bool isAuthOnly, bool ownerOnly)
+        internal FailedPermission(int sourceSubscriberId, int sourceTargetGroupId, string language, Capability capabilities, Privilege[] privileges, bool isGroup, bool isAuthOnly)
         {
             this.SourceSubscriberId = sourceSubscriberId;
             this.TargetGroupId = sourceTargetGroupId;
@@ -33,7 +31,6 @@ namespace WOLF.Net.Entities.API
             this.Privileges = privileges;
             this.IsGroup = isGroup;
             this.IsAuthOnly = isAuthOnly;
-            this.OwnerOnly = ownerOnly;
         }
     }
 }
