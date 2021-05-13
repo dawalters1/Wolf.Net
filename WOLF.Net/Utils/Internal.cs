@@ -12,25 +12,25 @@ namespace WOLF.Net.Utils
 {
     internal static class Internal
     {
-        internal static async Task<List<dynamic>> GetGroupAdsFromMessageAsync(this WolfBot bot, string content) => (await Task.WhenAll(Regex.Matches(content, @"\[.*?\]").Select(async (result) =>
+        internal static async Task<List<dynamic>> GetGroupAdsFromMessageAsync(this string content, WolfBot bot) => (await Task.WhenAll(Regex.Matches(content, @"\[.*?\]").Select(async (result) =>
         {
             dynamic link = new ExpandoObject();
-            link.start = content.IndexOf(result.Value);
-            link.end = content.IndexOf(result.Value) + result.Value.Length;
+            link.start = result.Index;
+            link.end = result.Index + result.Value.Length;
 
             var group = await bot.Group().GetByNameAsync(content.Substring(link.start + 1, result.Value.Length - 2));
 
             if (group.Exists)
                 link.groupId = group.Id;
             return link;
+
         }))).ToList();
-        internal static List<dynamic> GetLinksFromMessageAsync(this WolfBot bot, string content) => Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
+        internal static List<dynamic> GetLinksFromMessageAsync(this string content) => Regex.Matches(content, @"(\b(http|ftp|https):(\/\/|\\\\)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?|\bwww\.[^\s])").Select((result) =>
        {
            dynamic link = new ExpandoObject();
 
-
-           link.start = content.IndexOf(result.Value);
-           link.end = content.IndexOf(result.Value) + result.Value.Length;
+           link.start = result.Index;
+           link.end = result.Index + result.Value.Length;
            link.url = result.Value;
 
            return link;

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WOLF.Net</id>
-    <version>5.0.2</version>
+    <version>5.0.2-beta2</version>
     <authors>David Walters</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
@@ -27,8 +27,8 @@ Fixed loginTypes</releaseNotes>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\net5.0\WOLF.Net.dll" target="lib\net5.0\WOLF.Net.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll" target="lib\netcoreapp3.1\WOLF.Net.dll" />
-    <file src="D:\BotDev\Wolf\Wolf.net\WOLF.Net\icon.png" target="icon.png" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\net5.0\WOLF.Net.dll" target="lib\net5.0\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\bin\Debug\netcoreapp3.1\WOLF.Net.dll" target="lib\netcoreapp3.1\WOLF.Net.dll" />
+    <file src="D:\BotDev\Wolf\Wolf.Net\WOLF.Net\icon.png" target="icon.png" />
   </files>
 </package>
