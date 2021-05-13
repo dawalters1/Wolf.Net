@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.Groups;
 using WOLF.Net.Entities.Messages;
@@ -13,13 +14,31 @@ namespace WOLF.Net.Networking.Events.Handlers
 {
     public class MessageSend : BaseEvent<BaseMessage>
     {
-        private List<string> secrets = new List<string>()
+        /// <summary>
+        /// Because why not, dont like it? Fuck off :)
+        /// </summary>
+        private readonly Dictionary<string, List<string>> secrets = new Dictionary<string, List<string>>()
         {
-            "I'd love to stay and chat, but I'm lying.\nWDN: {0}",
-            "Hey, I found your nose... It was in my Business\nWDN: {0}",
-            "Beep Boo Boo Beep\nWDN: {0}",
-            "In my defense, I was left unsupervised\nWDN: {0}",
-            "I am a bot using\nWDN: {0}"
+            {">reveal your secrets", new List<string>()
+                {
+                    "I'd love to stay and chat, but I'm lying.\nWDN: {0}",
+                    "Hey, I found your nose... It was in my Business\nWDN: {0}",
+                    "In my defense, I was left unsupervised\nWDN: {0}",
+                    "I am a bot using\nWDN: {0}",
+                    "Maybe you should get your own life and stop interfering in mine\nWDN: {0}",
+                    "Nothing will bring you greater peace than minding your own business.\nWDN: {0}",
+                    "I am who I am, your approval isnt needed\nWDN: {0}"
+                }
+            },
+            {">sırlarını ifşala", new List<string>()
+                {
+                    "Kalıp sizinle sohbet etmek istiyorum derdim ama, yalan olur.\nWDN: {0}",
+                    "Ayy burnunu buldum… Benim işlerimin arasından çıktı.\nWDN: {0}",
+                    "Kendimi savunmak için diyorum, gözetimsiz bırakılmıştım\nWDN: {0}",
+                    "Güzel selfi çekmek için 10 resim çekiyorsan, çirkinsin; bunun ötesi berisi yok.\nWDN: {0}",
+                    "Gidince arkasından üzüleceğim tek şey, internet.\nWDN: {0}"
+                }
+            },
         };
         public override string Command => Event.MESSAGE_SEND;
 
@@ -111,12 +130,14 @@ namespace WOLF.Net.Networking.Events.Handlers
                 if (fixedMessage.SourceSubscriberId == Bot.CurrentSubscriber.Id || Bot.IsBanned(fixedMessage.SourceSubscriberId))
                     return;
 
-                if (fixedMessage.Content.IsEqual(">reveal your secrets"))
+                if (secrets.Keys.Any((key) => Regex.IsMatch(fixedMessage.Content, $@"\A{key}\b")))
                 {
+                    var phrases = secrets.Where((secret) => Regex.IsMatch(fixedMessage.Content, $@"\A{secret.Key}\b")).FirstOrDefault().Value;
+
                     var subscriber = await Bot.GetSubscriberAsync(fixedMessage.SourceSubscriberId);
                     if (subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.VOLUNTEER) || subscriber.Privileges.HasFlag(Enums.Subscribers.Privilege.STAFF))
                     {
-                        await Bot.SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, string.Format(secrets.OrderBy((secret) => Guid.NewGuid()).FirstOrDefault(), Assembly.GetExecutingAssembly().GetName().Version), fixedMessage.MessageType);
+                        await Bot.SendMessageAsync(fixedMessage.IsGroup ? fixedMessage.TargetGroupId : fixedMessage.SourceSubscriberId, string.Format(phrases.OrderBy((secret) => Guid.NewGuid()).FirstOrDefault(), Assembly.GetExecutingAssembly().GetName().Version), fixedMessage.MessageType);
                         return;
                     }
                 }
