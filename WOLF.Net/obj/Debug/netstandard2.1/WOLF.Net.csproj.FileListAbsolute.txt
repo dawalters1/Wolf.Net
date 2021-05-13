@@ -6,3 +6,4 @@ D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.AssemblyInfo.
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.csproj.CoreCompileInputs.cache
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.pdb
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\netstandard2.1\WOLF.Net.csprojAssemblyReference.cache
