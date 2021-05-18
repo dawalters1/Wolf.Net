@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "WOLF.Net/4.3.1.1": {
+      "WOLF.Net/4.3.2": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.1",
@@ -206,7 +206,7 @@
     }
   },
   "libraries": {
-    "WOLF.Net/4.3.1.1": {
+    "WOLF.Net/4.3.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
