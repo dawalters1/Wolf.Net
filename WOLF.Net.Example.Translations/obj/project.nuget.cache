@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/AfgEWS/OAfoG4fxdvzE/gKxCHTmmWjcSwNdsFBLRAvhYEyr/z2ZGXA48tergucTPHv95DT5QKZMkk4jcP4wsQ==",
+  "dgSpecHash": "dUMdN/0s1nG62pz531PzaTAJLxfS+xZs0u41CL7njaX0x5d1Mgzv7zBqaTyVoMNTzurM7XGYGfpZPaquPBxROQ==",
   "success": false,
   "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example.Translations\\WOLF.Net.Example.Translations.csproj",
   "expectedPackageFiles": [
@@ -13,8 +13,7 @@
     "C:\\Users\\Dave\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\wolf.net\\5.0.2-beta2\\wolf.net.5.0.2-beta2.nupkg.sha512"
+    "C:\\Users\\Dave\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512"
   ],
   "logs": [
     {

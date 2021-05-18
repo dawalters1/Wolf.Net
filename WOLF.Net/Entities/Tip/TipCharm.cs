@@ -29,6 +29,6 @@ namespace WOLF.Net.Entities.Tip
         public int Magnitude { get;set; }
 
         [JsonProperty("subscriber")]
-        public IdHash Subscriber { get;set; }
+        public IdHash Subscriber { get;set; } 
     }
 }

@@ -18,5 +18,8 @@ namespace WOLF.Net.Entities.Tip
 
         [JsonProperty("subscriberId")]
         public int SubscriberId { get;set; }
+
+        [JsonProperty("context")]
+        public Context Context { get; set; }
     }
 }
