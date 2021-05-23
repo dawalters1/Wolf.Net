@@ -125,7 +125,7 @@
           "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
-      "WOLF.Net/5.0.3": {
+      "WOLF.Net/5.0.4": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -480,7 +480,7 @@
         "version.txt"
       ]
     },
-    "WOLF.Net/5.0.3": {
+    "WOLF.Net/5.0.4": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -488,7 +488,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 5.0.3"
+      "WOLF.Net >= 5.0.4"
     ]
   },
   "packageFolders": {
@@ -497,11 +497,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+      "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
       "projectName": "WOLF.Net.Example",
-      "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+      "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
       "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-      "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\obj\\",
+      "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -518,8 +518,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
-              "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
+            "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
+              "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj"
             }
           }
         }

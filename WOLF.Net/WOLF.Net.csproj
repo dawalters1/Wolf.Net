@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net5.0;</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <Version>5.0.3</Version>
+    <Version>5.0.4</Version>
     <Description>Unofficial C# library for connecting to WOLF (AKA Palringo)</Description>
     <PackageTags>WOLF, Palringo, Pal, Wolfringo, PalBot, WolfBot</PackageTags>
     <RepositoryUrl>https://github.com/dawalters1/Wolf.Net</RepositoryUrl>
@@ -13,8 +13,7 @@
     <ApplicationIcon></ApplicationIcon>
     <Authors>David Walters</Authors>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageReleaseNotes>Update to latest SocketIO version
-Fixed loginTypes</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed UpdateGroupSubscriberAsync(...) Method</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
