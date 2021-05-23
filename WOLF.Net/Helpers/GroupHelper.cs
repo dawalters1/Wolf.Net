@@ -185,7 +185,7 @@ namespace WOLF.Net
         /// <param name="subscriberId"></param>
         /// <param name="capability"></param>
         /// <returns>Response</returns>
-        public async Task<Response> UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType capability) => await _webSocket.Emit<Response>(Request.GROUP_MEMBER_UPDATE, new { groupId, id = subscriberId, capability = (int)capability });
+        public async Task<Response> UpdateGroupSubscriberAsync(int groupId, int subscriberId, ActionType capability) => await _webSocket.Emit<Response>(Request.GROUP_MEMBER_UPDATE, new { groupId, id = subscriberId, capabilities = (int)capability });
 
         /// <summary>
         /// Update a groups profile
