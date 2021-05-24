@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using WOLF.Net.Constants;
 using WOLF.Net.Entities.Groups;
 
@@ -14,9 +15,16 @@ namespace WOLF.Net.Networking.Events.Handlers
         {
             try
             {
+                var group = Bot.Groups.FirstOrDefault(r => r.Id == data.Id);
 
+                if (group == null)
+                    return;
+
+                group.AudioConfiguration = data;
+
+                Bot.On.Emit(Command, group, data);
             }
-            catch(Exception d)
+            catch (Exception d)
             {
                 Bot.On.Emit(Internal.ERROR, d.ToString());
             }
