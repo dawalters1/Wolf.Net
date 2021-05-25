@@ -14,15 +14,20 @@ namespace WOLF.Net.Networking.Events.Handlers
 
         public override bool ReturnBody => true;
 
-        public override void Handle(IdHash data)
+        public override async void Handle(IdHash data)
         {
             try
             {
+                var group = Bot.Group().cache.FirstOrDefault(r => r.Id == data.Id);
 
+                if (group == null || data.Hash == group.Hash)
+                    return;
+
+                Bot.On.Emit(Command, await Bot.Group().GetByIdAsync(data.Id, true));
             }
             catch (Exception d)
             {
-                Bot._eventHandler.Emit(Internal.ERROR, d.ToString());
+                Bot.On.Emit(Internal.ERROR, d.ToString());
             }
         }
     }
