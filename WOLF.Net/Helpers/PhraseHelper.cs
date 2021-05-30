@@ -66,7 +66,7 @@ namespace WOLF.Net
         /// <param name="commandData"></param>
         /// <param name="name"></param>
         /// <returns>Value of a phrase if it exists</returns>
-        public string GetPhraseByName(CommandData commandData, string name) => GetPhraseByName(commandData.Language, name);
+        public string GetPhraseByName(CommandData commandData, string name) => GetPhraseByName(Configuration.UseSubLanguage?commandData.SubLanguage:commandData.Language, name);
 
         /// <summary>
         /// Request a phrase by command and name

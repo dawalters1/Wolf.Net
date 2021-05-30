@@ -1,4 +1,6 @@
-﻿using WOLF.Net.Entities.Groups;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WOLF.Net.Entities.Groups;
 using WOLF.Net.Entities.Messages;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.Messages;
@@ -9,7 +11,11 @@ namespace WOLF.Net.Commands.Commands
     {
         public string Language { get; set; }
 
-        public int TargetGroupId => IsGroup && Group!=null? Group.Id : 0;
+        public List<string> CommandLanguages { get; set; } = new List<string>();
+
+        public string SubLanguage => CommandLanguages.LastOrDefault();
+
+        public int TargetGroupId => IsGroup && Group != null ? Group.Id : 0;
 
         public int SourceSubscriberId => Subscriber != null ? Subscriber.Id : 0;
 

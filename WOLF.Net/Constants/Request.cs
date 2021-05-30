@@ -2,6 +2,7 @@
 {
     internal class Request
     {
+        public const string ACHIEVEMENT = "achievement";
         public const string ACHIEVEMENT_LIST = "achievement list";
         public const string ACHIEVEMENT_SUBSCRIBER_LIST = "achievement subscriber list";
         public const string ACHIEVEMENT_GROUP_LIST = "achievement group list";

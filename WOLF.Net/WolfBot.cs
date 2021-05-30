@@ -95,6 +95,8 @@ namespace WOLF.Net
             contactCache.Clear();
             blockedCache.Clear();
             charmCache.Clear();
+            achievementCache.Clear();
+            categoryCache.Clear();
         }
     }
 }

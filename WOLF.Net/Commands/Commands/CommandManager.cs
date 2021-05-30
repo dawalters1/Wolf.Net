@@ -71,6 +71,7 @@ namespace WOLF.Net.Commands.Commands
             var phrase = _bot.Phrases.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => message.Content.StartsWith(r.Value.ToLowerInvariant()));
             commandData.Argument = commandData.Argument[(phrase != null ? phrase.Value.Length : trigger.Length)..];
             commandData.Language = phrase != null ? phrase.Language : _bot.Configuration.DefaultLanguage.ToPhraseLanguage();
+            commandData.CommandLanguages.Add(phrase != null ? phrase.Language : _bot.Configuration.DefaultLanguage.ToPhraseLanguage());
 
             ExecuteCommand(foundCollection, command, message, commandData);
         }
@@ -157,6 +158,7 @@ namespace WOLF.Net.Commands.Commands
 
                 commandData.Argument = content[trigger.Value.Length..].Trim();
                 commandData.Language ??= trigger.Key;
+                commandData.CommandLanguages.Add(trigger.Key);
 
                 return command;
             }
@@ -178,6 +180,7 @@ namespace WOLF.Net.Commands.Commands
 
             commandData.Argument = content[trigger.Value.Length..].Trim();
             commandData.Language ??= trigger.Key;
+            commandData.CommandLanguages.Add(trigger.Key);
 
             if (!await ValidatePermissions(typeInstance, message, commandData))
                 return true;

@@ -9,4 +9,3 @@ D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\net5.0\WOLF.Net.csproj.CoreCompileInp
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\net5.0\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\net5.0\ref\WOLF.Net.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net\obj\Debug\net5.0\WOLF.Net.pdb
-D:\BotDev\Wolf\Wolf.net\WOLF.Net\obj\Debug\net5.0\WOLF.Net.csprojAssemblyReference.cache
