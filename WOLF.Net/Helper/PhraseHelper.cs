@@ -10,7 +10,7 @@ using WOLF.Net.Networking;
 
 namespace WOLF.Net.Helper
 {
-    public class PhraseHelper:BaseHelper<Phrase>
+    public class PhraseHelper : BaseHelper<Phrase>
     {
         /// <summary>
         /// 
@@ -63,7 +63,7 @@ namespace WOLF.Net.Helper
             if (string.IsNullOrWhiteSpace(name))
                 throw new Exception("Name cannot be empty");
 
-            return cache.Where((phrase) => phrase.Name.IsEqual(name)).Select((phrase)=>phrase.Value).ToList();
+            return cache.Where((phrase) => phrase.Name.IsEqual(name)).Select((phrase) => phrase.Value).ToList();
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace WOLF.Net.Helper
         /// <param name="commandData"></param>
         /// <param name="name"></param>
         /// <returns>Value of a phrase if it exists</returns>
-        public string GetByName(CommandData commandData, string name) => GetByName(commandData.Language, name);
+        public string GetByName(CommandData commandData, string name) => GetByName(Bot.Configuration.UseSubLanguage ? commandData.SubLanguage : commandData.Language, name);
 
         /// <summary>
         /// Request a phrase by command and name
@@ -113,7 +113,7 @@ namespace WOLF.Net.Helper
         /// <param name="value"></param>
         /// <returns>bool</returns>
         public bool IsRequestedPhrase(string name, string value) => cache.Any((phrase) => phrase.Name.IsEqual(name) && phrase.Value.IsEqual(value));
-        
+
         /// <summary>
         /// Get the name of a phrase by value
         /// </summary>

@@ -33,5 +33,7 @@ namespace WOLF.Net.Entities.Achievements
 
         [JsonProperty("weight")]
         public int Weight { get; set; }
+
+        public bool Exists { get; set; } = true;
     }
 }

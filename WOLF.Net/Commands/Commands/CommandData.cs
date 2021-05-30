@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WOLF.Net.Entities.Groups;
 using WOLF.Net.Entities.Messages;
@@ -12,6 +13,10 @@ namespace WOLF.Net.Commands.Commands
     public class CommandData
     {
         public string Language { get; set; }
+
+        public List<string> CommandLanguages { get; set; } = new List<string>();
+
+        public string SubLanguage => CommandLanguages.LastOrDefault();
 
         public int TargetGroupId => IsGroup && Group!=null? Group.Id : 0;
 

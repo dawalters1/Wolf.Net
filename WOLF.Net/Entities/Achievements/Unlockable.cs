@@ -12,9 +12,7 @@ namespace WOLF.Net.Entities.Achievements
 
         [JsonProperty("additionalInfo")]
         public AdditionalInfo AdditionalInfo { get; set; }
-
-        [JsonProperty("details")]
-        public Detail Detail { get; set; }
+        
     }
 
     public class AdditionalInfo
@@ -36,38 +34,5 @@ namespace WOLF.Net.Entities.Achievements
 
         [JsonProperty("categoryId")]
         public int CategoryId { get; set; }
-
-        /// <summary>
-        /// this is not part of the request, this is api handled
-        /// </summary>
-        [JsonProperty("children")]
-        public List<Unlockable> Children { get; set; }
-    }
-
-    public class Detail
-    {
-        [JsonProperty("acquisitionPercentage")]
-        public int AcquisitionPercentage { get; set; }
-
-        [JsonProperty("category")]
-        public int Category { get; set; }
-
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
-        [JsonProperty("imageUrl")]
-        public Uri Imageurl { get; set; }
-
-        [JsonProperty("levelId")]
-        public int LevelId { get; set; }
-
-        [JsonProperty("name")]
-        public int Name { get; set; }
-
-        [JsonProperty("parentId")]
-        public int ParentId { get; set; }
-
-        [JsonProperty("typeId")]
-        public int TypeId { get; set; }
     }
 }
