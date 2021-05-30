@@ -1,4 +1,4 @@
-# WOLF.Net Version 5 -- WIP
+# WOLF.Net Version 5
 
 **Current Release:** [![Nuget Status](https://img.shields.io/nuget/v/wolf.net?style=flat-square)](https://www.nuget.org/packages/Wolf.Net/)![Nuget Downloads](https://img.shields.io/nuget/dt/wolf.net?style=flat-square)
 
