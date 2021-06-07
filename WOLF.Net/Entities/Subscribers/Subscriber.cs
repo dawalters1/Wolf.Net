@@ -126,7 +126,7 @@ namespace WOLF.Net.Entities.Subscribers
             var tsk = new TaskCompletionSource<Bitmap>();
             try
             {
-                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/user/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.EndPoints.AvatarEndpoint}/FileServerSpring/group/subscriber/{Id}?size={size}").DownloadImageFromUrl());
+                tsk.SetResult(await (placeholder ? $"https://s3-eu-west-1.amazonaws.com/content-assets.palringo.aws/profiles/avatars/user/placeholder_${Id.ToString().LastOrDefault()}.jpg" : $"{Bot.Endpoints.AvatarEndpoint}/FileServerSpring/group/subscriber/{Id}?size={size}").DownloadImageFromUrl());
             }
             catch (Exception error)
             {

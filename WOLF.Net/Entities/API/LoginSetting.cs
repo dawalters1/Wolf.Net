@@ -24,8 +24,6 @@ namespace WOLF.Net.Entities.API
 
         public string Token { get; }
 
-        public Cognito Cognito { get; set; }
-
         internal LoginSetting() { }
 
         public LoginSetting(string email, string password, LoginDevice loginDevice, LoginType loginType, OnlineState onlineState, string token = null)

@@ -26,3 +26,6 @@ D:\BotDev\Wolf\Wolf.Net\Wolf.Net.Example\obj\Debug\net5.0\Wolf.Net.Example.pdb
 D:\BotDev\Wolf\Wolf.Net\Wolf.Net.Example\obj\Debug\net5.0\Wolf.Net.Example.genruntimeconfig.cache
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Example\bin\Debug\net5.0\SocketIOClient.Newtonsoft.Json.dll
 D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Example\bin\Debug\net5.0\System.Text.Json.dll
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Example\bin\Debug\net5.0\AWSSDK.CognitoIdentity.dll
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Example\bin\Debug\net5.0\AWSSDK.Core.dll
+D:\BotDev\Wolf\Wolf.Net\WOLF.Net.Example\bin\Debug\net5.0\AWSSDK.SecurityToken.dll

@@ -47,7 +47,7 @@ namespace WOLF.Net.Networking.Events.Handlers
                         return;
                     }
 
-                    Bot.LoginSettings.Cognito = result.Body.Cognito;
+                    Bot.Cognito = result.Body.Cognito;
 
                     Bot.CurrentSubscriber = result.Body.Subscriber;
 
@@ -60,6 +60,9 @@ namespace WOLF.Net.Networking.Events.Handlers
 
                     Bot.CurrentSubscriber = data.LoggedInUser;
                 }
+
+                Bot.Endpoints = data.EndpointConfig;
+
                 await OnLoginSuccess(data.LoggedInUser != null);
             }
             catch (Exception d)

@@ -33,7 +33,9 @@ namespace WOLF.Net
         /// <summary>
         /// Houses the avatar end point and MMS endpoint
         /// </summary>
-        public EndpointConfig EndPoints { get; private set; }
+        public EndpointConfig Endpoints { get; internal set; }
+
+        public Cognito Cognito { get; internal set; }
 
         public Configuration Configuration { get; private set; } = new Configuration();
         /// <summary>
