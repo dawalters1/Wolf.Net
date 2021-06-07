@@ -119,7 +119,7 @@ namespace WOLF.Net
             if (!group.InGroup)
                 return new List<Subscriber>();
 
-            if (!requestNew && group.Subscribers.Count == group.Members)
+            if (!requestNew && group.Subscribers.Count >= group.Members)
                 return group.Subscribers.ToList();
 
             var result = await _webSocket.Emit<Response<List<Subscriber>>>(Request.GROUP_MEMBER_LIST, new
