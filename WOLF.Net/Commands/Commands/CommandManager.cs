@@ -33,7 +33,7 @@ namespace WOLF.Net.Commands.Commands
                 {
                     var phrase = _bot.Phrases.Where(r => r.Name.IsEqual(trigger)).ToList().OrderByDescending(r => r.Value.Length).FirstOrDefault(r => content.StartsWith(r.Value));
 
-                    if (phrase != null)
+                    if (phrase != null && content.StartsWithCommand(phrase.Value))
                         return trigger;
                 }
                 else if (content.StartsWithCommand(trigger))
