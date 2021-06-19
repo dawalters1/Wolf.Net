@@ -51,7 +51,7 @@ namespace WOLF.Net.Utils
         internal static bool HasProperty(this object obj, string propertyName) => obj.GetType().GetProperty(propertyName) != null;
 
         internal static bool PropretyExists(dynamic obj, string name) => obj.GetType() == typeof(ExpandoObject) ? ((IDictionary<string, object>)obj).ContainsKey(name) : obj.GetType().GetProperty(name) != null;
-     
+
         public static IEnumerable<System.Type> GetAllTypes(this System.Type type, bool nestedOnly = false)
         {
             foreach (var assemblies in AppDomain.CurrentDomain.GetAssemblies())
@@ -78,13 +78,12 @@ namespace WOLF.Net.Utils
                 return false;
 
             if (content.StartsWith(startsWith))
-            {
-                var nextChar = content.ElementAtOrDefault(startsWith.Length);
-
-                return nextChar == default || string.IsNullOrWhiteSpace(nextChar.ToString());
-            }
-
-            return false;
+                if (content.Length > startsWith.Length)
+                    return string.IsNullOrWhiteSpace(content.Substring(startsWith.Length, 1));
+                else
+                    return true;
+            else 
+                return false;
         }
     }
 }
