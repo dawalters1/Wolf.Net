@@ -5,7 +5,6 @@ using System.IO;
 using System.Threading.Tasks;
 using WOLF.Net;
 using WOLF.Net.Entities.API;
-using Amazon.CognitoIdentity;
 
 namespace Wolf.Net.Example
 {

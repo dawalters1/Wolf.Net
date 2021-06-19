@@ -125,7 +125,7 @@
           "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
-      "WOLF.Net/5.0.7": {
+      "WOLF.Net/5.0.7.2": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -480,7 +480,7 @@
         "version.txt"
       ]
     },
-    "WOLF.Net/5.0.7": {
+    "WOLF.Net/5.0.7.2": {
       "type": "project",
       "path": "../WOLF.Net/WOLF.Net.csproj",
       "msbuildProject": "../WOLF.Net/WOLF.Net.csproj"
@@ -488,7 +488,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "WOLF.Net >= 5.0.7"
+      "WOLF.Net >= 5.0.7.2"
     ]
   },
   "packageFolders": {

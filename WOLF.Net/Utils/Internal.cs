@@ -81,13 +81,12 @@ namespace WOLF.Net.Utils
                 return false;
 
             if (content.StartsWith(startsWith))
-            {
-                var nextChar = content.ElementAtOrDefault(startsWith.Length);
-
-                return nextChar == default || string.IsNullOrWhiteSpace(nextChar.ToString());
-            }
-
-            return false;
+                if (content.Length > startsWith.Length)
+                    return string.IsNullOrWhiteSpace(content.Substring(startsWith.Length, 1));
+                else
+                    return true;
+            else
+                return false;
         }
     }
 }
