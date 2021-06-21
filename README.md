@@ -29,7 +29,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
   - [Chained Helpers](#helpers)
     - [Authorization](#authorization)
     - [Banned](#banned)
-    - [Achievement](#achievement) - WIP
+    - [Achievement](#achievement)
     - [Blocked](#blocked)
     - [Charm](#charm)
     - [Contact](#contact)
@@ -43,7 +43,7 @@ Bots _**MUST**_ be approved by WOLF staff in [bot approval](http://wolflive.com/
  - [New Features](#features)
    - [Embeds](#embeds)
    - [Formatting](#formatting)
-   - [Group Achievements](#group-achievements) - WIP
+   - [Group Achievements](#group-achievements)
    - [Login Types](#login-types)
 
  - [Bug Fixes](#bug-fixes)
