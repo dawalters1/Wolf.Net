@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iBVCAGfKSwkTvfl8Xcu8GPa8J7H2zrUEiPSy0wGllKz6H0aNd82BVvhg3rj+fS4SYpZ+RwNsLotR0z+32N+RyA==",
+  "dgSpecHash": "SeW0WKaU3YHmWmN/q2iJ1/CjcbTZ+MUmDQUtmqB6psXVnpKq3ph5ZcUgZ+TUWM3pd9wAgkAg9ywf3vAKjM/Z/Q==",
   "success": true,
-  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+  "projectFilePath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
