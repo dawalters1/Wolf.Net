@@ -232,7 +232,6 @@ namespace WOLF.Net
             _group.cache.Clear();
             _charm.cache.Clear();
             _notification.cache.Clear();
-            _banned.cache.Clear();
             _tip.cache.Clear();
             _messaging.cache.Clear();
             _achievement._achievements.Clear();
