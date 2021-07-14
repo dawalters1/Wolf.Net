@@ -27,8 +27,8 @@ namespace WOLF.Net.Networking.Events.Handlers
                     type = Bot.LoginSettings.LoginType.ToString().ToLowerInvariant(),
                     deviceTypeId = (int)Bot.LoginSettings.LoginDevice,
                     username = Bot.LoginSettings.Email,
-                    password = Bot.LoginSettings.Password.ToMD5(),
-                    md5Password = true
+                    password = Bot.LoginSettings.LoginType == Enums.API.LoginType.EMAIL ? Bot.LoginSettings.Password.ToMD5() : Bot.LoginSettings.Password,
+                    md5Password = Bot.LoginSettings.LoginType == Enums.API.LoginType.EMAIL
                 }
             });
 

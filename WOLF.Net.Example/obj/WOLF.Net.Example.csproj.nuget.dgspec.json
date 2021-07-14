@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj": {}
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj": {}
   },
   "projects": {
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj": {
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
         "projectName": "WOLF.Net.Example",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\WOLF.Net.Example.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net.Example\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net.Example\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-                "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj"
+              "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
+                "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj"
               }
             }
           }
@@ -62,14 +62,14 @@
         }
       }
     },
-    "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj": {
-      "version": "5.0.9",
+    "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj": {
+      "version": "5.0.10",
       "restore": {
-        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectUniqueName": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "projectName": "WOLF.Net",
-        "projectPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\WOLF.Net.csproj",
+        "projectPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\WOLF.Net.csproj",
         "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "D:\\BotDev\\Wolf\\Wolf.net\\WOLF.Net\\obj\\",
+        "outputPath": "D:\\BotDev\\Wolf\\Wolf.Net\\WOLF.Net\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

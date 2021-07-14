@@ -141,11 +141,9 @@ namespace WOLF.Net.Helper
         /// <param name="tipType"></param>
         /// <param name="tipDirection"></param>
         /// <returns>Response<TipLeaderboardSummary></returns>
-        public async Task<Response<TipLeaderboardSummary>> GetGlobalLeaderboardSummaryAsync(TipPeriod tipPeriod = TipPeriod.DAY, TipType tipType = TipType.SUBSCRIBER, TipDirection tipDirection = TipDirection.SENT) => await WebSocket.Emit<Response<TipLeaderboardSummary>>(Request.TIP_LEADERBOARD_GLOBAL_SUMMARY, new
+        public async Task<Response<TipLeaderboardSummary>> GetGlobalLeaderboardSummaryAsync(TipPeriod tipPeriod = TipPeriod.DAY) => await WebSocket.Emit<Response<TipLeaderboardSummary>>(Request.TIP_LEADERBOARD_GLOBAL_SUMMARY, new
         {
-            period = tipPeriod.ToString().ToLowerInvariant(),
-            type = tipType.ToString().ToLowerInvariant(),
-            tipDirection = tipType == TipType.CHARM || tipType == TipType.GROUP ? null : tipDirection.ToString().ToLowerInvariant()
+            period = tipPeriod.ToString().ToLowerInvariant()
         });
 
         /// <summary>

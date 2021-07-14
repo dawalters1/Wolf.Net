@@ -9,6 +9,7 @@ using WOLF.Net.Constants;
 using WOLF.Net.Entities.API;
 using WOLF.Net.Entities.Charms;
 using WOLF.Net.Entities.Misc;
+using WOLF.Net.Entities.Store;
 using WOLF.Net.Entities.Subscribers;
 using WOLF.Net.Enums.API;
 using WOLF.Net.Enums.Misc;
@@ -224,6 +225,27 @@ namespace WOLF.Net
                 tier = (int)messageFilterType
             },
         });
+
+        /// <summary>
+        /// Search for groups or subscribers 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<Response<List<Search>>> Search(string query)
+        {
+            return await this._webSocket.Emit<Response<List<Search>>>(Request.SEARCH, new
+            {
+                query,
+                types = new List<string>() { "related", "groups" }
+            });
+        }
+
+        /// <summary>
+        /// Retrive the credit balance for your account
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Response<CreditBalance>> GetCreditbalance() => await this._webSocket.Emit<Response<CreditBalance>>(Request.STORE_CREDIT_BALANCE);
+
 
         internal void _cleanUp()
         {
