@@ -42,8 +42,15 @@
         public const string NOTIFICATION_LIST = "notification list";
         public const string NOTIFICATION_LIST_CLEAR = "notification list clear";
 
+        public const string SEARCH = "search";
+
         public const string SECURITY_LOGIN = "security login";
         public const string SECURITY_LOGOUT = "security logout";
+
+        public const string STAGE_LIST = "stage list";
+        public const string STAGE_GROUP_ACTIVE_LIST = "stage group active list";
+
+        public const string STORE_CREDIT_BALANCE = "store credit balance";
 
         public const string SUBSCRIBER_PROFILE = "subscriber profile";
         public const string SUBSCRIBER_GROUP_LIST = "subscriber group list";
