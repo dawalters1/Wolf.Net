@@ -116,9 +116,6 @@ namespace WOLF.Net.Helper
         {
             var group = await GetByIdAsync(groupId);
 
-            if (!group.InGroup)
-                return new List<Subscriber>();
-
             if (!requestNew && group.Subscribers.Count >= group.Members)
                 return group.Subscribers.ToList();
 
@@ -136,7 +133,10 @@ namespace WOLF.Net.Helper
             });
 
             if (result.Success)
+            {
+                group.InGroup = true; //Members are typically only fetchable when in group
                 group.Subscribers = result.Body.ToList();
+            }
 
             return group.Subscribers;
         }

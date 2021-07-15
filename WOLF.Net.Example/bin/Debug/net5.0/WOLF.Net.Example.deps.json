@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "WOLF.Net.Example/1.0.0": {
         "dependencies": {
-          "WOLF.Net": "5.0.10"
+          "WOLF.Net": "5.0.11"
         },
         "runtime": {
           "WOLF.Net.Example.dll": {}
@@ -113,7 +113,7 @@
           }
         }
       },
-      "WOLF.Net/5.0.10": {
+      "WOLF.Net/5.0.11": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
           "SocketIOClient.Newtonsoft.Json": "2.2.1",
@@ -201,7 +201,7 @@
       "path": "system.text.json/5.0.2",
       "hashPath": "system.text.json.5.0.2.nupkg.sha512"
     },
-    "WOLF.Net/5.0.10": {
+    "WOLF.Net/5.0.11": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
