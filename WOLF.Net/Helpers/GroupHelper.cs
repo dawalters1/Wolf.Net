@@ -116,9 +116,6 @@ namespace WOLF.Net
         {
             var group = await GetGroupAsync(groupId);
 
-            if (!group.InGroup)
-                return new List<Subscriber>();
-
             if (!requestNew && group.Subscribers.Count >= group.Members)
                 return group.Subscribers.ToList();
 
@@ -136,8 +133,10 @@ namespace WOLF.Net
             });
 
             if (result.Success)
+            {
+                group.InGroup = true;
                 group.Subscribers = result.Body.ToList();
-
+            }
             return group.Subscribers;
         }
 
